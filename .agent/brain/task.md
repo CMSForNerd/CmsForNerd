@@ -155,3 +155,7 @@
     - [x] Modify `index.php` (Controller) to detect `HTTP_X_REQUESTED_WITH` (fetch/ajax)
     - [x] Serve only `$dataFile` (`-body.inc`) fragment when PWA header is detected
     - [x] Build vanilla JS History API Router to intercept link clicks and hydrate `<main>` avoiding full reload
+
+- [x] **Phase 4: Back/Forward Cache (bfcache) Optimization**
+    - [x] Implement `AbortController` in `router.js` to cancel pending `fetch` requests during `pagehide`.
+    - [x] Add `pageshow` and `pagehide` listeners to `router.js` to log and monitor bfcache status.

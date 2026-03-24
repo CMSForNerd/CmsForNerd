@@ -47,3 +47,9 @@ Currently, CMSForNerd relies on full-page reloads (Pair Logic `renderStandardLay
 Service Workers **strict require** HTTPS (or `127.0.0.1` / `localhost`). Since the laboratory operates on Laravel Herd (`cmsfornerd.test`), the user **must** issue a self-signed certificate using the native Herd CLI.
 
 *   **HTTPS Resolution Action**: Document the `herd secure <site>` command in `windows-setup.md` or a new `pwa-guide.md` so students can test the PWA Service Worker locally.
+
+### Phase 4: Back/Forward Cache (bfcache) Optimization (v3.5.x)
+Ensures rapid back/forward navigation history by freezing the memory state of the SPA router.
+*   [ ] **Abort Pending Fetches**: Implement `AbortController` in `assets/pwa/router.js` coupled with the `pagehide` event to prevent dangling connections from invalidating bfcache.
+*   [ ] **Lifecycle Logging**: Implement `pageshow` listeners in `router.js` caching `event.persisted` to log bfcache restorations for Developer Lab verifications.
+

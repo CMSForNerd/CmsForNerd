@@ -120,6 +120,8 @@ All five laboratory modules were converted to Markdown and updated to v3.5 stand
 * **[NEW] Phase 1: Installability**: Built `manifest.json` and automatically injected `<link rel="manifest">` into all layout headers alongside `theme-color` meta tags, backed by generated `192x192` and `512x512` placeholder icons.
 * **[NEW] Phase 2: Offline Resilience**: Engineered `sw.js` (Service Worker) to intercept network requests. It actively precaches core styling (`style.css`), the manifest, and icons. In the event of a network failure, it serves a custom `offline.php` fallback page rather than the browser dinosaur.
 * **[NEW] Phase 3: SPA-Hybrid Routing**: Rewired the core controller (`index.php`) to detect `XMLHttpRequest` calls headers. Interfaced with a custom Vanilla Javascript `History API` router (`assets/pwa/router.js`) that hijacks standard link clicks and fetches only the HTML fragment payload (`-body.inc`), completely eliminating full-page reloads and simulating a true Single Page Application.
+* **[NEW] Phase 4: Back/Forward Cache (bfcache) Optimization**: Hardened the SPA router (`router.js`) for instantaneous history navigation. Engineered an `AbortController` coupled with the `pagehide` event to actively terminate pending network fetches during rapid navigation. Integrated `pageshow` listeners monitoring `event.persisted` to ensure seamless memory-state restorations without triggering hydration cycles.
+
 
 > [!IMPORTANT]
 > **Testing PWA Locally (Laravel Herd)**: Service Workers *strictly require* HTTPS to install. On your local Laravel Herd environment, you must open your terminal and run:
