@@ -10,6 +10,7 @@
 * [Lab Manual](lab-manual.md)
 * [Sitemap & SEO Guide](sitemap-guide.md)
 * [Testing Guide (Pest + PHPUnit)](testing-guide.md)
+* [Testing bfcache Optimization (PWA)](bfcache-testing-guide.md)
 * [Directory Security Guide](directory-security.md)
 * [Bot Intelligence Guide](bot-intelligence.md)
 * [Turnstile Protection Guide](turnstile-protection.md)
