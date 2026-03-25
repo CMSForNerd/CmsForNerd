@@ -38,6 +38,18 @@
     --gap: 15px;              /* Standard laboratory gutter */
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --lab-bg: #0f172a;        /* Deep slate background */
+        --lab-surface: #1e293b;   /* Slightly lighter surface */
+        --lab-text: #f8fafc;      /* Off-white text */
+        --lab-muted: #94a3b8;     /* Slate 400 */
+        --lab-border: #334155;    /* Slate 700 */
+        --lab-primary: #020617;   /* Extra dark navy */
+        --lab-highlight: #a855f7; /* Lighter Purple for contrast */
+    }
+}
+
 /**
  * [2. BASE STYLES]
  * Resetting defaults to ensure a consistent cross-browser experience.

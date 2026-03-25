@@ -16,15 +16,22 @@ $currentFile = ($ctx->scriptName ?? 'index') . '.php';
     <nav class="sidebar-nav">
         <ul>
             <li>
+                <div style="padding: 10px 20px; border-bottom: 1px solid var(--lab-border);">
+                    <button class="btn" on="tap:AMP.setState({themeState: themeState == 'theme-dark' ? 'theme-light' : 'theme-dark'})" style="margin:0;">
+                        Dimmer Switch 🌓
+                    </button>
+                </div>
+            </li>
+            <li>
                 <a href="index.php?view=amp" 
-                   style="<?= ($currentFile === 'index.php') ? 'background: #f4f0f9; border-left: 5px solid #8e44ad;' : '' ?>">
+                   style="<?= ($currentFile === 'index.php') ? 'background: var(--lab-border); border-left: 5px solid var(--lab-purple);' : '' ?>">
                    🏠 Home
                 </a>
             </li>
 
             <?php foreach ($navPages as $file => $label) : 
                 $isActive = ($currentFile === $file);
-                $activeStyle = $isActive ? 'background: #f4f0f9; border-left: 5px solid #8e44ad; color: #8e44ad;' : '';
+                $activeStyle = $isActive ? 'background: var(--lab-border); border-left: 5px solid var(--lab-purple); color: var(--lab-purple);' : '';
             ?>
                 <li>
                     <a href="<?= htmlspecialchars($file) ?>?view=amp" style="<?= $activeStyle ?>">

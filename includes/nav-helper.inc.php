@@ -73,6 +73,7 @@ if (!function_exists('pageheader_amp')) {
         <script async src="https://cdn.ampproject.org/v0.js" nonce="<?= $nonce ?>"></script>
         
         <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js" nonce="<?= $nonce ?>"></script>
+        <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js" nonce="<?= $nonce ?>"></script>
         
         <title><?= $title ?></title>
         <link rel="canonical" href="<?= $canonicalUrl ?>">

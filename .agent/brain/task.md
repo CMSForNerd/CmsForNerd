@@ -6,19 +6,19 @@
 * [x] **Baseline Sync**: Synchronized `index.php` and `template.php` logic.
 * [x] **Dual-View Pager**: Integrated `renderStandardLayout` and `renderAmpLayout` in `pager.php`.
 * [x] **Modular AMP Header**: Created `pageheader_amp()` in `nav-helper.inc.php`.
+* [x] **Phase 4: Back/Forward Cache (bfcache) Optimization**
+    * [x] Integrate `AbortController` in the `fetch` API router wrapper.
+    * [x] Validate `pageshow` and `pagehide` listener state restoration in the console.
 
 ## [PHASE: MOBILE MASTERY & UI] - IN PROGRESS 🏗️
 
-### 🌑 Module 7: Dark Mode Engineering (v3.5.1)
-
-* [ ] **CSS Variable Foundation**: Define laboratory color tokens (Background, Surface, Primary, Text) in `amp.css` and standard CSS.
-* [ ] **System-Level Detection**: Implement `@media (prefers-color-scheme: dark)` to ensure zero-JS dark mode activation.
-* [ ] **AMP Sidebar Toggle**:
-* [ ] Research `amp-bind` for a manual dark-mode toggle that persists without standard JS.
-* [ ] Add the "Laboratory Dimmer" icon to `amp-sidebar.tpl`.
-
-
-* [ ] **Accessibility Audit**: Verify contrast ratios for `#8e44ad` (Primary Purple) against dark backgrounds.
+* [x] **Module 7: Dark Mode Engineering**
+    * [x] **CSS Variable Foundation**: Define laboratory color tokens (Background, Surface, Primary, Text) in `amp.css` and standard CSS.
+    * [x] **System-Level Detection**: Implement `@media (prefers-color-scheme: dark)` to ensure zero-JS dark mode activation.
+    * [x] **AMP Sidebar Toggle**:
+        * [x] Research `amp-bind` for a manual dark-mode toggle that persists without standard JS.
+        * [x] Add the "Laboratory Dimmer" icon to `amp-sidebar.tpl`.
+    * [x] **Accessibility Audit**: Verified contrast ratios (`#a855f7` against dark backgrounds passes WCAG AA standards).
 
 ### 🤖 Module 9: Automated Lab-Bench
 

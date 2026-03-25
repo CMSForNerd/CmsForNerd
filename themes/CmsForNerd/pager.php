@@ -84,10 +84,13 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
             }
         </style>
     </head>
-    <body>
+    <body [class]="themeState">
+        <amp-state id="themeState">
+            <script type="application/json">""</script>
+        </amp-state>
         <?php include "themes/{$ctx->themeName}/amp-sidebar.tpl"; ?>
 
-        <header class="amp-header" style="background:#f8f9fa; padding:10px 15px; border-bottom:1px solid #ddd; display: flex; align-items: center;">
+        <header class="amp-header" style="background:var(--lab-bg); padding:10px 15px; border-bottom:1px solid var(--lab-border); display: flex; align-items: center;">
             
             <button class="hamburger-btn" 
                     on="tap:sidebar.toggle" 
@@ -95,11 +98,11 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
                     tabindex="0" 
                     aria-label="Open Navigation">☰</button>
             
-            <a href="index.php?view=amp" style="text-decoration:none; color:#8e44ad; font-weight:bold; flex-grow: 1;">
+            <a href="index.php?view=amp" style="text-decoration:none; color:var(--lab-purple); font-weight:bold; flex-grow: 1;">
                🏠 Laboratory Home
             </a>
             
-            <span style="font-family:monospace; font-size:0.7rem; color:#666;">
+            <span style="font-family:monospace; font-size:0.7rem; color:var(--lab-muted);">
                [ AMP ]
             </span>
         </header>
@@ -124,9 +127,9 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
             ?>
         </main>
 
-        <footer style="text-align:center; padding:30px; border-top:1px solid #eee; font-size:0.8rem; color:#888;">
+        <footer style="text-align:center; padding:30px; border-top:1px solid var(--lab-border); font-size:0.8rem; color:var(--lab-muted);">
             <p>&copy; <?= date('Y') ?> CmsForNerd v3.5 Laboratory</p>
-            <p><a href="<?= htmlspecialchars($ctx->scriptName) ?>.php">Switch to Standard Desktop View</a></p>
+            <p><a href="<?= htmlspecialchars($ctx->scriptName) ?>.php" style="color:var(--lab-purple);">Switch to Standard Desktop View</a></p>
         </footer>
     </body>
     </html>
