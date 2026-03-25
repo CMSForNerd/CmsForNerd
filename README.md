@@ -1,10 +1,10 @@
-# 🚀 CmsForNerd v3.5 (2026 Laboratory Edition)
+# 🚀 CmsForNerd v3.5.1 (2026 Laboratory Edition)
 
-**CmsForNerd** is a Lightweight, Radically Simple, Database-Free PHP Laboratory CMS designed as a live learning environment for modern developers. Version 3.5 marks the final synchronization of **"Pair Logic"**, **Mobile Mastery**, and **AI-Agentic Workflows**.
+**CmsForNerd** is a Lightweight, Radically Simple, Database-Free PHP Laboratory CMS designed as a live learning environment for modern developers. Version 3.5.1 marks the final synchronization of **"Pair Logic"**, **PWA SPA-Hybrid Engineering**, and **AI-Agentic Workflows**.
 
-**Current Version:** 3.5 (Mobile Mastery Milestone)
+**Current Version:** 3.5.1 (PWA Engine Milestone)
 
-**Changelog:** See [Modernization History](https://www.google.com/search?q=docs/HISTORY.md) for v3.5 Milestone notes.
+**Changelog:** See [Modernization History](https://www.google.com/search?q=docs/HISTORY.md) for v3.5.1 Milestone notes.
 
 **Primary Maintainer:** Harisfazillah Jamel
 

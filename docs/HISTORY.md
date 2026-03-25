@@ -4,10 +4,11 @@ Tracking the evolution of **CMSForNerd** from a legacy flat-file system to a mod
 
 ## Strategic Phases
 
-### Phase 5: Modernization Mastery (v3.5)
+### Phase 5: Modernization Mastery (v3.5.1)
 * **Zero-Global Architecture**: Complete elimination of `global` state in 30+ controllers.
+* **PWA SPA-Hybrid**: Introduced `Stale-While-Revalidate` caching and memory-instant `bfcache` routing for desktop and mobile.
+* **CSP Standardization**: Achieved synchronized `nonce` tracking across standard SSR and AMP Blob workers.
 * **Factory Pattern**: Refactored context initialization to `createCmsContext()` with explicit dependency injection.
-* **Documentation Sync**: 100% alignment of `docs/` with `contents/` logic and "State of Mind" philosophy.
 * **Standardization**: Batch synchronization of all page controllers to v3.5 baseline.
 
 ### Phase 4: The Semantic Alignment (v3.4)

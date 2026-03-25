@@ -4,6 +4,19 @@ All notable changes to this project are documented in this file.
 Entries are grouped by date (most recent first).
 
 ---
+## [3.5.1] - 2026-03-25 (PWA Engine & CSP Hardening)
+
+**"Zero-Refresh Navigation & Absolute Security Alignment."**
+
+### 📱 PWA & Mobile Architecture
+* **SPA Hybrid Router**: Introduced an advanced vanilla JavaScript history interceptor (`router.js`) that detects `XMLHttpRequest` configurations and dynamically hydrates the `<main>` payload without triggering global server layouts.
+* **Service Worker Resilience**: Integrated a `Stale-While-Revalidate` offline casing profile (`sw.js`).
+* **Instant History (bfcache)**: Optimized memory-restoration by severing active networking paths via `AbortController` bound to the `pagehide` event lifecycle.
+
+### 🛡️ CSP Multi-Directive Synchronization
+* **AMP Worker Autonomy**: Overrode restrictive backend HTTP headers that were silencing web workers, implementing native `blob:` compatibility across `script-src`, `child-src`, and `worker-src`. Cloudflare Turnstile and AMP Component Worker executions are now unconditionally stable.
+
+---
 ## [3.5.0] - 2026-03-14 (The "Zero-Global & State Sync" Milestone)
 
 **"Global-Free Architecture & Persistent AI Symbiosis."**

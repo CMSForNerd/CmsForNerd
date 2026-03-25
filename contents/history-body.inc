@@ -1,13 +1,14 @@
 <article class="modernization-history"> <header class="history-header"> <h1>Modernization History: The Journey to v3.5</h1> <p class="intro"> Starting in late 2025, CMSForNerd underwent a radical transformation. This log tracks the shift from a 20-year-old legacy codebase to a modern, AI-synergized developer's laboratory. </p> </header>
 <div class="timeline">
     <section class="version-block v35">
-        <div class="version-tag">v3.5</div>
-        <h2>Modernization Mastery (Current)</h2>
-        <p><strong>Focus:</strong> Documentation Synchronization and Architectural Finalization.</p>
+        <div class="version-tag">v3.5.1</div>
+        <h2>PWA Engine & Modernization Mastery (Current)</h2>
+        <p><strong>Focus:</strong> SPA-Hybrid Routing, CSP Synchronization, and Architectural Finalization.</p>
         <ul>
+            <li><strong>Progressive Web App:</strong> Introduced Stale-While-Revalidate caching and bfcache instantaneous navigation logic.</li>
+            <li><strong>CSP Symmetry:</strong> Standardized <code>nonce</code> controls mapping strict validations across both Standard Turnstile injections and AMP <code>blob:</code> web workers.</li>
             <li><strong>GitBook Synchronization:</strong> Full alignment of <code>docs/</code> with <code>contents/</code> logic.</li>
             <li><strong>Factory Pattern:</strong> Refactored context initialization to <code>createCmsContext()</code> factory.</li>
-            <li><strong>Bot detection+:</strong> Enhanced <code>is_bot.php</code> with version-aware text-mode responses.</li>
             <li><strong>Audit Completion:</strong> 100% pass rate for PHPStan Level 8 and PSR-12 across all controllers.</li>
         </ul>
     </section>
