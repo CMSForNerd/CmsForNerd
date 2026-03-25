@@ -71,7 +71,7 @@ if (!function_exists('pageheader_amp')) {
         ?>
         <meta charset="utf-8">
         
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-<?= $nonce ?>' https://cdn.ampproject.org; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://*.ipinfo.io https://cdn.ampproject.org;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-<?= $nonce ?>' https://cdn.ampproject.org blob:; child-src blob:; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://*.ipinfo.io https://cdn.ampproject.org;">
 
         <link rel="dns-prefetch" href="https://cdn.ampproject.org">
         
