@@ -45,6 +45,11 @@ if (!function_exists('get_site_pages')) {
                 $pages[$file] = $label;
             }
         }
+
+        if (isset($pages['pwa-architecture.php'])) {
+            $pages['pwa-architecture.php'] = '📱 PWA Architecture';
+        }
+
         return $pages;
     }
 }

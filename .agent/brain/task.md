@@ -26,6 +26,13 @@
 * [ ] **Enforcement**: Configure GitHub Action to run `composer lab-check` (PHPStan Level 8) on every push.
 * [ ] **Reporting**: Setup automated feedback for PRs that violate PSR-12.
 
+### 📱 Module 8: PWA Architecture Documentation
+
+* [x] Create `pwa-architecture.php` controller.
+* [x] Create `contents/pwa-architecture-body.inc` content payload.
+* [x] Update desktop navigation (`left-side.inc`).
+* [x] Update AMP sidebar navigation (`nav-helper.inc.php`).
+
 ## [PHASE: DOCUMENTATION] - IN PROGRESS 🏗️
 
 * [x] **Project Rules Update**: Integrated AMP Content Parity rules.
