@@ -30,6 +30,19 @@ function pager(CmsForNerd\CmsContext $ctx): void
  */
 function renderStandardLayout(CmsForNerd\CmsContext $ctx): void
 {
+    // [PWA / SPA] Hydration Interceptor
+    // If a JavaScript router calls ANY root controller, return only the content payload.
+    $isAjax = (
+        !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+        strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'
+    );
+    
+    if ($isAjax) {
+        header('Content-Type: text/html; charset=utf-8');
+        pagecontent($ctx);
+        return;
+    }
+
     pageheader($ctx);
     print("<body>");
     include "themes/{$ctx->themeName}/bodytop.tpl";

@@ -52,7 +52,7 @@ This file closes the tags opened in 'bodytop.tpl'.
 If you miss a closing </div> here, the entire layout grid will break.
 -->
 
-        </div> <!-- [CLOSE] .content-body -->
+        </main> <!-- [CLOSE] .content-body -->
     </div> <!-- [CLOSE] #content (End of Main Grid Area) -->
 
     <!-- 

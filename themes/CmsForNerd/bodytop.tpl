@@ -12,14 +12,6 @@ and close them in 'bodyfooter.tpl'.
 -->
 
 <!-- 
-[SECURITY - CSP HEADER]
-We define Content Security Policy here to prevent XSS.
-- default-src 'self': Only allow scripts/styles from our own domain.
-- unsafe-inline: Permitted here for training, but usually restricted in Prod.
--->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;">
-
-<!-- 
 [CONTAINER START] 
 This div wraps the entire 3-column grid defined in style.css 
 -->
@@ -69,4 +61,4 @@ This div wraps the entire 3-column grid defined in style.css
     The 'pagecontent()' function will output data immediately after this line.
     -->
     <div id="content">
-        <div class="content-body">
+        <main class="content-body">
