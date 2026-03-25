@@ -69,7 +69,6 @@ function createCmsContext(
 }
 
 // 6. [LAB] SET SECURITY HEADERS
-header("Content-Security-Policy: script-src 'self' 'nonce-$nonce';"); //
 header("X-Content-Type-Options: nosniff"); //
 header("X-Frame-Options: DENY"); //
 
