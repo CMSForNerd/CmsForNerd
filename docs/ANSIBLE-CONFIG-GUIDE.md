@@ -7,8 +7,8 @@
 
 ## [TOOL] The Ansible Blueprint (`ansible.cfg`)
 
-The `ansible.cfg` file is optimized for the **CmsForNerd Deployment Fabric**:
-* **Pipelining**: Enabled to reduce SSH handshake latency when deploying to remote Linux (Debian/AlmaLinux) laboratory nodes.
+The `ansible.cfg` file is optimized for the **CmsForNerd Deployment Fabric**. Our Ansible orchestration engine is designed to **autonomously detect the target OS (Ubuntu, AlmaLinux, RHEL, or Debian)** and focuses exclusively on the deployment of a highly secure **Nginx** and **PHP-FPM 8.4+** stack:
+* **Pipelining**: Enabled to reduce SSH handshake latency when deploying to remote Linux enclaves.
 * **YAML Callback**: Standardized for high-fidelity human/AI audit of deployment steps, ensuring visibility into Composer outputs.
 * **Privilege Escalation**: `become: true` configured at the task level strictly for OS tuning (Nginx, PHP-FPM 8.4 installation, and firewall configuration).
 * **Orchestrator User**: Ansible connects via a secure staging user (e.g., `lab-admin`) utilizing SSH keys.
@@ -21,7 +21,7 @@ In v3.5.1, we enforce a strict separation of concerns to ensure production-grade
 
 - **Rootful Orchestration**: Ansible runs tasks requiring package management (Nginx, PHP 8.4, Composer) and directory creation (`/var/www/cmsfornerd`) as root (`become: yes`).
 - **Isolated Execution**: The CMS itself is strictly executed via the unprivileged web server identity.
-    - *Production Identity*: Strictly enforced **`www-data`** (Debian) or **`nginx`** (AlmaLinux).
+    - *Production Identity*: Strictly enforced via automated OS detection: **`www-data`** (Ubuntu/Debian) or **`nginx`** (AlmaLinux/RHEL).
     - *Development Identity*: Supports Windows 11 Laravel Herd (`haris`) for local simulation.
 - **Sovereign Persistence**:
     - **Primary Web Root**: `/var/www/cmsfornerd/` (Native Linux ext4, strictly owned by the web identity).
