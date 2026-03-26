@@ -29,3 +29,9 @@ Thumbs.db
 # --- AI & Agent Specific ---
 # Kita simpan .agent/brain/ tetapi abaikan fail sesi sementara jika ada
 .agent/tmp/
+
+# --- Ansible Orchestration & Security ---
+vault/
+*.retry
+.vault_pass
+.ansible/
