@@ -24,8 +24,9 @@ This is the core engineering doctrine for the **CmsForNerd Stack** (v3.5.1):
 
 ### [T1] Tier 1: Windows 11 (The Primary Command Center)
 - **Tool**: Google Antigravity AI / Google Gemini
-- **Stack**: Laravel Herd (PHP 8.4 Strict)
+- **Stack**: Laravel Herd (PHP 8.4 Strict), **Miniconda Python 3**
 - **Path**: `D:\Users\LinuxMalaysia\CMSForNerd-Project\CmsForNerd`
+- **Python Root**: `d:\ProgramData\miniconda3` (Detected Environment)
 - **Role**: Code Editing, Static Analysis (`composer lab-check`), Git Tagging, and PWA Architecture validation.
 
 ### [T2] Tier 2: Linux (The Native Production Bridge)
