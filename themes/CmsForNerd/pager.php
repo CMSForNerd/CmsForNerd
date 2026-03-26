@@ -66,6 +66,7 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
             cssPath:    $ctx->cssPath,
             dataFile:   $ctx->dataFile,
             scriptName: $actualFile,
+            baseUrl:    $ctx->baseUrl,
             cspNonce:   $ctx->cspNonce
         );
     }

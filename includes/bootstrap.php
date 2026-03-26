@@ -110,6 +110,13 @@ $globalNonce     = $nonce;
 $scriptName      = basename($_SERVER['SCRIPT_NAME']); //
 $globalDataFile  = explode(".", $scriptName); //
 
+// [COMPATIBILITY] Alias for controllers (e.g., pwa-architecture.php, template.php)
+$themeName = $globalThemeName;
+$cssPath   = $globalCssPath;
+$dataFile  = $globalDataFile;
+$nonce     = $globalNonce;
+
+
 // 10. [LAB] CLASS VERIFICATION
 if (!class_exists('\\CmsForNerd\\CmsContext')) { //
     error_log("Critical: CmsContext class not found in " . __FILE__); //
