@@ -46,6 +46,10 @@ if (!function_exists('get_site_pages')) {
             }
         }
 
+        if (isset($pages['ansible-lab.php'])) {
+            $pages['ansible-lab.php'] = '🤖 Ansible Lab';
+        }
+
         if (isset($pages['pwa-architecture.php'])) {
             $pages['pwa-architecture.php'] = '📱 PWA Architecture';
         }
