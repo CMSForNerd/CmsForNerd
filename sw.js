@@ -1,59 +1,57 @@
-const CACHE_NAME = 'cmsfornerd-pwa-v1';
-const ASSETS_TO_CACHE = [
-    '/offline.php',
-    '/manifest.json',
-    '/themes/CmsForNerd/style.css',
-    '/assets/pwa/icon-192x192.png',
-    '/assets/pwa/icon-512x512.png'
-];
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js');
 
-self.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            console.log('[Service Worker] Pre-caching offline assets');
-            return cache.addAll(ASSETS_TO_CACHE);
+if (workbox) {
+    console.log(`[PWA] Workbox is loaded 🎉`);
+
+    // 1. Pre-caching core assets (Offline Fallback)
+    workbox.precaching.precacheAndRoute([
+        { url: '/offline.php', revision: '3.5.0' },
+        { url: '/manifest.json', revision: '3.5.0' },
+        { url: '/assets/pwa/icon-192x192.png', revision: '3.5.0' }
+    ]);
+
+    // 2. Cache CSS and JavaScript (Stale-While-Revalidate)
+    workbox.routing.registerRoute(
+        ({ request }) => request.destination === 'style' || request.destination === 'script',
+        new workbox.strategies.StaleWhileRevalidate({
+            cacheName: 'cms-static-resources',
         })
     );
-    // Force the waiting service worker to become the active service worker
-    self.skipWaiting();
-});
 
-self.addEventListener('activate', (event) => {
-    event.waitUntil(
-        caches.keys().then((keyList) => {
-            return Promise.all(keyList.map((key) => {
-                if (key !== CACHE_NAME) {
-                    console.log('[Service Worker] Removing old cache', key);
-                    return caches.delete(key);
-                }
-            }));
+    // 3. Cache Images (Cache-First)
+    workbox.routing.registerRoute(
+        ({ request }) => request.destination === 'image',
+        new workbox.strategies.CacheFirst({
+            cacheName: 'cms-images',
+            plugins: [
+                new workbox.expiration.ExpirationPlugin({
+                    maxEntries: 50,
+                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+                }),
+            ],
         })
     );
-    // Claim control immediately for the current page
-    self.clients.claim();
-});
 
-self.addEventListener('fetch', (event) => {
-    // Only intercept basic navigation requests (HTML pages)
-    if (event.request.mode === 'navigate') {
-        event.respondWith(
-            fetch(event.request)
-                .then((networkResponse) => {
-                    // Cache the successful network response for future offline use (Stale-While-Revalidate pattern option)
-                    // For now, we just pass it through on success to keep logic simple.
-                    return networkResponse;
-                })
-                .catch(() => {
-                    console.log('[Service Worker] Network failed, serving offline fallback');
-                    return caches.match('/offline.php');
-                })
-        );
-    } else {
-        // For standard assets (CSS, Images), serve Cache First, then Network
-        event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
-                return cachedResponse || fetch(event.request);
-            })
-        );
-    }
-});
+    // 4. Navigation (Network-First with Offline Fallback)
+    const networkFirstHandler = new workbox.strategies.NetworkFirst({
+        cacheName: 'cms-pages',
+    });
+
+    workbox.routing.registerRoute(
+        ({ request }) => request.mode === 'navigate',
+        async (params) => {
+            try {
+                return await networkFirstHandler.handle(params);
+            } catch (error) {
+                return caches.match('/offline.php');
+            }
+        }
+    );
+
+    // Skip waiting and claim clients
+    self.addEventListener('install', () => self.skipWaiting());
+    self.addEventListener('activate', () => self.clients.claim());
+
+} else {
+    console.log(`[PWA] Workbox failed to load ❌`);
+}
