@@ -1,0 +1,7 @@
+---
+- name: run composer install
+  command: composer install --no-interaction --optimize-autoloader
+  args:
+    chdir: "{{ cms_deploy_path }}"
+  become: yes
+  become_user: "{{ 'www-data' if ansible_os_family == 'Debian' else 'nginx' }}"

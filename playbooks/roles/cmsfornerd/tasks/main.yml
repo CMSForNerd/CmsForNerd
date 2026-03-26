@@ -23,6 +23,7 @@
     dest: "{{ cms_deploy_path }}"
     version: master
     force: yes
+  notify: run composer install
 
 - name: Set secure file ownership map
   file:
