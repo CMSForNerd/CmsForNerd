@@ -13,12 +13,19 @@ require_once 'includes/bootstrap.php';
 
 use CmsForNerd\CmsContext;
 
-// 1. Initialize Laboratory Context
-$ctx = createCmsContext();
+// 1. Define Page-Specific Header Metadata
+$content = [
+    'title'       => 'Ansible Laboratory Orchestration | CmsForNerd',
+    'description' => 'Automated Nginx and PHP 8.4-FPM deployment guide using the CmsForNerd Ansible fabric.',
+    'author'      => 'CmsForNerd Team',
+    'keywords'    => 'Ansible, Nginx, PHP 8.4, Automation, Lab',
+    'schemaType'  => 'TechArticle'
+];
 
-// 2. Define Page-Specific Header Metadata
-$ctx->content['title'] = 'Ansible Laboratory Orchestration';
-$ctx->content['description'] = 'Automated Nginx and PHP 8.4-FPM deployment guide using the CmsForNerd Ansible fabric.';
+$pageName = 'ansible-lab';
+
+// 2. Initialize Laboratory Context (Global-Free Pattern)
+$ctx = createCmsContext($content, $pageName);
 
 // 3. Execute the Standard Laboratory Layout
 require_once 'template.php';
