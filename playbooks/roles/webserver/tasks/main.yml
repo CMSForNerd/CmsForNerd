@@ -17,4 +17,40 @@
     state: started
     enabled: yes
 
-# Note: VHost template population and .git blocking rules will be generated into /etc/nginx/sites-available in the full production cycle.
+- name: Set Nginx config path (Debian/Ubuntu)
+  set_fact:
+    nginx_conf_path: "/etc/nginx/sites-available/cmsfornerd.conf"
+    nginx_link_path: "/etc/nginx/sites-enabled/cmsfornerd.conf"
+    php_fpm_sock: "/run/php/php8.4-fpm.sock"
+  when: ansible_os_family == 'Debian'
+
+- name: Set Nginx config path (RedHat/AlmaLinux)
+  set_fact:
+    nginx_conf_path: "/etc/nginx/conf.d/cmsfornerd.conf"
+    nginx_link_path: ""
+    php_fpm_sock: "/run/php-fpm/www.sock"
+  when: ansible_os_family == 'RedHat'
+
+- name: Deploy Nginx VHost Configuration
+  template:
+    src: cmsfornerd.conf.j2
+    dest: "{{ nginx_conf_path }}"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: reload nginx
+
+- name: Enable Nginx VHost (Debian/Ubuntu)
+  file:
+    src: "{{ nginx_conf_path }}"
+    dest: "{{ nginx_link_path }}"
+    state: link
+  when: ansible_os_family == 'Debian' and nginx_link_path != ""
+  notify: reload nginx
+
+- name: Remove default Nginx config
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  when: ansible_os_family == 'Debian'
+  notify: reload nginx

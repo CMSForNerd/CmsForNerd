@@ -22,10 +22,37 @@
 
 - name: Ensure PHP-FPM is running
   service:
-    name: "php8.4-fpm"
+    name: "{{ 'php8.4-fpm' if ansible_os_family == 'Debian' else 'php-fpm' }}"
     state: started
     enabled: yes
+
+- name: Configure PHP-FPM pool (Debian/Ubuntu)
+  lineinfile:
+    path: /etc/php/8.4/fpm/pool.d/www.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regexp: '^user =', line: 'user = www-data' }
+    - { regexp: '^group =', line: 'group = www-data' }
+    - { regexp: '^listen =', line: 'listen = /run/php/php8.4-fpm.sock' }
+    - { regexp: '^listen.owner =', line: 'listen.owner = www-data' }
+    - { regexp: '^listen.group =', line: 'listen.group = www-data' }
   when: ansible_os_family == 'Debian'
+  notify: restart php-fpm
+
+- name: Configure PHP-FPM pool (RedHat/AlmaLinux)
+  lineinfile:
+    path: /etc/php-fpm.d/www.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop:
+    - { regexp: '^user =', line: 'user = nginx' }
+    - { regexp: '^group =', line: 'group = nginx' }
+    - { regexp: '^listen =', line: 'listen = /run/php-fpm/www.sock' }
+    - { regexp: '^listen.owner =', line: 'listen.owner = nginx' }
+    - { regexp: '^listen.group =', line: 'listen.group = nginx' }
+  when: ansible_os_family == 'RedHat'
+  notify: restart php-fpm
 
 - name: Ensure Composer is globally accessible
   shell: |

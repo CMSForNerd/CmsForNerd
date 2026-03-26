@@ -1,0 +1,5 @@
+---
+- name: restart php-fpm
+  service:
+    name: "{{ 'php8.4-fpm' if ansible_os_family == 'Debian' else 'php-fpm' }}"
+    state: restarted

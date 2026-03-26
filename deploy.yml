@@ -5,6 +5,8 @@
   vars:
     php_version: "8.4"
     cms_deploy_path: "/var/www/cmsfornerd"
+    cms_domain: "cmsfornerd.test"
+    php_fpm_sock: "/run/php/php8.4-fpm.sock" # Default for Ubuntu, overridden in roles if needed
 
   pre_tasks:
     - name: Ensure Python APT is updated before executing roles
