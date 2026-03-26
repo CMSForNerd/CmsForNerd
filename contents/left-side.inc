@@ -18,6 +18,7 @@
 <a href="final-exam.php">🚩 Final Exam</a>
 <a href="graduation.php">🏁 Graduation</a>
 <a href="pwa-architecture.php">📱 PWA Implementation</a>
+<a href="amp-acceleration.php">⚡ AMP Acceleration</a>
 <a href="https://www.linuxmalaysia.com">CmsForNerd Blog</a>
 
 </div>

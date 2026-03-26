@@ -54,6 +54,10 @@ if (!function_exists('get_site_pages')) {
             $pages['pwa-architecture.php'] = '📱 PWA Architecture';
         }
 
+        if (isset($pages['amp-acceleration.php'])) {
+            $pages['amp-acceleration.php'] = '⚡ AMP Acceleration';
+        }
+
         if (isset($pages['ui-kit.php'])) {
             $pages['ui-kit.php'] = '🧪 UI Audit Kit';
         }
