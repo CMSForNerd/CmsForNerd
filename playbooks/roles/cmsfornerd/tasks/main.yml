@@ -1,0 +1,32 @@
+---
+- name: Ensure Target Directory Exists
+  file:
+    path: "{{ cms_deploy_path }}"
+    state: directory
+    owner: "www-data"
+    group: "www-data"
+    mode: '0755'
+  when: ansible_os_family == 'Debian'
+
+- name: Ensure Target Directory Exists (RHEL)
+  file:
+    path: "{{ cms_deploy_path }}"
+    state: directory
+    owner: "nginx"
+    group: "nginx"
+    mode: '0755'
+  when: ansible_os_family == 'RedHat'
+
+- name: Clone CmsForNerd Official Repository
+  git:
+    repo: 'https://github.com/CMSForNerd/CmsForNerd.git'
+    dest: "{{ cms_deploy_path }}"
+    version: master
+    force: yes
+
+- name: Set secure file ownership map
+  file:
+    path: "{{ cms_deploy_path }}"
+    owner: "{{ 'www-data' if ansible_os_family == 'Debian' else 'nginx' }}"
+    group: "{{ 'www-data' if ansible_os_family == 'Debian' else 'nginx' }}"
+    recurse: yes

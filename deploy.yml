@@ -1,0 +1,30 @@
+---
+- name: Master Deploy Orchestrator | CmsForNerd v3.5.1
+  hosts: all
+  become: yes
+  vars:
+    php_version: "8.4"
+    cms_deploy_path: "/var/www/cmsfornerd"
+
+  pre_tasks:
+    - name: Ensure Python APT is updated before executing roles
+      apt:
+        update_cache: yes
+      changed_when: false
+      when: ansible_os_family == 'Debian'
+
+    - name: Ensure DNF is updated before executing roles
+      dnf:
+        update_cache: yes
+      changed_when: false
+      when: ansible_os_family == 'RedHat'
+
+  roles:
+    - role: common
+      tags: ['foundation']
+    - role: webserver
+      tags: ['nginx', 'proxy']
+    - role: php
+      tags: ['php', 'application']
+    - role: cmsfornerd
+      tags: ['cms', 'codebase']

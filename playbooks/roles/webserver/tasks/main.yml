@@ -1,0 +1,20 @@
+---
+- name: Install Nginx (Debian)
+  apt:
+    name: nginx
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install Nginx (RHEL/AlmaLinux)
+  dnf:
+    name: nginx
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure Nginx is enabled and running
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+# Note: VHost template population and .git blocking rules will be generated into /etc/nginx/sites-available in the full production cycle.

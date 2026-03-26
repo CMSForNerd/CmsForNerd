@@ -1,0 +1,35 @@
+---
+- name: Install PHP 8.4-FPM and Core Extensions (Debian)
+  apt:
+    name:
+      - php8.4-fpm
+      - php8.4-cli
+      - php8.4-mbstring
+      - php8.4-xml
+      - php8.4-curl
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install PHP 8.4 Setup (RHEL/AlmaLinux)
+  dnf:
+    name:
+      - php-fpm
+      - php-cli
+      - php-mbstring
+      - php-xml
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure PHP-FPM is running
+  service:
+    name: "php8.4-fpm"
+    state: started
+    enabled: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Ensure Composer is globally accessible
+  shell: |
+    curl -sS https://getcomposer.org/installer | php
+    mv composer.phar /usr/local/bin/composer
+  args:
+    creates: /usr/local/bin/composer
