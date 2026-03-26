@@ -4,6 +4,20 @@ All notable changes to this project are documented in this file.
 Entries are grouped by date (most recent first).
 
 ---
+---
+## [3.5.7] - 2026-03-26 (Laboratory & UI Stabilization)
+
+**"Advanced Diagnostics & Workbox Caching."**
+
+### 🧪 Laboratory & UI Audit
+* **UI Audit Kit**: Introduced `ui-kit.php` as a technical testing ground for CSS tokens, glassmorphism, and component contrast.
+* **AMP Acceleration Guide**: Deployed `amp-acceleration.php` to document the 75KB CSS budget and AMP-bind state management.
+* **Absolute Path Security**: Synchronized `CmsContext` to mandate `baseUrl` resolution, fixing asset loading in nested PWA subdirectories.
+
+### 📱 PWA Performance (Workbox)
+* **Workbox Migration**: Upgraded `sw.js` from vanilla JS to **Workbox v6**, implementing professional Stale-While-Revalidate and Cache-First strategies.
+* **Offline Resilience**: Pre-cached `offline.php` via Workbox to ensure reliable fallback during network failures.
+
 ## [3.5.1] - 2026-03-25 (PWA Engine & CSP Hardening)
 
 **"Zero-Refresh Navigation & Absolute Security Alignment."**

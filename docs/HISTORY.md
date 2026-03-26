@@ -4,6 +4,12 @@ Tracking the evolution of **CMSForNerd** from a legacy flat-file system to a mod
 
 ## Strategic Phases
 
+### Phase 6: Laboratory & UI Stabilization (v3.5.7)
+* **UI Audit Laboratory**: Bootstrapped `ui-kit.php` for technical theme and contrast verification.
+* **AMP Acceleration Documentation**: Implemented `amp-acceleration.php` detailing dual-view logic.
+* **Workbox Integration**: Migrated vanilla Service Worker to Google Workbox v6 for optimized caching.
+* **Path Sovereignty**: Enforced absolute URI resolution (`baseUrl`) site-wide for subdirectory support.
+
 ### Phase 5: Modernization Mastery (v3.5.1)
 * **Zero-Global Architecture**: Complete elimination of `global` state in 30+ controllers.
 * **PWA SPA-Hybrid**: Introduced `Stale-While-Revalidate` caching and memory-instant `bfcache` routing for desktop and mobile.
@@ -43,7 +49,21 @@ Refactored the 2005 foundation into PHP 8.4+ classes with PHP 9 readiness.
 * **PSR-12**: Automated linting and formatting (verified by `composer compliance`).
 * **RFC 2119**: Clear requirement levels for students.
 
-### 3. Security Hardening
+#---
+## [3.5.7] - 2026-03-26 (Laboratory & UI Stabilization)
+
+**"Advanced Diagnostics & Workbox Caching."**
+
+### 🧪 Laboratory & UI Audit
+* **UI Audit Kit**: Introduced `ui-kit.php` as a technical testing ground for CSS tokens, glassmorphism, and component contrast.
+* **AMP Acceleration Guide**: Deployed `amp-acceleration.php` to document the 75KB CSS budget and AMP-bind state management.
+* **Absolute Path Security**: Synchronized `CmsContext` to mandate `baseUrl` resolution, fixing asset loading in nested PWA subdirectories.
+
+### 📱 PWA Performance (Workbox)
+* **Workbox Migration**: Upgraded `sw.js` from vanilla JS to **Workbox v6**, implementing professional Stale-While-Revalidate and Cache-First strategies.
+* **Offline Resilience**: Pre-cached `offline.php` via Workbox to ensure reliable fallback during network failures.
+
+## [3.5.1] - 2026-03-25 (PWA Engine & CSP Hardening)
 * **Bunker Posture**: CSP Nonces, Cloudflare Turnstile, and Path Traversal prevention.
 * **RFC 9116**: Proper vulnerability disclosure protocols.
 
