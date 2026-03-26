@@ -118,7 +118,7 @@ printf("CMSForNerd v3.5 Stable\n");</code>
 .color-swatch code { font-size: 0.8rem; margin-top: 5px; opacity: 0.8; }
 .typography-sample { padding: 20px; background: var(--lab-border); border-radius: 8px; }
 .table-scroll { overflow-x: auto; }
-.監査-footer { text-align: center; font-style: italic; color: var(--lab-muted); margin-top: 2rem; }
+.audit-footer { text-align: center; font-style: italic; color: var(--lab-muted); margin-top: 2rem; }
 @media (max-width: 600px) {
     .color-grid { grid-template-columns: 1fr; }
 }
