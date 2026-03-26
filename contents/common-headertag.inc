@@ -15,10 +15,10 @@
 <meta name="robots" content="index, follow">
 
 <!-- Favicon - The small icon you see in the browser tab. -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 <!-- [SEMANTIC WEB] RDF Metadata - Machine-readable site classification for AI and search engines. -->
-<link rel="meta" type="application/rdf+xml" title="Site Metadata" href="labels.rdf">
+<link rel="meta" type="application/rdf+xml" title="Site Metadata" href="/labels.rdf">
 
 <!-- [AI/SEO] Schema.org Image for Rich Cards/Previews -->
 <meta itemprop="image" content="<?= $ctx->baseUrl ?>images/cmsfornerd-logo.png">

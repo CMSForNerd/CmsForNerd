@@ -19,7 +19,7 @@ if (!isset($themeName)) {
 
 // [THEME] Assets Configuration
 // This defines the specific stylesheet used by the laboratory theme.
-$CSSPATH = "themes/$themeName/style.css";
+$CSSPATH = "/themes/$themeName/style.css";
 
 // [METADATA] Theme Information
 // Useful for future updates or identifying the environment version.

@@ -27,6 +27,7 @@ readonly class CmsContext
         public string $cssPath,
         public array $dataFile,
         public string $scriptName,
+        public string $baseUrl,
         public string $cspNonce = '',
     ) {
     }

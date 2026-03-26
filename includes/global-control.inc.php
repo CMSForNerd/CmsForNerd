@@ -65,7 +65,7 @@ function get_runtime_config(): array
     return [
         'THEMENAME'   => $themeName,
         // Priority: Use $CSSPATH from theme.php if set, otherwise default to theme folder
-        'CSSPATH'     => (string) ($CSSPATH ?? "themes/$themeName/css/"),
+        'CSSPATH'     => (string) ($CSSPATH ?? "/themes/$themeName/css/"),
         'sitemap_url' => "$protocol://$host/sitemap.php"
     ];
 }

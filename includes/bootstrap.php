@@ -58,12 +58,34 @@ function createCmsContext(
     // [THEME INDEPENDENCE] Access the centralized variables defined below.
     global $globalThemeName, $globalCssPath, $globalNonce, $globalDataFile;
 
+    // [LAB] ROOT URL CALCULATION
+    // Ensures assets are loaded from the actual site root, even when calling from /docs/
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+    $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    
+    // Calculate the path to the root directory relative to the domain root
+    $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
+    $scriptDir  = str_replace('\\', '/', dirname($scriptPath));
+    
+    // If the script is in a subdirectory (like /docs/), we need to determine the base
+    // For CmsForNerd, we assume the site root is where index.php lives.
+    // Here we use a safe fallback or a hardcoded '/' if we're in the typical setup.
+    $baseUrlVal = rtrim($protocol . $host . $scriptDir, '/') . '/';
+    
+    // If we're inside /docs/, we need to go up one level to reach the CMS root
+    if (str_contains($scriptDir, '/docs')) {
+        $baseUrlVal = rtrim($protocol . $host . str_replace('/docs', '', $scriptDir), '/') . '/';
+    } else {
+        $baseUrlVal = rtrim($protocol . $host . $scriptDir, '/') . '/';
+    }
+
     return new \CmsForNerd\CmsContext(
         content:    $content,
         themeName:  $themeName ?? $globalThemeName,
         cssPath:    $cssPath   ?? $globalCssPath,
         dataFile:   $dataFile  ?? $globalDataFile,
         scriptName: $pageName,
+        baseUrl:    $baseUrlVal,
         cspNonce:   $nonce     ?? $globalNonce
     );
 }
