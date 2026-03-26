@@ -48,7 +48,7 @@ body {
 
 /* Header & Navigation */
 .amp-header {
-    background: #fff;
+    background: var(--lab-bg);
     padding: 15px 20px;
     border-bottom: 2px solid var(--lab-purple);
     display: flex;
@@ -98,7 +98,7 @@ amp-img {
 footer {
     text-align: center;
     padding: 40px 20px;
-    background: #f9f9f9;
+    background: var(--lab-bg);
     border-top: 1px solid var(--lab-border);
     font-size: 0.85rem;
     color: var(--lab-muted);
@@ -129,7 +129,7 @@ footer a {
     border-radius: 8px;
 }
 .certificate {
-    background: white;
+    background: var(--lab-bg);
     border: 10px double var(--lab-purple);
     padding: 20px;
     text-align: center;
@@ -182,7 +182,7 @@ footer a {
 
 /* --- FIX: Header Layout for Sidebar Toggle --- */
 .amp-header {
-    background: #fff;
+    background: var(--lab-bg);
     padding: 10px 20px;
     border-bottom: 2px solid var(--lab-purple);
     display: flex;
@@ -208,7 +208,7 @@ footer a {
 /* --- NEW: Sidebar Specific Styles --- */
 amp-sidebar {
     width: 280px;
-    background-color: #ffffff;
+    background-color: var(--lab-bg);
     box-shadow: 5px 0 15px rgba(0,0,0,0.1);
     z-index: 9999; /* Ensure it floats above content */
 }

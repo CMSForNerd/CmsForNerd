@@ -79,23 +79,7 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
         <!-- PWA Foundation -->
         <link rel="manifest" href="/manifest.json">
         <meta name="theme-color" content="#0d6efd">
-        
-        <style amp-custom>
-            /* Critical fix for Sidebar interaction */
-            amp-sidebar { z-index: 99999 !important; }
-            .hamburger-btn { 
-                background: none; 
-                border: none; 
-                font-size: 1.8rem; 
-                cursor: pointer; 
-                padding: 10px; 
-                margin-right: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #8e44ad;
-            }
-        </style>
+
     </head>
     <body [class]="themeState">
         <amp-state id="themeState">
