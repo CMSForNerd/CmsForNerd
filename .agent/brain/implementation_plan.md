@@ -156,3 +156,23 @@ To upgrade the vanilla Service Worker to Google's Workbox library for optimized 
 2. Confirm that assets are being cached by Workbox (check for `workbox-runtime` cache).
 3. Test offline mode by disabling the network; ensure `/offline.php` still renders.
 
+---
+
+# Phase 7: Semantic Evolution (v3.6)
+
+The goal is to automate the classification of contents as `TechArticle` based on the detection of code snippets, further hardening the project's **AI-Readiness**.
+
+## Technical Strategy
+Instead of manual `schemaType` flags, the header engine will perform a lightweight scan of the associated `-body.inc` fragment.
+
+### [MODIFY] contents/common-headertag.inc
+1.  Locate the target body file via `$ctx->scriptName`.
+2.  Perform a `file_get_contents` scan for patterns: `<?php` or `<code>`.
+3.  Dynamically switch `@type` to `TechArticle`.
+4.  Inject `TechArticle`-specific metadata (`dependencies`, `proficiencyLevel`).
+
+## Verification Plan
+1.  Visit a page with code (e.g., `ansible-lab.php`) and verify Schema.org type is `TechArticle`.
+2.  Visit a plain page and verify it remains `WebPage` or `Course`.
+3.  Verify no performance regression during head rendering.
+
