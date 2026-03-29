@@ -5,6 +5,20 @@ Entries are grouped by date (most recent first).
 
 ---
 ---
+## [3.5.9] - 2026-03-30 (EOD Stabilization & Tagging)
+
+**"State of Mind Snapshot for Laboratory Review."**
+
+### 🧠 Cognitive Sync
+* **Brain Artifacts**: Synchronized all `.agent/brain/` artifacts with the latest session intelligence.
+* **Release Baseline**: Established `v3.5.9` as the official "Nerd-Lab" baseline for the end of March 2026.
+
+## [3.5.8] - 2026-03-30 (JSON-LD Semantic Audit)
+
+### 🤖 AI-Native Optimization
+* **JSON-LD Verification**: Formally audited the structured data engine in `common-headertag.inc`.
+* **Dynamic Type-Switching**: Verified that the CMS accurately identifies `Course` vs `WebPage` schemas for enhanced indexing.
+
 ## [3.5.7] - 2026-03-26 (Laboratory & UI Stabilization)
 
 **"Advanced Diagnostics & Workbox Caching."**
