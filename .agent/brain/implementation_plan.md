@@ -1,55 +1,158 @@
-# Implementation Plan: Progressive Web App (PWA) Architecture 
+# bfcache Integration Plan
 
-## Objective
-To outline the necessary phases, architectural changes, and tasks required to upgrade CMSForNerd v3.5 from a traditional server-rendered flat-file CMS into a **Progressive Web App (PWA) first** framework.
+The goal is to ensure CMSForNerd v3.5 fully supports Back/Forward Cache for instantaneous history navigation.
 
-This plan serves as a blueprint to review the impact of the transition before execution.
+## Proposed Changes
 
-## The "PWA-First" Philosophy in a PHP CMS
-A PWA is designed to behave like a native application (installable, offline-capable, and fast) while still being accessible via a web browser. For CMSForNerd, this means preserving our "Zero-Global", "Pair Logic" PHP back-end, but supercharging the front-end delivery layer.
+### [MODIFY] router.js(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/assets/pwa/router.js)
+- Add an `AbortController` to the `loadContent` fetch routine to cancel incomplete network requests.
+- Bind `window.addEventListener('pagehide', ...)` to trigger the abort controller. This ensures no dangling connections prevent bfcache eligibility when the user navigates away.
+- Bind `window.addEventListener('pageshow', ...)` to listen for `event.persisted`. If true, log the bfcache restoration to the console for monitoring.
 
-### Key PWA Requirements:
-1. **HTTPS**: Mandatory for Service Workers (Already enforced via `SecurityUtils::checkHttps()`).
-2. **Web App Manifest (`manifest.json`)**: Dictates how the app appears when installed (icons, colors, display mode).
-3. **Service Worker (`sw.js`)**: A background JavaScript proxy that intercepts network requests, manages caching strategies (offline mode), and handles background sync.
+### [MODIFY] task.md(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/.agent/brain/task.md)
+- Append "Phase 4: Back/Forward Cache Optimization" to track implementation progress.
+
+### [MODIFY] implementation_plan.md(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/.agent/brain/implementation_plan.md)
+- Append Phase 4 details to the project's documentation.
+
+## Verification Plan
+
+### Automated Tests
+- Run `composer lab-check` which executes PHPStan static analysis and syntax checks.
+
+### Manual Verification
+1. Start the local server (e.g., using Laravel Herd or `php -S localhost:8000`).
+2. Open Chrome DevTools -> Application -> Background Services -> Back/forward cache.
+3. Click "Test back/forward cache" to determine if the page is successfully cached.
+4. Verify no `notRestoredReasons` exist after navigating away and pressing the back button.
 
 ---
 
-## Proposed Phases & Tasks
+# Module 7: Dark Mode Engineering (v3.5)
 
-If approved, the implementation would be executed in three distinct phases to ensure mathematical stability and zero cross-contamination.
+## User Review Required
+> [!IMPORTANT]
+> The implementation of a manual Dark Mode toggle in AMP requires using the `<amp-bind>` component to mutate a state variable (e.g., `themeState`) which dynamically updates a class on the `<body>` tag. Please confirm if you want full manual toggle functionality (via an icon in the sidebar) alongside the default system-level `prefers-color-scheme` implementation.
 
-### Phase 1: The PWA Foundation (Metadata & Manifest)
-This phase introduces the core identity of the PWA without altering existing logic.
+## Proposed Changes
 
-*   [ ] **Create `manifest.json`**: Generate the Web App Manifest defining the name, `start_url`, `display: "standalone"`, and theme colors.
-*   [ ] **Generate PWA Assets**: Implement a suite of exact-dimension icons (192x192, 512x512) and Apple Touch Icons.
-*   [ ] **Update `nav-helper.inc.php`**: Inject the `<link rel="manifest" href="manifest.json">` and vital `theme-color` meta tags into the `pageheader()` function.
-*   [ ] **Validation**: Run Lighthouse Audits to ensure "Installability" criteria are met.
+### CSS Architecture
+#### [MODIFY] style.css(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/themes/CmsForNerd/style.css)
+#### [MODIFY] amp.css(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/themes/CmsForNerd/css/amp.css)
+- Refactor all hardcoded colors (`#fff`, `#000`, `#f9f9f9`) to use CSS custom properties (`var(--lab-bg)`, `var(--lab-surface)`, etc.).
+- Add a `@media (prefers-color-scheme: dark)` block that reassigns the root variables to a dark color palette.
+- Add an explicit `.theme-dark` class that overrides the variables manually (for the toggle button functionality).
 
-### Phase 2: The Service Worker (Offline Capability)
-This is the most critical technical challenge. We must intercept PHP-rendered templates and cache them intelligently.
+### AMP Interactive Logic
+#### [MODIFY] nav-helper.inc.php(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/includes/nav-helper.inc.php)
+- Inject `<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js" nonce="<?= $nonce ?>"></script>` to enable AMP state management.
+- Update the `<body>` tag to bind a dynamic class based on `themeState`.
 
-*   [ ] **Create `sw.js` (Service Worker)**: 
-    *   *Install Event*: Pre-cache core structural assets (`themes/CmsForNerd/style.css`, fonts, and the `index.php` shell).
-    *   *Fetch Event*: Implement a "Stale-While-Revalidate" or "Network-First (Fallback to Cache)" strategy for HTML pages.
-*   [ ] **Register the Service Worker**: Add inline JavaScript to `includes/nav-helper.inc.php` to register `sw.js` safely on window load.
-*   [ ] **Offline Fallback Page**: Create a dedicated `offline.html` or `offline.php` to display when the user has no connectivity and the requested page isn't cached.
+#### [MODIFY] amp-sidebar.tpl(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/themes/CmsForNerd/amp-sidebar.tpl)
+- Add a "Laboratory Dimmer" (`🌙` / `☀️`) button that triggers `AMP.setState({themeState: themeState == 'theme-dark' ? 'theme-light' : 'theme-dark'})`.
 
-### Phase 3: The "PWA-First" Architectural Shift (Optional / Advanced)
-Currently, CMSForNerd relies on full-page reloads (Pair Logic `renderStandardLayout`). A true "PWA-First" framework minimizes reloads.
+## Verification Plan
+1. Toggle the OS appearance settings (Mac/Windows) and verify if the background automatically shifts to dark mode.
+2. Open the AMP view (`?view=amp`) and click the Laboratory Dimmer toggle to ensure `amp-bind` successfully overrides the system default without page reload.
 
-*   [ ] **App Shell Architecture**: Transition `themes/CmsForNerd/index.php` from rendering the whole page to strictly rendering an "App Shell" (Header, Nav, Footer).
-*   [ ] **Content Hydration**: Modify the Controller (`index.php`) so that if a request sends an `HTTP_X_REQUESTED_WITH: XMLHttpRequest` header (or Custom PWA header), it returns *only* the `-body.inc` fragment as a JSON payload or raw DOM string, rather than the full HTML wrapper.
-*   [ ] **JavaScript Router**: Add a minimal vanilla JS router to intercept `<a>` clicks, fetch the fragment, and update the `<main>` tag using the History API (eliminating page refreshes).
+---
 
-### Local Environment (Laravel Herd)
-Service Workers **strict require** HTTPS (or `127.0.0.1` / `localhost`). Since the laboratory operates on Laravel Herd (`cmsfornerd.test`), the user **must** issue a self-signed certificate using the native Herd CLI.
+# Module 8: PWA Architecture Documentation (v3.5)
 
-*   **HTTPS Resolution Action**: Document the `herd secure <site>` command in `windows-setup.md` or a new `pwa-guide.md` so students can test the PWA Service Worker locally.
+## Proposed Changes
 
-### Phase 4: Back/Forward Cache (bfcache) Optimization (v3.5.x)
-Ensures rapid back/forward navigation history by freezing the memory state of the SPA router.
-*   [ ] **Abort Pending Fetches**: Implement `AbortController` in `assets/pwa/router.js` coupled with the `pagehide` event to prevent dangling connections from invalidating bfcache.
-*   [ ] **Lifecycle Logging**: Implement `pageshow` listeners in `router.js` caching `event.persisted` to log bfcache restorations for Developer Lab verifications.
+### [NEW] pwa-architecture.php(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/pwa-architecture.php)
+- Serve as the HTTP controller/gateway.
+- Include proper SEO metadata (Title, Description, Keywords) explaining CMSForNerd PWA capabilities.
+
+### [NEW] pwa-architecture-body.inc(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/contents/pwa-architecture-body.inc)
+- The raw HTML payload outlining how CMSForNerd leverages:
+  - Service Workers (`sw.js`).
+  - Manifest integration (`manifest.json`).
+  - Offline mode resiliency.
+  - Back/Forward Cache (`bfcache`) with `AbortController`.
+  - Content Security Policy (Nonce injection) for PWA components.
+
+### [MODIFY] left-side.inc(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/contents/left-side.inc)
+- Add `<a href="pwa-architecture.php">📱 PWA Implementation</a>` to the desktop navigation sidebar.
+
+### [MODIFY] nav-helper.inc.php(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/includes/nav-helper.inc.php)
+- Inject `'pwa-architecture.php' => '📱 PWA Implementation'` into `get_site_pages()` so it renders on the AMP mobile sidebar.
+
+## Verification Plan
+1. Navigate to `/pwa-architecture.php` and confirm it renders correctly with `pager.php`.
+2. Inspect the AMP Sidebar and Desktop Sidebar to guarantee the "PWA Implementation" link functions correctly.
+
+---
+
+# Module 9: UI Audit Kit (v3.5)
+
+To provide a centralized testing ground for theme elements, glassmorphism, and contrast levels.
+
+## Proposed Changes
+
+### [NEW] ui-kit.php(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/ui-kit.php)
+- Serve as the HTTP controller for the UI Diagnostic Lab.
+- Pair with `ui-kit-body.inc`.
+
+### [NEW] ui-kit-body.inc(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/contents/ui-kit-body.inc)
+- Comprehensive HTML fragment demonstrating:
+  - **Color Palette**: Display of `--lab-purple`, `--lab-bg`, etc.
+  - **Typography**: H1-H3, Paragraphs, and Monospaced blocks.
+  - **Glassmorphism**: Transparent cards with `backdrop-filter`.
+  - **Components**: Buttons, Badges, and Competency Tables.
+  - **Multi-View**: Compatibility check for Standard vs AMP layouts.
+
+### [MODIFY] index-body.inc(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/contents/index-body.inc)
+- Update the "🧪 UI Audit" link to point to the new `ui-kit.php`.
+
+## Verification Plan
+1. Visit `/ui-kit.php` and verify all theme tokens render with correct contrast.
+2. Toggle Dark Mode and confirm the "Glass Effects" remain legible.
+3. Verify AMP view (`/ui-kit.php?view=amp`) passes validation.
+
+---
+
+# Module 10: AMP Acceleration (v3.5)
+
+To document the technical implementation of Accelerated Mobile Pages within the CMSForNerd ecosystem.
+
+## Proposed Changes
+
+### [NEW] amp-acceleration.php(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/amp-acceleration.php)
+- Serve as the HTTP controller for the AMP documentation.
+- Leverage the `pager($ctx)` dispatcher to support dual-view (Standard/AMP).
+
+### [NEW] amp-acceleration-body.inc(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/contents/amp-acceleration-body.inc)
+- Content fragment explaining the AMP Validation, CSS Byte Budget, and Sidebar components.
+
+### [MODIFY] nav-helper.inc.php(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/includes/nav-helper.inc.php)
+- Add `'amp-acceleration.php' => '⚡ AMP Acceleration'` to the navigation mapping.
+
+### [MODIFY] left-side.inc(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/contents/left-side.inc)
+- Add `<a href="amp-acceleration.php">⚡ AMP Acceleration</a>` to the sidebar.
+
+## Verification Plan
+1. Navigate to `/amp-acceleration.php` and verify the standard view.
+2. Navigate to `/amp-acceleration.php?view=amp` and verify AMP validation.
+
+---
+
+# Module 11: Workbox Integration (v3.5)
+
+To upgrade the vanilla Service Worker to Google's Workbox library for optimized caching and performance.
+
+## Proposed Changes
+
+### [MODIFY] sw.js(file:///d:/Users/LinuxMalaysia/CMSForNerd-Project/CmsForNerd/sw.js)
+- Import Workbox via CDN.
+- Use `workbox.routing.registerRoute` for asset caching.
+- Implement **Stale-While-Revalidate** for CSS and JS.
+- Implement **Cache-First** for images.
+- Implement **Network-First** for navigation (with offline fallback).
+
+## Verification Plan
+1. In Chrome DevTools, verify that Workbox is successfully loaded in the "Application" tab.
+2. Confirm that assets are being cached by Workbox (check for `workbox-runtime` cache).
+3. Test offline mode by disabling the network; ensure `/offline.php` still renders.
 
