@@ -4,68 +4,74 @@ Tracking the evolution of **CMSForNerd** from a legacy flat-file system to a mod
 
 ## Strategic Phases
 
+### Phase 7: Semantic Evolution & Zero-Global (v3.6.0)
+
+- **Zero-Global Registry**: Reached 100% architectural compliance by eliminating the `global` keyword through the
+  implementation of `src/Registry.php`.
+- **Automated Content Sniffer**: Implemented detection logic that dynamically classifies content as `TechArticle`,
+  `Course`, or `WebPage` based on technical signatures.
+- **AI-Readiness**: Expanded the `CmsContext` state machine to support automated Schema.org tagging.
+- **Zero-Debt Audit**: Global remediation of over 100 Markdown lint violations to ensure high-fidelity rendering.
+
 ### Phase 6: Laboratory & UI Stabilization (v3.5.7)
-* **UI Audit Laboratory**: Bootstrapped `ui-kit.php` for technical theme and contrast verification.
-* **AMP Acceleration Documentation**: Implemented `amp-acceleration.php` detailing dual-view logic.
-* **Workbox Integration**: Migrated vanilla Service Worker to Google Workbox v6 for optimized caching.
-* **Path Sovereignty**: Enforced absolute URI resolution (`baseUrl`) site-wide for subdirectory support.
+
+- **UI Audit Laboratory**: Bootstrapped `ui-kit.php` for technical theme and contrast verification.
+- **AMP Acceleration Documentation**: Implemented `amp-acceleration.php` detailing dual-view logic.
+- **Workbox Integration**: Migrated vanilla Service Worker to Google Workbox v6 for optimized caching.
+- **Path Sovereignty**: Enforced absolute URI resolution (`baseUrl`) site-wide for subdirectory support.
 
 ### Phase 5: Modernization Mastery (v3.5.1)
-* **Zero-Global Architecture**: Complete elimination of `global` state in 30+ controllers.
-* **PWA SPA-Hybrid**: Introduced `Stale-While-Revalidate` caching and memory-instant `bfcache` routing for desktop and mobile.
-* **CSP Standardization**: Achieved synchronized `nonce` tracking across standard SSR and AMP Blob workers.
-* **Factory Pattern**: Refactored context initialization to `createCmsContext()` with explicit dependency injection.
-* **Standardization**: Batch synchronization of all page controllers to v3.5 baseline.
+
+- **Zero-Global Architecture**: Complete elimination of `global` state in 30+ controllers.
+- **PWA SPA-Hybrid**: Introduced `Stale-While-Revalidate` caching and memory-instant `bfcache` routing for desktop and
+  mobile.
+- **CSP Standardization**: Achieved synchronized `nonce` tracking across standard SSR and AMP Blob workers.
+- **Factory Pattern**: Refactored context initialization to `createCmsContext()` with explicit dependency injection.
 
 ### Phase 4: The Semantic Alignment (v3.4)
-* **AI Readiness**: Modernized metadata layer with JSON-LD and Schema.org.
-* **Theme Correction**: Standardized theme paths to `themes/CmsForNerd`.
-* **Security Auditor**: Introduction of semantic audit tools for students.
 
-### Phase 3: Runtime Stability (v3.3)
-* **Centralized Bootstrap**: Introduction of `includes/bootstrap.php`.
-* **Performance**: Standardized GZIP compression and output buffering.
-
-### Phase 2: Laboratory Tooling (v3.2)
-* **Cross-Platform**: Created specialized guides for Windows and Linux.
-* **Responsible Disclosure**: Implemented `security.txt` and Security Policy.
-
-### Phase 1: The PHP 8.4 Engine (v3.1)
-* **Strict Typing**: Forced predictable code logic.
-* **CmsContext**: Migration from Global variables to the Context Pattern.
+- **AI Readiness**: Modernized metadata layer with JSON-LD and Schema.org.
+- **Theme Correction**: Standardized theme paths to `themes/CmsForNerd`.
+- **Security Auditor**: Introduction of semantic audit tools for students.
 
 ---
 
-## The v3.5 Journey: A Case Study
+## The v3.6 Journey: A Case Study
 
-In 2026, **CMSForNerd v3.5** represents the pinnacle of "Radically Simple" engineering. This version finalizes the transition into a fully synchronized, AI-native developer's laboratory.
+In 2026, **CMSForNerd v3.6** represents the pinnacle of "Radically Simple" engineering. This version finalizes the
+transition into a fully synchronized, AI-native developer's laboratory.
 
 ### 1. The PHP 8.4/9 foundation
+
 Refactored the 2005 foundation into PHP 8.4+ classes with PHP 9 readiness.
-* **Strict Types**: Every file uses `declare(strict_types=1);`.
-* **State Management**: **Zero global variable usage** (enforced by `phpstan.neon`).
+- **Strict Types**: Every file uses `declare(strict_types=1);`.
+- **State Management**: **Zero global variable usage** (enforced by `Registry.php`).
 
 ### 2. Standards & Compliance
-* **PSR-12**: Automated linting and formatting (verified by `composer compliance`).
-* **RFC 2119**: Clear requirement levels for students.
 
-#---
-## [3.5.7] - 2026-03-26 (Laboratory & UI Stabilization)
+- **PSR-12**: Automated linting and formatting (verified by `composer compliance`).
+- **Zero-Debt Docs**: 100% Markdown lint compliance reached on March 30, 2026.
 
-**"Advanced Diagnostics & Workbox Caching."**
+---
 
-### 🧪 Laboratory & UI Audit
-* **UI Audit Kit**: Introduced `ui-kit.php` as a technical testing ground for CSS tokens, glassmorphism, and component contrast.
-* **AMP Acceleration Guide**: Deployed `amp-acceleration.php` to document the 75KB CSS budget and AMP-bind state management.
-* **Absolute Path Security**: Synchronized `CmsContext` to mandate `baseUrl` resolution, fixing asset loading in nested PWA subdirectories.
+## [3.6.0] - 2026-03-30 (Semantic Evolution)
 
-### 📱 PWA Performance (Workbox)
-* **Workbox Migration**: Upgraded `sw.js` from vanilla JS to **Workbox v6**, implementing professional Stale-While-Revalidate and Cache-First strategies.
-* **Offline Resilience**: Pre-cached `offline.php` via Workbox to ensure reliable fallback during network failures.
+**"Zero-Global & AI-Ready Baseline."**
 
-## [3.5.1] - 2026-03-25 (PWA Engine & CSP Hardening)
-* **Bunker Posture**: CSP Nonces, Cloudflare Turnstile, and Path Traversal prevention.
-* **RFC 9116**: Proper vulnerability disclosure protocols.
+### 🧠 Semantic Intelligence
+
+- **Content Sniffer**: Automates the promotion of pages to `@type: TechArticle` or `Course` based on `<?php` or
+  `<code>` detections.
+- **CmsContext v3.6**: Enhanced with `schemaType` and `baseUrl` for absolute semantic fidelity.
+
+### 🏗️ Global-Free Registry
+
+- **Registry Design**: Centralized static store for laboratory tokens, replacing the legacy `global` scope.
+- **Bootstrap v3.6**: Completely refactored `includes/bootstrap.php` for immutable state initialization.
+
+### 🛡️ Documentation Hardening
+
+- **Zero-Debt Compliance**: Global remediation of structural debt in `README.md`, `CHANGELOG.md`, and the `docs/` suite.
 
 ---
 

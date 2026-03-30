@@ -18,7 +18,15 @@ Entries are grouped by date (most recent first).
 ### 🛡️ Documentation Hardening
 
 - **Zero-Debt Compliance**: Conducted a global audit and remediation of all Markdown artifacts (`README.md`, `docs/`).
-- **Lint Resolution**: Resolved MD013, MD022, MD024, and MD032 violations across the documentation suite.
+- **Lint Resolution**: Resolved over 100 structural violations (`MD013`, `MD022`, `MD024`, `MD032`, `MD036`) across the
+  entire repository knowledge base.
+
+### 🛠️ Technical Parity & Quality Control
+
+- **Test Suite Alignment**: Synchronized PHPUnit and Pest test fixtures with the new `CmsContext` constructor signature.
+- **Type-Safety Hardening**: Resolved surgical typing regressions in `includes/nav-helper.inc.php` to maintain absolute
+  PHPStan Level 8 compliance.
+- **PHPStan Optimization**: Increased static analysis memory limit to `512M` to prevent crashes during laboratory audits.
 
 ---
 
