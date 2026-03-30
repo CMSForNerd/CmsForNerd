@@ -127,7 +127,7 @@ body {
 }
 
 /* Sidebar Titles: Technical Documentation style */
-#leftnav h3, #rightnav h3 {
+#left h3, #right h3 {
     font-family: var(--f-mono);
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -140,7 +140,7 @@ body {
 }
 
 /* Sidebar Links: Subtle hover interactions */
-#leftnav a, #rightnav a {
+#left a, #right a {
     display: block;
     color: var(--lab-text);
     text-decoration: none;
