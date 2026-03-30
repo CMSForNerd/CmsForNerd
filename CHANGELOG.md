@@ -32,7 +32,7 @@ Entries are grouped by date (most recent first).
 
 ## [3.5.9] - 2026-03-30 (EOD Stabilization & Tagging)
 
-**"State of Mind Snapshot for Laboratory Review."**
+> "State of Mind Snapshot for Laboratory Review."
 
 ### 🧠 Cognitive Sync
 
@@ -53,7 +53,7 @@ Entries are grouped by date (most recent first).
 
 ## [3.5.7] - 2026-03-26 (Laboratory & UI Stabilization)
 
-**"Advanced Diagnostics & Workbox Caching."**
+> "Advanced Diagnostics & Workbox Caching."
 
 ### 🧪 Laboratory & UI Audit
 
@@ -70,7 +70,7 @@ Entries are grouped by date (most recent first).
 
 ## [3.5.1] - 2026-03-25 (PWA Engine & CSP Hardening)
 
-**"Zero-Refresh Navigation & Absolute Security Alignment."**
+> "Zero-Refresh Navigation & Absolute Security Alignment."
 
 ### 📱 PWA & Mobile Architecture
 
@@ -90,7 +90,7 @@ Entries are grouped by date (most recent first).
 
 ## [3.5.0] - 2026-03-14 (The "Zero-Global & State Sync" Milestone)
 
-**"Global-Free Architecture & Persistent AI Symbiosis."**
+> "Global-Free Architecture & Persistent AI Symbiosis."
 
 ### 🏗️ Architecture & Core Logic
 
@@ -121,7 +121,7 @@ Entries are grouped by date (most recent first).
 
 ## [3.4.0] - 2026-01-01 (The "Zero-Debt" Milestone)
 
-**"Engineering Excellence & Static Analysis."**
+> "Engineering Excellence & Static Analysis."
 
 ### 🏗️ Architecture & Core Logic
 
@@ -144,7 +144,7 @@ Entries are grouped by date (most recent first).
 
 ## [3.3.0] - 2025-12-30 (The Developer's Laboratory)
 
-**"Refining the Nerd Experience."**
+> "Refining the Nerd Experience."
 
 ### 🚀 PHP 8.4 Deep Integration
 
@@ -162,7 +162,7 @@ Entries are grouped by date (most recent first).
 
 ## [3.1.1] - 2025-12-27 (Repository Normalization)
 
-**"The Great Migration from PHP 4 to PHP 8.4."**
+> "The Great Migration from PHP 4 to PHP 8.4."
 
 ### 🚀 The PHP 8.4 Foundation
 
