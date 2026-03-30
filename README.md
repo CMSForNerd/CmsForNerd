@@ -1,10 +1,10 @@
-# 🚀 CmsForNerd v3.6.0 (2026 Laboratory Edition)
+# 🚀 CmsForNerd v4.0.0-alpha (2026 Glassmorphism Edition)
 
 **CmsForNerd** is a Lightweight, Radically Simple, Database-Free PHP Laboratory CMS designed as a live learning
-environment for modern developers. Version 3.6.0 marks the graduation of the **Zero-Global Architecture** and
-**Semantic Content Autodetection**.
+environment for modern developers. Version 4.0 marks the transition to **High-Fidelity Glassmorphism** and 
+**Automated Phase 11 Compliance**.
 
-**Current Version:** 3.6.0 (Semantic Evolution Milestone)
+**Current Version:** 4.0.0-alpha (Visual Fidelity Milestone)
 
 **Changelog:** See [CHANGELOG.md](CHANGELOG.md) for v3.6.0 release details.
 
