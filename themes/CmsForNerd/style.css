@@ -14,7 +14,7 @@
  * [1. CONFIGURATION LAYER - DESIGN TOKENS]
  * We use the :root pseudo-class to define CSS Variables.
  * Educational Note: This implements a "Single Source of Truth." If you change
- * the --lab-highlight here, every purple element in the CMS updates instantly.
+ * the --lab-purple here, every purple element in the CMS updates instantly.
  */
 :root {
     /* -- PALETTE: High Contrast "Sterile Lab" Aesthetic -- */
@@ -26,7 +26,7 @@
 
     /* -- BRANDING & ACCENTS -- */
     --lab-primary: #0f172a;   /* Navy: Infrastructure and Header */
-    --lab-highlight: #8e44ad; /* Purple: "Nerd-Stack" Laboratory Accent */
+    --lab-purple: #8e44ad; /* Purple: "Nerd-Stack" Laboratory Accent */
     --lab-success: #27ae60;   /* Green: Compliance and Passed Tests */
 
     /* -- TYPOGRAPHY -- */
@@ -51,7 +51,7 @@
         --lab-muted: #94a3b8;     /* Slate 400 */
         --lab-border: #334155;    /* Slate 700 */
         --lab-primary: #020617;   /* Extra dark navy */
-        --lab-highlight: #a855f7; /* Lighter Purple for contrast */
+        --lab-purple: #a855f7; /* Lighter Purple for contrast */
     }
 }
 
@@ -150,7 +150,7 @@ body {
 }
 
 #leftnav a:hover, #rightnav a:hover {
-    color: var(--lab-highlight);
+    color: var(--lab-purple);
     background-color: #f3f0ff; /* Light purple tint */
     padding-left: 8px;
     border-bottom-style: solid;

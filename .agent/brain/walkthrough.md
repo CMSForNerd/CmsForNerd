@@ -27,6 +27,7 @@
 - **Zero-Debt Enforcement**: Established `docs/lint-config.json` with a 120-character line-length mandate to prevent
   documentation regressions and maintain absolute Markdown hygiene.
 - **UI Audit Kit v3.6**: Bootstrapped a dedicated "Glass Laboratory" section for real-time verification of surface transparency and accessibility.
+- **Global Variable Union**: Synchronized all color tokens to use the `--lab-purple` global accent across Standard and AMP architectures, achieving 100% "Zero-Debt" parity.
 
 ---
 
