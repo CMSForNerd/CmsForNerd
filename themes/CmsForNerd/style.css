@@ -27,6 +27,7 @@
     /* -- BRANDING & ACCENTS -- */
     --lab-primary: #0f172a;   /* Navy: Infrastructure and Header */
     --lab-purple: #8e44ad; /* Purple: "Nerd-Stack" Laboratory Accent */
+    --lab-highlight: var(--lab-purple); /* Legacy Alias for v3.6 compatibility */
     --lab-success: #27ae60;   /* Green: Compliance and Passed Tests */
 
     /* -- TYPOGRAPHY -- */
@@ -115,10 +116,10 @@ body {
 /**
  * [5. NAVIGATION SIDEBARS]
  */
-#leftnav { grid-area: left; }
-#rightnav { grid-area: right; }
+#left { grid-area: left; }
+#right { grid-area: right; }
 
-#leftnav, #rightnav {
+#left, #right {
     background: var(--lab-surface);
     border: 1px solid var(--lab-border);
     padding: 15px;
@@ -230,7 +231,7 @@ body {
         gap: 0;
     }
 
-    #top, #content, #leftnav, #rightnav {
+    #top, #content, #left, #right {
         border-radius: 0;
         border: none;
         border-bottom: 1px solid var(--lab-border);
