@@ -33,9 +33,10 @@
     --f-sans: 'Inter', system-ui, -apple-system, sans-serif;
     --f-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
 
-    /* -- MEASUREMENTS -- */
-    --radius: 4px;            /* Precise, sharp corners */
-    --gap: 15px;              /* Standard laboratory gutter */
+    /* -- PHASE 11: GLASSMORPISM TOKENS (v4.0 Concept) -- */
+    --lab-glass-bg: rgba(255, 255, 255, 0.1);
+    --lab-glass-border: rgba(255, 255, 255, 0.2);
+    --lab-blur: 12px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -98,8 +99,13 @@ body {
     background-color: var(--lab-primary);
     color: #ffffff;
     padding: 0;
-    border-bottom: 4px solid var(--lab-highlight);
-    border-radius: var(--radius);
+    
+    /* Phase 11: Glass-Surface (v4.0) */
+    background: var(--lab-glass-bg);
+    backdrop-filter: blur(var(--lab-blur));
+    -webkit-backdrop-filter: blur(var(--lab-blur));
+    border-bottom: 2px solid var(--lab-glass-border);
+    color: var(--lab-text);
 }
 
 /**
@@ -155,6 +161,12 @@ body {
     background: var(--lab-surface);
     border: 1px solid var(--lab-border);
     padding: 35px;
+    
+    /* Phase 11: Glass-Surface (v4.0) */
+    background: var(--lab-glass-bg);
+    backdrop-filter: blur(var(--lab-blur));
+    -webkit-backdrop-filter: blur(var(--lab-blur));
+    border: 1px solid var(--lab-glass-border);
     border-radius: var(--radius);
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }

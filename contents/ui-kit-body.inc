@@ -1,7 +1,7 @@
 <article class="ui-lab">
     <header class="lab-header">
         <h1>🧪 Laboratory UI Audit Kit</h1>
-        <p class="lead">Technical verification of theme tokens, glassmorphism, and component accessibility for CMSForNerd v3.5.</p>
+        <p class="lead">Technical verification of theme tokens, glassmorphism, and component accessibility for CMSForNerd v3.6.</p>
     </header>
 
     <section class="ui-section">
@@ -44,12 +44,12 @@ printf("CMSForNerd v3.5 Stable\n");</code>
     </section>
 
     <section class="ui-section">
-        <h2>✨ Glassmorphism & Surface Effects</h2>
-        <div class="glass-container" style="background: linear-gradient(135deg, #6b46c1, #3182ce); padding: 50px; border-radius: 12px; margin: 20px 0; min-height: 200px;">
-            <div class="glass-card" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); padding: 35px; border-radius: 20px; color: #ffffff; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
-                <h3 style="color: #ffffff; margin-top: 0;">Glass Card (Standard)</h3>
-                <p style="color: #f7fafc;">Verify that the blur effect and border-stroke remain visible against dark and light gradients.</p>
-                <a href="#" class="btn" style="background: #ffffff; color: #4a5568; display: inline-block; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">Glass Button</a>
+        <h2>✨ Glassmorphism & Surface Effects (v4.0 Concept)</h2>
+        <div class="glass-container">
+            <div class="glass-card">
+                <h3>Glass Card (Standard)</h3>
+                <p>Verify that the blur effect and border-stroke remain visible against dark and light gradients.</p>
+                <a href="#" class="btn glass-btn">Glass Button</a>
             </div>
         </div>
     </section>
@@ -117,6 +117,11 @@ printf("CMSForNerd v3.5 Stable\n");</code>
 .color-swatch { padding: 25px; border-radius: 8px; display: flex; flex-direction: column; font-weight: bold; }
 .color-swatch code { font-size: 0.8rem; margin-top: 5px; opacity: 0.8; }
 .typography-sample { padding: 20px; background: var(--lab-border); border-radius: 8px; }
+.glass-container { background: linear-gradient(135deg, #6b46c1, #3182ce); padding: 50px; border-radius: 12px; margin: 20px 0; min-height: 200px; }
+.glass-card { background: var(--lab-glass-bg); backdrop-filter: blur(var(--lab-blur)); -webkit-backdrop-filter: blur(var(--lab-blur)); border: 1px solid var(--lab-glass-border); padding: 35px; border-radius: 20px; color: #ffffff; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); }
+.glass-card h3 { color: #ffffff; margin-top: 0; }
+.glass-card p { color: #f7fafc; }
+.glass-btn { background: #ffffff !important; color: #4a5568 !important; }
 .table-scroll { overflow-x: auto; }
 .audit-footer { text-align: center; font-style: italic; color: var(--lab-muted); margin-top: 2rem; }
 @media (max-width: 600px) {

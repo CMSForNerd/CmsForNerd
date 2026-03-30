@@ -30,7 +30,7 @@ This div wraps the entire 3-column grid defined in style.css
     Dynamic include checking. We check if the file exists before including
     to prevent fatal PHP errors if a module is missing.
     -->
-    <div id="leftnav">
+    <div id="left">
         <?php 
         if(file_exists("contents/left-side.inc")) {
             include("contents/left-side.inc"); 
@@ -45,7 +45,7 @@ This div wraps the entire 3-column grid defined in style.css
     [GRID AREA: RIGHT NAV] 
     Usually reserves for widgets, stats, or ads.
     -->
-    <div id="rightnav">
+    <div id="right">
         <?php 
         if(file_exists("contents/right-side.inc")) {
             include("contents/right-side.inc"); 

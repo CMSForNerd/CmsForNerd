@@ -8,6 +8,11 @@
     --lab-text: #2c3e50;
     --lab-muted: #7f8c8d;
     --lab-border: #ecf0f1;
+
+    /* -- PHASE 11: GLASSMORPISM TOKENS (v4.0 Concept) -- */
+    --lab-glass-bg: rgba(255, 255, 255, 0.1);
+    --lab-glass-border: rgba(255, 255, 255, 0.2);
+    --lab-blur: 12px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -190,6 +195,12 @@ footer a {
     align-items: center; /* Center items vertically */
     justify-content: flex-start;
     gap: 15px;
+
+    /* Phase 11: Glass-Surface (v4.0) */
+    background: var(--lab-glass-bg);
+    backdrop-filter: blur(var(--lab-blur));
+    -webkit-backdrop-filter: blur(var(--lab-blur));
+    border-bottom: 2px solid var(--lab-glass-border);
 }
 
 /* Reset the button styles for the hamburger menu */

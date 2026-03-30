@@ -1,0 +1,56 @@
+name: CMSForNerd Laboratory Compliance (v3.6.0)
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  laboratory-audit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['8.4']
+
+    name: PHP ${{ matrix.php-versions }} Static Analysis & Testing
+
+    steps:
+      - name: 📥 Checkout Laboratory Source
+        uses: actions/checkout@v4
+
+      - name: 🐘 Setup PHP 8.4 (Sovereign Engine)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, zip, gd
+          coverage: none
+          tools: composer:v2
+
+      - name: 📦 Validate composer.json
+        run: composer validate --strict
+
+      - name: 🚚 Install Dependencies (Cached)
+        uses: ramsey/composer-install@v3
+        with:
+          dependency-type: dev
+
+      - name: 🧪 Execute Laboratory Pre-flight (Audit)
+        run: |
+          echo "--- Starting v3.6.0 Compliance Suite ---"
+          composer check-version
+          
+      - name: ⚖️ Architectural Integrity (Zero-Global Audit)
+        run: composer check-strict
+
+      - name: 🎨 Style Compliance (PSR-12)
+        run: composer check-style
+
+      - name: 🧠 Static Intelligence Analysis (PHPStan Level 8)
+        run: composer analyze
+
+      - name: 🏁 Unit & Pest Testing Suite
+        run: composer test
+
+      - name: 🛡️ Security Vulnerability Scan
+        run: composer audit
