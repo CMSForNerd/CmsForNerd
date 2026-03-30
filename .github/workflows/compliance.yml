@@ -45,6 +45,9 @@ jobs:
 
       - name: 🎨 Style Compliance (PSR-12)
         run: composer check-style
+        
+      - name: 📝 Documentation Hygiene (Markdown Lint)
+        run: npx markdownlint-cli --config docs/lint-config.json .
 
       - name: 🧠 Static Intelligence Analysis (PHPStan Level 8)
         run: composer analyze

@@ -20,9 +20,12 @@
 
 ### 3. "Zero-Debt"### 🛰️ Phase 11: Automated Trust & Theme v4.0
 
-- **Digital Sentry (CI/CD)**: Implemented `.github/workflows/compliance.yml` to automatically enforce PHP 8.4 compliance, Zero-Global architecture, and PHPStan Level 8 analysis on every push.
-- **Theme v4.0 (Glassmorphism)**: Evolved the visual identity with high-fidelity glass-surface tokens (`--lab-glass-bg`, `--lab-blur`) applied to headers, sidebars, and content surfaces.
-- **Zero-Debt Enforcement**: Established `docs/lint-config.json` to prevent documentation regressions and maintain 100% Markdown hygiene.
+- **Digital Sentry (CI/CD)**: Implemented `.github/workflows/compliance.yml` to automatically enforce PHP 8.4 compliance,
+  Zero-Global architecture, and PHPStan Level 8 analysis on every push.
+- **Theme v4.0 (Glassmorphism)**: Evolved the visual identity with high-fidelity glass-surface tokens (`--lab-glass-bg`,
+  `--lab-blur`) applied to headers, sidebars, and content surfaces.
+- **Zero-Debt Enforcement**: Established `docs/lint-config.json` with a 120-character line-length mandate to prevent
+  documentation regressions and maintain absolute Markdown hygiene.
 - **UI Audit Kit v3.6**: Bootstrapped a dedicated "Glass Laboratory" section for real-time verification of surface transparency and accessibility.
 
 ---
