@@ -39,12 +39,16 @@ require_once __DIR__ . '/nav-helper.inc.php';
 $nonce = bin2hex(random_bytes(16)); //
 
 /**
- * 5. [LAB] GLOBAL CONTEXT FACTORY (Refactored for Theme Independence)
- * EDUCATIONAL NOTE: We use nullable types (?) and default values to allow
- * simple calls from controllers while maintaining theme-wide settings here.
+ * 5. [LAB] GLOBAL CONTEXT FACTORY (Refactored for Zero-Global Architecture)
+ * EDUCATIONAL NOTE: This factory now consumes the Registry class to maintain
+ * state across the laboratory without using the legacy 'global' keyword.
  *
  * @param array<string, mixed> $content
  * @param string $pageName
+ * @param string|null $themeName
+ * @param string|null $cssPath
+ * @param array<int, string>|null $dataFile
+ * @param string|null $nonce
  * @return \CmsForNerd\CmsContext
  */
 function createCmsContext(
@@ -55,70 +59,79 @@ function createCmsContext(
     ?array $dataFile = null,
     ?string $nonce = null
 ): \CmsForNerd\CmsContext {
-    // [THEME INDEPENDENCE] Access the centralized variables defined below.
-    global $globalThemeName, $globalCssPath, $globalNonce, $globalDataFile;
-
     // [LAB] ROOT URL CALCULATION
-    // Ensures assets are loaded from the actual site root, even when calling from /docs/
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
     $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
-    
-    // Calculate the path to the root directory relative to the domain root
+
     $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
     $scriptDir  = str_replace('\\', '/', dirname($scriptPath));
-    
-    // If the script is in a subdirectory (like /docs/), we need to determine the base
-    // For CmsForNerd, we assume the site root is where index.php lives.
-    // Here we use a safe fallback or a hardcoded '/' if we're in the typical setup.
-    $baseUrlVal = rtrim($protocol . $host . $scriptDir, '/') . '/';
-    
-    // If we're inside /docs/, we need to go up one level to reach the CMS root
+
     if (str_contains($scriptDir, '/docs')) {
         $baseUrlVal = rtrim($protocol . $host . str_replace('/docs', '', $scriptDir), '/') . '/';
     } else {
         $baseUrlVal = rtrim($protocol . $host . $scriptDir, '/') . '/';
     }
 
+    // [v3.6] Automated Semantic Detection logic
+    $isLab = (str_contains($content['title'] ?? '', 'Lab') || str_contains($content['title'] ?? '', 'Module'));
+
+    $hasCode = false;
+    if (!isset($content['schemaType']) && !$isLab) {
+        $bodyPath = dirname(__DIR__) . "/contents/{$pageName}-body.inc";
+        if (file_exists($bodyPath)) {
+            $bodyContent = (string) file_get_contents($bodyPath);
+            $hasCode = (str_contains($bodyContent, '<?php') || str_contains($bodyContent, '<code>'));
+        }
+    }
+
+    $schemaType = (string) ($content['schemaType'] ?? 'WebPage');
+    if (!isset($content['schemaType'])) {
+        $schemaType = $isLab ? 'Course' : ($hasCode ? 'TechArticle' : 'WebPage');
+    }
+
     return new \CmsForNerd\CmsContext(
         content:    $content,
-        themeName:  $themeName ?? $globalThemeName,
-        cssPath:    $cssPath   ?? $globalCssPath,
-        dataFile:   $dataFile  ?? $globalDataFile,
+        themeName:  $themeName ?? (string) \CmsForNerd\Registry::get('themeName', 'CmsForNerd'),
+        cssPath:    $cssPath   ?? (string) \CmsForNerd\Registry::get('cssPath', 'themes/CmsForNerd/css/'),
+        dataFile:   $dataFile  ?? (array) \CmsForNerd\Registry::get('dataFile', []),
         scriptName: $pageName,
         baseUrl:    $baseUrlVal,
-        cspNonce:   $nonce     ?? $globalNonce
+        schemaType: $schemaType,
+        cspNonce:   $nonce     ?? (string) \CmsForNerd\Registry::get('nonce', '')
     );
 }
 
 // 6. [LAB] SET SECURITY HEADERS
-header("X-Content-Type-Options: nosniff"); //
-header("X-Frame-Options: DENY"); //
+header("X-Content-Type-Options: nosniff");
+header("X-Frame-Options: DENY");
 
 // 7. [LAB] Initialization Phase
-\CmsForNerd\boot_security(); //
-$config = \CmsForNerd\get_runtime_config(); //
+\CmsForNerd\boot_security();
+$config = \CmsForNerd\get_runtime_config();
 
 /**
  * 8. [LAB] CENTRALIZED THEME CONFIGURATION
- * Change your theme here once, and it propagates everywhere.
+ * We store these in the Registry for Zero-Global compliance.
  */
-$globalThemeName = (string) ($config['THEMENAME']   ?? 'CmsForNerd'); //
-$globalCssPath   = (string) ($config['CSSPATH']     ?? "themes/{$globalThemeName}/css/"); //
-$globalNonce     = $nonce;
+\CmsForNerd\Registry::set('themeName', (string) ($config['THEMENAME'] ?? 'CmsForNerd'));
+\CmsForNerd\Registry::set(
+    'cssPath',
+    (string) ($config['CSSPATH'] ?? "themes/" . \CmsForNerd\Registry::get('themeName') . "/css/")
+);
+\CmsForNerd\Registry::set('nonce', $nonce);
 
 // 9. [LAB] Routing Preparation
-$scriptName      = basename($_SERVER['SCRIPT_NAME']); //
-$globalDataFile  = explode(".", $scriptName); //
+$scriptName = basename($_SERVER['SCRIPT_NAME']);
+\CmsForNerd\Registry::set('dataFile', explode(".", $scriptName));
 
-// [COMPATIBILITY] Alias for controllers (e.g., pwa-architecture.php, template.php)
-$themeName = $globalThemeName;
-$cssPath   = $globalCssPath;
-$dataFile  = $globalDataFile;
-$nonce     = $globalNonce;
-
+// [COMPATIBILITY] Alias for legacy controllers (non-recommended)
+$themeName = (string) \CmsForNerd\Registry::get('themeName');
+$cssPath   = (string) \CmsForNerd\Registry::get('cssPath');
+$dataFile  = (array) \CmsForNerd\Registry::get('dataFile');
+// $nonce is already set above
 
 // 10. [LAB] CLASS VERIFICATION
-if (!class_exists('\\CmsForNerd\\CmsContext')) { //
-    error_log("Critical: CmsContext class not found in " . __FILE__); //
-    die("Laboratory Engine Error: Core components missing."); //
+if (!class_exists('\\CmsForNerd\\CmsContext')) {
+    error_log("Critical: CmsContext class not found in " . __FILE__);
+    die("Laboratory Engine Error: Core components missing.");
 }

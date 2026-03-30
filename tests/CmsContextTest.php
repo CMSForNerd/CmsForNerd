@@ -16,12 +16,14 @@ final class CmsContextTest extends TestCase
             themeName: 'CmsForNerd',
             cssPath: 'themes/CmsForNerd/style.css',
             dataFile: ['index'],
-            scriptName: 'index'
+            scriptName: 'index',
+            baseUrl: 'http://localhost/'
         );
 
         $this->assertInstanceOf(CmsContext::class, $ctx);
         $this->assertSame([], $ctx->content);
         $this->assertSame('CmsForNerd', $ctx->themeName);
+        $this->assertSame('WebPage', $ctx->schemaType);
     }
 
     public function testCanBeCreatedWithCustomValues(): void
@@ -31,10 +33,15 @@ final class CmsContextTest extends TestCase
             themeName: 'MyTheme',
             cssPath: 'themes/MyTheme/custom.css',
             dataFile: ['about'],
-            scriptName: 'about'
+            scriptName: 'about',
+            baseUrl: 'https://example.com/',
+            schemaType: 'TechArticle',
+            cspNonce: 'test-nonce'
         );
 
         $this->assertSame(['title' => 'Test'], $ctx->content);
         $this->assertSame('MyTheme', $ctx->themeName);
+        $this->assertSame('TechArticle', $ctx->schemaType);
+        $this->assertSame('test-nonce', $ctx->cspNonce);
     }
 }

@@ -19,6 +19,8 @@ readonly class CmsContext
      * @param string $cssPath   The path to the main stylesheet
      * @param array<int, string> $dataFile The exploded path info of the current request
      * @param string $scriptName The normalized name of the current page
+     * @param string $baseUrl    The absolute base URL
+     * @param string $schemaType The Schema.org type (v3.6)
      * @param string $cspNonce  A cryptographically secure random string for security
      */
     public function __construct(
@@ -28,6 +30,7 @@ readonly class CmsContext
         public array $dataFile,
         public string $scriptName,
         public string $baseUrl,
+        public string $schemaType = 'WebPage',
         public string $cspNonce = '',
     ) {
     }

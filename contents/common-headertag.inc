@@ -24,34 +24,15 @@
 <meta itemprop="image" content="<?= $ctx->baseUrl ?>images/cmsfornerd-logo.png">
 <meta itemprop="description" content="<?= htmlspecialchars($ctx->content['description'] ?? 'A modern PHP 8.4+ educational CMS environment (v3.5).') ?>">
 
-<?php
-// [v3.6] Automated Semantic Detection logic
-$isLab = (strpos($ctx->content['title'] ?? '', 'Lab') !== false || strpos($ctx->content['title'] ?? '', 'Module') !== false);
-// Scan the associated body fragment for code signatures (PHP or <code> tags)
-$bodyPath = __DIR__ . '/../contents/' . $ctx->scriptName . '-body.inc';
-$hasCode = false;
-if (file_exists($bodyPath)) {
-    $bodyContent = file_get_contents($bodyPath);
-    $hasCode = (strpos($bodyContent, '<?php') !== false || strpos($bodyContent, '<code>') !== false);
-}
-
-$schemaType = 'WebPage';
-if ($isLab) {
-    $schemaType = 'Course';
-} elseif ($hasCode) {
-    $schemaType = 'TechArticle';
-}
-?>
-
 <!-- [AI/SEO] JSON-LD Structured Data - 2025 gold standard for Google, Gemini, and ChatGPT. -->
 <script type="application/ld+json" nonce="<?= $ctx->cspNonce ?>">
 {
   "@context": "https://schema.org",
-  "@type": "<?= $schemaType ?>",
+  "@type": "<?= $ctx->schemaType ?>",
   "name": "<?= htmlspecialchars($ctx->content['title'] ?? 'CMSForNerd Laboratory') ?>",
   "description": "<?= htmlspecialchars($ctx->content['description'] ?? 'A modern PHP 8.4+ educational CMS environment.') ?>",
   "url": "<?= htmlspecialchars($ctx->baseUrl . ($ctx->scriptName . '.php')) ?>",
-  <?php if ($schemaType === 'TechArticle'): ?>
+  <?php if ($ctx->schemaType === 'TechArticle'): ?>
   "dependencies": "PHP 8.4, PSR-12, Composer",
   "proficiencyLevel": "Intermediate",
   <?php endif; ?>

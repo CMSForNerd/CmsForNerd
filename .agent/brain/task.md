@@ -1,12 +1,14 @@
-# CMSForNerd v3.5.1 Task Management
+# CMSForNerd v3.5 & v3.6 Task Management
 
-## [x] Module 8: PWA & CSP Master Stabilization
+## [x] Module 8: PWA & CSP Master Stabilization (v3.5.1)
+
 - [x] Integrate SPA-Hybrid router with bfcache support
 - [x] Resolve AMP Web Worker CSP `blob:` blocks
 - [x] Eliminate hardcoded HTTP CSP headers in `bootstrap.php`
 - [x] Tag and Release `v3.5.1`
 
-## [/] Module 9: Automated Lab-Bench (Orchestration)
+## [x] Module 9: Automated Lab-Bench (Orchestration)
+
 - [x] Adopt and adapt DSOM AI Cognitive Twin Protocol
 - [x] Adopt and adapt DSOM Ansible Configuration Guide
 - [x] Scaffold physical Ansible directory structure
@@ -15,9 +17,9 @@
 - [x] Automate `composer install` within the `cmsfornerd` Ansible role
 - [x] Discover and document local Miniconda Python environment (`d:\ProgramData\miniconda3`)
 - [x] Draft and finalize `docs/ANSIBLE-LAB-MANUAL.md` (Operational Guide)
-- [x] Implement in-app `Ansible Lab` documentation page (PHP Controller/Fragment) — **CONTENT POPULATED**
+- [x] Implement in-app `Ansible Lab` documentation page (PHP Controller/Fragment)
 - [x] Consolidate `.gitignore` with Ansible security patterns (`vault/`, `*.retry`)
-- [x] Resolve PWA Subdirectory Resolution Error (Absolute URI Fix) 
+- [x] Resolve PWA Subdirectory Resolution Error (Absolute URI Fix)
 - [x] Fix AMP Sidebar Theme Contrast & Consolidation
 - [x] Fix AMP Controller 500 Error (Variable Scope Restoration)
 - [x] Bootstrap UI Audit Laboratory (ui-kit.php)
@@ -26,8 +28,16 @@
 - [x] Verify JSON-LD Structured Data implementation
 - [x] Execute EOD Ritual (Documentation Sync & Tagging) — **DONE**
 
-## [x] Phase 7: Semantic Evolution (v3.6)
-- [x] Implement automated `TechArticle` schema detection in `common-headertag.inc` — **DONE**
-- [ ] Refine `CmsContext` to include raw body preview for head-level analysis
+## [x] Phase 10: Semantic Evolution & Zero-Global (v3.6.0)
+
+- [x] Refactor `CmsContext` for schema-awareness (TechArticle/Course/WebPage)
+- [x] Implement automated content sniffer in `bootstrap.php`
+- [x] Eliminate `global` keywords via `src/Registry.php` (Zero-Global Mandate)
+- [x] Decouple `common-headertag.inc` from file-IO
+- [x] Global documentation audit and "Zero-Debt" cleanup (README, docs/, brain/) — **100% COMPLIANT**
+- [x] PHPStan Memory Optimization (--memory-limit=512M)
+
+## [ ] Phase 11: CI/CD & Next-Gen Theme (v4.0)
+
+- [ ] GitHub Actions workflow for automated compliance
 - [ ] Theme v4.0 Conceptualization (Glassmorphism integration)
-- [ ] Markdown Linting cleanup (docs/ zero-error state)

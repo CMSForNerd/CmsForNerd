@@ -14,7 +14,11 @@ We only provide support for the current master branch, which is regularly synchr
 | < 3.0     | :x:                | < 8.3           | End of Life        |
 
 ## Front-End & PWA Security (v3.5+)
-CMSForNerd v3.5 introduces a Progressive Web App (PWA) architecture. All Service Worker (`sw.js`) registrations strictly require **HTTPS**. The Vanilla JS History API Router (`assets/pwa/router.js`) processes layout hydrations seamlessly and is protected by strict Content Security Policy (CSP) nonces (injected via `includes/common.inc.php`) to prevent Cross-Site Scripting (XSS).
+
+CMSForNerd v3.5 introduces a Progressive Web App (PWA) architecture. All Service Worker (`sw.js`) registrations strictly
+require **HTTPS**. The Vanilla JS History API Router (`assets/pwa/router.js`) processes layout hydrations seamlessly and
+is protected by strict Content Security Policy (CSP) nonces (injected via `includes/common.inc.php`) to prevent Cross-Site
+Scripting (XSS).
 
 ## Reporting a Vulnerability
 

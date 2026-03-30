@@ -1,0 +1,36 @@
+[1;33m>>> Starting Intelligence Audit (State Sync)...[0m
+[1;33m>>> Checking alignment with Git Remote...[0m
+[0;32m[OK] Git State is in-sync.[0m
+>>> Task Status: [0;32m0 In-Progress[0m, [1;33m3 Pending[0m
+DEBUG: Checking for PHP executable...
+>>> Detected PHP Version: '[1;33m8.4[0m'
+[0;32m>>> Intelligence Audit Complete. State of Mind recognized as VALID.[0m
+≡ƒº¬ Validating Laboratory Readiness (v3.5)...\n[OK] PHP Version: 8.4.19
+[OK] Installation Body found.\n[OK] Bootstrap Layer found.\n[OK] CmsContext Core found.\n≡ƒÜÇ Running Full Compliance & Security Analysis...\n[1;33m>>> Starting Intelligence Audit (State Sync)...[0m
+[1;33m>>> Checking alignment with Git Remote...[0m
+[0;32m[OK] Git State is in-sync.[0m
+>>> Task Status: [0;32m0 In-Progress[0m, [1;33m3 Pending[0m
+DEBUG: Checking for PHP executable...
+>>> Detected PHP Version: '[1;33m8.4[0m'
+[0;32m>>> Intelligence Audit Complete. State of Mind recognized as VALID.[0m
+[OK] PHP Version: 8.4.19
+Note: Using configuration file D:\Users\LinuxMalaysia\CMSForNerd-Project\CmsForNerd\phpstan.neon.
+  0/36 [>---------------------------]   0%[1G[2K 36/36 [============================] 100%
+
+--- Checking for Legacy Global Keyword (includes & src) ---\n[OK] Architecture is Global-free.\n--- Checking for strict_types=1 (includes & src) ---\n--- Running PHPStan Static Analysis (Level 8) ---\n ------ ------------------------------------------------------------------------------------------------------------ 
+  Line   includes\nav-helper.inc.php                                                                                 
+ ------ ------------------------------------------------------------------------------------------------------------ 
+  143    Parameter #3 $subject of function preg_replace expects array<float|int|string>|string, string|false given.  
+         ≡ƒ¬¬  argument.type                                                                                           
+  144    Parameter #3 $subject of function preg_replace expects array<float|int|string>|string, string|null given.   
+         ≡ƒ¬¬  argument.type                                                                                           
+  151    Parameter #1 $string of function trim expects string, string|null given.                                    
+         ≡ƒ¬¬  argument.type                                                                                           
+ ------ ------------------------------------------------------------------------------------------------------------ 
+
+
+ [ERROR] Found 3 errors                                                                                                
+
+Script vendor/bin/phpstan analyze --memory-limit=512M handling the analyze event returned with error code 1
+Script @analyze was called via compliance
+Script @compliance was called via lab-check
