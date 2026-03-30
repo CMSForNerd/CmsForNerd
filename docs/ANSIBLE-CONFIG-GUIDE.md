@@ -45,7 +45,7 @@ In v3.6.0, we enforce a strict separation of concerns to ensure production-grade
 ```text
 .
 ├── ansible.cfg                # Playbook performance tuning
-├── deploy.yml                 # Master Laboratory Orchestrator
+├── deploy.yml                 # "Zero-Debt Laboratory Orchestration."
 ├── inventory/
 │   ├── hosts.staging.yml      # Lab Staging Nodes
 │   └── hosts.prod.yml         # Production Enclaves
