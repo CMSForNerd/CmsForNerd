@@ -55,8 +55,10 @@ The system now contains a dedicated knowledge base page exposing the architectur
 - [x] **AMP Acceleration (v3.5.6)**: Implemented the `amp-acceleration.php` documentation page to explain the technical details of the dual-view (Standard/AMP) architecture.
 - [x] **Workbox Integration (v3.5.7)**: Successfully migrated the vanilla Service Worker to Google's Workbox library, implementing Stale-While-Revalidate and Cache-First strategies for maximum performance and reliable offline access.
 - [x] **JSON-LD Verification**: Performed a technical audit of the structured data implementation in `common-headertag.inc`, confirming automated `schema.org` type-switching and CSP nonce-tracking.
+- [x] **Semantic Autodetection (v3.6.0)**: Implemented a physical "Content Sniffer" in the header engine. The CMS now automatically upgrades a page to `@type: TechArticle` if code snippets or PHP markers are detected in the content body.
 
 ## Verification & Logic
+- **Automated Classification**: Verified that `ansible-lab.php` and `ui-kit.php` are correctly identified (Course/TechArticle) while maintaining educational metadata.
 - **Semantic Integrity**: Verified that the JSON-LD block correctly injects `educationalLevel`, `teaches`, and provider metadata for AI-assisted discovery.
 - **PWA Excellence**: Verified that Workbox loads correctly and caches assets according to the defined strategies (CSS/JS/Images).
 - **Documentation Stability**: Verified that `amp-acceleration.php` correctly explains the CSS byte-budget and component stripping.
