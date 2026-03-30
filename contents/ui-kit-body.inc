@@ -117,7 +117,7 @@ printf("CMSForNerd v3.5 Stable\n");</code>
 .color-swatch { padding: 25px; border-radius: 8px; display: flex; flex-direction: column; font-weight: bold; }
 .color-swatch code { font-size: 0.8rem; margin-top: 5px; opacity: 0.8; }
 .typography-sample { padding: 20px; background: var(--lab-border); border-radius: 8px; }
-.glass-container { background: linear-gradient(135deg, #6b46c1, #3182ce); padding: 50px; border-radius: 12px; margin: 20px 0; min-height: 200px; }
+.glass-container { background: var(--lab-vibrant-bg); padding: 50px; border-radius: 12px; margin: 20px 0; min-height: 200px; }
 .glass-card { background: var(--lab-glass-bg); backdrop-filter: blur(var(--lab-blur)); -webkit-backdrop-filter: blur(var(--lab-blur)); border: 1px solid var(--lab-glass-border); padding: 35px; border-radius: 20px; color: #ffffff; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); }
 .glass-card h3 { color: #ffffff; margin-top: 0; }
 .glass-card p { color: #f7fafc; }

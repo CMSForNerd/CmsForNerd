@@ -37,6 +37,10 @@
     --lab-glass-bg: rgba(255, 255, 255, 0.1);
     --lab-glass-border: rgba(255, 255, 255, 0.2);
     --lab-blur: 12px;
+    
+    /* -- VIBRANT LABORATORY PALETTE (v4.0 Backgrounds) -- */
+    --lab-vibrant-bg: linear-gradient(135deg, #6b46c1 0%, #3182ce 100%);
+    --lab-vibrant-alt: linear-gradient(45deg, #0f172a 0%, #334155 100%);
 }
 
 @media (prefers-color-scheme: dark) {
