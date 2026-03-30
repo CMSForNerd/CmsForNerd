@@ -149,7 +149,7 @@ body {
     transition: all 0.2s ease;
 }
 
-#leftnav a:hover, #rightnav a:hover {
+#left a:hover, #right a:hover {
     color: var(--lab-purple);
     background-color: #f3f0ff; /* Light purple tint */
     padding-left: 8px;
