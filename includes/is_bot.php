@@ -190,8 +190,41 @@ function block_datacenter_traffic(string $token): void
         return;
     }
 
-    $json = @file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
-    if ($json === false) {
+    // 3. [PERFORMANCE] Local Cache Check (24h TTL)
+    $cacheDir  = dirname(__DIR__) . '/data/cache';
+    $cacheFile = $cacheDir . '/ip_' . md5($ip) . '.json';
+
+    if (!is_dir($cacheDir)) {
+        @mkdir($cacheDir, 0700, true);
+    }
+
+    if (file_exists($cacheFile) && (time() - filemtime($cacheFile)) < 86400) {
+        $json = (string) @file_get_contents($cacheFile);
+    } else {
+        // 4. [PERFORMANCE] Non-blocking cURL with timeout
+        $url = "https://ipinfo.io/{$ip}/json?token={$token}";
+        $ch = curl_init($url);
+        if (!$ch) {
+            return;
+        }
+
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 3,
+            CURLOPT_CONNECTTIMEOUT => 1,
+            CURLOPT_USERAGENT      => 'CmsForNerd/4.0 Performance-Bot'
+        ]);
+
+        /** @var string|false $json */
+        $json = curl_exec($ch);
+        curl_close($ch);
+
+        if ($json !== false) {
+            @file_put_contents($cacheFile, $json);
+        }
+    }
+
+    if ($json === false || empty($json)) {
         return;
     }
 

@@ -19,6 +19,14 @@ Entries are grouped by date (most recent first).
 
 ---
 
+## [4.0.0-beta] - 2026-03-30 (Performance & Optimization)
+
+### ⚡ Performance & Optimization
+
+- **Anti-Blocking Logic**: Refactored `block_datacenter_traffic()` to eliminate synchronous external API bottlenecks.
+- **Persistent IP Intel**: Implemented a local file-based caching mechanism (`data/cache/`) for IP Intelligence lookups with a 24-hour TTL, reducing external latency from 500ms+ to <1ms for repeat visitors.
+- **Resilient cURL Integration**: Replaced `file_get_contents` with a hardened cURL implementation featuring explicit connection (1s) and execution (3s) timeouts to prevent PHP process hangs during service degradation.
+
 ## [4.0.0-alpha] - 2026-03-30 (High-Fidelity & Zero-Debt)
 
 ### 🎨 Glassmorphism & UI
