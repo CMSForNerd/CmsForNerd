@@ -86,23 +86,30 @@ function is_trusted_bot_ip(string $ip): bool
  */
 function ip_in_range(string $ip, string $range): bool
 {
+    $isIpv6 = str_contains($ip, ':');
+
     if (str_contains($range, '/')) {
-        [$subnet, $bits] = explode('/', $range);
-        $bits = (int)$bits;
+        [$subnet, $bitsRaw] = explode('/', $range);
+        $bits = (int)$bitsRaw;
     } else {
         $subnet = $range;
-        $bits = str_contains($ip, ':') ? 128 : 32;
+        $bits = $isIpv6 ? 128 : 32;
     }
 
-    if (str_contains($ip, ':') !== str_contains($subnet, ':')) {
+    // [SECURITY] Clamp bits to prevent uncontrolled resource consumption (DoS)
+    $bits = max(0, min($bits, $isIpv6 ? 128 : 32));
+
+    if ($isIpv6 !== str_contains($subnet, ':')) {
         return false; // Type mismatch
     }
 
-    if (!str_contains($ip, ':')) {
+    if (!$isIpv6) {
         // IPv4
         $ipLong = ip2long($ip);
         $subnetLong = ip2long($subnet);
-        $mask = -1 << (32 - $bits);
+        // [SECURITY] Clamp shift to avoid undefined behavior or negative results
+        $shift = 32 - $bits;
+        $mask = ($bits === 0) ? 0 : (-1 << $shift);
         return ($ipLong & $mask) === ($subnetLong & $mask);
     } else {
         // IPv6
@@ -112,18 +119,22 @@ function ip_in_range(string $ip, string $range): bool
             return false;
         }
 
-        $mask = "";
+        /** @var string $mask [SECURITY] Pre-allocate fixed-length string for mask */
+        $mask = str_repeat("\x00", 16);
+        $remainingBits = $bits;
+
         for ($i = 0; $i < 16; $i++) {
-            if ($bits >= 8) {
-                $mask .= chr(255);
-                $bits -= 8;
-            } elseif ($bits > 0) {
-                $mask .= chr(256 - (1 << (8 - $bits)));
-                $bits = 0;
+            if ($remainingBits >= 8) {
+                $mask[$i] = "\xff";
+                $remainingBits -= 8;
+            } elseif ($remainingBits > 0) {
+                $mask[$i] = chr(256 - (1 << (8 - $remainingBits)));
+                $remainingBits = 0;
             } else {
-                $mask .= chr(0);
+                break;
             }
         }
+
         return ($ipBin & $mask) === ($subnetBin & $mask);
     }
 }
@@ -180,8 +191,8 @@ function block_datacenter_traffic(string $token): void
 {
     $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
-    // 1. [PERFORMANCE] Localhost check
-    if ($ip === '127.0.0.1' || $ip === '::1') {
+    // 1. [PERFORMANCE] Localhost & Validation check
+    if (!filter_var($ip, FILTER_VALIDATE_IP) || $ip === '127.0.0.1' || $ip === '::1') {
         return;
     }
 
@@ -202,7 +213,11 @@ function block_datacenter_traffic(string $token): void
         $json = (string) @file_get_contents($cacheFile);
     } else {
         // 4. [PERFORMANCE] Non-blocking cURL with timeout
-        $url = "https://ipinfo.io/{$ip}/json?token={$token}";
+        // [SECURITY] Encode IP and token to prevent SSRF or parameter injection
+        $safeIp    = urlencode($ip);
+        $safeToken = urlencode($token);
+        $url       = "https://ipinfo.io/{$safeIp}/json?token={$safeToken}";
+
         $ch = curl_init($url);
         if (!$ch) {
             return;
