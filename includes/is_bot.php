@@ -146,18 +146,37 @@ function update_trusted_bot_ips(): array
         'bots'    => []
     ];
 
+    $mh = curl_multi_init();
+    $handles = [];
+
     foreach ($sources as $name => $url) {
-        $json = @file_get_contents($url);
+        $ch = curl_init();
+        /** @var non-empty-string $url */
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        /** @var non-empty-string $ua */
+        $ua = 'CmsForNerd Bot-Updater/3.5';
+        curl_setopt($ch, CURLOPT_USERAGENT, $ua);
+        curl_multi_add_handle($mh, $ch);
+        $handles[$name] = $ch;
+    }
+
+    $running = null;
+    do {
+        curl_multi_exec($mh, $running);
+        curl_multi_select($mh);
+    } while ($running > 0);
+
+    foreach ($handles as $name => $ch) {
+        $json = curl_multi_getcontent($ch);
         if ($json) {
             $data = json_decode($json, true);
             $prefixes = [];
-            if ($name === 'Google' && isset($data['prefixes'])) {
+            if (isset($data['prefixes']) && is_array($data['prefixes'])) {
                 foreach ($data['prefixes'] as $p) {
-                    $prefixes[] = $p['ipv4Prefix'] ?? $p['ipv6Prefix'];
-                }
-            } elseif ($name === 'Bing' && isset($data['prefixes'])) {
-                foreach ($data['prefixes'] as $p) {
-                    $prefixes[] = $p['ipv4Prefix'] ?? $p['ipv6Prefix'];
+                    $prefixes[] = $p['ipv4Prefix'] ?? $p['ipv6Prefix'] ?? null;
                 }
             }
             $results['bots'][] = [
@@ -165,7 +184,10 @@ function update_trusted_bot_ips(): array
                 'prefixes' => array_filter($prefixes)
             ];
         }
+        curl_multi_remove_handle($mh, $ch);
+        curl_close($ch);
     }
+    curl_multi_close($mh);
 
     $dataPath = dirname(__DIR__) . '/data/trusted-bots.json';
     file_put_contents($dataPath, json_encode($results, JSON_PRETTY_PRINT));
