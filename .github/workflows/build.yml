@@ -1,6 +1,7 @@
 name: Build
 permissions:
   contents: read
+  pull-requests: read
 on:
   push:
     branches:
@@ -20,7 +21,7 @@ jobs:
         with:
           args: >
             -Dsonar.organization=linuxmalaysia
-            -Dsonar.projectKey=linuxmalaysia_CmsForNerd
+            -Dsonar.projectKey=linuxmalaysia_cmsfornerd
             -Dsonar.scanner.skipJreProvisioning=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
