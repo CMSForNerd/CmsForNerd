@@ -28,33 +28,47 @@ function get_detailed_site_pages(): array
         return [];
     }
 
-    // [FILE DISCOVERY] Find all body fragments
-    $fragments = glob($fragmentDir . '*-body.inc');
-
-    if ($fragments === false || empty($fragments)) {
-        return [];
+    // [FILE DISCOVERY] Cache master PHP files and their modification times
+    $masterFiles = [];
+    $dirIterator = new DirectoryIterator($rootDir);
+    foreach ($dirIterator as $fileInfo) {
+        if ($fileInfo->isFile() && $fileInfo->getExtension() === 'php') {
+            $masterFiles[$fileInfo->getBasename()] = $fileInfo->getMTime();
+        }
     }
 
-    foreach ($fragments as $file) {
+    // [FILE DISCOVERY] Collect body fragments with their modification times
+    $exclude = ['index', 'sitemap', 'empty', '403', '404', 'header', 'footer', 'sitemap-page'];
+    $fragmentIterator = new DirectoryIterator($fragmentDir);
+
+    foreach ($fragmentIterator as $fileInfo) {
+        if (!$fileInfo->isFile()) {
+            continue;
+        }
+
+        $basename = $fileInfo->getBasename();
+        if (!str_ends_with($basename, '-body.inc')) {
+            continue;
+        }
+
         // Extract the slug (e.g., 'lab-manual')
-        $slug = str_replace('-body.inc', '', basename($file));
+        $slug = str_replace('-body.inc', '', $basename);
 
         // [SECURITY] Skip system files
-        $exclude = ['index', 'sitemap', 'empty', '403', '404', 'header', 'footer', 'sitemap-page'];
         if (in_array($slug, $exclude, true)) {
             continue;
         }
 
-        // Check if the Master Controller exists
-        $masterFile = $rootDir . DIRECTORY_SEPARATOR . $slug . '.php';
+        // Check if the Master Controller exists in our cached list
+        $masterBasename = $slug . '.php';
 
-        if (file_exists($masterFile)) {
-            // Get latest modification date
-            $mTime = max((int)filemtime($masterFile), (int)filemtime($file));
+        if (isset($masterFiles[$masterBasename])) {
+            // Get latest modification date (using cached mtimes)
+            $mTime = max($masterFiles[$masterBasename], $fileInfo->getMTime());
 
             $pages[] = [
-                'file'    => "$slug.php",
-                'url'     => "$slug.php",
+                'file'    => $masterBasename,
+                'url'     => $masterBasename,
                 'lastmod' => date('Y-m-d', $mTime),
                 'title'   => ucfirst(str_replace(['-', '_'], ' ', $slug))
             ];
