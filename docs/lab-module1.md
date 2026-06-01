@@ -1,10 +1,11 @@
-# 🧪 Lab Module 1: Modern Architecture (v4.0.0)
+# 🧪 Lab Module 1: Modern Architecture (v3.5)
 
 > **Topic:** Modern PHP 8.4+ Architecture & PHP 9 Readiness
 
 ---
 
 ## 🎯 Learning Objectives
+
 1. Eliminate boilerplate using **Constructor Property Promotion**.
 2. Master **Property Hooks** to replace traditional Getters/Setters.
 3. Understand **Asymmetric Visibility** for secure data encapsulation.
@@ -12,6 +13,7 @@
 ---
 
 ## ⚠️ Requirement Level
+
 Students **MUST** implement Constructor Promotion and Property Hooks to pass the "Code Elegance" audit.
 
 ---
@@ -23,6 +25,7 @@ In legacy PHP, you had to declare a property, define it in the constructor, and 
 **Task:** Refactor the `User` class in `includes/User.php`.
 
 ### Old Way (Legacy)
+
 ```php
 final class User {
     public readonly string $username;
@@ -36,6 +39,7 @@ final class User {
 ```
 
 ### New Way (PHP 8.4)
+
 ```php
 final class User {
     public function __construct(
@@ -71,6 +75,7 @@ public string $pageTitle {
 This allows a property to be **Publicly Readable** but **Privately Writable**.
 
 **Exercise 1.2: The Counter Challenge**
+
 1. Create a property called `$viewCount`.
 2. Set its visibility to `public private(set)`.
 3. **The Test:** Try to change the count from `index.php` (it should fail). Only internal logic can update it.
@@ -96,6 +101,7 @@ Run your compliance tool to ensure your new architecture follows PSR-12:
 ---
 
 ## 🎓 RFC 2119 Standards Summary
+
 * **MUST:** Use `readonly` for any data that should never change.
 * **SHOULD:** Use Constructor Promotion for all Data Transfer Objects (DTOs).
 * **MAY:** Use Property Hooks to replace complex getter methods.
@@ -103,11 +109,12 @@ Run your compliance tool to ensure your new architecture follows PSR-12:
 ---
 
 ### 🚀 Git Commands
+
 Run these in your **Antigravity Terminal** to sync your progress:
 
 ```bash
 git add .
-git commit -m "Build v4.0.0: Completed Module 1 (Modern Architecture)"
+git commit -m "Build v3.5: Completed Module 1 (Modern Architecture)"
 git push origin master
 ```
 

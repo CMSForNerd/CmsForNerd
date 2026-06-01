@@ -1,6 +1,6 @@
-# 🎓 Graduation & Certification (v4.0.0)
+# 🎓 Graduation & Certification (v3.5)
 
-Congratulations! By reaching this stage, you have successfully transformed a legacy script into a secure, standards-compliant PHP 8.4 application, now featuring high-fidelity Glassmorphism and Zero-Global architecture.
+Congratulations! By reaching this stage, you have successfully transformed a legacy script into a secure, standards-compliant PHP 8.4 application.
 
 ---
 
@@ -8,7 +8,8 @@ Congratulations! By reaching this stage, you have successfully transformed a leg
 
 To qualify for graduation, your project must pass the final **Compliance Audit**. This ensures your laboratory setup meets professional production standards.
 
-### Core Competencies Achieved:
+### Core Competencies Achieved
+
 | Competency | Standard |
 | :--- | :--- |
 | **Modern Architecture** | PHP 8.4 Property Hooks & Context Factory |
@@ -23,11 +24,12 @@ To qualify for graduation, your project must pass the final **Compliance Audit**
 The CMS includes a built-in certificate generator. To issue your certificate:
 
 1. **Fix all 5 Challenges** in the [Final Exam](final-exam.md).
-2. Ensure `composer lab-check` returns a perfect score.
+2. Ensure `composer compliance` returns a perfect score.
 3. Access the graduation runner:  
-   `graduation.php?student_id=Your_Student_ID`
+   `graduation.php?student=Your+Full+Name`
 
 ### Printing Instructions
+
 The graduation page is optimized for physical printing. Press `Ctrl + P` in your browser to generate a high-quality certificate layout.
 
 ---
@@ -35,6 +37,7 @@ The graduation page is optimized for physical printing. Press `Ctrl + P` in your
 ## 🚀 Next Steps
 
 Graduation is just the beginning. As a "Modernized Nerd," you are now ready to:
+
 * **Contribute:** Open a Pull Request on the main [CMSForNerd Repository](https://github.com/CMSForNerd/CmsForNerd).
 * **Extend:** Build your own AI-native theme using the `CmsContext` pattern.
 * **Master:** Move on to advanced topics like CI/CD pipelines and Docker containerization.

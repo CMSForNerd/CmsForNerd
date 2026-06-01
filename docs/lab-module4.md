@@ -1,10 +1,11 @@
-# 🧪 Lab Module 4: Automated Testing (v4.0.0)
+# 🧪 Lab Module 4: Automated Testing (v3.5)
 
 > **Topic:** Automated Testing with PHPUnit 11
 
 ---
 
 ## 🎯 Learning Objectives
+
 1. Understand the **Arrange-Act-Assert (AAA)** pattern.
 2. Write a unit test for the `SecurityUtils` class.
 3. Master the terminal-based test runner.
@@ -12,6 +13,7 @@
 ---
 
 ## ⚠️ Requirement Level
+
 Students **MUST** pass all assertions to achieve "Certified Nerd" status and pass the laboratory audit.
 
 ---
@@ -20,7 +22,8 @@ Students **MUST** pass all assertions to achieve "Certified Nerd" status and pas
 
 In PHPUnit, every test file **MUST** end with the suffix `Test.php` and its class **MUST** extend `TestCase`.
 
-### The AAA Pattern:
+### The AAA Pattern
+
 * **Arrange:** Set up the objects and data needed for the test.
 * **Act:** Execute the specific function you want to test.
 * **Assert:** Check if the result matches your expectations.
@@ -71,6 +74,7 @@ Open your Antigravity Terminal and execute the test suite:
 `./vendor/bin/phpunit tests/SecurityUtilsTest.php`
 
 **What to look for:**
+
 * **. (Dot):** This means your test passed!
 * **F (Failure):** Something went wrong. PHPUnit will show you exactly what it expected vs. what it got.
 
@@ -79,6 +83,7 @@ Open your Antigravity Terminal and execute the test suite:
 ## 🧪 Step 4: The "Breaking" Exercise
 
 To truly understand testing, you must see a failure.
+
 1. Open `includes/SecurityUtils.php`.
 2. Temporarily change the `escapeHtml` function to just `return $content;` (breaking the security).
 3. Run the test again.
@@ -87,6 +92,7 @@ To truly understand testing, you must see a failure.
 ---
 
 ## ⚖️ RFC 2119 Standards Summary
+
 * **MUST:** Every test method name **MUST** start with the word `test`.
 * **MUST:** Test classes **MUST** be marked as `final`.
 * **SHOULD:** You **SHOULD** use `assertSame()` instead of `assertEquals()` for strict comparison.

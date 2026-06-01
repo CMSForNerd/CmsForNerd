@@ -1,32 +1,3 @@
-# 🚀 Release v4.0.0-alpha: The "High-Fidelity" Milestone
-
-We are proud to announce **CMSForNerd v4.0.0-alpha**, focusing on **High-Fidelity Glassmorphism** and **Zero-Global** architecture. This release marks the transition to a modern, database-free, immutable state engine for professional developer training.
-
----
-
-## 🌟 What's New in v4.0.0-alpha?
-
-### 🧊 Glassmorphism Visual Layer
-* **Modern UI Tokenization**: Full implementation of glassmorphism CSS variables (`--lab-glass-bg`, `--lab-blur`).
-* **High-Fidelity Rendering**: Optimized contrast and saturation for professional developer dashboards.
-
-### 🛡️ Zero-Global Architecture (Phase 7)
-* **Total Elimination**: Removed the `global` keyword from the entire codebase.
-* **Registry Pattern**: Centralized state management via `\CmsForNerd\Registry`.
-* **Immutable Context**: Hardened `CmsContext` for absolute state predictability.
-
-### 🤖 Semantic Intelligence
-* **Automated Discovery**: Content sniffer that dynamically upgrades pages to `TechArticle` or `Course`.
-* **AI Protocol v2.0**: Updated master protocols for seamless AI-human synergy.
-
----
-
-# 🚀 Release v3.6.0: The "Semantic Evolution" Milestone
-
-We are proud to announce **CMSForNerd v3.6**, which finalized the **Zero-Global** mandate and introduced automated semantic content detection.
-
----
-
 # 🚀 Release v3.5.0: The "Mobile Mastery" Milestone
 
 We are proud to announce **CMSForNerd v3.5**, a significant evolution in our educational mission. This release introduces a sophisticated **Dual-View Architecture**, allowing the laboratory to serve lightning-fast, interactive mobile experiences via **AMP (Accelerated Mobile Pages)** while maintaining a robust desktop environment.
@@ -66,15 +37,13 @@ With v3.5, the curriculum expands into **Modern Mobile UX**:
 
 ## 📥 Installation & Upgrade
 
-### Upgrading from v3.4:
+### Upgrading from v3.4
 
 1. **Templates**: Create `themes/CmsForNerd/amp-sidebar.tpl`.
 2. **Styles**: Add `themes/CmsForNerd/css/amp.css` for mobile styling.
 3. **Core Logic**: Update `includes/nav-helper.inc.php` and `themes/CmsForNerd/pager.php` to enable the Dual-View controller.
 
 ---
-
-
 
 # 🚀 Release v3.4.0: The "Zero-Debt" Milestone
 
@@ -85,23 +54,26 @@ We are proud to announce the release of **CMSForNerd v3.4**, a major leap forwar
 ## 🌟 What's New in v3.4?
 
 ### 🏗️ Engineering Excellence (Zero-Debt Architecture)
+
 * **PHPStan Level 8 Integration**: Every core file is now audited for strict type-safety, null-pointer prevention, and logical consistency. The laboratory now enforces "Zero-Debt" coding.
 * **Immutable Context Factory**: We have transitioned the `CmsContext` to a `readonly` pattern, initialized via a central factory in `includes/bootstrap.php`. This eliminates global state corruption and teaches students the power of **Immutability**.
 
 ### 🛡️ Hardened Security (Zero-Trust)
+
 * **Native CSP Engine**: Full implementation of Content Security Policy (CSP) with dynamic nonces. Your laboratory site is now inherently resistant to Cross-Site Scripting (XSS).
 * **Path & Input Sanitization**: Enhanced protection against Directory Traversal and LFI (Local File Inclusion) through strict filename normalization and path validation.
 
 ### 📦 Professional Tooling
+
 * **Composer-First Workflow**: v3.4 requires Composer for PSR-4 autoloading and development tools. Use `composer analyze` to run a professional-grade security audit on your code.
 * **v3.4 Laboratory Suite**: New `installation.php` and `index-body.inc` files designed to guide new developers through the "Nerd-Stack" (PHP 8.4, PHPStan, Nginx, and Google Antigravity).
-
-
 
 ---
 
 ## 🧪 Educational Impact
+
 This release is not just a CMS update; it is a **curriculum update**. Students will now learn:
+
 1. **Static Analysis Mastery**: How to pass PHPStan Level 8 (Industry Standard).
 2. **Dependency Management**: Handling modern libraries and autoloading via Composer.
 3. **Decoupled Architecture**: Building Global-free PHP applications using the Context Factory pattern.
@@ -110,7 +82,8 @@ This release is not just a CMS update; it is a **curriculum update**. Students w
 
 ## 📥 Installation & Upgrade
 
-### New Laboratory Setup:
+### New Laboratory Setup
+
 ```bash
 git clone [https://github.com/CMSForNerd/CmsForNerd.git](https://github.com/CMSForNerd/CmsForNerd.git)
 cd CmsForNerd
@@ -119,7 +92,7 @@ composer lab-check
 
 ```
 
-### Upgrading from v3.3:
+### Upgrading from v3.3
 
 1. **Core Logic**: Replace `includes/bootstrap.php` and `src/CmsContext.php` with the v3.4 versions.
 2. **Configuration**: Update your `composer.json` and `phpstan.neon` to match the new laboratory standards.

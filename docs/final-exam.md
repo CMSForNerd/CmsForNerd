@@ -1,10 +1,11 @@
-# 🚩 The Final Exam: Break-Fix Challenge (v4.0.0)
+# 🚩 The Final Exam: Break-Fix Challenge (v3.5)
 
 > **Scenario:** A "junior dev" has pushed code that violates our RFC 2119 standards and breaks PSR-12 compliance. To pass the "Certified Nerd" audit, you must repair these 5 failures.
 
 ---
 
 ## 🎯 Challenge 1: The Security Breach (Module 3)
+
 The following loader allows an attacker to read sensitive files via path traversal.
 **Task:** Refactor using `SecurityUtils::sanitizePageName()` to make it a "MUST" level security block.
 
@@ -17,6 +18,7 @@ include "contents/" . $page . ".inc";
 ---
 
 ## 🎯 Challenge 2: The Logic Error (Module 1)
+
 This PHP 8.4+ class is throwing a syntax error in its Property Hook.
 **Task:** Fix the hook—remember that short-arrow hooks (`=>`) do not use the `return` keyword.
 
@@ -33,6 +35,7 @@ class Project {
 ---
 
 ## 🎯 Challenge 3: The PSR-12 Audit (Module 2)
+
 The following code is functional but fails the style audit.
 **Task:** Reformat this block to be **PSR-12 compliant**.
 
@@ -49,6 +52,7 @@ else{return false;}
 ---
 
 ## 🎯 Challenge 4: The Failing Test (Module 4)
+
 A test uses the wrong assertion, causing loose type-matching.
 **Task:** Switch `assertEquals()` to the strict type-safe version (`assertSame()`) as per our RFC 2119 requirements.
 
@@ -63,6 +67,7 @@ public function testTypeSafety(): void {
 ---
 
 ## 🎯 Challenge 5: The CSP Leak (Module 3)
+
 The Content Security Policy is currently "Wide Open."
 **Task:** Restrict `script-src` to only allow `'self'`.
 
@@ -74,7 +79,8 @@ The Content Security Policy is currently "Wide Open."
 ---
 
 ## ✅ Evaluation Criteria
+
 A student passes if they can run the following command and receive a perfectly clean report:
-`composer lab-check`
+`composer compliance`
 
 [🏁 Go to Graduation](graduation.md)

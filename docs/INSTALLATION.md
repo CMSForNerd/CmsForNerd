@@ -1,8 +1,8 @@
-# 🛠️ Installation Guide: CMSForNerd v4.0.0 (Glassmorphism Edition)
+# 🛠️ Installation Guide: CMSForNerd v3.5
 
 **CMSForNerd** is a lightweight, flat-file Content Management System geared towards developers and enthusiasts who want full control over their code. Unlike complex database-driven platforms, CMSForNerd stores all content in simple text files, making it incredibly fast, secure, and easy to backup—just copy the files!
 
-The v4.0.0 modernization ensures full **cross-platform compatibility** (Windows, Linux, Unix, FreeBSD) achieved through **AI-Assisted Coding** using **Google Antigravity**, focusing on **High-Fidelity Glassmorphism** and **Zero-Global** architecture.
+The v3.5 modernization ensures full **cross-platform compatibility** (Windows, Linux, Unix, FreeBSD) achieved through **AI-Assisted Coding** using **Google Antigravity**.
 
 ---
 
@@ -24,21 +24,27 @@ To run the laboratory environment, ensure your system meets these specifications
 Follow these steps to get your CMS up and running:
 
 ### 1. Download the Source
+
 Clone the repository or download the latest release from GitHub:
+
 ```bash
 git clone https://github.com/CMSForNerd/CmsForNerd.git .
 ```
 
 ### 2. Dependency Setup
-Open your terminal in the root folder and run Composer. This step is crucial for the v4.0.0 PSR-4 Autoloader and technical tools:
+
+Open your terminal in the root folder and run Composer. This step is crucial for the v3.5 PSR-4 Autoloader and technical tools:
+
 ```bash
 composer install
 ```
 
 ### 3. Permissions & Deployment
+
 Move the files to your web server's public directory. Ensure permissions follow the 755/644 standard:
 
-* **Linux (Debian/Ubuntu):** 
+* **Linux (Debian/Ubuntu):**
+
 ```bash
 # Set ownership to the web server user (example path)
 sudo chown -R www-data:www-data /var/www/html/
@@ -47,6 +53,7 @@ sudo chown -R www-data:www-data /var/www/html/
 sudo find /var/www/html/ -type d -exec chmod 755 {} +
 sudo find /var/www/html/ -type f -exec chmod 644 {} +
 ```
+
 > [!IMPORTANT]
 > Never use `chmod -R 777` or `755` on files. The commands above ensure that only directories are searchable/traversable and files are read-only for security, while remaining writable by the web server owner if needed.
 
@@ -63,12 +70,11 @@ CMSForNerd uses a unique **Pair Logic** architecture. To create a new page (e.g.
 
 ---
 
-## 🛡️ Security Features (v4.0.0)
+## 🛡️ Security Features (v3.5)
 
 The modernized framework ensures a "Bunker" security posture:
 
 * **Strict Typing:** `declare(strict_types=1);` is enforced on all core files.
-* **Zero-Global:** Uses `Registry` and `CmsContext` to eliminate the `global` keyword.
 * **Zero Directory Traversal:** Strict path validation via `SecurityUtils`.
 * **Bot Protection:** Built-in [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) support and bot detection.
 * **CSP Engine:** Automatic Nonce generation for every request to block XSS.
@@ -92,7 +98,7 @@ The modernized framework ensures a "Bunker" security posture:
 When building themes, always use the **Context Object** pattern. Avoid using global variables directly:
 
 ```php
-// Standard v4.0.0 Theme Inclusion (Context Pattern)
+// Standard v3.5 Theme Inclusion (Context Pattern)
 include "themes/{$ctx->themeName}/header.tpl";
 ```
 

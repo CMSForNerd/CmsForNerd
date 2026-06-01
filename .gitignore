@@ -22,6 +22,7 @@ Thumbs.db
 
 # --- Laboratory & OS Artifacts ---
 # Mengelakkan fail sesi atau dump data dari Proxmox/Container
+data/cache/
 *.tmp
 *.bak
 *.old

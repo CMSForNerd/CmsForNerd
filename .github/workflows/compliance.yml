@@ -45,7 +45,7 @@ jobs:
         run: composer check-style
         
       - name: 📝 Documentation Hygiene (Markdown Lint)
-        run: npx markdownlint-cli --config docs/lint-config.json .
+        run: npx markdownlint-cli --config docs/lint-config.json . --ignore vendor
 
       - name: 🧠 Static Intelligence Analysis (PHPStan Level 8)
         run: composer analyze

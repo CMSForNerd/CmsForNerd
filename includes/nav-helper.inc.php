@@ -18,14 +18,14 @@ if (!function_exists('get_site_pages')) {
     function get_site_pages(): array
     {
         $pages = [];
-        $exclude = [
-            'template.php',
-            'index.php',
-            'audit-semantics.php',
-            'sitemap-page.php',
-            'sitemap.php',
-            'rss.php',
-            'ror.php'
+        static $exclude = [
+            'template.php' => true,
+            'index.php' => true,
+            'audit-semantics.php' => true,
+            'sitemap-page.php' => true,
+            'sitemap.php' => true,
+            'rss.php' => true,
+            'ror.php' => true,
         ];
 
         // Locate root directory relative to this file
@@ -37,7 +37,7 @@ if (!function_exists('get_site_pages')) {
         }
 
         foreach ($files as $file) {
-            if (pathinfo($file, PATHINFO_EXTENSION) === 'php' && !in_array($file, $exclude, true)) {
+            if (pathinfo($file, PATHINFO_EXTENSION) === 'php' && !isset($exclude[$file])) {
                 $name = pathinfo($file, PATHINFO_FILENAME);
 
                 // Transform 'lab-manual' into 'Lab Manual'

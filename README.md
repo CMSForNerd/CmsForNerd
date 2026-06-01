@@ -1,12 +1,12 @@
 # 🚀 CmsForNerd v4.0.0-alpha (2026 Glassmorphism Edition)
 
 **CmsForNerd** is a Lightweight, Radically Simple, Database-Free PHP Laboratory CMS designed as a live learning
-environment for modern developers. Version 4.0 marks the transition to **High-Fidelity Glassmorphism**, **Zero-Global** architecture, and
+environment for modern developers. Version 4.0 marks the transition to **High-Fidelity Glassmorphism** and
 **Automated Phase 11 Compliance**.
 
 **Current Version:** 4.0.0-alpha (Visual Fidelity Milestone)
 
-**Changelog:** See [CHANGELOG.md](CHANGELOG.md) for latest release details.
+**Changelog:** See [CHANGELOG.md](CHANGELOG.md) for v3.6.0 release details.
 
 **Primary Maintainer:** Harisfazillah Jamel
 
@@ -16,7 +16,7 @@ environment for modern developers. Version 4.0 marks the transition to **High-Fi
 
 ## 📱 AMP & Dual-View Architecture
 
-Version 4.0.0 maintains the high-performance **Dual-View** engine:
+Version 3.6 maintains the high-performance **Dual-View** engine:
 
 - **AMP Hybrid Rendering**: Automatically detects `?view=amp` to serve Google-validated Accelerated Mobile Pages.
 - **Zero-JS Interactivity**: Implementation of `amp-sidebar` for lightning-fast mobile navigation.
@@ -47,7 +47,7 @@ handshake is **REQUIRED** for all laboratory sessions.
 
 ## 📋 MASTER CONTEXT BLOCK (Copy/Paste for AI)
 
-> **PROMPT:** Act as a Lead PHP Architect for **CmsForNerd v4.0.0**. Standards: PHP 8.4 strict types, PHPStan Level 8,
+> **PROMPT:** Act as a Lead PHP Architect for **CmsForNerd v3.6**. Standards: PHP 8.4 strict types, PHPStan Level 8,
 > Zero-Global variables (via `Registry`), and "Pair Logic" (Logic in `.php`, UI in `-body.inc`). This is a Dual-View CMS
 > (Standard/AMP).
 > **Core Engine (bootstrap.php):** Initializes Immutable `CmsContext` with automated `schemaType` detection.
@@ -70,7 +70,7 @@ handshake is **REQUIRED** for all laboratory sessions.
 - **IDE**: [Google Antigravity](https://deepmind.google/technologies/gemini/) (AI-native) or VS Code
 - **Static Analysis**: **PHPStan Level 8** (The Laboratory Gold Standard)
 - **Package Manager**: Composer 2.8+
-- **Testing & QA**: Pest PHP, PHPUnit 11.5+, and PHP_CodeSniffer 3.11+ (PSR-12)
+- **Testing & QA**: PHPUnit 11.5+ and PHP_CodeSniffer 3.11+ (PSR-12)
 
 ---
 
@@ -97,11 +97,11 @@ handshake is **REQUIRED** for all laboratory sessions.
 
 ---
 
-### ⚖️ Standards (RFC 2119 & v4.0.0 Engineering)
+## ⚖️ Standards (RFC 2119 & v3.6 Engineering)
 
 - **MUST**: Begin all files with `declare(strict_types=1);`.
 - **MUST**: All mobile output **MUST** pass the `AMP Validator`.
-- **REQUIRED**: All code **MUST** pass `composer lab-check` (PHPStan Level 8).
+- **REQUIRED**: All code **MUST** pass `composer compliance` (PHPStan Level 8).
 - **MUST**: Follow the "State of Mind" handshake for every session.
 - **MUST**: Every `.php` controller MUST have a corresponding `-body.inc` fragment in the `contents/` directory.
 

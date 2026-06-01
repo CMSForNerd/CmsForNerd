@@ -1,4 +1,4 @@
-# 🚀 Student Welcome Kit (v4.0.0)
+# 🚀 Student Welcome Kit (v3.5)
 
 > "Modernization without loss of simplicity."
 
@@ -38,7 +38,7 @@ To pass your modules, your code must adhere to these strict requirement levels:
 
 * **MUST:** Every file begins with `declare(strict_types=1);`.
 * **MUST:** Opening braces for classes/methods are on a new line.
-* **MUST NOT:** Use `global` variables. Use `Registry` or `createCmsContext()` factory.
+* **MUST NOT:** Use `global` variables. Use `createCmsContext()` factory.
 * **SHOULD:** Aim for 90% code coverage in your logic.
 * **MAY:** Use PHP 8.4 Property Hooks for simple data transformations.
 
@@ -46,10 +46,10 @@ To pass your modules, your code must adhere to these strict requirement levels:
 
 ## 🛡️ Security Laws
 
-1.  **Never Trust User Input:** Always run `$_GET` data through `SecurityUtils::isValidPageName()`.
-2.  **Escape Output:** Use `SecurityUtils::escapeHtml()` for all variables rendered in the theme.
-3.  **Strict Routing:** Only include files that exist in the `contents/` directory.
-4.  **RFC 9116:** Maintain your `security.txt` and [Security Policy](security-policy.md).
+1. **Never Trust User Input:** Always run `$_GET` data through `SecurityUtils::isValidPageName()`.
+2. **Escape Output:** Use `SecurityUtils::escapeHtml()` for all variables rendered in the theme.
+3. **Strict Routing:** Only include files that exist in the `contents/` directory.
+4. **RFC 9116:** Maintain your `security.txt` and [Security Policy](security-policy.md).
 
 ---
 
@@ -64,10 +64,10 @@ To pass your modules, your code must adhere to these strict requirement levels:
 
 ## 🎓 Path to Certification
 
-1.  **Setup:** Install tools & clone repo.
-2.  **Modules 1-3:** Master Architecture, Standards, and Security.
-3.  **Modules 4-5:** Write Unit Tests and achieve Coverage.
-4.  **Final Exam:** Solve the "Broken Lab" challenge.
-5.  **Graduation:** Claim your v4.0.0 Digital Certificate!
+1. **Setup:** Install tools & clone repo.
+2. **Modules 1-3:** Master Architecture, Standards, and Security.
+3. **Modules 4-5:** Write Unit Tests and achieve Coverage.
+4. **Final Exam:** Solve the "Broken Lab" challenge.
+5. **Graduation:** Claim your v3.5 Digital Certificate!
 
 [🚀 Start Laboratory Module 1](lab-module1.md)

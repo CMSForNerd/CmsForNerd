@@ -1,10 +1,11 @@
-# 📊 Lab Module 5: Coverage & QA (v4.0.0)
+# 📊 Lab Module 5: Coverage & QA (v3.5)
 
 > **Topic:** Test Coverage and Quality Assurance
 
 ---
 
 ## 🎯 Learning Objectives
+
 1. Understand the difference between **Code Execution** and **Code Coverage**.
 2. Generate an interactive **HTML Coverage Report**.
 3. Use the **CRAP Index** to identify risky, poorly-tested code.
@@ -12,6 +13,7 @@
 ---
 
 ## ⚠️ Requirement Level
+
 Students **MUST** generate an HTML report showing 100% coverage for all `SecurityUtils` methods.
 
 ---
@@ -42,6 +44,7 @@ We convert raw data into a readable website showing our code with highlighted li
 Red lines in your report indicate "Dark Spots"—logic that hasn't been verified by a test.
 
 **Exercise:**
+
 1. Look at `SecurityUtils::sanitizePageName`.
 2. Do you have a test case that tries to use a hyphen `-` (e.g., `about-us`)?
 3. If the hyphen regex is Red, add a test case in `SecurityUtilsTest.php`.
@@ -52,6 +55,7 @@ Red lines in your report indicate "Dark Spots"—logic that hasn't been verified
 ## ✅ Step 4: The Quality Audit (CRAP Index)
 
 The **Change Risk Anti-Patterns (CRAP)** index measures how hard code is to maintain.
+
 * **High CRAP:** High complexity + Low coverage = Dangerous.
 * **Low CRAP:** Clean code + High coverage = Professional.
 
@@ -60,6 +64,7 @@ The **Change Risk Anti-Patterns (CRAP)** index measures how hard code is to main
 ---
 
 ## ⚖️ RFC 2119 Standards Summary
+
 * **MUST:** Generate a coverage report before every production release.
 * **SHOULD:** Aim for 90% coverage on core security logic.
 * **MAY:** Exclude view files/themes from the report.

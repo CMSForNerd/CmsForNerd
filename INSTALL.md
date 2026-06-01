@@ -4,8 +4,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 * Introduction *
 
-https://www.linuxmalaysia.com/
-https://github.com/CMSForNerd/CmsForNerd
+<https://www.linuxmalaysia.com/>
+<https://github.com/CMSForNerd/CmsForNerd>
 
 CmsForNerd is for small websites with static content. It is NOT intended for large-scale dynamic applications.
 
@@ -13,7 +13,7 @@ CmsForNerd is for small websites with static content. It is NOT intended for lar
 
 1. PHP VERSION: You MUST use PHP 8.4 or higher.
 2. EXTENSIONS: Your server MUST support cURL and OpenSSL for security features.
-3. COMPOSER: You MUST run `composer install` to initialize the project dependencies and `composer lab-check` to verify the environment.
+3. COMPOSER: You SHOULD run `composer install` to initialize the project dependencies.
 
 * Installation *
 
@@ -28,4 +28,3 @@ Download the repository and expand it inside your web server's public directory.
 * Maintenance *
 
 It is RECOMMENDED to use Laravel Herd for local development and Firefox Developer Tools for CSS Grid debugging.
-

@@ -1,43 +1,45 @@
-# 🎓 CMSForNerd Laboratory Guide (v4.0.0-alpha)
+# 🎓 CMSForNerd Laboratory Guide (v3.5)
 
-Welcome to the CmsForNerd Developer Laboratory. This guide helps you understand modern PHP 8.4 architecture through hands-on exercises, focusing on the **Phase 11 Glassmorphism** evolution and **Zero-Global** engineering.
+Welcome to the CmsForNerd Developer Laboratory. This guide helps you understand modern PHP 8.4 architecture through hands-on exercises.
 
 ---
 
-## 🔬 Module 1: The Front Controller & Zero-Global
-**Objective:** Understand how `index.php` acts as the gateway and how global state is eliminated.
+## 🔬 Module 1: The Front Controller Pattern
+**Objective:** Understand how index.php acts as the gateway to the application.
 
 ### Background
-In older PHP sites, every .php file was a separate entry point and relied heavily on the `global` keyword. In modern systems, we use a Front Controller and a centralized `Registry`.
+In older PHP sites, every .php file was a separate entry point. In modern systems, we use a Front Controller.
 * **Task:** Open `index.php` and identify where `bootstrap.php` is called.
-* **Question:** Why do we use `\CmsForNerd\Registry` instead of the `global` keyword for state management?
+* **Question:** Why do we include a bootstrap file instead of writing the autoloader logic in every single page?
 
 
 
 ---
 
 ## 🛡️ Module 2: Strict Typing & Security
-**Objective:** Learn to prevent common vulnerabilities using PHP 8.4's strict engine.
+**Objective:** Learn to prevent common vulnerabilities like Directory Traversal.
 
-### Exercise: The Match Expression & SecurityUtils
-Look at the routing logic in `index.php`. We use the PHP 8 `match` expression and `SecurityUtils`.
+### Exercise: The Match Expression
+Look at the routing logic in index.php. We use the PHP 8 `match` expression:
 
 (Example Logic)
-`$pageName = \CmsForNerd\SecurityUtils::resolvePageName($scriptName);`
+$pageName = \CmsForNerd\SecurityUtils::resolvePageName($scriptName);
 
-* **Challenge:** Modify the logic in `src/SecurityUtils.php` to explicitly reject any query string that contains path traversal attempts.
-* **Goal:** Master type-safe comparisons and secure path resolution.
+* **Challenge:** Modify the logic in `SecurityUtils::resolvePageName()` to explicitly reject any query string that contains "../".
+* **Goal:** Master type-safe comparisons.
 
 ---
 
 ## 📦 Module 3: Dependency Injection (CmsContext)
-**Objective:** Understand Immutable State Management.
+**Objective:** Understand State Management without Global Variables.
 
 ### Background
-We use the **Immutable `CmsContext`** object to carry data. This is a Data Transfer Object (DTO) that enforces "Zero-Global" compliance.
+We use the `CmsContext` object to carry data across the application. This is a Data Transfer Object (DTO).
 
-* **Task:** Add a new key to the `$content` array in `index.php` called `'lab_status' => 'Modernizing'`.
-* **Challenge:** Update `src/CmsContext.php` (using Constructor Property Promotion) to accept this new data and display it in the glassmorphism theme.
+
+
+* **Task:** Add a new key to the `$content` array in `index.php` called `'lab_status' => 'Learning'`.
+* **Challenge:** Update `CmsContext.php` to accept this new data and display it in your theme.
 
 ---
 
@@ -53,18 +55,18 @@ Our active theme's `pager.php` is included based on the context. It can only see
 ---
 
 ## 🚀 Final Lab Challenge
-**Objective:** Extend the CMS for Phase 11.
+**Objective:** Extend the CMS.
 
 1. Create a file: `includes/my-plugin.inc.php`.
 2. Define a function `get_lab_timer()` that returns `time()`.
 3. Include this file in `bootstrap.php`.
-4. Display the timer result in a Glassmorphism-styled div on the installation page.
+4. Display the timer result on the installation page.
 
 ---
 
 ## 📜 Compliance Check
 Run the following to verify your work:
-`composer lab-check`
+`composer compliance`
 
 **Lead Instructor:** Harisfazillah Jamel
-**Environment:** PHP 8.4+ (Strict Mode)
+**Environment:** PHP 8.4

@@ -1,15 +1,17 @@
-# 🐧 Linux Environment Setup (v4.0.0)
+# 🐧 Linux Environment Setup (v3.5)
 
 Standardizing the PHP 8.4 installation across Linux distributions for the CMSForNerd Laboratory.
 
 ---
 
 ## ⚠️ Requirement Level (RFC 2119)
-Your server **MUST** run **PHP 8.4** or higher to support Property Hooks and the v4.0.0 engine logic.
+
+Your server **MUST** run **PHP 8.4** or higher to support Property Hooks and the v3.5 engine logic.
 
 ---
 
 ## 📦 Option A: Debian & Ubuntu
+
 Using the **Ondřej Surý** repository—the industry standard for modern PHP on Apt systems.
 
 ```bash
@@ -29,6 +31,7 @@ sudo apt update && sudo apt install -y php8.4 php8.4-cli php8.4-mbstring php8.4-
 ---
 
 ## 📦 Option B: AlmaLinux (9+)
+
 Using the **Remi Repository** to enable DNF module streams for RHEL-based systems.
 
 ```bash
@@ -49,6 +52,7 @@ php -v
 ---
 
 ## 📂 Directory Permissions
+
 Linux is strict about ownership. The web user **MUST** have read access to the CMS core.
 
 ```bash
@@ -63,6 +67,7 @@ sudo find /var/www/cmsfornerd -type f -exec chmod 644 {} \;
 ---
 
 ## 🎓 Linux Compliance Summary
+
 * **MUST:** Use `https://` for all repository and GPG key downloads.
 * **REQUIRED:** Install `php-mbstring` and `php-xml`.
 * **SHOULD:** Enable `Xdebug` for Module 5 code coverage testing.
