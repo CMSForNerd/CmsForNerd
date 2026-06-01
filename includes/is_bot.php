@@ -126,27 +126,23 @@ function ip_in_range(string $ip, string $range): bool
         $mask = ($bits === 0) ? 0 : (~0 << $shift);
         return ($ipLong & $mask) === ($subnetLong & $mask);
     } else {
-        // IPv6
+        // IPv6 - Architectural Hardening for Performance & Security
         $ipBin = inet_pton($ip);
         $subnetBin = inet_pton($subnet);
         if ($ipBin === false || $subnetBin === false) {
             return false;
         }
 
-        /** @var string $mask [SECURITY] Literal pre-allocation to avoid str_repeat hotspots */
+        // Pre-allocate fixed 16-byte zero mask to satisfy DoS protection rules
         $mask = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-        $remainingBits = $bits;
+        $fullBytes = (int)($bits / 8);
+        for ($i = 0; $i < $fullBytes; $i++) {
+            $mask[$i] = "\xFF";
+        }
 
-        for ($i = 0; $i < 16; $i++) {
-            if ($remainingBits >= 8) {
-                $mask[$i] = "\xff";
-                $remainingBits -= 8;
-            } elseif ($remainingBits > 0) {
-                $mask[$i] = chr(256 - (1 << (8 - $remainingBits)));
-                $remainingBits = 0;
-            } else {
-                break;
-            }
+        $remainingBits = $bits % 8;
+        if ($remainingBits > 0) {
+            $mask[$fullBytes] = chr(256 - (1 << (8 - $remainingBits)));
         }
 
         return ($ipBin & $mask) === ($subnetBin & $mask);
