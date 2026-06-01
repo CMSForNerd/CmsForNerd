@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CMSForNerd v3.5 - Web Environment Sanity Check (Secure Version)
+ * CMSForNerd v4.0.0-alpha - Web Environment Sanity Check (Secure Version)
  * Verifies Web Server configuration without exposing system paths.
  * Supports both CLI and Browser viewing.
  */
@@ -18,7 +18,7 @@ $requirements = [
 ];
 
 $isCli = PHP_SAPI === 'cli';
-$title = "🧪 CMSForNerd v3.5 Sanity Check";
+$title = "🧪 CMSForNerd v4.0.0-alpha Sanity Check";
 
 if ($isCli) {
     echo "{$title}\n" . str_repeat("=", 40) . "\n";
@@ -86,7 +86,7 @@ if ($isCli) {
 
         <?php if (!in_array(false, $requirements, true)) : ?>
             <div class="verdict verdict-pass">
-                ✅ Your Web Server is fully optimized for the v3.5 Laboratory!
+                ✅ Your Web Server is fully optimized for the v4.0.0-alpha Laboratory!
             </div>
         <?php else : ?>
             <div class="verdict verdict-fail">

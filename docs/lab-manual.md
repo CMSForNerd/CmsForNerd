@@ -1,6 +1,6 @@
-# 🎓 Lab Manual: The Developer’s Laboratory (v3.5)
+# 🎓 Lab Manual: The Developer’s Laboratory (v4.0.0-alpha)
 
-Welcome to the **v3.5 educational suite**. This CMS is designed to be a **transparent laboratory**. Every line of code is accessible, every architectural choice is documented, and every security feature is a lesson in professional standards.
+Welcome to the **v4.0.0-alpha educational suite**. This CMS is designed to be a **transparent laboratory**. Every line of code is accessible, every architectural choice is documented, and every security feature is a lesson in professional standards.
 
 ---
 
@@ -129,9 +129,9 @@ The ultimate test of a modern backend engineer. Repair a broken system to prove 
 
 ---
 
-## 📝 The History of v3.5: A Modernization Case Study
+## 📝 The History of v4.0.0-alpha: A Modernization Case Study
 
-CMSForNerd v3.5 isn't just a version; it's a **Modernization Journey**.
+CMSForNerd v4.0.0-alpha isn't just a version; it's a **Modernization Journey**.
 
 1. **Phase 1:** Refactored the 2005 foundation into PHP 8.4+ classes.
 2. **Phase 2:** Standardized UI with CSS Grid.

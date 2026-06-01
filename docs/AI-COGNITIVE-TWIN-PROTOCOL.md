@@ -69,7 +69,7 @@ To maintain parity between the Command Center and GitHub:
    version.
 3. **Validation Gate**: **NEVER** push code without the explicit passing output of `composer lab-check`.
 4. **Protection**: Remote `master` is the golden branch. ALWAYS document changes in `CHANGELOG.md` exactly before
-   tagging `git tag -a v3.5.x`.
+   tagging `git tag -a v4.0.0-alpha.x`.
 
 ---
 

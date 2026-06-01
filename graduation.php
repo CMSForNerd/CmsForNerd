@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (graduation.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (graduation.php)
  * * ROLE: Lab Graduation Page: Certificate of Completion.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -38,7 +38,7 @@ if (empty($_GET['student_id'])) {
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Graduation: PHP 8.4+ Mastery - CmsForNerd v3.5",
+    'title'       => "Graduation: PHP 8.4+ Mastery - CmsForNerd v4.0.0-alpha",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Official Certificate of Completion for the CmsForNerd Modernization Curriculum.",
     'keywords'    => "Graduation, Certificate, PHP 8.4, Modern PHP, Software Engineering",

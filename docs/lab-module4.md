@@ -1,4 +1,4 @@
-# 🧪 Lab Module 4: Automated Testing (v3.5)
+# 🧪 Lab Module 4: Automated Testing (v4.0.0-alpha)
 
 > **Topic:** Automated Testing with PHPUnit 11
 

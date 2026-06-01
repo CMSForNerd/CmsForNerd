@@ -3,7 +3,7 @@
  * ==========================================================================
  * FILE: ansible-lab.php
  * ROLE: Controller for Ansible Laboratory Orchestration Guide
- * VERSION: v3.5.1 (Modern Laboratory Engine)
+ * VERSION: v4.0.0-alpha.1 (Modern Laboratory Engine)
  * ==========================================================================
  */
 

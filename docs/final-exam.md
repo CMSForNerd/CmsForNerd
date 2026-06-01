@@ -1,4 +1,4 @@
-# 🚩 The Final Exam: Break-Fix Challenge (v3.5)
+# 🚩 The Final Exam: Break-Fix Challenge (v4.0.0-alpha)
 
 > **Scenario:** A "junior dev" has pushed code that violates our RFC 2119 standards and breaks PSR-12 compliance. To pass the "Certified Nerd" audit, you must repair these 5 failures.
 

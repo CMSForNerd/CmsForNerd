@@ -42,7 +42,7 @@ Entries are grouped by date (most recent first).
 
 ## [3.6.0] - 2026-03-30 (Semantic Evolution & Zero-Global)
 
-### 🧠 Semantic Architecture (v3.6)
+### 🧠 Semantic Architecture (v4.0.0-alpha)
 
 - **Centralized Intelligence**: Refactored `CmsContext` to include a `readonly schemaType` property.
 - **Automated Content Sniffer**: Implemented detection logic in `includes/bootstrap.php` that scans body fragments for
@@ -72,7 +72,7 @@ Entries are grouped by date (most recent first).
 ### 🧠 Cognitive Sync
 
 - **Brain Artifacts**: Synchronized all `.agent/brain/` artifacts with the latest session intelligence.
-- **Release Baseline**: Established `v3.5.9` as the official "Nerd-Lab" baseline for the end of March 2026.
+- **Release Baseline**: Established `v4.0.0-alpha.9` as the official "Nerd-Lab" baseline for the end of March 2026.
 
 ---
 

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (lab-module4.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (lab-module4.php)
  * * ROLE: Lab Worksheet: Module 4 - Automated Testing with PHPUnit 11.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Lab Worksheet: Module 4 - CmsForNerd v3.5",
+    'title'       => "Lab Worksheet: Module 4 - CmsForNerd v4.0.0-alpha",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Student Lab Worksheet for Module 4: Automated Testing with PHPUnit 11. Master the AAA pattern.",
     'keywords'    => "Testing Lab, Module 4, PHPUnit 11, TDD, AAA Pattern, Security Testing",

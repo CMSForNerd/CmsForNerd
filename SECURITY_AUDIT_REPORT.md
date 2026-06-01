@@ -1,4 +1,4 @@
-# CmsForNerd Security Audit Report (v3.5)
+# CmsForNerd Security Audit Report (v4.0.0-alpha)
 
 ## 1. Enumeration Table
 
@@ -10,18 +10,18 @@
 | `sitemap.php` | XML Sitemap | No | Guest | None | Low | Hardened headers and restricted CSP. |
 | `ai-dev.php` | AI Dev Docs | No | Guest | None | Low | Documentation. |
 | `ai-sop.php` | AI SOP Docs | No | Guest | None | Low | Documentation. |
-| `lab-manual.php`| Lab Manual | No | Guest | None | Low | Documentation. |
-| `lab-module1.php`| Lab Module 1 | No | Guest | None | Low | Worksheet. |
-| `lab-module2.php`| Lab Module 2 | No | Guest | None | Low | Worksheet. |
-| `lab-module3.php`| Lab Module 3 | No | Guest | None | Low | Worksheet. |
-| `lab-module4.php`| Lab Module 4 | No | Guest | None | Low | Worksheet. |
-| `lab-module5.php`| Lab Module 5 | No | Guest | None | Low | Worksheet. |
+| `lab-manual.php` | Lab Manual | No | Guest | None | Low | Documentation. |
+| `lab-module1.php` | Lab Module 1 | No | Guest | None | Low | Worksheet. |
+| `lab-module2.php` | Lab Module 2 | No | Guest | None | Low | Worksheet. |
+| `lab-module3.php` | Lab Module 3 | No | Guest | None | Low | Worksheet. |
+| `lab-module4.php` | Lab Module 4 | No | Guest | None | Low | Worksheet. |
+| `lab-module5.php` | Lab Module 5 | No | Guest | None | Low | Worksheet. |
 | `final-exam.php` | Final Exam | No | Guest | None | Medium | The "Break-Fix" challenge page. |
-| `exam-answers.php`| Exam Answers | No (Now Yes) | Guest (Instructor) | `$_GET['key']` | **High** | Exposed sensitive answers to all. |
-| `graduation.php` | Graduation | No (Now Yes) | Student | `$_GET['student_id']`| Medium | Accessible without completing modules. |
-| `installation.php`| Setup Guide | No | Guest | None | Low | Documentation. |
+| `exam-answers.php` | Exam Answers | No (Now Yes) | Guest (Instructor) | `$_GET['key']` | **High** | Exposed sensitive answers to all. |
+| `graduation.php` | Graduation | No (Now Yes) | Student | `$_GET['student_id']` | Medium | Accessible without completing modules. |
+| `installation.php` | Setup Guide | No | Guest | None | Low | Documentation. |
 | `linux-setup.php` | Linux Setup | No | Guest | None | Low | Documentation. |
-| `windows-setup.php`| Windows Setup | No | Guest | None | Low | Documentation. |
+| `windows-setup.php` | Windows Setup | No | Guest | None | Low | Documentation. |
 | `ujian-form.php` | Turnstile Test | No | Guest | `$_POST` | Low | Protected by Turnstile. |
 
 ## 2. Executive Summary

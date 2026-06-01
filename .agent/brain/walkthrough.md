@@ -1,8 +1,8 @@
-# Walkthrough: Semantic Evolution & Zero-Global Architecture (v3.6.0)
+# Walkthrough: Semantic Evolution & Zero-Global Architecture (v4.0.0-alpha.0)
 
 ### Modification Date: 2026-03-30
 
-## 🚀 Key Accomplishments (v3.6.0)
+## 🚀 Key Accomplishments (v4.0.0-alpha.0)
 
 ### 1. Zero-Global Registry
 
@@ -26,7 +26,7 @@
   `--lab-blur`) applied to headers, sidebars, and content surfaces.
 - **Zero-Debt Enforcement**: Established `docs/lint-config.json` with a 120-character line-length mandate to prevent
   documentation regressions and maintain absolute Markdown hygiene.
-- **UI Audit Kit v3.6**: Bootstrapped a dedicated "Glass Laboratory" section for real-time verification of surface transparency and accessibility.
+- **UI Audit Kit v4.0.0-alpha**: Bootstrapped a dedicated "Glass Laboratory" section for real-time verification of surface transparency and accessibility.
 - **Global Variable Union**: Synchronized all color tokens to use the `--lab-purple` global accent across Standard and AMP architectures, achieving 100% "Zero-Debt" parity.
 
 ---
@@ -46,7 +46,7 @@
 
 ---
 
-## Module 8: PWA Architecture (v3.5.1)
+## Module 8: PWA Architecture (v4.0.0-alpha.1)
 
 ### bfcache Optimization & Multi-Directive CSP
 
@@ -58,7 +58,7 @@
 
 ---
 
-## Module 7: Dark Mode Engineering (v3.5)
+## Module 7: Dark Mode Engineering (v4.0.0-alpha)
 
 ### Dual-Layer Interactivity via amp-bind
 

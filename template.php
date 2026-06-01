@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CmsForNerd v3.5 - Master Template Boilerplate
+ * CmsForNerd v4.0.0-alpha - Master Template Boilerplate
  * * This file serves as the "Master Controller" for the Lab v3 architecture.
  * INSTRUCTIONS FOR STUDENTS:
  * 1. Copy this file to create a new page (e.g., about.php).
@@ -35,7 +35,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * v3.4 includes schemaType to help AI crawlers (ChatGPT/Gemini) understand the page.
  */
 $content = [
-    'title'       => "New Lab Specimen | CmsForNerd v3.5",
+    'title'       => "New Lab Specimen | CmsForNerd v4.0.0-alpha",
     'author'      => "Harisfazillah Jamel",
     'description' => "A lightweight flat-file CMS modernized for PHP 8.4+ and PHP 9 readiness.",
     'keywords'    => "PHP 8.4, Flat-file CMS, Security Laboratory, PSR-12, Education",
@@ -44,7 +44,7 @@ $content = [
 
 /**
  * 4. [LAB] ROUTING & SANITIZATION
- * v3.5 uses the 'match' expression—a modern, strict alternative to 'switch'.
+ * v4.0.0-alpha uses the 'match' expression—a modern, strict alternative to 'switch'.
  * It ensures that we handle the query string or default to 'index' cleanly.
  */
 $pageName = \CmsForNerd\SecurityUtils::resolvePageName(pathinfo(basename(__FILE__), PATHINFO_FILENAME));

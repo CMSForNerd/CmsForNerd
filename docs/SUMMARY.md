@@ -1,6 +1,6 @@
 # Summary
 
-# CMSForNerd Laboratory (v3.5)
+# CMSForNerd Laboratory (v4.0.0-alpha)
 
 * [Introduction](README.md)
 * [Student Welcome Kit](welcome-kit.md)

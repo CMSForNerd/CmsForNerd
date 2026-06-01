@@ -1,6 +1,6 @@
-# 📜 SOP: Responsible AI Usage in the Lab (v3.5)
+# 📜 SOP: Responsible AI Usage in the Lab (v4.0.0-alpha)
 
-Standard Operating Procedure for the CMSForNerd v3.5 Laboratory.
+Standard Operating Procedure for the CMSForNerd v4.0.0-alpha Laboratory.
 
 ## 🎯 Objective
 

@@ -1,6 +1,6 @@
-# 🪟 Windows Setup Guide: Laboratory Readiness (v3.5)
+# 🪟 Windows Setup Guide: Laboratory Readiness (v4.0.0-alpha)
 
-Professional toolchain configuration for the **CMSForNerd v3.5** Laboratory, prepared for PHP 8.4 and PHP 9.
+Professional toolchain configuration for the **CMSForNerd v4.0.0-alpha** Laboratory, prepared for PHP 8.4 and PHP 9.
 
 ---
 

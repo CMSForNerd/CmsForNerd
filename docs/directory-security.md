@@ -1,4 +1,4 @@
-# CMSForNerd v3.5: 🛡️ Directory Security Lab Exercise
+# CMSForNerd v4.0.0-alpha: 🛡️ Directory Security Lab Exercise
 
 ## Step 4: Directory Browsing Protection
 

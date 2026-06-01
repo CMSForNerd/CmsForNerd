@@ -6,7 +6,7 @@ environment for modern developers. Version 4.0 marks the transition to **High-Fi
 
 **Current Version:** 4.0.0-alpha (Visual Fidelity Milestone)
 
-**Changelog:** See [CHANGELOG.md](CHANGELOG.md) for v3.6.0 release details.
+**Changelog:** See [CHANGELOG.md](CHANGELOG.md) for v4.0.0-alpha.0 release details.
 
 **Primary Maintainer:** Harisfazillah Jamel
 
@@ -41,13 +41,13 @@ handshake is **REQUIRED** for all laboratory sessions.
 
 1. **Update Brain**: Update `.agent/brain/walkthrough.md` with the day's logic changes to prepare for the next session.
 2. **Log Milestones**: Finalize entries in `CHANGELOG.md`.
-3. **Tag State**: Use `git tag -a v3.6.0` to create a permanent snapshot of the current "State of Mind."
+3. **Tag State**: Use `git tag -a v4.0.0-alpha.0` to create a permanent snapshot of the current "State of Mind."
 
 ---
 
 ## 📋 MASTER CONTEXT BLOCK (Copy/Paste for AI)
 
-> **PROMPT:** Act as a Lead PHP Architect for **CmsForNerd v3.6**. Standards: PHP 8.4 strict types, PHPStan Level 8,
+> **PROMPT:** Act as a Lead PHP Architect for **CmsForNerd v4.0.0-alpha**. Standards: PHP 8.4 strict types, PHPStan Level 8,
 > Zero-Global variables (via `Registry`), and "Pair Logic" (Logic in `.php`, UI in `-body.inc`). This is a Dual-View CMS
 > (Standard/AMP).
 > **Core Engine (bootstrap.php):** Initializes Immutable `CmsContext` with automated `schemaType` detection.
@@ -97,7 +97,7 @@ handshake is **REQUIRED** for all laboratory sessions.
 
 ---
 
-## ⚖️ Standards (RFC 2119 & v3.6 Engineering)
+## ⚖️ Standards (RFC 2119 & v4.0.0-alpha Engineering)
 
 - **MUST**: Begin all files with `declare(strict_types=1);`.
 - **MUST**: All mobile output **MUST** pass the `AMP Validator`.
@@ -110,7 +110,7 @@ handshake is **REQUIRED** for all laboratory sessions.
 ### Credits
 
 - **Author**: Harisfazillah Jamel (LinuxMalaysia)
-- **Assistant**: Google Gemini & Google Antigravity (v3.6 "Semantic Evolution" Milestone)
+- **Assistant**: Google Gemini & Google Antigravity (v4.0.0-alpha "Semantic Evolution" Milestone)
 - **Website**: [linuxmalaysia.com](https://www.linuxmalaysia.com)
 
 *Modernization without loss of simplicity. Mobile excellence without the bloat.*

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (hall-of-fame.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (hall-of-fame.php)
  * * ROLE: Recognizes ethical security researchers and laboratory contributors.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.

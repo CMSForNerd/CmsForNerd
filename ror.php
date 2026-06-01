@@ -8,7 +8,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
 /**
  * ==========================================================================
  * FILE: /ror.php
- * ROLE: Dynamic ROR Sitemap Generator (v3.5)
+ * ROLE: Dynamic ROR Sitemap Generator (v4.0.0-alpha)
  * DESCRIPTION: Provides a Resources of a Resource (ROR) map for educational 
  * semantic exploration.
  * ==========================================================================
@@ -32,7 +32,7 @@ header("X-Content-Type-Options: nosniff");
 // 4. [ROR START]
 echo '<rss version="2.0" xmlns:ror="http://www.rorweb.com/0.1/">' . PHP_EOL;
 echo '  <channel>' . PHP_EOL;
-echo '    <title>ROR Sitemap for CMSForNerd Laboratory v3.5</title>' . PHP_EOL;
+echo '    <title>ROR Sitemap for CMSForNerd Laboratory v4.0.0-alpha</title>' . PHP_EOL;
 echo '    <link>' . $baseUrl . 'index.php</link>' . PHP_EOL;
 
 // 5. [ITEM SCAN]

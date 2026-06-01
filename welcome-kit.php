@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (welcome-kit.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (welcome-kit.php)
  * * ROLE: Student Welcome Kit - Essential reference guide for lab students.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,9 +28,9 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Student Welcome Kit: Essential Cheat Sheet - CMSForNerd v3.5",
+    'title'       => "Student Welcome Kit: Essential Cheat Sheet - CMSForNerd v4.0.0-alpha",
     'author'      => "CMSForNerd Team & Google Gemini",
-    'description' => "The one-stop reference guide for every student entering the CmsForNerd v3.5 Laboratory.",
+    'description' => "The one-stop reference guide for every student entering the CmsForNerd v4.0.0-alpha Laboratory.",
     'keywords'    => "Welcome Kit, Cheat Sheet, Student Guide, PHP 8.4+, RFC 2119, PSR-12, Security",
 ];
 

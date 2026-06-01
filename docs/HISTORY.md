@@ -11,7 +11,7 @@ Tracking the evolution of **CMSForNerd** from a legacy flat-file system to a mod
 - **Global Variable Union**: Synchronized all color tokens to `--lab-purple`, achieving 100% parity between core CSS and the UI Audit Kit.
 - **Cache-Busting Sentinel**: Implemented CSS versioning (?v=4.0.0) to force high-fidelity rendering across all laboratory interfaces.
 
-### Phase 7: Semantic Evolution & Zero-Global (v3.6.0)
+### Phase 7: Semantic Evolution & Zero-Global (v4.0.0-alpha.0)
 
 - **Zero-Global Registry**: Reached 100% architectural compliance by eliminating the `global` keyword through the
   implementation of `src/Registry.php`.
@@ -20,14 +20,14 @@ Tracking the evolution of **CMSForNerd** from a legacy flat-file system to a mod
 - **AI-Readiness**: Expanded the `CmsContext` state machine to support automated Schema.org tagging.
 - **Zero-Debt Audit**: Global remediation of over 100 Markdown lint violations to ensure high-fidelity rendering.
 
-### Phase 6: Laboratory & UI Stabilization (v3.5.7)
+### Phase 6: Laboratory & UI Stabilization (v4.0.0-alpha.7)
 
 - **UI Audit Laboratory**: Bootstrapped `ui-kit.php` for technical theme and contrast verification.
 - **AMP Acceleration Documentation**: Implemented `amp-acceleration.php` detailing dual-view logic.
 - **Workbox Integration**: Migrated vanilla Service Worker to Google Workbox v6 for optimized caching.
 - **Path Sovereignty**: Enforced absolute URI resolution (`baseUrl`) site-wide for subdirectory support.
 
-### Phase 5: Modernization Mastery (v3.5.1)
+### Phase 5: Modernization Mastery (v4.0.0-alpha.1)
 
 - **Zero-Global Architecture**: Complete elimination of `global` state in 30+ controllers.
 - **PWA SPA-Hybrid**: Introduced `Stale-While-Revalidate` caching and memory-instant `bfcache` routing for desktop and
@@ -43,9 +43,9 @@ Tracking the evolution of **CMSForNerd** from a legacy flat-file system to a mod
 
 ---
 
-## The v3.6 Journey: A Case Study
+## The v4.0.0-alpha Journey: A Case Study
 
-In 2026, **CMSForNerd v3.6** represents the pinnacle of "Radically Simple" engineering. This version finalizes the
+In 2026, **CMSForNerd v4.0.0-alpha** represents the pinnacle of "Radically Simple" engineering. This version finalizes the
 transition into a fully synchronized, AI-native developer's laboratory.
 
 ### 1. The PHP 8.4/9 foundation
@@ -70,12 +70,12 @@ Refactored the 2005 foundation into PHP 8.4+ classes with PHP 9 readiness.
 
 - **Content Sniffer**: Automates the promotion of pages to `@type: TechArticle` or `Course` based on `<?php` or
   `<code>` detections.
-- **CmsContext v3.6**: Enhanced with `schemaType` and `baseUrl` for absolute semantic fidelity.
+- **CmsContext v4.0.0-alpha**: Enhanced with `schemaType` and `baseUrl` for absolute semantic fidelity.
 
 ### 🏗️ Global-Free Registry
 
 - **Registry Design**: Centralized static store for laboratory tokens, replacing the legacy `global` scope.
-- **Bootstrap v3.6**: Completely refactored `includes/bootstrap.php` for immutable state initialization.
+- **Bootstrap v4.0.0-alpha**: Completely refactored `includes/bootstrap.php` for immutable state initialization.
 
 ### 🛡️ Documentation Hardening
 

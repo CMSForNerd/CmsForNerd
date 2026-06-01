@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * ==========================================================================
  * FILE: /rss.php
- * ROLE: Dynamic RSS 2.0 Feed Generator (v3.5)
+ * ROLE: Dynamic RSS 2.0 Feed Generator (v4.0.0-alpha)
  * DESCRIPTION: Provides a synchronized content feed using Pair Logic.
  * ==========================================================================
  */
@@ -30,7 +30,7 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
 echo '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
 echo '  <channel>' . PHP_EOL;
-echo '    <title>CMSForNerd Laboratory v3.5</title>' . PHP_EOL;
+echo '    <title>CMSForNerd Laboratory v4.0.0-alpha</title>' . PHP_EOL;
 echo '    <link>' . $baseUrl . 'index.php</link>' . PHP_EOL;
 echo '    <description>Modern PHP 8.4+ educational CMS environment.</description>' . PHP_EOL;
 echo '    <language>en-us</language>' . PHP_EOL;
@@ -62,7 +62,7 @@ if (is_dir($fragmentDir)) {
             echo '    <item>' . PHP_EOL;
             echo '      <title>' . $title . '</title>' . PHP_EOL;
             echo '      <link>' . $baseUrl . $slug . '.php</link>' . PHP_EOL;
-            echo '      <description>Updates for the ' . $title . ' module in the v3.5 Laboratory.</description>' . PHP_EOL;
+            echo '      <description>Updates for the ' . $title . ' module in the v4.0.0-alpha Laboratory.</description>' . PHP_EOL;
             echo '      <guid isPermaLink="true">' . $baseUrl . $slug . '.php</guid>' . PHP_EOL;
             echo '      <pubDate>' . $pubDate . '</pubDate>' . PHP_EOL;
             echo '    </item>' . PHP_EOL;

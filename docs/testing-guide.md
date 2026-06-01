@@ -1,12 +1,12 @@
 ---
-description: "How to use the Dual Testing Architecture (Pest + PHPUnit) in CMSForNerd v3.5."
+description: "How to use the Dual Testing Architecture (Pest + PHPUnit) in CMSForNerd v4.0.0-alpha."
 ---
 
 # ⚗️ Dual Testing Guide
 
 Welcome to the **Testing Laboratory**.
 
-CMSForNerd v3.5 employs a unique **Dual Testing Architecture**. We maintain our strict, legacy security benchmarks using classic **PHPUnit**, while also providing you the modern, elegant, and frictionless experience of **Pest PHP** for your feature development.
+CMSForNerd v4.0.0-alpha employs a unique **Dual Testing Architecture**. We maintain our strict, legacy security benchmarks using classic **PHPUnit**, while also providing you the modern, elegant, and frictionless experience of **Pest PHP** for your feature development.
 
 This guide will teach you how to run both engines, what they are used for, and the strict architectural rules that prevent them from cross-contaminating.
 
@@ -85,7 +85,7 @@ it('can detect a true boolean', function () {
 
 ## 4. Architectural Rules (Zero Cross-Contamination)
 
-To maintain order in the v3.5 Laboratory, you MUST adhere to the following namespaces and boundaries:
+To maintain order in the v4.0.0-alpha Laboratory, you MUST adhere to the following namespaces and boundaries:
 
 > [!WARNING]
 > Do NOT mix test styles within the same directory. This causes the Dual Testing execution parameters to fail.

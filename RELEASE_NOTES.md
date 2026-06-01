@@ -1,10 +1,10 @@
-# 🚀 Release v3.5.0: The "Mobile Mastery" Milestone
+# 🚀 Release v4.0.0-alpha.0: The "Mobile Mastery" Milestone
 
-We are proud to announce **CMSForNerd v3.5**, a significant evolution in our educational mission. This release introduces a sophisticated **Dual-View Architecture**, allowing the laboratory to serve lightning-fast, interactive mobile experiences via **AMP (Accelerated Mobile Pages)** while maintaining a robust desktop environment.
+We are proud to announce **CMSForNerd v4.0.0-alpha**, a significant evolution in our educational mission. This release introduces a sophisticated **Dual-View Architecture**, allowing the laboratory to serve lightning-fast, interactive mobile experiences via **AMP (Accelerated Mobile Pages)** while maintaining a robust desktop environment.
 
 ---
 
-## 🌟 What's New in v3.5?
+## 🌟 What's New in v4.0.0-alpha?
 
 ### 📱 Dual-View Architecture (Hybrid Delivery)
 
@@ -27,7 +27,7 @@ We are proud to announce **CMSForNerd v3.5**, a significant evolution in our edu
 
 ## 🧪 Educational Impact
 
-With v3.5, the curriculum expands into **Modern Mobile UX**:
+With v4.0.0-alpha, the curriculum expands into **Modern Mobile UX**:
 
 1. **AMP Standards**: Learning to build interactive UI without the weight of custom JavaScript.
 2. **Resource Budgeting**: Understanding the importance of the 75KB CSS limit and how to minify assets.

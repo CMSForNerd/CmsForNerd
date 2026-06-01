@@ -1,4 +1,4 @@
-# 🎓 Graduation & Certification (v3.5)
+# 🎓 Graduation & Certification (v4.0.0-alpha)
 
 Congratulations! By reaching this stage, you have successfully transformed a legacy script into a secure, standards-compliant PHP 8.4 application.
 

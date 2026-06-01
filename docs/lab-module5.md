@@ -1,4 +1,4 @@
-# 📊 Lab Module 5: Coverage & QA (v3.5)
+# 📊 Lab Module 5: Coverage & QA (v4.0.0-alpha)
 
 > **Topic:** Test Coverage and Quality Assurance
 

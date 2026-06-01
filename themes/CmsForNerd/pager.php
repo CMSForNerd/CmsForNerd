@@ -126,7 +126,7 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
         </main>
 
         <footer style="text-align:center; padding:30px; border-top:1px solid var(--lab-border); font-size:0.8rem; color:var(--lab-muted);">
-            <p>&copy; <?= date('Y') ?> CmsForNerd v3.5 Laboratory</p>
+            <p>&copy; <?= date('Y') ?> CmsForNerd v4.0.0-alpha Laboratory</p>
             <p><a href="<?= htmlspecialchars($ctx->scriptName) ?>.php" style="color:var(--lab-purple);">Switch to Standard Desktop View</a></p>
         </footer>
     </body>

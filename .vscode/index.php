@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CMSForNerd v3.5 - Silent Sentry
+ * CMSForNerd v4.0.0-alpha - Silent Sentry
  * Rule #8: Unauthorized directory browsing is forbidden.
  */
 

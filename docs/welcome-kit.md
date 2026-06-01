@@ -1,4 +1,4 @@
-# 🚀 Student Welcome Kit (v3.5)
+# 🚀 Student Welcome Kit (v4.0.0-alpha)
 
 > "Modernization without loss of simplicity."
 
@@ -68,6 +68,6 @@ To pass your modules, your code must adhere to these strict requirement levels:
 2. **Modules 1-3:** Master Architecture, Standards, and Security.
 3. **Modules 4-5:** Write Unit Tests and achieve Coverage.
 4. **Final Exam:** Solve the "Broken Lab" challenge.
-5. **Graduation:** Claim your v3.5 Digital Certificate!
+5. **Graduation:** Claim your v4.0.0-alpha Digital Certificate!
 
 [🚀 Start Laboratory Module 1](lab-module1.md)

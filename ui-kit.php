@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - UI Diagnostic Laboratory (ui-kit.php)
+ * CmsForNerd v4.0.0-alpha - UI Diagnostic Laboratory (ui-kit.php)
  * * ROLE: Visual audit of all theme components and CSS variables.
  * This file is synchronized with the master template.php logic.
  */

@@ -23,7 +23,7 @@ deployment of a highly secure **Nginx** and **PHP-FPM 8.4+** stack:
 
 ## [SHIELD] The Doctrine: "Rootful Orchestration, Isolated Execution"
 
-In v3.6.0, we enforce a strict separation of concerns to ensure production-grade security for the educational CMS:
+In v4.0.0-alpha.0, we enforce a strict separation of concerns to ensure production-grade security for the educational CMS:
 
 * **Rootful Orchestration**: Ansible runs tasks requiring package management (Nginx, PHP 8.4, Composer) and directory
   creation (`/var/www/cmsfornerd`) as root (`become: yes`).

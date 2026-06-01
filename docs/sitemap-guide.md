@@ -1,6 +1,6 @@
-# 🗺️ Sitemap & Discovery (v3.5)
+# 🗺️ Sitemap & Discovery (v4.0.0-alpha)
 
-The Sitemap in **CmsForNerd v3.5** serves as the navigational backbone for both human visitors and search engine crawlers. It automatically reflects the state of your flat-file laboratory.
+The Sitemap in **CmsForNerd v4.0.0-alpha** serves as the navigational backbone for both human visitors and search engine crawlers. It automatically reflects the state of your flat-file laboratory.
 
 ---
 
@@ -23,7 +23,7 @@ The system scans the `contents/` folder for files ending in `-body.inc`. It then
 
 ## 🚀 SEO Best Practices
 
-CmsForNerd v3.5 generates two types of sitemaps:
+CmsForNerd v4.0.0-alpha generates two types of sitemaps:
 
 1. **HTML Sitemap:** For user navigation (this page).
 2. **XML Sitemap:** Located at `sitemap.php` for Google Search Console and Bing Webmaster Tools.

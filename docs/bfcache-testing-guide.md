@@ -1,6 +1,6 @@
 # 🏁 Guide: Testing Back/Forward Cache (bfcache)
 
-The CMSForNerd v3.5 laboratory environment utilizes an advanced Vanilla Javascript History API router. To ensure instantaneous navigation experiences, we implemented Back/Forward Cache (bfcache) optimizations (such as `AbortController` cancellation for pending network requests).
+The CMSForNerd v4.0.0-alpha laboratory environment utilizes an advanced Vanilla Javascript History API router. To ensure instantaneous navigation experiences, we implemented Back/Forward Cache (bfcache) optimizations (such as `AbortController` cancellation for pending network requests).
 
 As a developer or student, here is the protocol to verify that bfcache is actively working in your local environment.
 
@@ -32,7 +32,7 @@ Right-click on the page and select **Inspect**, or press `F12` (`Cmd+Option+I` o
 #### Analyzing the Results
 
 * **✅ Success (`Actionable` / `Restored`)**: If the frame is successfully cached, Chrome will display a green success message indicating "Restored from back/forward cache".
-* **❌ Failure (`notRestoredReasons`)**: If it fails, Chrome will list exact reasons why. Common reasons include open WebSocket connections, incomplete `fetch` requests, or active `unload` event listeners (which we strictly prohibit in v3.5).
+* **❌ Failure (`notRestoredReasons`)**: If it fails, Chrome will list exact reasons why. Common reasons include open WebSocket connections, incomplete `fetch` requests, or active `unload` event listeners (which we strictly prohibit in v4.0.0-alpha).
 
 ---
 

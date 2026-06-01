@@ -1,8 +1,8 @@
 ---
-description: Daily Workflow for CMSForNerd Laboratory (v3.5)
+description: Daily Workflow for CMSForNerd Laboratory (v4.0.0-alpha)
 ---
 
-# 🧪 The Nerd Lab Protocol (v3.5)
+# 🧪 The Nerd Lab Protocol (v4.0.0-alpha)
 
 This workflow defines the "State of Mind" and sequence of operations required to maintain the CMSForNerd Laboratory. Follow these steps every time you resume work or collaborate with other developers/agents.
 
@@ -44,4 +44,4 @@ This workflow defines the "State of Mind" and sequence of operations required to
 3. Update `walkthrough.md` to record the "State of Mind" for the next session.
 
 ---
-*Created by Google Antigravity & LinuxMalaysia for the v3.5 release milestone.*
+*Created by Google Antigravity & LinuxMalaysia for the v4.0.0-alpha release milestone.*

@@ -1,6 +1,6 @@
-# 🚀 CMSForNerd Project Rules (Updated v3.6.0)
+# 🚀 CMSForNerd Project Rules (Updated v4.0.0-alpha.0)
 
-When generating or refactoring code for **CmsForNerd v3.6** and above, you **MUST** follow these rules:
+When generating or refactoring code for **CmsForNerd v4.0.0-alpha** and above, you **MUST** follow these rules:
 
 ### 1. The "Zero-Global" Mandate
 
@@ -8,7 +8,7 @@ When generating or refactoring code for **CmsForNerd v3.6** and above, you **MUS
 * **The Registry Pattern**: Use `\CmsForNerd\Registry` (static container) for theme-wide tokens (nonces, theme names) and the immutable `CmsContext` for request-specific state.
 * **Verification**: Every refactor must pass the `composer check-strict` audit.
 
-### 2. Semantic Content Autodetection (v3.6)
+### 2. Semantic Content Autodetection (v4.0.0-alpha)
 
 * **The Content Sniffer**: The engine now automatically classifies content. Do not manually hardcode `@type` in controllers.
 * **TechArticle Promotion**: If a `-body.inc` fragment contains `<?php`, `<code>`, or `<pre>`, the `schemaType` MUST be dynamically upgraded to `TechArticle`.

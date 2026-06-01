@@ -1,4 +1,4 @@
-# 🛡️ Lab Module 3: Defensive Engineering (v3.5)
+# 🛡️ Lab Module 3: Defensive Engineering (v4.0.0-alpha)
 
 > **Topic:** Perimeter Security & XSS Neutralization
 

@@ -1,11 +1,11 @@
 <?php
 
 /**
- * [SECURITY] Cloudflare Turnstile Integration - v3.5
+ * [SECURITY] Cloudflare Turnstile Integration - v4.0.0-alpha
  *
  * This module blocks automated bots via Server-to-Server verification.
  * It works in tandem with the Hybrid Bot Intelligence layer (is_bot.php)
- * to provide a defense-in-depth strategy for the v3.5 Laboratory.
+ * to provide a defense-in-depth strategy for the v4.0.0-alpha Laboratory.
  *
  * Compliance: PHP 8.4, PSR-12, PSR-1 (Side-effect management)
  */

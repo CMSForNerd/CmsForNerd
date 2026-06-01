@@ -3,7 +3,7 @@
 /**
  * ==========================================================================
  * FILE: /includes/is_bot.php
- * ROLE: Hybrid Bot Intelligence & Protection (v3.5)
+ * ROLE: Hybrid Bot Intelligence & Protection (v4.0.0-alpha)
  * DESCRIPTION: Combines User-Agent regex with verified IP CIDR matching.
  * ==========================================================================
  */
@@ -124,7 +124,7 @@ function ip_in_range(string $ip, string $range): bool
 
         // [SECURITY] Safe shift calculation to avoid undefined behavior or overflows
         $shift = 32 - $bits;
-        $mask = ($bits === 0) ? 0 : (~0 << $shift);
+        $mask = ($bits === 0) ? 0 : ((int)~0 << (int)$shift);
         return ($ipLong & $mask) === ($subnetLong & $mask);
     } else {
         // IPv6 - Architectural Hardening for Performance & Security
@@ -138,13 +138,17 @@ function ip_in_range(string $ip, string $range): bool
         // Pre-allocate fixed 16-byte zero mask to satisfy DoS protection rules
         $mask = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
         $fullBytes = (int)($bits / 8);
-        for ($i = 0; $i < $fullBytes; $i++) {
-            $mask[$i] = "\xFF";
+        $clampedFullBytes = max(0, min(16, $fullBytes));
+
+        for ($i = 0; $i < 16; $i++) {
+            if ($i < $clampedFullBytes) {
+                $mask[$i] = "\xFF";
+            }
         }
 
         $remainingBits = $bits % 8;
-        if ($remainingBits > 0) {
-            $mask[$fullBytes] = chr(256 - (1 << (8 - $remainingBits)));
+        if ($remainingBits > 0 && $clampedFullBytes < 16) {
+            $mask[$clampedFullBytes] = chr(256 - (1 << (8 - $remainingBits)));
         }
 
         return ($ipBin & $mask) === ($subnetBin & $mask);
@@ -299,7 +303,7 @@ function block_datacenter_traffic(string $apiToken): void
 function serve_bot_text_mode(array $config): never
 {
     header('Content-Type: text/plain; charset=utf-8');
-    echo "CmsForNerd v3.5 - Laboratory Text Mode\n";
-    echo "Sitemap: " . ($config['sitemap_url'] ?? '/sitemap.php');
+    echo "CmsForNerd v4.0.0-alpha - Laboratory Text Mode\n";
+    echo "Sitemap: " . htmlspecialchars($config["sitemap_url"] ?? "/sitemap.php", ENT_QUOTES, "UTF-8");
     exit;
 }

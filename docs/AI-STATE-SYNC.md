@@ -1,4 +1,4 @@
-# CmsForNerd Project State Sync (v3.5)
+# CmsForNerd Project State Sync (v4.0.0-alpha)
 
 ## 🎯 Current Mission
 
@@ -10,7 +10,7 @@ We are maintaining a **Modern PHP 8.4 Laboratory Environment**. The core engine 
 2. **Intelligence Audit & Pre-Flight:** Mandates `composer audit-pre-flight` and `git status` check at every session start to prevent "Context Decay."
 3. **Git-Delta Awareness:** Verify local vs. remote state via `git fetch` and `git log` before trusting any local "Brain" artifacts.
 4. **Bootstrap Pattern:** Every root `.php` file is a Front Controller. It MUST NOT load library files directly. It MUST load `includes/bootstrap.php`.
-5. **Zero-Global Architecture:** (Critical v3.5 Law)
+5. **Zero-Global Architecture:** (Critical v4.0.0-alpha Law)
    - **NO** `global` keywords are allowed in Page Controllers or Functions.
    - **ALL** core dependencies MUST be passed via `CmsContext` Factory Methods.
 6. **Namespace:** Everything core is under `namespace CmsForNerd;`.
@@ -22,13 +22,13 @@ We are maintaining a **Modern PHP 8.4 Laboratory Environment**. The core engine 
 
 ## 🚦 Completed Refactors
 
-- [x] **Zero-Global v3.5:** Refactored `includes/bootstrap.php` and 30+ controllers to eliminate implicit Global State.
-- [x] **Master Protocol v3.5:** Formalized the "Intelligence Handshake" in `docs/AI-MASTER-PROTOCOL.md`.
+- [x] **Zero-Global v4.0.0-alpha:** Refactored `includes/bootstrap.php` and 30+ controllers to eliminate implicit Global State.
+- [x] **Master Protocol v4.0.0-alpha:** Formalized the "Intelligence Handshake" in `docs/AI-MASTER-PROTOCOL.md`.
 - [x] `CmsContext.php` namespaced with Property Hooks (PHP 8.4).
-- [x] **v3.5 Milestone:** Sitemap "Pair Logic" refactor, dynamic RSS 2.0, and ROR XML implemented.
+- [x] **v4.0.0-alpha Milestone:** Sitemap "Pair Logic" refactor, dynamic RSS 2.0, and ROR XML implemented.
 - [x] **Nerd Lab Protocol:** Codified the persistent "State of Mind" workflow.
 
-# Project State Sync (v3.5.1) - 2026-01-04
+# Project State Sync (v4.0.0-alpha.1) - 2026-01-04
 
 **Current Mission**: Finalizing AMP infrastructure and Baseline Synchronization.
 
@@ -48,7 +48,7 @@ The system is ready for automated SEO discovery. The next agent should focus on 
 
 ## 🚧 Work In Progress
 
-- **Documentation Finalization:** Syncing `docs/` with the latest v3.5 code examples.
+- **Documentation Finalization:** Syncing `docs/` with the latest v4.0.0-alpha code examples.
 - **GitBook Deployment:** Ensuring all markdown files reflect the "Laboratory" aesthetic.
 
 ## 🧪 Verification Commands

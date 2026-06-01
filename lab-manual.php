@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (lab-manual.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (lab-manual.php)
  * * ROLE: Central hub for the laboratory curriculum.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,9 +28,9 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "The Lab Manual: PHP 8.4+ & PHP 9 Readiness - CmsForNerd v3.5",
+    'title'       => "The Lab Manual: PHP 8.4+ & PHP 9 Readiness - CmsForNerd v4.0.0-alpha",
     'author'      => "Harisfazillah Jamel & Gemini",
-    'description' => "Welcome to the v3.5 educational suite. A transparent laboratory for learning modern PHP architecture.",
+    'description' => "Welcome to the v4.0.0-alpha educational suite. A transparent laboratory for learning modern PHP architecture.",
     'keywords'    => "Lab Manual, PHP 8.4, Education, Architecture, Security, TDD, PSR-12",
 ];
 

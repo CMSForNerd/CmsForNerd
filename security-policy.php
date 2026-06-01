@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (security-policy.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (security-policy.php)
  * * ROLE: Defines the formal vulnerability disclosure protocol.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (lab-module5.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (lab-module5.php)
  * * ROLE: Lab Worksheet: Module 5 - Test Coverage and Quality Assurance.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Lab Worksheet: Module 5 - CmsForNerd v3.5",
+    'title'       => "Lab Worksheet: Module 5 - CmsForNerd v4.0.0-alpha",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Module 5: Test Coverage and QA. Learn to visualize the safety net of your application using HTML reports.",
     'keywords'    => "Coverage Lab, PHPUnit, Xdebug, CRAP Index, PHP 9 Ready, QA",

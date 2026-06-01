@@ -1,8 +1,8 @@
-# 🎨 CmsForNerd v3.5 Laboratory Guide
+# 🎨 CmsForNerd v4.0.0-alpha Laboratory Guide
 
 ### Mastering the "Pair Logic" & Context Engine
 
-The `template.php` file acts as the **Master Controller**. In v3.5, you don't need to write new PHP logic for every page. You simply duplicate the template and pair it with a content fragment.
+The `template.php` file acts as the **Master Controller**. In v4.0.0-alpha, you don't need to write new PHP logic for every page. You simply duplicate the template and pair it with a content fragment.
 
 ---
 
@@ -61,7 +61,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * AI Crawlers use 'schemaType' to categorize your laboratory data.
  */
 $content = [
-    'title'       => "Service Lab | CmsForNerd v3.5",
+    'title'       => "Service Lab | CmsForNerd v4.0.0-alpha",
     'author'      => "Harisfaz Jamal",
     'description' => "Lab description here.",
     'keywords'    => "PHP 8.4, Lab, CMS",
@@ -107,7 +107,7 @@ Before moving to production, perform these three laboratory checks:
 
 ---
 
-## ⚖️ Laboratory Standards (v3.5 Update)
+## ⚖️ Laboratory Standards (v4.0.0-alpha Update)
 
 * **MUST**: Keep `declare(strict_types=1);` at the top of all .php files.
 * **MUST NOT**: Modify the Routing Logic or Theme Execution blocks in copied files.

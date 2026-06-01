@@ -1,4 +1,4 @@
-# 🎓 CMSForNerd Laboratory Guide (v3.5)
+# 🎓 CMSForNerd Laboratory Guide (v4.0.0-alpha)
 
 Welcome to the CmsForNerd Developer Laboratory. This guide helps you understand modern PHP 8.4 architecture through hands-on exercises.
 

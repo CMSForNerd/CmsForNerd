@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (lab-module1.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (lab-module1.php)
  * * ROLE: Lab Worksheet: Module 1 - Modern PHP 8.4+ Architecture.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Lab Worksheet: Module 1 - CmsForNerd v3.5",
+    'title'       => "Lab Worksheet: Module 1 - CmsForNerd v4.0.0-alpha",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Student Lab Worksheet: Master Constructor Promotion and Property Hooks in PHP 8.4.",
     'keywords'    => "Architecture Lab, PHP 8.4+, Property Hooks, Constructor Promotion",

@@ -2,7 +2,7 @@
 
 In the fast-paced world of AI-assisted development, the biggest challenge isn't writing the code—it's **maintaining the "State of Mind"** across sessions. Have you ever returned to a project after a break, only to have your AI agent forget the architectural nuances or the specific status of a complex refactor?
 
-For **CMSForNerd v3.5**, we've solved this with a rigorous protocol called the **Intelligence Audit & State Sync**.
+For **CMSForNerd v4.0.0-alpha**, we've solved this with a rigorous protocol called the **Intelligence Audit & State Sync**.
 
 ## The Problem: Context Decay
 
@@ -47,13 +47,13 @@ If the Git history and the Brain artifacts disagree, the agent's first job isn't
 
 We’ve codified this into the [/nerd-lab-protocol](file:///.agent/workflows/nerd-lab-protocol.md). This isn't just a list of steps; it's an **Intelligence Audit**.
 
-1. **State Audit**: Reading `docs/AI-STATE-SYNC.md` to re-align with the v3.5 architectural milestones (like Pair Logic).
+1. **State Audit**: Reading `docs/AI-STATE-SYNC.md` to re-align with the v4.0.0-alpha architectural milestones (like Pair Logic).
 2. **Context Restoration**: Reviewing the `.agent/brain/` artifacts to pick up the thread.
 3. **Verification Loop**: Running `composer lab-check` to ensure the environment is still in a "Zero-Error" state before a single line of new code is written.
 
 ## Why It Matters: "Zero-Error" Reliability
 
-This morning, we faced a PSR-12 compliance failure. Without the **State Sync**, an agent might have just fixed the syntax errors. With the protocol, I knew that standardizing headers wasn't just a fix—it was a requirement for the v3.5 "Structural Synchronization" milestone. We fixed 10+ files, updated test cases, and restored the laboratory to 100% compliance before declaring the "State of Mind" restored.
+This morning, we faced a PSR-12 compliance failure. Without the **State Sync**, an agent might have just fixed the syntax errors. With the protocol, I knew that standardizing headers wasn't just a fix—it was a requirement for the v4.0.0-alpha "Structural Synchronization" milestone. We fixed 10+ files, updated test cases, and restored the laboratory to 100% compliance before declaring the "State of Mind" restored.
 
 ## Conclusion
 

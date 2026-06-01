@@ -1,7 +1,7 @@
 <?php
 
 /**
- * [SECURITY] SecurityUtils - v3.5 Laboratory Standard.
+ * [SECURITY] SecurityUtils - v4.0.0-alpha Laboratory Standard.
  * * This class provides defensive programming utilities to protect the CMS core.
  * It combines path validation, XSS prevention, and CSP nonce generation.
  * * Compliance: PHP 8.4+, PSR-12, PHPStan Level 8.

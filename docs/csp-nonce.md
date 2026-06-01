@@ -6,7 +6,7 @@ Traditional websites often allow `'unsafe-inline'` in their CSP to let internal 
 
 ## The Solution: Cryptographic Nonces
 
-In **CMSForNerd v3.5**, we implement a "Number Used Once" (Nonce) strategy:
+In **CMSForNerd v4.0.0-alpha**, we implement a "Number Used Once" (Nonce) strategy:
 
 1. **Generation:** `SecurityUtils` creates a random 128-bit string on every page refresh.
 2. **Declaration:** The string is sent in the HTTP response header or Meta tag.

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (linux-setup.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (linux-setup.php)
  * * ROLE: Technical walkthrough for PHP 8.4+ environment deployment.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.

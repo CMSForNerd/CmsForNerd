@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (windows-setup.php)
+ * CmsForNerd v4.0.0-alpha - Page Controller (windows-setup.php)
  * * ROLE: Technical walkthrough for local development environment setup.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Windows 11 Setup Guide: PHP 8.4+ & 9 Ready | CMSForNerd v3.5",
+    'title'       => "Windows 11 Setup Guide: PHP 8.4+ & 9 Ready | CMSForNerd v4.0.0-alpha",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Step-by-step guide to setting up Laravel Herd, Git, and Antigravity for PHP 8.4 development on Windows 11.",
     'keywords'    => "Windows 11, PHP 8.4, PHP 9, Laravel Herd, Git for Windows, Antigravity Terminal, Composer",

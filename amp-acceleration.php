@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - AMP Acceleration Documentation (amp-acceleration.php)
+ * CmsForNerd v4.0.0-alpha - AMP Acceleration Documentation (amp-acceleration.php)
  * * ROLE: Explanation of the dual-view (Standard/AMP) architecture.
  * This file is synchronized with the master template.php logic.
  */

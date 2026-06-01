@@ -1,4 +1,4 @@
-# 🎨 Lab Module 2: PSR-12 Standards (v3.5)
+# 🎨 Lab Module 2: PSR-12 Standards (v4.0.0-alpha)
 
 > **Topic:** PSR-12 and the Art of Clean Code
 

@@ -1,11 +1,11 @@
-# CMSForNerd v3.5 & v3.6 Task Management
+# CMSForNerd v4.0.0-alpha & v4.0.0-alpha Task Management
 
-## [x] Module 8: PWA & CSP Master Stabilization (v3.5.1)
+## [x] Module 8: PWA & CSP Master Stabilization (v4.0.0-alpha.1)
 
 - [x] Integrate SPA-Hybrid router with bfcache support
 - [x] Resolve AMP Web Worker CSP `blob:` blocks
 - [x] Eliminate hardcoded HTTP CSP headers in `bootstrap.php`
-- [x] Tag and Release `v3.5.1`
+- [x] Tag and Release `v4.0.0-alpha.1`
 
 ## [x] Module 9: Automated Lab-Bench (Orchestration)
 
@@ -28,7 +28,7 @@
 - [x] Verify JSON-LD Structured Data implementation
 - [x] Execute EOD Ritual (Documentation Sync & Tagging) — **DONE**
 
-## [x] Phase 10: Semantic Evolution & Zero-Global (v3.6.0)
+## [x] Phase 10: Semantic Evolution & Zero-Global (v4.0.0-alpha.0)
 
 - [x] Refactor `CmsContext` for schema-awareness (TechArticle/Course/WebPage)
 - [x] Implement automated content sniffer in `bootstrap.php`

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CmsForNerd - Centralized Bootstrap (Laboratory Engine v3.5)
+ * CmsForNerd - Centralized Bootstrap (Laboratory Engine v4.0.0-alpha)
  * Compliance: PHP 8.4+, PSR-12, PHPStan Level 8
  * * SECURITY NOTE: This file manages error suppression and path abstraction
  * to prevent Information Disclosure (CWE-200).
@@ -72,7 +72,7 @@ function createCmsContext(
         $baseUrlVal = rtrim($protocol . $host . $scriptDir, '/') . '/';
     }
 
-    // [v3.6] Automated Semantic Detection logic
+    // [v4.0.0-alpha] Automated Semantic Detection logic
     $isLab = (str_contains($content['title'] ?? '', 'Lab') || str_contains($content['title'] ?? '', 'Module'));
 
     $hasCode = false;
