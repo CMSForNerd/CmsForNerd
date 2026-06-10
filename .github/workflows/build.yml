@@ -22,6 +22,8 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v8
         with:
           args: >
+            -Dsonar.organization=linuxmalaysia
+            -Dsonar.projectKey=linuxmalaysia_cmsfornerd
             -Dsonar.scanner.skipJreProvisioning=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any

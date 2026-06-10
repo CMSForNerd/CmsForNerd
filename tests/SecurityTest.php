@@ -93,19 +93,19 @@ final class SecurityTest extends TestCase
 
             // Edge cases
             'ipv6_localhost'         => ['::1', '::1/128', true],
-            'ipv6_localhost_mismatch'=> ['::1', '::/128', false],
+            'ipv6_localhost_mismatch' => ['::1', '::/128', false],
             'ipv6_full_address'      => ['2001:db8::8a2e:370:7334', '2001:db8::/64', true],
 
             // Non-multiples of 8
             'ipv6_121_bit_mismatch'  => ['2001:db8::80', '2001:db8::/121', false],
             'ipv6_121_bit_match'     => ['2001:db8::7f', '2001:db8::/121', true],
             'ipv6_121_bit_both_set'  => ['2001:db8::80', '2001:db8::80/121', true],
-            'ipv6_121_bit_subnet_set'=> ['2001:db8::7f', '2001:db8::80/121', false],
+            'ipv6_121_bit_subnet_set' => ['2001:db8::7f', '2001:db8::80/121', false],
 
-            'ipv6_122_bit_mismatch_1'=> ['2001:db8::c0', '2001:db8::80/122', false],
-            'ipv6_122_bit_mismatch_2'=> ['2001:db8::80', '2001:db8::c0/122', false],
-            'ipv6_122_bit_match_exact'=> ['2001:db8::c0', '2001:db8::c0/122', true],
-            'ipv6_122_bit_match_extra'=> ['2001:db8::e0', '2001:db8::c0/122', true],
+            'ipv6_122_bit_mismatch_1' => ['2001:db8::c0', '2001:db8::80/122', false],
+            'ipv6_122_bit_mismatch_2' => ['2001:db8::80', '2001:db8::c0/122', false],
+            'ipv6_122_bit_match_exact' => ['2001:db8::c0', '2001:db8::c0/122', true],
+            'ipv6_122_bit_match_extra' => ['2001:db8::e0', '2001:db8::c0/122', true],
         ];
     }
 }
