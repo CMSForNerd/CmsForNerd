@@ -68,34 +68,44 @@ final class SecurityTest extends TestCase
     /**
      * Test CIDR matching for IPv4 and IPv6
      */
-    public function testIpInRange(): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('ipInRangeProvider')]
+    public function testIpInRange(string $ip, string $range, bool $expected): void
     {
-        // IPv4
-        $this->assertTrue(ip_in_range('192.168.1.1', '192.168.1.0/24'));
-        $this->assertFalse(ip_in_range('192.168.2.1', '192.168.1.0/24'));
-        $this->assertTrue(ip_in_range('10.0.0.1', '10.0.0.0/8'));
+        $this->assertSame($expected, ip_in_range($ip, $range), "Failed for IP: $ip, Range: $range");
+    }
 
-        // IPv6
-        $this->assertTrue(ip_in_range('2001:db8::1', '2001:db8::/32'));
-        $this->assertTrue(ip_in_range('2001:db8:1::1', '2001:db8::/32'));
-        $this->assertFalse(ip_in_range('2001:def::1', '2001:db8::/32'));
+    /**
+     * Data provider for testIpInRange
+     * @return array<string, array{string, string, bool}>
+     */
+    public static function ipInRangeProvider(): array
+    {
+        return [
+            // IPv4
+            'ipv4_in_range'          => ['192.168.1.1', '192.168.1.0/24', true],
+            'ipv4_out_of_range'      => ['192.168.2.1', '192.168.1.0/24', false],
+            'ipv4_large_subnet'      => ['10.0.0.1', '10.0.0.0/8', true],
 
-        // Edge cases
-        $this->assertTrue(ip_in_range('::1', '::1/128'));
-        $this->assertFalse(ip_in_range('::1', '::/128'));
-        $this->assertTrue(ip_in_range('2001:db8::8a2e:370:7334', '2001:db8::/64'));
+            // IPv6
+            'ipv6_in_range'          => ['2001:db8::1', '2001:db8::/32', true],
+            'ipv6_in_range_deeper'   => ['2001:db8:1::1', '2001:db8::/32', true],
+            'ipv6_out_of_range'      => ['2001:def::1', '2001:db8::/32', false],
 
-        // Non-multiples of 8
-        // /121 mask is ... 1000 0000 (0x80)
-        $this->assertFalse(ip_in_range('2001:db8::80', '2001:db8::/121'));
-        $this->assertTrue(ip_in_range('2001:db8::7f', '2001:db8::/121'));
-        $this->assertTrue(ip_in_range('2001:db8::80', '2001:db8::80/121'));
-        $this->assertFalse(ip_in_range('2001:db8::7f', '2001:db8::80/121'));
+            // Edge cases
+            'ipv6_localhost'         => ['::1', '::1/128', true],
+            'ipv6_localhost_mismatch'=> ['::1', '::/128', false],
+            'ipv6_full_address'      => ['2001:db8::8a2e:370:7334', '2001:db8::/64', true],
 
-        // /122 mask is ... 1100 0000 (0xc0)
-        $this->assertFalse(ip_in_range('2001:db8::c0', '2001:db8::80/122'));
-        $this->assertFalse(ip_in_range('2001:db8::80', '2001:db8::c0/122'));
-        $this->assertTrue(ip_in_range('2001:db8::c0', '2001:db8::c0/122'));
-        $this->assertTrue(ip_in_range('2001:db8::e0', '2001:db8::c0/122'));
+            // Non-multiples of 8
+            'ipv6_121_bit_mismatch'  => ['2001:db8::80', '2001:db8::/121', false],
+            'ipv6_121_bit_match'     => ['2001:db8::7f', '2001:db8::/121', true],
+            'ipv6_121_bit_both_set'  => ['2001:db8::80', '2001:db8::80/121', true],
+            'ipv6_121_bit_subnet_set'=> ['2001:db8::7f', '2001:db8::80/121', false],
+
+            'ipv6_122_bit_mismatch_1'=> ['2001:db8::c0', '2001:db8::80/122', false],
+            'ipv6_122_bit_mismatch_2'=> ['2001:db8::80', '2001:db8::c0/122', false],
+            'ipv6_122_bit_match_exact'=> ['2001:db8::c0', '2001:db8::c0/122', true],
+            'ipv6_122_bit_match_extra'=> ['2001:db8::e0', '2001:db8::c0/122', true],
+        ];
     }
 }
