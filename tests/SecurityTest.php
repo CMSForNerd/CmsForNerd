@@ -64,4 +64,38 @@ final class SecurityTest extends TestCase
         // Cleanup
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
     }
+
+    /**
+     * Test CIDR matching for IPv4 and IPv6
+     */
+    public function testIpInRange(): void
+    {
+        // IPv4
+        $this->assertTrue(ip_in_range('192.168.1.1', '192.168.1.0/24'));
+        $this->assertFalse(ip_in_range('192.168.2.1', '192.168.1.0/24'));
+        $this->assertTrue(ip_in_range('10.0.0.1', '10.0.0.0/8'));
+
+        // IPv6
+        $this->assertTrue(ip_in_range('2001:db8::1', '2001:db8::/32'));
+        $this->assertTrue(ip_in_range('2001:db8:1::1', '2001:db8::/32'));
+        $this->assertFalse(ip_in_range('2001:def::1', '2001:db8::/32'));
+
+        // Edge cases
+        $this->assertTrue(ip_in_range('::1', '::1/128'));
+        $this->assertFalse(ip_in_range('::1', '::/128'));
+        $this->assertTrue(ip_in_range('2001:db8::8a2e:370:7334', '2001:db8::/64'));
+
+        // Non-multiples of 8
+        // /121 mask is ... 1000 0000 (0x80)
+        $this->assertFalse(ip_in_range('2001:db8::80', '2001:db8::/121'));
+        $this->assertTrue(ip_in_range('2001:db8::7f', '2001:db8::/121'));
+        $this->assertTrue(ip_in_range('2001:db8::80', '2001:db8::80/121'));
+        $this->assertFalse(ip_in_range('2001:db8::7f', '2001:db8::80/121'));
+
+        // /122 mask is ... 1100 0000 (0xc0)
+        $this->assertFalse(ip_in_range('2001:db8::c0', '2001:db8::80/122'));
+        $this->assertFalse(ip_in_range('2001:db8::80', '2001:db8::c0/122'));
+        $this->assertTrue(ip_in_range('2001:db8::c0', '2001:db8::c0/122'));
+        $this->assertTrue(ip_in_range('2001:db8::e0', '2001:db8::c0/122'));
+    }
 }

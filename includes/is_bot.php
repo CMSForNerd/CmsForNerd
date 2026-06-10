@@ -114,7 +114,9 @@ function ip_in_range(string $ip, string $range): bool
             return false;
         }
 
-        // Pre-allocate fixed 16-byte zero mask to satisfy DoS protection rules
+        // Pre-allocate fixed 16-byte zero mask to satisfy DoS protection rules.
+        // Architectural Hardening: Use literal allocation and in-place modification
+        // to avoid uncontrolled resource consumption (SonarCloud).
         $mask = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
         $fullBytes = (int)($bits / 8);
         for ($i = 0; $i < $fullBytes; $i++) {
@@ -122,7 +124,7 @@ function ip_in_range(string $ip, string $range): bool
         }
 
         $remainingBits = $bits % 8;
-        if ($remainingBits > 0) {
+        if ($remainingBits > 0 && $fullBytes < 16) {
             $mask[$fullBytes] = chr(256 - (1 << (8 - $remainingBits)));
         }
 
