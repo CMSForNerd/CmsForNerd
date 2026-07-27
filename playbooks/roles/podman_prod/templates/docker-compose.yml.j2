@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   bunkerweb:
+    # Explicitly configured Standalone/CLI Mode for BunkerWeb (HTTP-only)
     image: "{{ bunkerweb_image }}"
     container_name: cms-bunkerweb
     ports:
       - "80:8080"
-      - "443:8443"
     environment:
       - SERVER_NAME={{ cms_domain }}
       - USE_REVERSE_PROXY=yes
@@ -14,6 +14,7 @@ services:
       - REVERSE_PROXY_HOST_1=http://cms-nginx:80
       - LISTEN_HTTP=yes
       - LISTEN_HTTPS=no
+      - HTTPS_PORT=
       - MULTISITE=no
       - USE_BUNKERNET=no
       - USE_RECON=no

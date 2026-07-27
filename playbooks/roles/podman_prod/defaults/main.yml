@@ -1,4 +1,12 @@
 ---
+
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-07-27
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
 # Defaults for podman_prod role
 podman_cms_user: dsom-admin
 podman_cms_uid: 2001
@@ -13,6 +21,7 @@ codes_path: "{{ project_path }}/codes"
 
 php_version: "8.5"
 cms_domain: "cmsfornerd.local"
+cms_git_version: "v4.1.0"
 compose_project_name: "cmsfornerd"
 bunkerweb_image: "docker.io/bunkerity/bunkerweb:1.5.8"
 nginx_image: "docker.io/library/nginx:1.27"

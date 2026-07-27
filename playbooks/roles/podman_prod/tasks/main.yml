@@ -1,11 +1,22 @@
 ---
+
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-07-27
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
 # Pre-flight OS check (Sovereign Gate)
 - name: "Sovereign Gate | Verify Target Operating System"
   ansible.builtin.assert:
     that:
       - ansible_os_family in ['Debian', 'RedHat']
-      - ansible_distribution_version is version('20.04', '>=')
-    fail_msg: "Target OS must be Ubuntu 20.04+ or RedHat/AlmaLinux equivalent. Found: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      - >
+        (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('24.04', '>=')) or
+        (ansible_distribution == 'Debian' and ansible_distribution_major_version | int >= 13) or
+        (ansible_os_family == 'RedHat' and ansible_distribution_major_version | int >= 9)
+    fail_msg: "Target OS must be Ubuntu 24.04+, Debian 13+, or RedHat/AlmaLinux/Rocky/Oracle 9+. Found: {{ ansible_distribution }} {{ ansible_distribution_version }}"
 
 - name: "Sovereign Gate | Verify Ansible Version"
   ansible.builtin.assert:
@@ -40,6 +51,7 @@
       - git
     state: present
   when: ansible_os_family == 'Debian'
+  become: true
 
 - name: Ensure Podman is installed (RedHat/AlmaLinux)
   ansible.builtin.dnf:
@@ -49,6 +61,7 @@
       - git
     state: present
   when: ansible_os_family == 'RedHat'
+  become: true
 
 - name: Allow rootless containers to bind to privileged ports 80 and 443
   ansible.posix.sysctl:
@@ -56,6 +69,7 @@
     value: '80'
     state: present
     sysctl_set: true
+  become: true
 
 # Identity Standard: UID:GID 2001:2001
 - name: Ensure dsom-admin group exists on the host
@@ -63,6 +77,7 @@
     name: "{{ podman_cms_group }}"
     gid: "{{ podman_cms_gid }}"
     state: present
+  become: true
 
 - name: Ensure dsom-admin user exists on the host
   ansible.builtin.user:
@@ -72,11 +87,13 @@
     shell: /bin/bash
     state: present
     create_home: true
+  become: true
 
 - name: Enable systemd linger for dsom-admin user
   ansible.builtin.command: "loginctl enable-linger {{ podman_cms_user }}"
   args:
     creates: "/var/lib/systemd/linger/{{ podman_cms_user }}"
+  become: true
 
 # Directory Sovereignty
 - name: Ensure root /opt/cmsfornerd and subdirectories exist
@@ -94,14 +111,14 @@
     - "{{ nginx_path }}"
     - "{{ php_fpm_path }}"
     - "{{ codes_path }}"
+  become: true
 
 # Clone or Copy codebase (Storage Sovereignty)
 - name: Clone CmsForNerd Official Repository into codes path
   ansible.builtin.git:
     repo: 'https://github.com/CMSForNerd/CmsForNerd.git'
     dest: "{{ codes_path }}"
-    version: master
-    force: true
+    version: "{{ cms_git_version }}"
     depth: 1
   become: true
   become_user: "{{ podman_cms_user }}"
@@ -112,6 +129,7 @@
     owner: "{{ podman_cms_uid }}"
     group: "{{ podman_cms_gid }}"
     recurse: true
+  become: true
 
 # Dependency management
 - name: Run Composer Install inside a rootless container
@@ -140,6 +158,7 @@
     owner: "{{ podman_cms_uid }}"
     group: "{{ podman_cms_gid }}"
     mode: '0600'
+  become: true
 
 - name: Template PHP-FPM www.conf pool configuration
   ansible.builtin.template:
@@ -148,6 +167,7 @@
     owner: "{{ podman_cms_uid }}"
     group: "{{ podman_cms_gid }}"
     mode: '0600'
+  become: true
 
 - name: Template PHP-FPM custom Dockerfile for PHP 8.5
   ansible.builtin.template:
@@ -156,6 +176,7 @@
     owner: "{{ podman_cms_uid }}"
     group: "{{ podman_cms_gid }}"
     mode: '0600'
+  become: true
 
 - name: Template Podman-Compose docker-compose.yml
   ansible.builtin.template:
@@ -164,6 +185,7 @@
     owner: "{{ podman_cms_uid }}"
     group: "{{ podman_cms_gid }}"
     mode: '0600'
+  become: true
 
 # Container Build and Start
 - name: Build custom PHP 8.5 image as dsom-admin user
@@ -191,6 +213,7 @@
     owner: "{{ podman_cms_uid }}"
     group: "{{ podman_cms_gid }}"
     mode: '0700'
+  become: true
 
 - name: Template Systemd user service for Podman-Compose Autostart
   ansible.builtin.template:
@@ -199,6 +222,7 @@
     owner: "{{ podman_cms_uid }}"
     group: "{{ podman_cms_gid }}"
     mode: '0600'
+  become: true
 
 - name: Enable cmsfornerd systemd user service
   ansible.builtin.systemd:

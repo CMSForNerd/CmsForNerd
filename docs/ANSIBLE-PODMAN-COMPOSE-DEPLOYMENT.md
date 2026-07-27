@@ -65,13 +65,13 @@ All files and logs are written directly to host directories to ensure high avail
 
 The local/remote orchestration wrapper script `tools/deploy-prod.sh` strictly enforces three layers of safety gates:
 
-1. **Status Probe**: Automatically scans local control machine prerequisites (Python, Ansible, Git, and Composer) and executes the
+1. **Status Probe**: Automatically scans local control machine prerequisites (Ansible, Git, and Composer) and executes the
    `composer lab-check` static analysis suite (PHPStan Level 8) on the source files to ensure no broken code is compiled or pushed.
 2. **Sovereign Gate**: Scans the inventory to guarantee that the unprivileged target is exactly configured as `dsom-admin:2001:2001`,
    rejecting execution if unauthorized identities or permissions are found.
-3. **Sudo Lock**: Ensures all root privilege escalation (`become: true` in Ansible) is strictly constrained to setting up OS-level packages
-   (Podman, Git, package manager cache, and Sysctl privileged ports start), while the actual container deployment is executed in
-   unprivileged user-space.
+3. **Sudo Lock**: Ensures all root privilege escalation (`become: true` in Ansible) is eliminated at the play level and strictly scoped
+   to explicit host-foundation tasks (setting up OS-level packages, Sysctl, and systemd service creation), while user-space tasks run
+   with unprivileged user-space escalation or without privilege escalation.
 
 ---
 
@@ -144,3 +144,8 @@ journalctl --user -u cmsfornerd-pod -f
 
 ---
 *Developed by the CmsForNerd Engineering Team | v4.1.0 Sovereign Architecture Blueprint*
+
+
+---
+*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-07-27*
+*Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

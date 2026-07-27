@@ -4,8 +4,8 @@ server {
     root /var/www/html;
     index index.php index.html index.htm;
 
-    # Security: Block access to sensitive directories and files
-    location ~ /\.git {
+    # Security: Deny access to hidden files (dotfiles) except /.well-known
+    location ~ /\.(?!well-known).* {
         deny all;
     }
 

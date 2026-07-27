@@ -1,7 +1,14 @@
 ---
+
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-07-27
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
 - name: Production Deploy Orchestrator (Podman-Compose & BunkerWeb) | CmsForNerd v4.1.0
   hosts: all
-  become: true
   vars:
     php_version: "8.5"
     project_path: "/opt/cmsfornerd"
@@ -13,15 +20,18 @@
         update_cache: true
       when: ansible_os_family == 'Debian'
       changed_when: false
+      become: true
 
     - name: Ensure DNF cache is updated (RedHat/AlmaLinux)
       ansible.builtin.dnf:
         update_cache: true
       when: ansible_os_family == 'RedHat'
       changed_when: false
+      become: true
 
   roles:
     - role: common
+      become: true
       tags: ['foundation', 'security']
     - role: podman_prod
       tags: ['podman_prod', 'containers', 'production']
