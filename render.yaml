@@ -14,7 +14,7 @@ services:
   - type: web
     name: cmsfornerd
     runtime: docker
-    plan: free
+    plan: starter
     region: singapore
     dockerfilePath: Containerfile
     envVars:
