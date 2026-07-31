@@ -33,7 +33,7 @@
         "test:phpunit": "vendor/bin/pest --colors=always --filter CmsForNerd\\\\Tests",
         "test:pest": "vendor/bin/pest --colors=always",
         "check-strict": [
-            "@php -r \"echo '--- Checking for Legacy Global Keyword (includes & src) ---\\n'; $dirs = ['includes', 'src']; $found = false; foreach ($dirs as $dir) { if(!is_dir($dir)) continue; $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)); foreach ($files as $file) { if ($file->isDir() || $file->getExtension() !== 'php') continue; $content = file_get_contents($file->getPathname()); if (preg_match('/\\b(global\\s+\\$|\\$GLOBALS\\[)/', $content)) { echo '[FAIL] Global state detected in: ' . $file->getPathname() . PHP_EOL; $found = true; } } } if (!$found) echo '[OK] Architecture is Global-free.\\n';\"",
+            "@php tools/check-legacy-global.php",
             "@php -r \"echo '--- Checking for strict_types=1 (includes & src) ---\\n'; $dirs = ['includes', 'src']; foreach ($dirs as $dir) { if(!is_dir($dir)) continue; $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)); foreach ($files as $file) { if ($file->isDir() || $file->getExtension() !== 'php') continue; $content = file_get_contents($file->getPathname()); if (!preg_match('/declare\\s*\\(\\s*strict_types\\s*=\\s*1\\s*\\)\\s*;/', $content)) echo '[WARN] Missing declare(strict_types=1) in: ' . $file->getPathname() . PHP_EOL; } }\""
         ],
         "compliance": [

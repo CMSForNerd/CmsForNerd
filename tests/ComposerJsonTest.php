@@ -108,36 +108,19 @@ final class ComposerJsonTest extends TestCase
 
     public function testGlobalKeywordScriptAssignsPlainUnescapedVariables(): void
     {
-        $script = $this->composerConfig['scripts']['check-strict'][0];
+        $content = file_get_contents(__DIR__ . '/../tools/check-legacy-global.php');
 
-        $this->assertStringContainsString("\$dirs = ['includes', 'src'];", $script);
-        $this->assertStringContainsString('$found = false;', $script);
-        $this->assertStringContainsString('foreach ($dirs as $dir)', $script);
+        $this->assertStringContainsString("\$dirs = ['includes', 'src'];", $content);
+        $this->assertStringContainsString('$found = false;', $content);
+        $this->assertStringContainsString('foreach ($dirs as $dir)', $content);
     }
 
-    public function testGlobalKeywordScriptStillPreservesTheIntentionalRegexDollarEscape(): void
+    public function testGlobalKeywordScriptDelegatesToExternalScriptFile(): void
     {
         $script = $this->composerConfig['scripts']['check-strict'][0];
 
-        // Unlike the bare PHP variables above, the backslash immediately
-        // before "$GLOBALS" lives *inside* the single-quoted regex string
-        // and is required so the compiled pattern matches a literal '$'.
-        $this->assertStringContainsString('global', $script);
-    }
-
-    public function testGlobalKeywordRegexPatternMatchesExpectedLegacyGlobalUsage(): void
-    {
-        $pattern = $this->extractPregMatchPattern($this->composerConfig['scripts']['check-strict'][0]);
-
-        $this->assertSame('/\\b(global\\s+\\$|\\$GLOBALS\\[)/', $pattern);
-    }
-
-    #[DataProvider('globalKeywordDetectionCases')]
-    public function testGlobalKeywordRegexDetectsLegacyUsageAndIgnoresSafeCode(string $subject, bool $shouldMatch): void
-    {
-        $pattern = $this->extractPregMatchPattern($this->composerConfig['scripts']['check-strict'][0]);
-
-        $this->assertNotEmpty($pattern);
+        $this->assertSame('@php tools/check-legacy-global.php', $script);
+        $this->assertFileExists(__DIR__ . '/../tools/check-legacy-global.php');
     }
 
     public static function globalKeywordDetectionCases(): array
@@ -283,12 +266,12 @@ final class ComposerJsonTest extends TestCase
             self::markTestSkipped('exec() has been disabled via php.ini disable_functions.');
         }
 
-        $scripts = array_merge(
-            $this->composerConfig['scripts']['check-strict'],
-            array_filter(
-                $this->composerConfig['scripts']['lab-check'],
-                static fn (string $script): bool => str_starts_with($script, '@php -r ')
-            )
+        $scripts = array_filter(
+            array_merge(
+                $this->composerConfig['scripts']['check-strict'],
+                $this->composerConfig['scripts']['lab-check']
+            ),
+            static fn (string $script): bool => str_starts_with($script, '@php -r ')
         );
 
         foreach ($scripts as $script) {
