@@ -30,6 +30,7 @@ linking to all 12 major Entry Points of the platform, enabling instant orientati
 | **10** | **Infrastructure Orchestration** | [`playbooks/deploy_prod_compose.yml`](playbooks/deploy_prod_compose.yml) <br> [`docs/RENDER-DEPLOYMENT-GUIDE.md`](docs/RENDER-DEPLOYMENT-GUIDE.md) | Ansible playbooks for rootless Podman 5, and Render Cloud Deployment Guide. |
 | **11** | **Local Development Setup** | [`technical-resources/installation-guide.md`](technical-resources/installation-guide.md) | PHP 8.4 runtime config, local composer setup, server execution. |
 | **12** | **Core Routing & Theme** | [`themes/CmsForNerd/pager.php`](themes/CmsForNerd/pager.php) | Central routing, Standard vs AMP view, layout controller. |
+| **13** | **Pull Request & Bot Synergy SOP** | [`docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md`](docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md) | End-to-end GitHub/GitLab PR workflow & bot synergy SOP. |
 
 ---
 

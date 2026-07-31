@@ -30,6 +30,7 @@
 - [START-HERE.md](START-HERE.md): Onboarding blueprint with 12 defined Entry Points.
 - [docs/governance/AI-INITIALIZATION-SEQUENCE.md](docs/governance/AI-INITIALIZATION-SEQUENCE.md): The 5-step Mechanical Boot Sequence.
 - [docs/governance/SOP-KNOWLEDGE-FIRST-DISCOVERY.md](docs/governance/SOP-KNOWLEDGE-FIRST-DISCOVERY.md): Discovery protocols.
+- [docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md](docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md): End-to-End Pull Request & Bot Synergy SOP (GitHub & GitLab).
 
 ## Laboratory Modules
 

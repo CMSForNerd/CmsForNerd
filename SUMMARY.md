@@ -12,6 +12,7 @@ timestamp: "2026-07-27T12:00:00Z (Planned Handover Date)"
 * [🤖 LLM Context Index](.llms/index.md)
 * [📜 Architecture Requirements (RFC 2119)](docs/docs-requirements.md)
 * [🛠️ Project Rules (For AI Agents)](docs/PROJECT_RULES.md)
+* [🔀 Pull Request & Bot Synergy SOP](docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md)
 * [🕒 Changelog](CHANGELOG.md)
 
 ## 🎓 The Laboratory Docs

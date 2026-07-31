@@ -17,6 +17,7 @@ nav:
   - Master Onboarding Map: START-HERE.md
   - LLM Context Index: .llms/index.md
   - Project Rules: docs/PROJECT_RULES.md
+  - Pull Request & Bot Synergy SOP: docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md
   - Architecture Requirements: docs/docs-requirements.md
   - Changelog: CHANGELOG.md
   - Laboratory Manuals:
