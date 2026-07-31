@@ -4,7 +4,7 @@ type: documentation
 title: "The Core AI Rulebook (DSOM)"
 description: "OKF-compliant documentation for AGENTS.md."
 resource: "file:///.agents/AGENTS.md"
-timestamp: 2026-08-01T06:43:00Z
+timestamp: 2026-08-01T06:56:00Z
 ---
 # The Core AI Rulebook (DSOM)
 
@@ -115,7 +115,8 @@ Welcome to the Sovereign AI Agent Workspace. You are a Cognitive Digital Twin op
     After submitting a PR, the AI MUST poll/check for feedback from automated GitHub bots (e.g., CodeRabbit, SonarQube), wait until all bot
     reviews complete, extract any actionable code suggestions, apply and test the fixes locally on the feature branch, and re-push until all
     bot quality gates pass cleanly. The AI is strictly forbidden from pushing directly to `master`/`main`. Merging to `master`/`main` requires
-    zero-conflict verification and explicit human operator command.
+    zero-conflict verification and explicit human operator command. Immediately following a PR merge into `master`/`main`, the AI MUST delete
+    the local feature branch (`git branch -D <branch>`) and prune remote tracking references (`git remote prune origin`) so only `master`/`main` remains.
 26. **Cross-Platform Standalone Scripting Mandate:** The AI must NEVER embed complex or multi-line inline shell/PHP/Node logic directly
     inside configuration manifests (`composer.json`, `package.json`, etc.) using escaping hacks (e.g. `@php -r "..."` or inline bash quotes).
     Such scripts inevitably fail across operating system boundaries due to string quoting differences between Linux `bash` and Windows `PowerShell`.
