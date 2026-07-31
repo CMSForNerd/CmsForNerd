@@ -4,7 +4,7 @@ type: documentation
 title: "The Core AI Rulebook (DSOM)"
 description: "OKF-compliant documentation for AGENTS.md."
 resource: "file:///.agents/AGENTS.md"
-timestamp: 2026-08-01T06:27:00Z
+timestamp: 2026-08-01T06:43:00Z
 ---
 # The Core AI Rulebook (DSOM)
 
@@ -116,6 +116,11 @@ Welcome to the Sovereign AI Agent Workspace. You are a Cognitive Digital Twin op
     reviews complete, extract any actionable code suggestions, apply and test the fixes locally on the feature branch, and re-push until all
     bot quality gates pass cleanly. The AI is strictly forbidden from pushing directly to `master`/`main`. Merging to `master`/`main` requires
     zero-conflict verification and explicit human operator command.
+26. **Cross-Platform Standalone Scripting Mandate:** The AI must NEVER embed complex or multi-line inline shell/PHP/Node logic directly
+    inside configuration manifests (`composer.json`, `package.json`, etc.) using escaping hacks (e.g. `@php -r "..."` or inline bash quotes).
+    Such scripts inevitably fail across operating system boundaries due to string quoting differences between Linux `bash` and Windows `PowerShell`.
+    Instead, all non-trivial audit or build tasks must be extracted into dedicated, standalone script files under `tools/` and invoked cleanly
+    via plain script execution (e.g., `@php tools/check-script.php`).
 
 ## Cognitive Engine Protocols (Boot & Discovery)
 
