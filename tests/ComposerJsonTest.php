@@ -137,38 +137,12 @@ final class ComposerJsonTest extends TestCase
     // check-strict[1] — declare(strict_types=1) detector
     // ---------------------------------------------------------------
 
-    public function testStrictTypesScriptNoLongerEscapesVariableSigilsWithABackslash(): void
+    public function testStrictTypesScriptDelegatesToExternalScriptFile(): void
     {
         $script = $this->composerConfig['scripts']['check-strict'][1];
 
-        foreach (['\$dirs', '\$dir', '\$files', '\$file', '\$content'] as $staleEscape) {
-            $this->assertStringNotContainsString($staleEscape, $script);
-        }
-    }
-
-    public function testStrictTypesRegexPatternMatchesDeclareStrictTypesStatement(): void
-    {
-        $pattern = $this->extractPregMatchPattern($this->composerConfig['scripts']['check-strict'][1]);
-
-        $this->assertSame('/declare\s*\(\s*strict_types\s*=\s*1\s*\)\s*;/', $pattern);
-    }
-
-    #[DataProvider('strictTypesDetectionCases')]
-    public function testStrictTypesRegexDetectsDeclareStatementRegardlessOfSpacing(string $subject, bool $shouldMatch): void
-    {
-        $pattern = $this->extractPregMatchPattern($this->composerConfig['scripts']['check-strict'][1]);
-
-        $this->assertSame($shouldMatch ? 1 : 0, preg_match($pattern, $subject));
-    }
-
-    public static function strictTypesDetectionCases(): array
-    {
-        return [
-            'compact form' => ['declare(strict_types=1);', true],
-            'spaced form' => ['declare( strict_types = 1 );', true],
-            'wrong value' => ['declare(strict_types=0);', false],
-            'missing semicolon' => ['declare(strict_types=1)', false],
-        ];
+        $this->assertSame('@php tools/check-strict-types.php', $script);
+        $this->assertFileExists(__DIR__ . '/../tools/check-strict-types.php');
     }
 
     // ---------------------------------------------------------------

@@ -34,7 +34,7 @@
         "test:pest": "vendor/bin/pest --colors=always",
         "check-strict": [
             "@php tools/check-legacy-global.php",
-            "@php -r \"echo '--- Checking for strict_types=1 (includes & src) ---\\n'; $dirs = ['includes', 'src']; foreach ($dirs as $dir) { if(!is_dir($dir)) continue; $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir)); foreach ($files as $file) { if ($file->isDir() || $file->getExtension() !== 'php') continue; $content = file_get_contents($file->getPathname()); if (!preg_match('/declare\\s*\\(\\s*strict_types\\s*=\\s*1\\s*\\)\\s*;/', $content)) echo '[WARN] Missing declare(strict_types=1) in: ' . $file->getPathname() . PHP_EOL; } }\""
+            "@php tools/check-strict-types.php"
         ],
         "compliance": [
             "@audit-pre-flight",
