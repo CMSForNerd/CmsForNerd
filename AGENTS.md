@@ -4,7 +4,7 @@ type: documentation
 title: "The Agent Registry & DSOM Gateway"
 description: "Sovereign entry point instructing AI Agents to look up rules and memory under .agents/."
 resource: "file:///AGENTS.md"
-timestamp: 2026-08-01T06:56:00Z
+timestamp: 2026-08-01T08:30:00Z
 ---
 # AI Agent Registry & Sovereign Gateway
 
@@ -66,6 +66,7 @@ embedded in `.agents/AGENTS.md` include:
 | **Session End Consolidation**| Review past memories, git log, and details of this task to record the completed work in `.agents/brain/task.md` and `.agents/brain/walkthrough.md`, and then end the session with EOD. When staging and committing, limit staging to only files changed during the current session (avoid blanket `git add -A` or `git add .` style sweeps) and obtain explicit operator/user approval before executing any commit or push. Note that `git status` only reflects local state, not remote sync. |
 | **Branching & PR Flow** | All edits occur on dedicated feature branches (`feat/*`, `fix/*`). Push branch, open PR (`gh pr create`), fix bot suggestions, merge to `master`/`main`, and prune feature branches so only `master`/`main` remains. |
 | **Cross-Platform Scripting** | No complex inline scripts in `composer.json`. Extract to `tools/` script files for OS-agnostic execution. |
+| **Agent Sandbox Parity** | Use `git fetch` + `git rebase` instead of `git pull`, restore shallow clones with `git fetch --unshallow`, and guard `grep -c` with `|| true` under `set -e`. |
 
 ---
 
