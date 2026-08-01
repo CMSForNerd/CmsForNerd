@@ -45,7 +45,8 @@ final class PerformanceUtils
     /**
      * Determines whether the current request is eligible for server-side page caching.
      *
-     * @return bool `true` if the request is a cacheable GET request without AJAX indicators or custom session state, `false` otherwise.
+     * @return bool `true` if the request is a cacheable GET request without AJAX indicators or custom
+     *     session state, `false` otherwise.
      */
     public static function isCacheable(): bool
     {
@@ -54,8 +55,9 @@ final class PerformanceUtils
             return false;
         }
 
-        // Avoid caching AJAX requests as full pages (one line to pass 4-space indent rule)
-        $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+        // Avoid caching AJAX requests as full pages
+        $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+            && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
         if ($isAjax) {
             return false;
         }
