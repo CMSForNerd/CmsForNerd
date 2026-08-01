@@ -76,12 +76,11 @@ final class SecurityUtils
     }
 
     /**
-     * [SECURITY] Scan contents directory and discover valid paired pages.
-     * Centralized to prevent SonarCloud Code Duplication.
+     * Discovers valid pages from paired content fragments and root files.
      *
-     * @param string $fragmentDir Absolute path to contents directory.
-     * @param string $rootDir Absolute path to project root directory.
-     * @return array<int, array{slug: string, title: string, mtime: int, filemtime: int}>
+     * @param string $fragmentDir Absolute path to the directory containing content fragments.
+     * @param string $rootDir Absolute path to the project root directory.
+     * @return array<int, array{slug: string, title: string, mtime: int, filemtime: int}> Discovered pages with their slugs, titles, and modification times.
      */
     public static function discoverPages(string $fragmentDir, string $rootDir): array
     {
@@ -94,11 +93,11 @@ final class SecurityUtils
     }
 
     /**
-     * [SECURITY] Directly scan contents directory (no caching fallback).
+     * Discovers pages from content fragments and their corresponding root files.
      *
-     * @param string $fragmentDir Absolute path to contents directory.
-     * @param string $rootDir Absolute path to project root directory.
-     * @return array<int, array{slug: string, title: string, mtime: int, filemtime: int}>
+     * @param string $fragmentDir Absolute path to the directory containing page fragments.
+     * @param string $rootDir Absolute path to the project root directory.
+     * @return array<int, array{slug: string, title: string, mtime: int, filemtime: int}> Discovered page metadata.
      */
     public static function directDiscoverPages(string $fragmentDir, string $rootDir): array
     {
@@ -147,12 +146,11 @@ final class SecurityUtils
     }
 
     /**
-     * [SECURITY] Resolve and validate the page name from the request.
-     * Prevents Path Traversal while providing a clean routing mechanism.
+     * Resolves a valid page name from the request query string.
      *
-     * @param string $defaultFallback The fallback page name if no query string is provided.
-     * @param string $invalidFallback The fallback page name if the resolved page name is invalid.
-     * @return string The validated and sanitized page name.
+     * @param string $defaultFallback Page name to use when no query string is present.
+     * @param string $invalidFallback Page name to use when the resolved value is invalid.
+     * @return string The resolved page filename component.
      */
     public static function resolvePageName(string $defaultFallback, string $invalidFallback = 'index'): string
     {
@@ -173,7 +171,7 @@ final class SecurityUtils
     }
 
     /**
-     * [SECURITY] Starts a secure PHP session enforcing OWASP best practices.
+     * Starts or resumes a hardened session with secure cookie attributes and periodic session ID regeneration.
      */
     public static function startSecureSession(): void
     {
@@ -209,7 +207,9 @@ final class SecurityUtils
     }
 
     /**
-     * [SECURITY] Generates a CSRF token and registers it in the active session.
+     * Generates and stores a CSRF token in the active secure session.
+     *
+     * @return string The session's CSRF token.
      */
     public static function generateCsrfToken(): string
     {
@@ -221,7 +221,10 @@ final class SecurityUtils
     }
 
     /**
-     * [SECURITY] Validates a given CSRF token against the session.
+     * Validates a CSRF token against the token stored in the secure session.
+     *
+     * @param string|null $token The token supplied with the request.
+     * @return bool `true` if the token matches the stored CSRF token, `false` otherwise.
      */
     public static function validateCsrfToken(?string $token): bool
     {
@@ -233,7 +236,9 @@ final class SecurityUtils
     }
 
     /**
-     * [SECURITY] Send recommended OWASP security headers.
+     * Sends recommended OWASP security headers for the current request.
+     *
+     * Adds the HSTS header only when the request uses HTTPS.
      */
     public static function sendSecurityHeaders(): void
     {
@@ -254,7 +259,9 @@ final class SecurityUtils
     }
 
     /**
-     * [SECURITY] Restrict unallowed HTTP request methods to mitigate Verb Tampering.
+     * Restricts requests to the supported HTTP methods.
+     *
+     * @return void
      */
     public static function validateRequestMethod(): void
     {

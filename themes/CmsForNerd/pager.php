@@ -11,8 +11,11 @@
 declare(strict_types=1);
 
 /**
- * [STRUCTURE] The main entry point for the theme.
- * @param CmsForNerd\CmsContext $ctx - The immutable context object.
+ * Renders the requested standard or AMP page layout.
+ *
+ * The `view` query parameter selects AMP rendering; all other values use the standard layout.
+ *
+ * @param CmsForNerd\CmsContext $ctx The immutable rendering context.
  */
 function pager(CmsForNerd\CmsContext $ctx): void
 {

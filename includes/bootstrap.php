@@ -39,17 +39,17 @@ require_once __DIR__ . '/nav-helper.inc.php';
 $nonce = bin2hex(random_bytes(16)); //
 
 /**
- * 5. [LAB] GLOBAL CONTEXT FACTORY (Refactored for Zero-Global Architecture)
- * EDUCATIONAL NOTE: This factory now consumes the Registry class to maintain
- * state across the laboratory without using the legacy 'global' keyword.
+ * Creates the CMS context for a page using request, theme, asset, and security settings.
  *
- * @param array<string, mixed> $content
- * @param string $pageName
- * @param string|null $themeName
- * @param string|null $cssPath
- * @param array<int, string>|null $dataFile
- * @param string|null $nonce
- * @return \CmsForNerd\CmsContext
+ * Pages without an explicit schema type are classified based on their title and body content.
+ *
+ * @param array<string, mixed> $content Page content and metadata.
+ * @param string $pageName Page identifier used for the context and body content lookup.
+ * @param string|null $themeName Theme name, or the registered default.
+ * @param string|null $cssPath Theme stylesheet path, or the registered default.
+ * @param array<int, string>|null $dataFile Data-file references, or the registered defaults.
+ * @param string|null $nonce Content Security Policy nonce, or the registered nonce.
+ * @return \CmsForNerd\CmsContext The configured CMS context.
  */
 function createCmsContext(
     array $content,

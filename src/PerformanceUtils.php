@@ -29,7 +29,11 @@ final class PerformanceUtils
     }
 
     /**
-     * Get the cache file path for a specific page and view.
+     * Builds the cache file path for a page and view.
+     *
+     * @param string $pageName The page name used in the cache filename.
+     * @param string $view The view name used in the cache filename.
+     * @return string The sanitized HTML cache file path.
      */
     public static function getCacheFilePath(string $pageName, string $view = 'standard'): string
     {
@@ -39,7 +43,9 @@ final class PerformanceUtils
     }
 
     /**
-     * Determine if the current request is eligible for server-side static caching.
+     * Determines whether the current request is eligible for server-side page caching.
+     *
+     * @return bool `true` if the request is a cacheable GET request without AJAX indicators or custom session state, `false` otherwise.
      */
     public static function isCacheable(): bool
     {
@@ -74,8 +80,9 @@ final class PerformanceUtils
     }
 
     /**
-     * Get the maximum modification time across all source content and theme files.
-     * This enables smart invalidation of the cache when any file changes.
+     * Determines the latest modification time among relevant source files.
+     *
+     * @return int The latest modification timestamp, or 0 when no applicable files exist.
      */
     public static function getSourceMaxMTime(): int
     {
@@ -123,7 +130,10 @@ final class PerformanceUtils
     }
 
     /**
-     * Start the page level caching process.
+     * Serves a fresh cached page or begins buffering output for a new cache entry.
+     *
+     * @param string $pageName The page identifier used to locate its cache entry.
+     * @param string $view The view variant associated with the page.
      */
     public static function startPageCache(string $pageName, string $view = 'standard'): void
     {
@@ -151,7 +161,10 @@ final class PerformanceUtils
     }
 
     /**
-     * End the page level caching process and write output to cache.
+     * Stores the buffered page output in the cache and sends it to the client.
+     *
+     * @param string $pageName The page name used to identify the cache entry.
+     * @param string $view The view name used to identify the cache entry.
      */
     public static function endPageCache(string $pageName, string $view = 'standard'): void
     {
@@ -174,7 +187,9 @@ final class PerformanceUtils
     }
 
     /**
-     * Handle conditional HTTP requests (ETag / Last-Modified) for 304 responses.
+     * Sends cache validators and terminates the request with a 304 response when the client cache is current.
+     *
+     * @param string $cacheFile Path to the cached response file.
      */
     private static function sendConditionalHeaders(string $cacheFile): void
     {
@@ -194,11 +209,11 @@ final class PerformanceUtils
     }
 
     /**
-     * Highly Optimized version of discoverPages() that caches page metadata.
+     * Retrieves discovered page metadata from a current cache or generates and stores it when unavailable.
      *
-     * @param string $fragmentDir Absolute path to contents directory.
-     * @param string $rootDir Absolute path to project root directory.
-     * @return array<int, array{slug: string, title: string, mtime: int, filemtime: int}>
+     * @param string $fragmentDir Absolute path to the contents directory.
+     * @param string $rootDir Absolute path to the project root directory.
+     * @return array<int, array{slug: string, title: string, mtime: int, filemtime: int}> Discovered page metadata.
      */
     public static function getCachedDiscoveredPages(string $fragmentDir, string $rootDir): array
     {
