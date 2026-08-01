@@ -34,7 +34,7 @@ if (ob_get_level() > 0) {
 // 3. [UI] Minimalist "Lab" aesthetic to match CMSForNerd v3.4.
 ?>
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

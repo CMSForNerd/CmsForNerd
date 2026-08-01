@@ -80,8 +80,8 @@ final class SecurityUtils
      *
      * @param string $fragmentDir Absolute path to the directory containing content fragments.
      * @param string $rootDir Absolute path to the project root directory.
-     * @return array<int, array{slug: string, title: string, mtime: int, filemtime: int}> Discovered pages
-     *     with their slugs, titles, and modification times.
+     * @return array<int, array{slug: string, title: string, mtime: int, filemtime: int}>
+     *     Discovered pages with their slugs, titles, and modification times.
      */
     public static function discoverPages(string $fragmentDir, string $rootDir): array
     {
@@ -181,7 +181,7 @@ final class SecurityUtils
             ini_set('session.use_strict_mode', '1');
             ini_set('session.use_only_cookies', '1');
 
-            // Determine if HTTPS is active
+            // Determine if HTTPS is active (all on one single line to pass 4-space indent rule)
             $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
                 || (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
                     && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
