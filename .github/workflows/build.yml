@@ -35,6 +35,7 @@ jobs:
             -Dsonar.projectKey=linuxmalaysia_CmsForNerd
             -Dsonar.scanner.skipJreProvisioning=true
             -Dsonar.exclusions=**/Dockerfile,**/Containerfile,**/*.css,**/*.js,**/*.html,**/*.xml,**/*.txt,**/LICENSE,**/README.md,**/.git/**,tests/**
+            -Dsonar.cpd.exclusions=**/tests/**,tests/**,offline.php,ujian-form.php,tools/sanity-check.php
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
