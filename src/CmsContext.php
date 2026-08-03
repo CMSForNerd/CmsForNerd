@@ -13,6 +13,8 @@ namespace CmsForNerd;
 
 readonly class CmsContext
 {
+    public \stdClass $botCache;
+
     /**
      * @param array<string, mixed> $content Site metadata (title, author, etc.)
      * @param string $themeName The active folder in /themes/
@@ -22,6 +24,7 @@ readonly class CmsContext
      * @param string $baseUrl    The absolute base URL
      * @param string $schemaType The Schema.org type (v3.6)
      * @param string $cspNonce  A cryptographically secure random string for security
+     * @param \stdClass|null $botCache The bot detection cache object
      */
     public function __construct(
         public array $content,
@@ -32,6 +35,17 @@ readonly class CmsContext
         public string $baseUrl,
         public string $schemaType = 'WebPage',
         public string $cspNonce = '',
+        ?\stdClass $botCache = null,
     ) {
+        $this->botCache = $botCache ?? new \stdClass();
+        if (!isset($this->botCache->lastIp)) {
+            $this->botCache->lastIp = '';
+        }
+        if (!isset($this->botCache->lastUa)) {
+            $this->botCache->lastUa = '';
+        }
+        if (!isset($this->botCache->lastRes)) {
+            $this->botCache->lastRes = null;
+        }
     }
 }

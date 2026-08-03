@@ -35,38 +35,85 @@ final class SecurityTest extends TestCase
     }
 
     /**
-     * Test Bot Detection
+     * Test Bot Detection with context caching and exact-provider binding
      */
     public function testBotDetection(): void
     {
-        // Mock a trusted Googlebot IP to bypass Hybrid Intelligence "Trust but Verify"
-        $_SERVER['REMOTE_ADDR'] = '66.249.66.1';
+        // 1. Positive Cases with Correct IP-to-UA Provider Binding
 
-        // Known Bots
+        // Googlebot
+        $_SERVER['REMOTE_ADDR'] = '66.249.66.1';
         $this->assertTrue(
             is_bot('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'),
-            'Failed to detect Googlebot with mocked trusted IP'
-        );
-        $this->assertTrue(
-            is_bot('Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)'),
-            'Failed to detect Bingbot with mocked trusted IP'
+            'Failed to detect Googlebot with mocked Googlebot trusted IP'
         );
 
-        // Test GPTBot
+        // Bingbot
+        $_SERVER['REMOTE_ADDR'] = '157.55.39.1';
+        $this->assertTrue(
+            is_bot('Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)'),
+            'Failed to detect Bingbot with mocked Bingbot trusted IP'
+        );
+
+        // GPTBot
         $_SERVER['REMOTE_ADDR'] = '132.196.86.1';
         $this->assertTrue(
             is_bot('Mozilla/5.0 (compatible; GPTBot/1.0; +https://openai.com/gptbot)'),
-            'Failed to detect GPTBot with mocked trusted IP'
+            'Failed to detect GPTBot with mocked OpenAI trusted IP'
         );
 
-        // Test Cloudflare bot / service
+        // SearchBot
+        $_SERVER['REMOTE_ADDR'] = '104.210.140.129';
+        $this->assertTrue(
+            is_bot('Mozilla/5.0 (compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot)'),
+            'Failed to detect SearchBot with mocked OpenAI trusted IP'
+        );
+
+        // ChatGPT-User
+        $_SERVER['REMOTE_ADDR'] = '104.208.184.193';
+        $this->assertTrue(
+            is_bot('Mozilla/5.0 (compatible; ChatGPT-User/1.0; +https://openai.com/bot)'),
+            'Failed to detect ChatGPT-User with mocked OpenAI trusted IP'
+        );
+
+        // Cloudflare
         $_SERVER['REMOTE_ADDR'] = '173.245.48.1';
         $this->assertTrue(
             is_bot('Mozilla/5.0 (compatible; Cloudflare-AlwaysOnline/1.0; +http://www.cloudflare.com/always-online)'),
-            'Failed to detect Cloudflare with mocked trusted IP'
+            'Failed to detect Cloudflare with mocked Cloudflare trusted IP'
         );
 
-        // Known Humans
+        // 2. Negative Cases for Cross-Provider Spoofing (exact-provider mismatch checks)
+
+        // Googlebot UA spoofing with an OpenAI IP
+        $_SERVER['REMOTE_ADDR'] = '132.196.86.1';
+        $this->assertFalse(
+            is_bot('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'),
+            'Security Breach: Allowed spoofed Googlebot with OpenAI IP'
+        );
+
+        // Bingbot UA spoofing with a Cloudflare IP
+        $_SERVER['REMOTE_ADDR'] = '173.245.48.1';
+        $this->assertFalse(
+            is_bot('Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)'),
+            'Security Breach: Allowed spoofed Bingbot with Cloudflare IP'
+        );
+
+        // GPTBot UA spoofing with a Googlebot IP
+        $_SERVER['REMOTE_ADDR'] = '66.249.66.1';
+        $this->assertFalse(
+            is_bot('Mozilla/5.0 (compatible; GPTBot/1.0; +https://openai.com/gptbot)'),
+            'Security Breach: Allowed spoofed GPTBot with Googlebot IP'
+        );
+
+        // Cloudflare UA spoofing with a Bingbot IP
+        $_SERVER['REMOTE_ADDR'] = '157.55.39.1';
+        $this->assertFalse(
+            is_bot('Mozilla/5.0 (compatible; Cloudflare-AlwaysOnline/1.0; +http://www.cloudflare.com/always-online)'),
+            'Security Breach: Allowed spoofed Cloudflare bot with Bingbot IP'
+        );
+
+        // 3. Human and Mobile Cases (should not trigger any bot detection)
         $humanUa = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' .
                    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
         $this->assertFalse(is_bot($humanUa), 'Human UA incorrectly flagged as bot');
