@@ -83,13 +83,15 @@ final class PerformanceTest extends TestCase
         $page = 'test_page_invalidation';
         $cacheFile = PerformanceUtils::getCacheFilePath($page);
 
+        $sourceMax = PerformanceUtils::getSourceMaxMTime();
+
         // Write a stale cache file
         file_put_contents($cacheFile, "Stale Cache Content");
-        // Force modification time in the past
-        touch($cacheFile, time() - 3600);
+        // Force modification time in the past, older than any source file modification
+        touch($cacheFile, $sourceMax - 3600);
+        clearstatcache();
 
         // The maximum modification time of source files should be newer than the stale cache
-        $sourceMax = PerformanceUtils::getSourceMaxMTime();
         $this->assertGreaterThan(filemtime($cacheFile), $sourceMax, "Source files should trigger invalidation of old cache.");
     }
 

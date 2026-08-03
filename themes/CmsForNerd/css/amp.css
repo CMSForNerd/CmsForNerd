@@ -54,11 +54,13 @@ body {
 /* Header & Navigation */
 .amp-header {
     background: var(--lab-bg);
-    padding: 15px 20px;
+    padding: 10px 20px;
     border-bottom: 2px solid var(--lab-purple);
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
 }
 
 .amp-header a {
@@ -251,7 +253,7 @@ amp-sidebar {
 
 .sidebar-nav a {
     display: block;
-    padding: 15px 20px;
+    padding: 15px  20px;
     color: var(--lab-text);
     text-decoration: none;
     border-bottom: 1px solid var(--lab-border);
