@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+<head>
+    <meta charset="UTF-8">
+    <title>Turnstile Test Laboratory</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; background: #f4f4f9; }
+        .box { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .status { margin-top: 1rem; padding: 1rem; border-left: 4px solid #007bff; background: #e7f3ff; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🧪 Turnstile Bot-Trap Test & CSRF Validation</h2>
+        <p>Submit this form to test if <code>includes/turnstile.php</code> and CSRF defenses validate your request.</p>
+
+        <form method="POST">
+            <!-- OWASP CSRF mitigation -->
+            <input type="hidden" name="csrf_token" value="928558ebcd98f8ca96761dbe3900692d3c6434a8a719949abb80a99cca938bbc">
+
+            <input type="text" name="test_data" placeholder="Enter some text" required>
+            <br><br>
+            <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
+            <br>
+            <button type="submit">Test POST Security</button>
+        </form>
+
+            </div>
+</body>
+</html>

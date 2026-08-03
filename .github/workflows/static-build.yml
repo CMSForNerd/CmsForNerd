@@ -29,14 +29,12 @@ jobs:
         run: composer install --prefer-dist --no-progress --ignore-platform-reqs
 
       - name: Start Local PHP Server
-        run: php -S localhost:8000 & # Run in background
+        run: php -S 127.0.0.1:8000 & # Run in background
 
-      - name: Staticize (Bake) index.php
+      - name: Staticize (Bake) All PHP Pages
         run: |
           sleep 3 # Extra second to ensure server is fully ready
-          curl -s http://localhost:8000/index.php > index.html
-          # If you have an about page, uncomment the next line:
-          # curl -s http://localhost:8000/about.php > about.html
+          php tools/bake-static-pages.php
 
       - name: Upload Static Files
         uses: actions/upload-pages-artifact@v3

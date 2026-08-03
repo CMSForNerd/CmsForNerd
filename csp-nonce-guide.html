@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="https://schema.org/WebApplication">
+<html lang="en" itemscope itemtype="https://schema.org/TechArticle">
 <head>
-    <script nonce="849536faa31f9dae925921dd412e6da1">
+    <script nonce="524c16e29af4b142f4de77995ef75ce2">
         (function() {
             var t = localStorage.getItem('theme');
             if (t === 'dark') {
@@ -18,13 +18,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- [SEO] Descriptions used by Google. htmlspecialchars() prevents XSS attacks if text contains code. -->
-<meta name="description" content="A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.">
+<meta name="description" content="Comprehensive guide to implementing Content Security Policy nonces for XSS protection in PHP 8.4.">
 
 <!-- [SEO] Keywords for older search engines (though less important now, still good practice). -->
-<meta name="keywords" content="PHP 8.4, Flat-file CMS, Security Laboratory, Zero-Debt CSS, PSR-12">
+<meta name="keywords" content="CSP, nonce, XSS, security, PHP 8.4, Content Security Policy, SecurityUtils">
 
 <!-- [SEO] Author and Robot instructions. 'index, follow' tells Google to list this page and follow its links. -->
-<meta name="author" content="Harisfazillah Jamel">
+<meta name="author" content="CMSForNerd Security Team">
 <meta name="robots" content="index, follow">
 
 <!-- Favicon - The small icon you see in the browser tab. -->
@@ -35,16 +35,18 @@
 
 <!-- [AI/SEO] Schema.org Image for Rich Cards/Previews -->
 <meta itemprop="image" content="images/cmsfornerd-logo.png">
-<meta itemprop="description" content="A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.">
+<meta itemprop="description" content="Comprehensive guide to implementing Content Security Policy nonces for XSS protection in PHP 8.4.">
 
 <!-- [AI/SEO] JSON-LD Structured Data - 2025 gold standard for Google, Gemini, and ChatGPT. -->
-<script type="application/ld+json" nonce="849536faa31f9dae925921dd412e6da1">
+<script type="application/ld+json" nonce="524c16e29af4b142f4de77995ef75ce2">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "CMSForNerd v4.2.0: The Secure Coding Laboratory",
-  "description": "A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.",
-  "url": "index.php",
+  "@type": "TechArticle",
+  "name": "CSP Nonce Implementation Guide | CMSForNerd Security",
+  "description": "Comprehensive guide to implementing Content Security Policy nonces for XSS protection in PHP 8.4.",
+  "url": "csp-nonce-guide.php",
+    "dependencies": "PHP 8.4, PSR-12, Composer",
+  "proficiencyLevel": "Intermediate",
     "provider": {
     "@type": "Organization",
     "name": "CMSForNerd Academy",
@@ -69,18 +71,18 @@
 <!-- [SECURITY] Content Security Policy (CSP) with Nonce.
      Instead of 'unsafe-inline' (dangerous), we use a cryptographically random nonce that changes every page load.
      Only scripts with this exact nonce are allowed to execute, preventing XSS attacks. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-849536faa31f9dae925921dd412e6da1' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.ipinfo.io;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-524c16e29af4b142f4de77995ef75ce2' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.ipinfo.io;">
 
 <!-- RSS Feed & Sitemap Discovery -->
 <link rel="alternate" type="application/rss+xml" title="CmsForNerd SiteMap Feed" href="rss.php" />
 <link rel="alternate" type="application/rss+xml" title="CmsForNerd ROR Sitemap" href="ror.php" />
 <meta http-equiv="Content-Language" content="EN" />
-<title>CMSForNerd v4.2.0: The Secure Coding Laboratory</title>
-    <link rel="amphtml" href="index.html?view=amp">
+<title>CSP Nonce Implementation Guide | CMSForNerd Security</title>
+    <link rel="amphtml" href="csp-nonce-guide.html?view=amp">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0d6efd">
     <style type="text/css" media="all">@import "themes/CmsForNerd/style.css?v=4.0.0";</style>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="849536faa31f9dae925921dd412e6da1"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="524c16e29af4b142f4de77995ef75ce2"></script>
 </head>
 <body><!--
 ==========================================================================
@@ -137,7 +139,7 @@ ROLE: Visual Header Component
             </div>
         </div>
 
-        <script nonce="849536faa31f9dae925921dd412e6da1">
+        <script nonce="524c16e29af4b142f4de77995ef75ce2">
         function setLaboratoryTheme(theme) {
             document.documentElement.classList.remove('theme-light', 'theme-dark');
 
@@ -318,136 +320,94 @@ ROLE: Visual Header Component
     -->
     <div id="content">
         <main class="content-body">
-<article class="lab-home">
-    <header class="hero-section">
-        <h1>Welcome to CMSForNerd v4.2.0: The Secure Coding Laboratory</h1>
-        <div class="runtime-status">
-            <span class="badge php-version">PHP 8.3.6</span>
-            <span class="badge status-strict">Strict Mode: Active</span>
-            <span class="badge status-check">PHPStan: Level 8</span>
-            <span class="badge status-sec">CSP: Nonce-Enforced</span>
-        </div>
+<article class="csp-guide" itemscope itemtype="https://schema.org/TechArticle">
+    <header class="guide-header">
+        <h1 itemprop="headline">🛡️ CSP Nonce Implementation Guide</h1>
+        <p class="intro">
+            Implementing a <strong>Content Security Policy (CSP) Nonce</strong> is the gold standard for stopping
+            <strong>Cross-Site Scripting (XSS)</strong> while allowing verified inline scripts to execute.
+        </p>
     </header>
 
-    <div class="intro-box">
+    <section class="overview">
+        <h2>What is a CSP Nonce?</h2>
         <p>
-            <strong>CMSForNerd</strong> is a lightweight, "Zero-Debt" PHP 8.4 Flat-File CMS designed for the modern security environment.
-            While frameworks hide complexity, we expose it—teaching you to write code that is fast, immutable, and impenetrable.
-            Master the "Pair Logic" workflow used in high-security infrastructure development.
+            A <strong>nonce</strong> (number used once) is a cryptographically random string generated per page load.
+            Only scripts with this exact token are permitted to run by the browser.
         </p>
-        <div class="quick-links">
-            <a href="welcome-kit.html" class="btn welcome-btn">🚀 Welcome Kit</a>
-            <a href="lab-manual.html" class="btn lab-btn">🎓 Lab Manual</a>
-            <a href="template.html" class="btn guide-btn">🎨 Template Guide</a>
-            <a href="ui-kit.html" class="btn audit-btn">🧪 UI Audit</a>
-        </div>
-    </div>
-
-    <section class="grid-features">
-        <div class="feature-card">
-            <h3>🛡️ Security Engineering</h3>
-            <ul>
-                <li><strong>Hybrid SecurityUtils:</strong> Native path sanitization preventing LFI and Directory Traversal.</li>
-                <li><strong>CSP Engine:</strong> Automatic Nonce generation for every request to block XSS.</li>
-                <li><strong>Immutable State:</strong> Use of <code>readonly</code> classes and <code>createCmsContext()</code>.</li>
-                <li><strong>Directory Privacy:</strong> 403 Forbidden gateways on all core and theme folders.</li>
-            </ul>
-        </div>
-
-        <div class="feature-card">
-            <h3>🚀 Training Standards</h3>
-            <ul>
-                <li><strong>"Pair Logic" Architecture:</strong> Separation of Controller (Master) and Fragment (Slave).</li>
-                <li><strong>Modern Control:</strong> Strict <code>match()</code> expressions and Type Hinting throughout.</li>
-                <li><strong>Compliance Ready:</strong> Aligned with <strong>RFC 9116</strong> (Security.txt) and PSR-12.</li>
-                <li><strong>Bot Hardening:</strong> Integrated bot detection and Turnstile support for lab forms.</li>
-            </ul>
+        <div class="highlight-box">
+            <p><strong>Key Concept:</strong> We replace <code>'unsafe-inline'</code> with a unique 128-bit token.
+            Since an attacker cannot predict the token, their injected scripts are ignored.</p>
         </div>
     </section>
 
+    <section class="implementation">
+        <h2>Step 1: The Verification Logic</h2>
+        <p>In <strong>CMSForNerd v3.3</strong>, we use the <code>SecurityUtils</code> class to generate a secure base64 string.</p>
 
+        <div class="code-block">
+            <pre><code>// SecurityUtils::generateNonce() logic
+return base64_encode(random_bytes(16));</code></pre>
+        </div>
 
-    <section class="lab-workflow">
-        <h3>The "Nerd-Stack" Secure Workflow</h3>
-        <div class="workflow-steps">
-            <div class="step">
-                <span class="step-num">1</span>
-                <h4>The Controller</h4>
-                <p>Duplicate <code>template.php</code> and update page metadata.</p>
+        <p>This is then applied to your <code>common-headertag.inc</code>:</p>
+        <div class="code-block">
+            <pre><code>&lt;meta http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'nonce-524c16e29af4b142f4de77995ef75ce2';"&gt;</code></pre>
+        </div>
+    </section>
+
+    <section class="comparison-section">
+        <h2>XSS Protection in Action</h2>
+        <div class="comparison-grid">
+            <div class="card before">
+                <h3>❌ Legacy (Vulnerable)</h3>
+                <pre><code>&lt;script&gt;
+  alert(document.cookie);
+&lt;/script&gt;</code></pre>
+                <p class="danger">Browser executes the malicious code.</p>
             </div>
-            <div class="step">
-                <span class="step-num">2</span>
-                <h4>The Fragment</h4>
-                <p>Create a <code>-body.inc</code> file in the <code>contents/</code> folder.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">3</span>
-                <h4>The Audit</h4>
-                <p>Verify compliance via <code>phpstan</code> and the <strong>UI Kit</strong>.</p>
+
+            <div class="card after">
+                <h3>✅ v3.3 Standard (Secure)</h3>
+                <pre><code>&lt;script nonce="XYZ123..."&gt;
+  // This is safe
+&lt;/script&gt;</code></pre>
+                <p class="success">Only matched nonces are allowed.</p>
             </div>
         </div>
     </section>
 
-    <section class="stack-recommendation">
-        <h3>Optimized Learning Stack</h3>
-        <table class="stack-table">
-            <tr>
-                <td><strong>Runtime</strong></td>
-                <td>PHP 8.4+ (Zend OPcache recommended)</td>
-            </tr>
-            <tr>
-                <td><strong>Standards</strong></td>
-                <td>PSR-12, RFC 9116, Strict Types <code>1</code></td>
-            </tr>
-            <tr>
-                <td><strong>OS Support</strong></td>
-                <td>Debian/Ubuntu Linux & Windows 11 (via Herd/WSL2)</td>
-            </tr>
-            <tr>
-                <td><strong>Dev Tools</strong></td>
-                <td>Composer, Git, PHPStan, VS Code, <strong>Google Antigravity</strong></td>
-            </tr>
-        </table>
+    <section class="lab-challenge">
+        <div class="try-it">
+            <h3>🧪 Lab Challenge: Manual Injection</h3>
+            <p>Open your console (F12) and try to run a dynamic script. Notice the <strong>CSP Refusal</strong> error. This is the "Green Bar" of security testing.</p>
+        </div>
     </section>
+
+    <nav class="footer-nav">
+        <a href="lab-manual.html" class="btn btn-secondary">← Back to Lab</a>
+        <a href="security-policy.html" class="btn btn-primary">View Security Policy →</a>
+    </nav>
 </article>
 
 <style>
-    /* CSS maintained as per previous refinement for consistency */
-    .lab-home { max-width: 1000px; margin: 0 auto; line-height: 1.6; font-family: var(--f-sans, sans-serif); }
-    .hero-section h1 { color: var(--lab-heading, #2c3e50); border-bottom: 4px solid var(--lab-purple, #8e44ad); padding-bottom: 10px; margin-bottom: 10px; }
-
-    .runtime-status { margin-bottom: 25px; }
-    .badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-right: 5px; }
-    .php-version { background: #4F5B93; color: white; }
-    .status-strict { background: #27ae60; color: white; }
-    .status-check { background: #f39c12; color: white; }
-    .status-sec { background: #8e44ad; color: white; }
-
-    .intro-box { background: var(--lab-surface, #f4f7f6); border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); padding: 30px; border-radius: 12px; border-left: 6px solid var(--lab-purple, #8e44ad); margin-bottom: 40px; }
-    .quick-links { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
-
-    .btn { padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; color: white; transition: all 0.2s ease; font-size: 0.9rem; }
-    .welcome-btn { background: #2980b9; }
-    .lab-btn { background: #c0392b; }
-    .guide-btn { background: #8e44ad; }
-    .audit-btn { background: #2c3e50; }
-    .btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-
-    .grid-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin-bottom: 40px; }
-    .feature-card { background: var(--lab-surface, white); border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-    .feature-card h3 { color: var(--lab-heading, #2c3e50); margin-top: 0; border-bottom: 1px solid var(--lab-border, #eee); padding-bottom: 10px; }
-    .feature-card ul { padding-left: 20px; }
-    .feature-card li { margin-bottom: 8px; font-size: 0.95rem; }
-
-    .lab-workflow { background: #0f172a; color: white; padding: 30px; border-radius: 12px; margin-bottom: 40px; }
-    .workflow-steps { display: flex; justify-content: space-around; gap: 20px; margin-top: 20px; text-align: center; }
-    .step-num { background: #8e44ad; width: 40px; height: 40px; display: block; margin: 0 auto 10px; border-radius: 50%; line-height: 40px; font-weight: bold; font-size: 1.2rem; }
-    .step h4 { margin-bottom: 5px; color: #ecf0f1; }
-    .step p { font-size: 0.85rem; color: #bdc3c7; }
-
-    .stack-table { width: 100%; border-collapse: collapse; background: var(--lab-surface, white); border-radius: 8px; overflow: hidden; border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); }
-    .stack-table td { padding: 15px; border: 1px solid var(--lab-border, #eee); }
-    .stack-table tr td:first-child { background: var(--lab-bg, #f9f9f9); width: 30%; font-weight: bold; color: var(--lab-muted, #64748b); font-size: 0.9rem; }
+    :root { --csp-red: #c7254e; --csp-green: #5cb85c; --csp-blue: #0066cc; }
+    .csp-guide { max-width: 900px; margin: 0 auto; line-height: 1.6; }
+    .guide-header h1 { color: var(--csp-red); border-bottom: 3px solid var(--csp-red); }
+    .intro { background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; }
+    .code-block { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; font-family: monospace; margin: 15px 0; }
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+    .card { padding: 15px; border-radius: 8px; border: 1px solid #ddd; }
+    .before { border-top: 5px solid var(--csp-red); }
+    .after { border-top: 5px solid var(--csp-green); }
+    .danger { color: var(--csp-red); font-weight: bold; }
+    .success { color: var(--csp-green); font-weight: bold; }
+    .try-it { background: #f0f8ff; border: 2px dashed var(--csp-blue); padding: 20px; border-radius: 10px; }
+    .btn { padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold; }
+    .btn-primary { background: var(--csp-red); color: white; }
+    .btn-secondary { background: #eee; color: #333; }
+    @media (max-width: 600px) { .comparison-grid { grid-template-columns: 1fr; } }
 </style>
 <!--
 ==========================================================================
@@ -485,7 +445,7 @@ If you miss a closing </div> here, the entire layout grid will break.
     <hr style="width: 60px; border: 0; border-top: 3px solid var(--lab-highlight, #8e44ad); margin: 25px auto; opacity: 0.6;">
 
         <div style="margin-bottom: 20px;">
-        <a href="index.html?view=amp"
+        <a href="csp-nonce-guide.html?view=amp"
            style="display: inline-block; padding: 5px 12px; border: 1px solid var(--lab-highlight, #8e44ad); border-radius: 4px; color: var(--lab-highlight, #8e44ad); text-decoration: none; font-size: 0.75rem; font-family: 'SF Mono', monospace; font-weight: bold;">
            ⚡ SWITCH TO AMP MOBILE VIEW
         </a>
@@ -514,8 +474,8 @@ If you miss a closing </div> here, the entire layout grid will break.
         memory_get_usage() shows real-time RAM footprint of this request.
         -->
         <div style="margin-top: 5px; font-size: 0.7em; opacity: 0.5;">
-            Rendered: 2026-08-03 10:28:36 |
-            MEM: 542.45 KB
+            Rendered: 2026-08-03 11:03:27 |
+            MEM: 407.73 KB
         </div>
     </div>
 
@@ -525,7 +485,7 @@ If you miss a closing </div> here, the entire layout grid will break.
 [PWA FOUNDATION]
 Registers the Service Worker to enable offline capability and caching.
 -->
-<script nonce="849536faa31f9dae925921dd412e6da1">
+<script nonce="524c16e29af4b142f4de77995ef75ce2">
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('sw.js').then(function(registration) {

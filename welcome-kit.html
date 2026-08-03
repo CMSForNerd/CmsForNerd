@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="https://schema.org/WebApplication">
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
 <head>
-    <script nonce="849536faa31f9dae925921dd412e6da1">
+    <script nonce="e3151ab0089a50e8468deb960a806905">
         (function() {
             var t = localStorage.getItem('theme');
             if (t === 'dark') {
@@ -18,13 +18,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- [SEO] Descriptions used by Google. htmlspecialchars() prevents XSS attacks if text contains code. -->
-<meta name="description" content="A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.">
+<meta name="description" content="The one-stop reference guide for every student entering the CmsForNerd v3.5 Laboratory.">
 
 <!-- [SEO] Keywords for older search engines (though less important now, still good practice). -->
-<meta name="keywords" content="PHP 8.4, Flat-file CMS, Security Laboratory, Zero-Debt CSS, PSR-12">
+<meta name="keywords" content="Welcome Kit, Cheat Sheet, Student Guide, PHP 8.4+, RFC 2119, PSR-12, Security">
 
 <!-- [SEO] Author and Robot instructions. 'index, follow' tells Google to list this page and follow its links. -->
-<meta name="author" content="Harisfazillah Jamel">
+<meta name="author" content="CMSForNerd Team &amp; Google Gemini">
 <meta name="robots" content="index, follow">
 
 <!-- Favicon - The small icon you see in the browser tab. -->
@@ -35,16 +35,18 @@
 
 <!-- [AI/SEO] Schema.org Image for Rich Cards/Previews -->
 <meta itemprop="image" content="images/cmsfornerd-logo.png">
-<meta itemprop="description" content="A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.">
+<meta itemprop="description" content="The one-stop reference guide for every student entering the CmsForNerd v3.5 Laboratory.">
 
 <!-- [AI/SEO] JSON-LD Structured Data - 2025 gold standard for Google, Gemini, and ChatGPT. -->
-<script type="application/ld+json" nonce="849536faa31f9dae925921dd412e6da1">
+<script type="application/ld+json" nonce="e3151ab0089a50e8468deb960a806905">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "CMSForNerd v4.2.0: The Secure Coding Laboratory",
-  "description": "A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.",
-  "url": "index.php",
+  "@type": "TechArticle",
+  "name": "Student Welcome Kit: Essential Cheat Sheet - CMSForNerd v3.5",
+  "description": "The one-stop reference guide for every student entering the CmsForNerd v3.5 Laboratory.",
+  "url": "welcome-kit.php",
+    "dependencies": "PHP 8.4, PSR-12, Composer",
+  "proficiencyLevel": "Intermediate",
     "provider": {
     "@type": "Organization",
     "name": "CMSForNerd Academy",
@@ -69,18 +71,18 @@
 <!-- [SECURITY] Content Security Policy (CSP) with Nonce.
      Instead of 'unsafe-inline' (dangerous), we use a cryptographically random nonce that changes every page load.
      Only scripts with this exact nonce are allowed to execute, preventing XSS attacks. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-849536faa31f9dae925921dd412e6da1' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.ipinfo.io;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-e3151ab0089a50e8468deb960a806905' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.ipinfo.io;">
 
 <!-- RSS Feed & Sitemap Discovery -->
 <link rel="alternate" type="application/rss+xml" title="CmsForNerd SiteMap Feed" href="rss.php" />
 <link rel="alternate" type="application/rss+xml" title="CmsForNerd ROR Sitemap" href="ror.php" />
 <meta http-equiv="Content-Language" content="EN" />
-<title>CMSForNerd v4.2.0: The Secure Coding Laboratory</title>
-    <link rel="amphtml" href="index.html?view=amp">
+<title>Student Welcome Kit: Essential Cheat Sheet - CMSForNerd v3.5</title>
+    <link rel="amphtml" href="welcome-kit.html?view=amp">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0d6efd">
     <style type="text/css" media="all">@import "themes/CmsForNerd/style.css?v=4.0.0";</style>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="849536faa31f9dae925921dd412e6da1"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="e3151ab0089a50e8468deb960a806905"></script>
 </head>
 <body><!--
 ==========================================================================
@@ -137,7 +139,7 @@ ROLE: Visual Header Component
             </div>
         </div>
 
-        <script nonce="849536faa31f9dae925921dd412e6da1">
+        <script nonce="e3151ab0089a50e8468deb960a806905">
         function setLaboratoryTheme(theme) {
             document.documentElement.classList.remove('theme-light', 'theme-dark');
 
@@ -318,136 +320,172 @@ ROLE: Visual Header Component
     -->
     <div id="content">
         <main class="content-body">
-<article class="lab-home">
-    <header class="hero-section">
-        <h1>Welcome to CMSForNerd v4.2.0: The Secure Coding Laboratory</h1>
-        <div class="runtime-status">
-            <span class="badge php-version">PHP 8.3.6</span>
-            <span class="badge status-strict">Strict Mode: Active</span>
-            <span class="badge status-check">PHPStan: Level 8</span>
-            <span class="badge status-sec">CSP: Nonce-Enforced</span>
-        </div>
+<article class="welcome-kit">
+    <header class="kit-header">
+        <h1>🚀 CMSForNerd v3.1: Student Welcome Kit</h1>
+        <p class="quote">"Modernization without loss of simplicity."</p>
     </header>
 
-    <div class="intro-box">
+    <div class="kit-intro">
         <p>
-            <strong>CMSForNerd</strong> is a lightweight, "Zero-Debt" PHP 8.4 Flat-File CMS designed for the modern security environment.
-            While frameworks hide complexity, we expose it—teaching you to write code that is fast, immutable, and impenetrable.
-            Master the "Pair Logic" workflow used in high-security infrastructure development.
+            Welcome to the lab. This document contains everything you need to manage your environment and pass your modules.
+            Keep this <strong>Cheat Sheet</strong> open as you work through the curriculum.
         </p>
-        <div class="quick-links">
-            <a href="welcome-kit.html" class="btn welcome-btn">🚀 Welcome Kit</a>
-            <a href="lab-manual.html" class="btn lab-btn">🎓 Lab Manual</a>
-            <a href="template.html" class="btn guide-btn">🎨 Template Guide</a>
-            <a href="ui-kit.html" class="btn audit-btn">🧪 UI Audit</a>
-        </div>
     </div>
 
-    <section class="grid-features">
-        <div class="feature-card">
-            <h3>🛡️ Security Engineering</h3>
-            <ul>
-                <li><strong>Hybrid SecurityUtils:</strong> Native path sanitization preventing LFI and Directory Traversal.</li>
-                <li><strong>CSP Engine:</strong> Automatic Nonce generation for every request to block XSS.</li>
-                <li><strong>Immutable State:</strong> Use of <code>readonly</code> classes and <code>createCmsContext()</code>.</li>
-                <li><strong>Directory Privacy:</strong> 403 Forbidden gateways on all core and theme folders.</li>
-            </ul>
-        </div>
-
-        <div class="feature-card">
-            <h3>🚀 Training Standards</h3>
-            <ul>
-                <li><strong>"Pair Logic" Architecture:</strong> Separation of Controller (Master) and Fragment (Slave).</li>
-                <li><strong>Modern Control:</strong> Strict <code>match()</code> expressions and Type Hinting throughout.</li>
-                <li><strong>Compliance Ready:</strong> Aligned with <strong>RFC 9116</strong> (Security.txt) and PSR-12.</li>
-                <li><strong>Bot Hardening:</strong> Integrated bot detection and Turnstile support for lab forms.</li>
-            </ul>
-        </div>
-    </section>
-
-
-
-    <section class="lab-workflow">
-        <h3>The "Nerd-Stack" Secure Workflow</h3>
-        <div class="workflow-steps">
-            <div class="step">
-                <span class="step-num">1</span>
-                <h4>The Controller</h4>
-                <p>Duplicate <code>template.php</code> and update page metadata.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">2</span>
-                <h4>The Fragment</h4>
-                <p>Create a <code>-body.inc</code> file in the <code>contents/</code> folder.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">3</span>
-                <h4>The Audit</h4>
-                <p>Verify compliance via <code>phpstan</code> and the <strong>UI Kit</strong>.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="stack-recommendation">
-        <h3>Optimized Learning Stack</h3>
+    <section class="kit-section">
+        <h2>🛠️ The Essential "Nerd Stack"</h2>
         <table class="stack-table">
-            <tr>
-                <td><strong>Runtime</strong></td>
-                <td>PHP 8.4+ (Zend OPcache recommended)</td>
-            </tr>
-            <tr>
-                <td><strong>Standards</strong></td>
-                <td>PSR-12, RFC 9116, Strict Types <code>1</code></td>
-            </tr>
-            <tr>
-                <td><strong>OS Support</strong></td>
-                <td>Debian/Ubuntu Linux & Windows 11 (via Herd/WSL2)</td>
-            </tr>
-            <tr>
-                <td><strong>Dev Tools</strong></td>
-                <td>Composer, Git, PHPStan, VS Code, <strong>Google Antigravity</strong></td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Tool</th>
+                    <th>Purpose</th>
+                    <th>Status Check</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Laravel Herd</strong></td>
+                    <td>PHP 8.4+ Runtime & Server</td>
+                    <td><code>php -v</code> (Must be 8.4+)</td>
+                </tr>
+                <tr>
+                    <td><strong>Git for Windows</strong></td>
+                    <td>Version Control & Cloning</td>
+                    <td><code>git --version</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Antigravity</strong></td>
+                    <td>High-Performance Terminal</td>
+                    <td>(Open App)</td>
+                </tr>
+                <tr>
+                    <td><strong>VS Code</strong></td>
+                    <td>Code Editor / IDE</td>
+                    <td><code>code .</code></td>
+                </tr>
+            </tbody>
         </table>
     </section>
+
+    <section class="kit-section">
+        <h2>📂 Quick Start Commands</h2>
+        <p>Run these inside your <code>C:\Users\YourName\Herd\CmsForNerd</code> folder:</p>
+        <div class="command-grid">
+            <div class="cmd-item">
+                <strong>Initialize Project:</strong>
+                <code>composer install</code>
+            </div>
+            <div class="cmd-item">
+                <strong>Run All Audits:</strong>
+                <code>composer compliance</code>
+            </div>
+            <div class="cmd-item">
+                <strong>Check Style Only:</strong>
+                <code>composer check-style</code>
+            </div>
+            <div class="cmd-item">
+                <strong>Fix Style Automatically:</strong>
+                <code>composer fix-style</code>
+            </div>
+            <div class="cmd-item">
+                <strong>Run Security Tests:</strong>
+                <code>composer test</code>
+            </div>
+        </div>
+    </section>
+
+    <section class="kit-section">
+        <h2>⚖️ Our RFC 2119 Standards</h2>
+        <p>As a student of this laboratory, your code must adhere to these requirement levels:</p>
+        <ul class="standard-list">
+            <li><span class="must">MUST:</span> Every file begins with <code>declare(strict_types=1);</code>.</li>
+            <li><span class="must">MUST:</span> Opening braces for classes/methods are on a new line.</li>
+            <li><span class="must-not">MUST NOT:</span> Use <code>global</code> variables. Use <code>CmsContext</code> instead.</li>
+            <li><span class="should">SHOULD:</span> Aim for 90% code coverage in your logic.</li>
+            <li><span class="may">MAY:</span> Use Property Hooks for simple data transformations.</li>
+        </ul>
+    </section>
+
+    <section class="kit-section">
+        <h2>🛡️ Security Laws</h2>
+        <div class="security-grid">
+            <div class="law">
+                <h3>1. Never Trust User Input</h3>
+                <p>Always run <code>$_GET</code> or <code>$_POST</code> data through <code>SecurityUtils::sanitizePageName()</code>.</p>
+            </div>
+            <div class="law">
+                <h3>2. Escape Output</h3>
+                <p>Use <code>SecurityUtils::escapeHtml()</code> for all variables rendered in the theme.</p>
+            </div>
+            <div class="law">
+                <h3>3. Strict Routing</h3>
+                <p>Only include files that exist in the <code>contents/</code> directory.</p>
+            </div>
+            <div class="law rfc-law">
+                <h3>4. Be Reachable (RFC 9116)</h3>
+                <p>Maintain your <code>security.txt</code> and <a href="security-policy.html">Security Policy</a>. This is the "Front Door" for ethical hackers to report bugs safely.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="kit-section troubleshooting">
+        <h2>🆘 Troubleshooting</h2>
+        <dl>
+            <dt>404 Error?</dt>
+            <dd>Ensure the file exists in <code>contents/</code> and has no special characters in the filename.</dd>
+
+            <dt>PHP Version Error?</dt>
+            <dd>Open Laravel Herd Settings and ensure <strong>"PHP 8.4"</strong> is selected and "Nginx" is running.</dd>
+
+            <dt>Terminal Permissions?</dt>
+            <dd>If Windows blocks your scripts, run: <code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code>.</dd>
+        </dl>
+    </section>
+
+    <footer class="path-to-cert">
+        <h2>🎓 Path to Certification</h2>
+        <div class="roadmap">
+            <div class="step"><strong>1. Setup:</strong> Install tools & clone repo.</div>
+            <div class="step"><strong>2. Modules 1-3:</strong> Architecture, Standards, Security.</div>
+            <div class="step"><strong>3. Modules 4-5:</strong> Write Unit Tests & Coverage.</div>
+            <div class="step"><strong>4. Final Exam:</strong> Fix the "Broken Lab" code.</div>
+            <div class="step"><strong>5. Certification:</strong> Claim your digital certificate!</div>
+        </div>
+        <div class="cta">
+            <a href="lab-manual.html" class="btn welcome-btn">🚀 Start Laboratory Module 1</a>
+        </div>
+    </footer>
 </article>
 
 <style>
-    /* CSS maintained as per previous refinement for consistency */
-    .lab-home { max-width: 1000px; margin: 0 auto; line-height: 1.6; font-family: var(--f-sans, sans-serif); }
-    .hero-section h1 { color: var(--lab-heading, #2c3e50); border-bottom: 4px solid var(--lab-purple, #8e44ad); padding-bottom: 10px; margin-bottom: 10px; }
-
-    .runtime-status { margin-bottom: 25px; }
-    .badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-right: 5px; }
-    .php-version { background: #4F5B93; color: white; }
-    .status-strict { background: #27ae60; color: white; }
-    .status-check { background: #f39c12; color: white; }
-    .status-sec { background: #8e44ad; color: white; }
-
-    .intro-box { background: var(--lab-surface, #f4f7f6); border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); padding: 30px; border-radius: 12px; border-left: 6px solid var(--lab-purple, #8e44ad); margin-bottom: 40px; }
-    .quick-links { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
-
-    .btn { padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; color: white; transition: all 0.2s ease; font-size: 0.9rem; }
-    .welcome-btn { background: #2980b9; }
-    .lab-btn { background: #c0392b; }
-    .guide-btn { background: #8e44ad; }
-    .audit-btn { background: #2c3e50; }
-    .btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-
-    .grid-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin-bottom: 40px; }
-    .feature-card { background: var(--lab-surface, white); border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-    .feature-card h3 { color: var(--lab-heading, #2c3e50); margin-top: 0; border-bottom: 1px solid var(--lab-border, #eee); padding-bottom: 10px; }
-    .feature-card ul { padding-left: 20px; }
-    .feature-card li { margin-bottom: 8px; font-size: 0.95rem; }
-
-    .lab-workflow { background: #0f172a; color: white; padding: 30px; border-radius: 12px; margin-bottom: 40px; }
-    .workflow-steps { display: flex; justify-content: space-around; gap: 20px; margin-top: 20px; text-align: center; }
-    .step-num { background: #8e44ad; width: 40px; height: 40px; display: block; margin: 0 auto 10px; border-radius: 50%; line-height: 40px; font-weight: bold; font-size: 1.2rem; }
-    .step h4 { margin-bottom: 5px; color: #ecf0f1; }
-    .step p { font-size: 0.85rem; color: #bdc3c7; }
-
-    .stack-table { width: 100%; border-collapse: collapse; background: var(--lab-surface, white); border-radius: 8px; overflow: hidden; border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); }
-    .stack-table td { padding: 15px; border: 1px solid var(--lab-border, #eee); }
-    .stack-table tr td:first-child { background: var(--lab-bg, #f9f9f9); width: 30%; font-weight: bold; color: var(--lab-muted, #64748b); font-size: 0.9rem; }
+.welcome-kit h1 { color: #004085; border-bottom: 2px solid #004085; padding-bottom: 0.5rem; margin-top: 0; }
+.welcome-kit .kit-header { text-align: center; margin-bottom: 2rem; }
+.welcome-kit .quote { font-style: italic; color: #666; font-size: 1.1rem; }
+.welcome-kit .kit-intro { background: #e2f3f5; padding: 1.5rem; border-radius: 8px; border-left: 5px solid #004085; margin-bottom: 2rem; }
+.welcome-kit h2 { color: #333; margin-top: 2rem; border-bottom: 1px solid #eee; padding-bottom: 0.3rem; }
+.welcome-kit .stack-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.welcome-kit .stack-table th, .welcome-kit .stack-table td { text-align: left; padding: 0.75rem; border: 1px solid #dee2e6; }
+.welcome-kit .stack-table th { background: #f8f9fa; }
+.welcome-kit .command-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.welcome-kit .cmd-item { background: #fff; border: 1px solid #ddd; padding: 1rem; border-radius: 4px; }
+.welcome-kit .cmd-item code { display: block; margin-top: 0.5rem; background: #212529; color: #f8f9fa; padding: 0.5rem; border-radius: 4px; white-space: pre-wrap; word-break: break-all; }
+.welcome-kit .standard-list { list-style: none; padding: 0; }
+.welcome-kit .standard-list li { margin-bottom: 0.75rem; }
+.welcome-kit .must { color: #d9534f; font-weight: bold; }
+.welcome-kit .must-not { color: #d9534f; font-weight: bold; text-decoration: underline; }
+.welcome-kit .should { color: #f0ad4e; font-weight: bold; }
+.welcome-kit .may { color: #5bc0de; font-weight: bold; }
+.welcome-kit .security-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.welcome-kit .law { background: #fff9f9; border: 1px solid #ffeeba; padding: 1rem; border-radius: 4px; }
+.welcome-kit .law h3 { margin-top: 0; font-size: 1rem; color: #856404; }
+.welcome-kit .troubleshooting dl { margin: 1rem 0; }
+.welcome-kit .troubleshooting dt { font-weight: bold; color: #c82333; margin-top: 1rem; }
+.welcome-kit .path-to-cert { background: #f8f9fa; padding: 2rem; border-radius: 8px; margin-top: 3rem; text-align: center; }
+.welcome-kit .roadmap { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; }
+.welcome-kit .step { border-left: 3px solid #004085; padding-left: 1rem; }
+.welcome-kit .welcome-btn { background: #004085; color: #fff; padding: 1rem 2rem; border-radius: 4px; text-decoration: none; font-weight: bold; }
+.welcome-kit .welcome-btn:hover { background: #002752; }
 </style>
 <!--
 ==========================================================================
@@ -485,7 +523,7 @@ If you miss a closing </div> here, the entire layout grid will break.
     <hr style="width: 60px; border: 0; border-top: 3px solid var(--lab-highlight, #8e44ad); margin: 25px auto; opacity: 0.6;">
 
         <div style="margin-bottom: 20px;">
-        <a href="index.html?view=amp"
+        <a href="welcome-kit.html?view=amp"
            style="display: inline-block; padding: 5px 12px; border: 1px solid var(--lab-highlight, #8e44ad); border-radius: 4px; color: var(--lab-highlight, #8e44ad); text-decoration: none; font-size: 0.75rem; font-family: 'SF Mono', monospace; font-weight: bold;">
            ⚡ SWITCH TO AMP MOBILE VIEW
         </a>
@@ -514,8 +552,8 @@ If you miss a closing </div> here, the entire layout grid will break.
         memory_get_usage() shows real-time RAM footprint of this request.
         -->
         <div style="margin-top: 5px; font-size: 0.7em; opacity: 0.5;">
-            Rendered: 2026-08-03 10:28:36 |
-            MEM: 542.45 KB
+            Rendered: 2026-08-03 11:03:27 |
+            MEM: 407.81 KB
         </div>
     </div>
 
@@ -525,7 +563,7 @@ If you miss a closing </div> here, the entire layout grid will break.
 [PWA FOUNDATION]
 Registers the Service Worker to enable offline capability and caching.
 -->
-<script nonce="849536faa31f9dae925921dd412e6da1">
+<script nonce="e3151ab0089a50e8468deb960a806905">
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('sw.js').then(function(registration) {
