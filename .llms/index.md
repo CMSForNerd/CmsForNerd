@@ -5,7 +5,7 @@ title: "🤖 .llms/index: Comprehensive AI Agent Context Index"
 description: "Hierarchical breakdown of the CmsForNerd v4.1.0 codebase, architecture, state flow, and files."
 resource: "file:///.llms/index.md"
 topics: [llm, indexing, architecture, code-structure, dsom]
-timestamp: 2026-07-27T12:00:00Z
+timestamp: 2026-08-01T15:00:00Z
 ---
 # 🤖 .llms/index: Comprehensive AI Agent Context Index
 
@@ -97,6 +97,7 @@ The following index classifies the entire documentation palace of over 50 files 
 - [docs/INSTALLATION.md](../docs/INSTALLATION.md): Complete guidelines for local and production deployments.
 - [docs/lab-manual.md](../docs/lab-manual.md): Comprehensive curriculum lab handbook.
 - [docs/template-guide.md](../docs/template-guide.md): The PHP-FPM theme structure and layout guide.
+- [docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md](../docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md): Static baking and deployment guide on GitHub Pages (bypassing Jekyll).
 
 ### 2. Laboratory Learning Modules
 - [docs/lab-module1.md](../docs/lab-module1.md): Module 1 — Architecture modernization.

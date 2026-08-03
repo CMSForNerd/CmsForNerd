@@ -2,7 +2,7 @@
 okf_version: 0.1
 type: documentation
 title: "CMSForNerd Readme"
-timestamp: "2026-07-27T12:00:00Z"
+timestamp: "2026-08-01T15:00:00Z"
 ---
 # 🚀 CmsForNerd v4.1.0 (2026 Deep State of Mind Edition)
 
@@ -113,6 +113,13 @@ handshake is **REQUIRED** for all laboratory sessions.
    ```bash
    ansible-playbook -i inventory/hosts.example.yml playbooks/bootstrap_node.yml
    ```
+
+### 📦 Option 5: GitHub Pages Static Deployment (With .nojekyll)
+
+1. Bakes the dynamic PHP structure into absolute flat HTML/CSS/JS files inside the `build_static/` directory using our custom compilation tool.
+2. The compilation pipeline is fully orchestrated and automated on every push to `master` via GitHub Actions (`static-build.yml`).
+3. Automatically generates a `.nojekyll` file within the distribution folder to completely bypass Jekyll rendering, preventing Liquid conflicts and allowing uninhibited progressive web app and web worker support.
+4. Read the complete setup steps in our [GitHub Pages Deployment Guide](docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md).
 
 ---
 

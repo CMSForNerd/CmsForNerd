@@ -54,6 +54,7 @@
 - [docs/ANSIBLE_PODMAN_GUIDE.md](docs/ANSIBLE_PODMAN_GUIDE.md): Orchestration guide using Podman 5.
 - [docs/SECURITY_AUDIT_REPORT.md](docs/SECURITY_AUDIT_REPORT.md): OpenSCAP compliance report.
 - [docs/RENDER-DEPLOYMENT-GUIDE.md](docs/RENDER-DEPLOYMENT-GUIDE.md): Render Blueprint and custom Containerfile Deployment Guide.
+- [docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md](docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md): GitHub Pages static baking and deployment guide (bypassing Jekyll).
 
 ---
 *Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-07-27*
