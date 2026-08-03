@@ -64,15 +64,14 @@ function get_runtime_config(): array
         include_once $themePath;
     }
 
-    // 4. Dynamic URL detection (Cross-platform/Server safe)
-    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+    // 4. Secure dynamic sitemap URL construction using getSafeBaseUrl
+    $sitemapUrl = \CmsForNerd\SecurityUtils::getSafeBaseUrl() . 'sitemap.php';
 
     return [
         'THEMENAME'      => $themeName,
         // Priority: Use $CSSPATH from theme.php if set, otherwise default to theme folder
         'CSSPATH'        => (string) ($CSSPATH ?? "/themes/$themeName/css/"),
-        'sitemap_url'    => "$protocol://$host/sitemap.php",
+        'sitemap_url'    => $sitemapUrl,
         'INSTRUCTOR_KEY' => (string) (getenv('CMS_INSTRUCTOR_KEY') ?: 'NERD-LAB-2025')
     ];
 }

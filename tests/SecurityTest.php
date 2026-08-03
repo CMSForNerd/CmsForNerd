@@ -162,6 +162,26 @@ final class SecurityTest extends TestCase
     }
 
     /**
+     * Test Safe Base URL construction to prevent Host Header Injection.
+     */
+    public function testSafeBaseUrl(): void
+    {
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $_SERVER['HTTPS'] = 'off';
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+
+        $baseUrl = SecurityUtils::getSafeBaseUrl();
+        $this->assertEquals('http://localhost/', $baseUrl);
+
+        $_SERVER['HTTP_HOST'] = 'cmsfornerd.test:8080';
+        $_SERVER['HTTPS'] = 'on';
+        $_SERVER['SCRIPT_NAME'] = '/docs/index.php';
+
+        $baseUrl2 = SecurityUtils::getSafeBaseUrl();
+        $this->assertEquals('https://cmsfornerd.test:8080/docs/', $baseUrl2);
+    }
+
+    /**
      * Test HTML Microdata (itemscope and itemtype) presence on all major HTML outputs
      */
     public function testHtmlMicrodataPresence(): void

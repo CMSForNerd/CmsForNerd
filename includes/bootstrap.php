@@ -60,16 +60,13 @@ function createCmsContext(
     ?string $nonce = null
 ): \CmsForNerd\CmsContext {
     // [LAB] ROOT URL CALCULATION
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
-    $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $baseUrlVal = \CmsForNerd\SecurityUtils::getSafeBaseUrl();
 
     $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
     $scriptDir  = str_replace('\\', '/', dirname($scriptPath));
 
     if (str_contains($scriptDir, '/docs')) {
-        $baseUrlVal = rtrim($protocol . $host . str_replace('/docs', '', $scriptDir), '/') . '/';
-    } else {
-        $baseUrlVal = rtrim($protocol . $host . $scriptDir, '/') . '/';
+        $baseUrlVal = str_replace('/docs', '', $baseUrlVal);
     }
 
     // [v3.6] Automated Semantic Detection logic
