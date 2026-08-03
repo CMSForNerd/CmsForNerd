@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="https://schema.org/WebApplication">
+<html lang="en" itemscope itemtype="https://schema.org/HowTo">
 <head>
-    <script nonce="849536faa31f9dae925921dd412e6da1">
+    <script nonce="422885709c38fc473293eb88e4f66c9e">
         (function() {
             var t = localStorage.getItem('theme');
             if (t === 'dark') {
@@ -18,13 +18,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- [SEO] Descriptions used by Google. htmlspecialchars() prevents XSS attacks if text contains code. -->
-<meta name="description" content="A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.">
+<meta name="description" content="Official deployment steps for CMSForNerd v3.5. Learn how to install the flat-file core on modern PHP 8.4 environments.">
 
 <!-- [SEO] Keywords for older search engines (though less important now, still good practice). -->
-<meta name="keywords" content="PHP 8.4, Flat-file CMS, Security Laboratory, Zero-Debt CSS, PSR-12">
+<meta name="keywords" content="Installation, Deployment, PHP 8.4, Composer, Git, Flat-file CMS Setup">
 
 <!-- [SEO] Author and Robot instructions. 'index, follow' tells Google to list this page and follow its links. -->
-<meta name="author" content="Harisfazillah Jamel">
+<meta name="author" content="CMSForNerd Team &amp; Gemini AI">
 <meta name="robots" content="index, follow">
 
 <!-- Favicon - The small icon you see in the browser tab. -->
@@ -35,16 +35,16 @@
 
 <!-- [AI/SEO] Schema.org Image for Rich Cards/Previews -->
 <meta itemprop="image" content="images/cmsfornerd-logo.png">
-<meta itemprop="description" content="A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.">
+<meta itemprop="description" content="Official deployment steps for CMSForNerd v3.5. Learn how to install the flat-file core on modern PHP 8.4 environments.">
 
 <!-- [AI/SEO] JSON-LD Structured Data - 2025 gold standard for Google, Gemini, and ChatGPT. -->
-<script type="application/ld+json" nonce="849536faa31f9dae925921dd412e6da1">
+<script type="application/ld+json" nonce="422885709c38fc473293eb88e4f66c9e">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "CMSForNerd v4.2.0: The Secure Coding Laboratory",
-  "description": "A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.",
-  "url": "index.php",
+  "@type": "HowTo",
+  "name": "Installation Guide | CMSForNerd v3.5 Laboratory",
+  "description": "Official deployment steps for CMSForNerd v3.5. Learn how to install the flat-file core on modern PHP 8.4 environments.",
+  "url": "installation.php",
     "provider": {
     "@type": "Organization",
     "name": "CMSForNerd Academy",
@@ -69,18 +69,18 @@
 <!-- [SECURITY] Content Security Policy (CSP) with Nonce.
      Instead of 'unsafe-inline' (dangerous), we use a cryptographically random nonce that changes every page load.
      Only scripts with this exact nonce are allowed to execute, preventing XSS attacks. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-849536faa31f9dae925921dd412e6da1' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.ipinfo.io;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-422885709c38fc473293eb88e4f66c9e' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.ipinfo.io;">
 
 <!-- RSS Feed & Sitemap Discovery -->
 <link rel="alternate" type="application/rss+xml" title="CmsForNerd SiteMap Feed" href="rss.php" />
 <link rel="alternate" type="application/rss+xml" title="CmsForNerd ROR Sitemap" href="ror.php" />
 <meta http-equiv="Content-Language" content="EN" />
-<title>CMSForNerd v4.2.0: The Secure Coding Laboratory</title>
-    <link rel="amphtml" href="index.html?view=amp">
+<title>Installation Guide | CMSForNerd v3.5 Laboratory</title>
+    <link rel="amphtml" href="installation.html?view=amp">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0d6efd">
     <style type="text/css" media="all">@import "themes/CmsForNerd/style.css?v=4.0.0";</style>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="849536faa31f9dae925921dd412e6da1"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="422885709c38fc473293eb88e4f66c9e"></script>
 </head>
 <body><!--
 ==========================================================================
@@ -137,7 +137,7 @@ ROLE: Visual Header Component
             </div>
         </div>
 
-        <script nonce="849536faa31f9dae925921dd412e6da1">
+        <script nonce="422885709c38fc473293eb88e4f66c9e">
         function setLaboratoryTheme(theme) {
             document.documentElement.classList.remove('theme-light', 'theme-dark');
 
@@ -318,136 +318,121 @@ ROLE: Visual Header Component
     -->
     <div id="content">
         <main class="content-body">
-<article class="lab-home">
-    <header class="hero-section">
-        <h1>Welcome to CMSForNerd v4.2.0: The Secure Coding Laboratory</h1>
-        <div class="runtime-status">
-            <span class="badge php-version">PHP 8.3.6</span>
-            <span class="badge status-strict">Strict Mode: Active</span>
-            <span class="badge status-check">PHPStan: Level 8</span>
-            <span class="badge status-sec">CSP: Nonce-Enforced</span>
-        </div>
-    </header>
-
-    <div class="intro-box">
-        <p>
-            <strong>CMSForNerd</strong> is a lightweight, "Zero-Debt" PHP 8.4 Flat-File CMS designed for the modern security environment.
-            While frameworks hide complexity, we expose it—teaching you to write code that is fast, immutable, and impenetrable.
-            Master the "Pair Logic" workflow used in high-security infrastructure development.
-        </p>
-        <div class="quick-links">
-            <a href="welcome-kit.html" class="btn welcome-btn">🚀 Welcome Kit</a>
-            <a href="lab-manual.html" class="btn lab-btn">🎓 Lab Manual</a>
-            <a href="template.html" class="btn guide-btn">🎨 Template Guide</a>
-            <a href="ui-kit.html" class="btn audit-btn">🧪 UI Audit</a>
-        </div>
-    </div>
-
-    <section class="grid-features">
-        <div class="feature-card">
-            <h3>🛡️ Security Engineering</h3>
-            <ul>
-                <li><strong>Hybrid SecurityUtils:</strong> Native path sanitization preventing LFI and Directory Traversal.</li>
-                <li><strong>CSP Engine:</strong> Automatic Nonce generation for every request to block XSS.</li>
-                <li><strong>Immutable State:</strong> Use of <code>readonly</code> classes and <code>createCmsContext()</code>.</li>
-                <li><strong>Directory Privacy:</strong> 403 Forbidden gateways on all core and theme folders.</li>
-            </ul>
-        </div>
-
-        <div class="feature-card">
-            <h3>🚀 Training Standards</h3>
-            <ul>
-                <li><strong>"Pair Logic" Architecture:</strong> Separation of Controller (Master) and Fragment (Slave).</li>
-                <li><strong>Modern Control:</strong> Strict <code>match()</code> expressions and Type Hinting throughout.</li>
-                <li><strong>Compliance Ready:</strong> Aligned with <strong>RFC 9116</strong> (Security.txt) and PSR-12.</li>
-                <li><strong>Bot Hardening:</strong> Integrated bot detection and Turnstile support for lab forms.</li>
-            </ul>
-        </div>
-    </section>
+<h1>Introduction</h1>
+<p>
+    <strong>CMSForNerd</strong> is a lightweight, flat-file Content Management System geared towards developers and enthusiasts who want full control over their code.
+    Unlike complex database-driven CMS platforms (like WordPress or Joomla), CMSForNerd stores all content in simple text files.
+    This makes it incredibly fast, secure, and easy to backup—just copy the files!
+</p>
+<p>
+    We built <strong>CMSForNerd framework</strong> to help users learn the fundamentals of <strong>HTML5, CSS3, and Modern PHP (8.4+)</strong>.
+    The v3.4 modernization ensures full <strong>cross-platform compatibility</strong> (Windows, Linux, Unix, FreeBSD) achieved through <strong>AI-Assisted Coding</strong> using <strong>Google Antigravity</strong>.
+</p>
 
 
 
-    <section class="lab-workflow">
-        <h3>The "Nerd-Stack" Secure Workflow</h3>
-        <div class="workflow-steps">
-            <div class="step">
-                <span class="step-num">1</span>
-                <h4>The Controller</h4>
-                <p>Duplicate <code>template.php</code> and update page metadata.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">2</span>
-                <h4>The Fragment</h4>
-                <p>Create a <code>-body.inc</code> file in the <code>contents/</code> folder.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">3</span>
-                <h4>The Audit</h4>
-                <p>Verify compliance via <code>phpstan</code> and the <strong>UI Kit</strong>.</p>
-            </div>
-        </div>
-    </section>
+<h3>Requirements</h3>
+<ul>
+    <li><strong>Web Server:</strong> Nginx (Recommended), Apache, IIS, or LiteSpeed.</li>
+    <li><strong>PHP Engine:</strong> PHP 8.4+ (Required for v3.4 strict typing features).</li>
+    <li><strong>PHP Modules:</strong> <code>mbstring</code> (string handling), <code>openssl</code> (security), and <code>zip</code> (archives).</li>
+    <li><strong>OS:</strong> Windows, Linux, Unix, or FreeBSD (Tested).</li>
+    <li><strong>Dependency Manager:</strong> <a href="https://getcomposer.org/" target="_blank">Composer</a> (Required for Laboratory check scripts).</li>
+    <li><strong>No Database required!</strong></li>
+</ul>
 
-    <section class="stack-recommendation">
-        <h3>Optimized Learning Stack</h3>
-        <table class="stack-table">
-            <tr>
-                <td><strong>Runtime</strong></td>
-                <td>PHP 8.4+ (Zend OPcache recommended)</td>
-            </tr>
-            <tr>
-                <td><strong>Standards</strong></td>
-                <td>PSR-12, RFC 9116, Strict Types <code>1</code></td>
-            </tr>
-            <tr>
-                <td><strong>OS Support</strong></td>
-                <td>Debian/Ubuntu Linux & Windows 11 (via Herd/WSL2)</td>
-            </tr>
-            <tr>
-                <td><strong>Dev Tools</strong></td>
-                <td>Composer, Git, PHPStan, VS Code, <strong>Google Antigravity</strong></td>
-            </tr>
-        </table>
-    </section>
-</article>
+<h3>Installation</h3>
+<ol>
+    <li>Download the latest release zip/tarball from our <a href="https://github.com/CMSForNerd/CmsForNerd" target="_blank">GitHub Repository</a>.</li>
+    <li>Extract the contents to your web server's public directory (e.g., <code>public_html</code> or <code>www</code>).</li>
+    <li>Ensure permissions are set correctly (typically 755 for directories, 644 for files).</li>
+    <li>Open <code>includes/global-control.inc.php</code> to configure your site name and theme.</li>
+</ol>
+
+<h3>Step 1: Dependency Management (Composer)</h3>
+<p>
+    CMSForNerd v3.4 uses Composer to manage the PSR-4 Autoloader and technical tools. After extracting your files, open your terminal in the root directory and run:
+</p>
+<div class="code-box" style="background: #1e1e1e; color: #dcdcdc; padding: 1rem; border-radius: 8px;">
+<pre><code># Install the "Nerd-Stack" and generate the Autoloader
+composer install
+
+# If you add new classes later, run:
+composer dump-autoload</code></pre>
+</div>
+
+<h3>Step 2: Security Audit (PHPStan)</h3>
+<p>
+    To ensure your code is secure and free of "Undefined Variable" errors, we use <strong>PHPStan Level 8</strong>. Run this check before every deployment:
+</p>
+<div class="code-box" style="background: #1e1e1e; color: #dcdcdc; padding: 1rem; border-radius: 8px;">
+<pre><code># Run the Static Analysis engine
+vendor/bin/phpstan analyze</code></pre>
+</div>
+<p><em>Note: For a "Safe Build," the output must return <strong>[OK] No errors</strong>.</em></p>
+
+
+
+<h3>How to Create Pages</h3>
+<p>
+    CMSForNerd uses a unique <strong>"Pair Logic"</strong> system. To create a new page (e.g., <em>About Us</em>), you need two files:
+</p>
+<ol>
+    <li>
+        <strong>The Entry Point (<code>about.php</code>):</strong>
+        Copy <code>template.php</code> to the root directory and rename it to <code>about.php</code>.
+    </li>
+    <li>
+        <strong>The Content Body (<code>contents/about-body.inc</code>):</strong>
+        Create a file inside the <code>contents/</code> folder named <code>about-body.inc</code>.
+        Put your raw HTML content here (just the part inside the <code>&lt;body&gt;</code> tags).
+    </li>
+</ol>
+
+<h3>Recommended Tools</h3>
+<p>Coding and maintaining a flat-file site is easier with the right tools:</p>
+<ul>
+    <li><strong>Code Editor:</strong> <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>, <a href="https://www.sublimetext.com/" target="_blank">Sublime Text</a>, or Google Antigravity.</li>
+    <li><strong>File Transfer:</strong> <a href="https://filezilla-project.org/" target="_blank">FileZilla</a> or <a href="https://winscp.net/" target="_blank">WinSCP</a>.</li>
+    <li><strong>Local Server:</strong> <a href="https://herd.laravel.com/" target="_blank">Laravel Herd</a> (Recommended), <a href="https://www.apachefriends.org/" target="_blank">XAMPP</a>, or <a href="https://laragon.org/" target="_blank">Laragon</a>.</li>
+    <li><strong>Debugging:</strong> <a href="https://www.mozilla.org/firefox/developer/" target="_blank">Mozilla Firefox Developer Tools</a> for CSP auditing and CSS Grid debugging.</li>
+</ul>
+
+<h3>Security Features (v3.4)</h3>
+<p>
+    <strong>CMSForNerd v3.4</strong> includes strict input validation, <strong>Content Security Policy (CSP)</strong> nonces, and <strong>Cloudflare Turnstile</strong> support.
+    To enable Bot Protection on your forms, edit <code>includes/turnstile.php</code> and add your API keys.
+</p>
+
+<h3>Advanced: Theme Development (PHP 8.4)</h3>
+<p>
+    When building themes, we now use the <strong>Context Object</strong> pattern and <strong>Constructor Property Promotion</strong> for clean, object-oriented inclusions:
+</p>
+<pre><code>// NEW (PHP 8.4 with Context Object)
+include "themes/{$ctx->themeName}/header.tpl";
+</code></pre>
+
+<h3>Maintenance Note</h3>
+<p>
+    Remember to run <code>composer install</code> if you move the project to a new machine to ensure the autoloader and static analysis tools are ready to go.
+</p>
+
+<div class="next-steps" style="background: #fff3cd; border: 2px solid #ffeeba; padding: 2rem; border-radius: 8px; margin-top: 3rem; text-align: center;">
+    <h3>✅ Installation Complete?</h3>
+    <p>Your NEXT STEP is to open the <strong>Student Welcome Kit</strong> to get your "Nerd Stack" ready for the laboratory.</p>
+    <p><a href="welcome-kit.html" class="btn" style="background: #856404; color: #fff; padding: 0.8rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: bold; display: inline-block;">🚀 Open Student Welcome Kit</a></p>
+</div>
+
+<p style="text-align: center; margin-top: 2rem; font-style: italic; color: #666;">
+    All changes have been committed and pushed to your GitHub repository. It has been a pleasure modernizing this "Radically Simple" CMS using <strong>Google Antigravity</strong>!
+</p>
 
 <style>
-    /* CSS maintained as per previous refinement for consistency */
-    .lab-home { max-width: 1000px; margin: 0 auto; line-height: 1.6; font-family: var(--f-sans, sans-serif); }
-    .hero-section h1 { color: var(--lab-heading, #2c3e50); border-bottom: 4px solid var(--lab-purple, #8e44ad); padding-bottom: 10px; margin-bottom: 10px; }
-
-    .runtime-status { margin-bottom: 25px; }
-    .badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-right: 5px; }
-    .php-version { background: #4F5B93; color: white; }
-    .status-strict { background: #27ae60; color: white; }
-    .status-check { background: #f39c12; color: white; }
-    .status-sec { background: #8e44ad; color: white; }
-
-    .intro-box { background: var(--lab-surface, #f4f7f6); border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); padding: 30px; border-radius: 12px; border-left: 6px solid var(--lab-purple, #8e44ad); margin-bottom: 40px; }
-    .quick-links { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
-
-    .btn { padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; color: white; transition: all 0.2s ease; font-size: 0.9rem; }
-    .welcome-btn { background: #2980b9; }
-    .lab-btn { background: #c0392b; }
-    .guide-btn { background: #8e44ad; }
-    .audit-btn { background: #2c3e50; }
-    .btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-
-    .grid-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin-bottom: 40px; }
-    .feature-card { background: var(--lab-surface, white); border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-    .feature-card h3 { color: var(--lab-heading, #2c3e50); margin-top: 0; border-bottom: 1px solid var(--lab-border, #eee); padding-bottom: 10px; }
-    .feature-card ul { padding-left: 20px; }
-    .feature-card li { margin-bottom: 8px; font-size: 0.95rem; }
-
-    .lab-workflow { background: #0f172a; color: white; padding: 30px; border-radius: 12px; margin-bottom: 40px; }
-    .workflow-steps { display: flex; justify-content: space-around; gap: 20px; margin-top: 20px; text-align: center; }
-    .step-num { background: #8e44ad; width: 40px; height: 40px; display: block; margin: 0 auto 10px; border-radius: 50%; line-height: 40px; font-weight: bold; font-size: 1.2rem; }
-    .step h4 { margin-bottom: 5px; color: #ecf0f1; }
-    .step p { font-size: 0.85rem; color: #bdc3c7; }
-
-    .stack-table { width: 100%; border-collapse: collapse; background: var(--lab-surface, white); border-radius: 8px; overflow: hidden; border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); }
-    .stack-table td { padding: 15px; border: 1px solid var(--lab-border, #eee); }
-    .stack-table tr td:first-child { background: var(--lab-bg, #f9f9f9); width: 30%; font-weight: bold; color: var(--lab-muted, #64748b); font-size: 0.9rem; }
+    .code-box pre { margin: 0; overflow-x: auto; }
+    .code-box code { font-family: 'Consolas', 'Monaco', monospace; }
+    h3 { border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 2rem; color: #2c3e50; }
+    li { margin-bottom: 10px; }
+    .btn:hover { filter: brightness(1.2); }
 </style>
 <!--
 ==========================================================================
@@ -485,7 +470,7 @@ If you miss a closing </div> here, the entire layout grid will break.
     <hr style="width: 60px; border: 0; border-top: 3px solid var(--lab-highlight, #8e44ad); margin: 25px auto; opacity: 0.6;">
 
         <div style="margin-bottom: 20px;">
-        <a href="index.html?view=amp"
+        <a href="installation.html?view=amp"
            style="display: inline-block; padding: 5px 12px; border: 1px solid var(--lab-highlight, #8e44ad); border-radius: 4px; color: var(--lab-highlight, #8e44ad); text-decoration: none; font-size: 0.75rem; font-family: 'SF Mono', monospace; font-weight: bold;">
            ⚡ SWITCH TO AMP MOBILE VIEW
         </a>
@@ -514,8 +499,8 @@ If you miss a closing </div> here, the entire layout grid will break.
         memory_get_usage() shows real-time RAM footprint of this request.
         -->
         <div style="margin-top: 5px; font-size: 0.7em; opacity: 0.5;">
-            Rendered: 2026-08-03 10:28:36 |
-            MEM: 542.45 KB
+            Rendered: 2026-08-03 11:03:27 |
+            MEM: 407.7 KB
         </div>
     </div>
 
@@ -525,7 +510,7 @@ If you miss a closing </div> here, the entire layout grid will break.
 [PWA FOUNDATION]
 Registers the Service Worker to enable offline capability and caching.
 -->
-<script nonce="849536faa31f9dae925921dd412e6da1">
+<script nonce="422885709c38fc473293eb88e4f66c9e">
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('sw.js').then(function(registration) {

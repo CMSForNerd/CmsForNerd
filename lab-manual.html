@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="https://schema.org/WebApplication">
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
 <head>
-    <script nonce="849536faa31f9dae925921dd412e6da1">
+    <script nonce="14a5bb3f90b01cbe421378746fdbe55c">
         (function() {
             var t = localStorage.getItem('theme');
             if (t === 'dark') {
@@ -18,13 +18,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- [SEO] Descriptions used by Google. htmlspecialchars() prevents XSS attacks if text contains code. -->
-<meta name="description" content="A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.">
+<meta name="description" content="Welcome to the v3.5 educational suite. A transparent laboratory for learning modern PHP architecture.">
 
 <!-- [SEO] Keywords for older search engines (though less important now, still good practice). -->
-<meta name="keywords" content="PHP 8.4, Flat-file CMS, Security Laboratory, Zero-Debt CSS, PSR-12">
+<meta name="keywords" content="Lab Manual, PHP 8.4, Education, Architecture, Security, TDD, PSR-12">
 
 <!-- [SEO] Author and Robot instructions. 'index, follow' tells Google to list this page and follow its links. -->
-<meta name="author" content="Harisfazillah Jamel">
+<meta name="author" content="Harisfazillah Jamel &amp; Gemini">
 <meta name="robots" content="index, follow">
 
 <!-- Favicon - The small icon you see in the browser tab. -->
@@ -35,16 +35,16 @@
 
 <!-- [AI/SEO] Schema.org Image for Rich Cards/Previews -->
 <meta itemprop="image" content="images/cmsfornerd-logo.png">
-<meta itemprop="description" content="A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.">
+<meta itemprop="description" content="Welcome to the v3.5 educational suite. A transparent laboratory for learning modern PHP architecture.">
 
 <!-- [AI/SEO] JSON-LD Structured Data - 2025 gold standard for Google, Gemini, and ChatGPT. -->
-<script type="application/ld+json" nonce="849536faa31f9dae925921dd412e6da1">
+<script type="application/ld+json" nonce="14a5bb3f90b01cbe421378746fdbe55c">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "CMSForNerd v4.2.0: The Secure Coding Laboratory",
-  "description": "A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.",
-  "url": "index.php",
+  "@type": "Course",
+  "name": "The Lab Manual: PHP 8.4+ &amp; PHP 9 Readiness - CmsForNerd v3.5",
+  "description": "Welcome to the v3.5 educational suite. A transparent laboratory for learning modern PHP architecture.",
+  "url": "lab-manual.php",
     "provider": {
     "@type": "Organization",
     "name": "CMSForNerd Academy",
@@ -69,18 +69,18 @@
 <!-- [SECURITY] Content Security Policy (CSP) with Nonce.
      Instead of 'unsafe-inline' (dangerous), we use a cryptographically random nonce that changes every page load.
      Only scripts with this exact nonce are allowed to execute, preventing XSS attacks. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-849536faa31f9dae925921dd412e6da1' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.ipinfo.io;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-14a5bb3f90b01cbe421378746fdbe55c' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.ipinfo.io;">
 
 <!-- RSS Feed & Sitemap Discovery -->
 <link rel="alternate" type="application/rss+xml" title="CmsForNerd SiteMap Feed" href="rss.php" />
 <link rel="alternate" type="application/rss+xml" title="CmsForNerd ROR Sitemap" href="ror.php" />
 <meta http-equiv="Content-Language" content="EN" />
-<title>CMSForNerd v4.2.0: The Secure Coding Laboratory</title>
-    <link rel="amphtml" href="index.html?view=amp">
+<title>The Lab Manual: PHP 8.4+ &amp; PHP 9 Readiness - CmsForNerd v3.5</title>
+    <link rel="amphtml" href="lab-manual.html?view=amp">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0d6efd">
     <style type="text/css" media="all">@import "themes/CmsForNerd/style.css?v=4.0.0";</style>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="849536faa31f9dae925921dd412e6da1"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="14a5bb3f90b01cbe421378746fdbe55c"></script>
 </head>
 <body><!--
 ==========================================================================
@@ -137,7 +137,7 @@ ROLE: Visual Header Component
             </div>
         </div>
 
-        <script nonce="849536faa31f9dae925921dd412e6da1">
+        <script nonce="14a5bb3f90b01cbe421378746fdbe55c">
         function setLaboratoryTheme(theme) {
             document.documentElement.classList.remove('theme-light', 'theme-dark');
 
@@ -318,136 +318,185 @@ ROLE: Visual Header Component
     -->
     <div id="content">
         <main class="content-body">
-<article class="lab-home">
-    <header class="hero-section">
-        <h1>Welcome to CMSForNerd v4.2.0: The Secure Coding Laboratory</h1>
-        <div class="runtime-status">
-            <span class="badge php-version">PHP 8.3.6</span>
-            <span class="badge status-strict">Strict Mode: Active</span>
-            <span class="badge status-check">PHPStan: Level 8</span>
-            <span class="badge status-sec">CSP: Nonce-Enforced</span>
-        </div>
-    </header>
+<article class="lab-manual">
+    <h1>🎓 CMSForNerd v3.3: The Developer’s Lab Manual</h1>
+    <p class="intro">
+        Welcome to the v3.1 educational suite. This CMS is designed to be a <strong>transparent laboratory</strong>.
+        Every line of code is accessible, every architectural choice is documented, and every security feature
+        is a lesson in professional standards.
+    </p>
 
-    <div class="intro-box">
-        <p>
-            <strong>CMSForNerd</strong> is a lightweight, "Zero-Debt" PHP 8.4 Flat-File CMS designed for the modern security environment.
-            While frameworks hide complexity, we expose it—teaching you to write code that is fast, immutable, and impenetrable.
-            Master the "Pair Logic" workflow used in high-security infrastructure development.
-        </p>
-        <div class="quick-links">
-            <a href="welcome-kit.html" class="btn welcome-btn">🚀 Welcome Kit</a>
-            <a href="lab-manual.html" class="btn lab-btn">🎓 Lab Manual</a>
-            <a href="template.html" class="btn guide-btn">🎨 Template Guide</a>
-            <a href="ui-kit.html" class="btn audit-btn">🧪 UI Audit</a>
+    <section class="module">
+        <h2>📚 Laboratory Module 1: Modern PHP 8.4+ Architecture</h2>
+        <p>In this module, students explore the transition from procedural scripts to modern object-oriented patterns, optimized for PHP 8.4 and ready for PHP 9.</p>
+        <div class="exercise">
+            <h3>Exercise 1.1: Strict Typing</h3>
+            <p>Observe how <code>declare(strict_types=1);</code> prevents the CMS from accepting incorrect data types, forcing developers to write predictable code.</p>
+            <p><a href="lab-module1.html" class="btn">📝 Open Student Worksheet: Module 1</a></p>
         </div>
-    </div>
+        <div class="exercise">
+            <h3>Exercise 1.2: The Context Pattern</h3>
+            <p>See how the <code>CmsContext</code> object replaces the "Global Variable" anti-pattern, teaching the principle of <strong>Single Source of Truth</strong>.</p>
+        </div>
+        <div class="exercise">
+            <h3>Exercise 1.3: Property Hooks (PHP 8.4)</h3>
+            <p>Learn to use PHP 8.4 hooks to automate data validation within class properties, reducing boilerplate code.</p>
+        </div>
+    </section>
 
-    <section class="grid-features">
-        <div class="feature-card">
-            <h3>🛡️ Security Engineering</h3>
+    <section class="module">
+        <h2>⚖️ Laboratory Module 2: Standards & Compliance</h2>
+        <p>Students learn that professional code is defined by its adherence to global standards.</p>
+        <p><a href="lab-module2.html" class="btn">📝 Open Student Worksheet: Module 2</a></p>
+        <ul>
+            <li><strong>Requirement Level (RFC 2119):</strong> We use <em>MUST</em>, <em>SHOULD</em>, and <em>MAY</em> to define project boundaries.
+                <ul>
+                    <li>Rule: All templates <strong>MUST</strong> be HTML5 compliant.</li>
+                    <li>Rule: Security utilities <strong>MUST NOT</strong> be bypassed by the core loader.</li>
+                </ul>
+            </li>
+            <li><strong>PSR-12 Linting:</strong> Use the integrated <code>composer check-style</code> command to identify and fix visual inconsistencies in your code.</li>
+        </ul>
+        <div class="exercise">
+            <h3>Exercise 2.3: Semantic Web Metadata</h3>
+            <p>Understand how <strong>RDF</strong> and <strong>JSON-LD</strong> help AI tools categorize your educational content.</p>
             <ul>
-                <li><strong>Hybrid SecurityUtils:</strong> Native path sanitization preventing LFI and Directory Traversal.</li>
-                <li><strong>CSP Engine:</strong> Automatic Nonce generation for every request to block XSS.</li>
-                <li><strong>Immutable State:</strong> Use of <code>readonly</code> classes and <code>createCmsContext()</code>.</li>
-                <li><strong>Directory Privacy:</strong> 403 Forbidden gateways on all core and theme folders.</li>
-            </ul>
-        </div>
-
-        <div class="feature-card">
-            <h3>🚀 Training Standards</h3>
-            <ul>
-                <li><strong>"Pair Logic" Architecture:</strong> Separation of Controller (Master) and Fragment (Slave).</li>
-                <li><strong>Modern Control:</strong> Strict <code>match()</code> expressions and Type Hinting throughout.</li>
-                <li><strong>Compliance Ready:</strong> Aligned with <strong>RFC 9116</strong> (Security.txt) and PSR-12.</li>
-                <li><strong>Bot Hardening:</strong> Integrated bot detection and Turnstile support for lab forms.</li>
+                <li>View <code>labels.rdf</code> to see Dublin Core metadata (legacy W3C standard).</li>
+                <li>Examine <code>common-headertag.inc</code> to see dynamic JSON-LD generation using Schema.org.</li>
+                <li><strong>Verification:</strong> Use <a href="https://validator.schema.org/" target="_blank">Google's Structured Data Testing Tool</a> to validate your JSON-LD.</li>
             </ul>
         </div>
     </section>
 
-
-
-    <section class="lab-workflow">
-        <h3>The "Nerd-Stack" Secure Workflow</h3>
-        <div class="workflow-steps">
-            <div class="step">
-                <span class="step-num">1</span>
-                <h4>The Controller</h4>
-                <p>Duplicate <code>template.php</code> and update page metadata.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">2</span>
-                <h4>The Fragment</h4>
-                <p>Create a <code>-body.inc</code> file in the <code>contents/</code> folder.</p>
-            </div>
-            <div class="step">
-                <span class="step-num">3</span>
-                <h4>The Audit</h4>
-                <p>Verify compliance via <code>phpstan</code> and the <strong>UI Kit</strong>.</p>
-            </div>
+    <section class="module">
+        <h2>🛡️ Laboratory Module 3: Defensive Engineering</h2>
+        <p>Security is the "Red Team vs. Blue Team" playground of CMSForNerd. Master both input hardening and perimeter defense.</p>
+        <div class="lab-box">
+            <h3>Lab: Perimeter & Path Traversal</h3>
+            <p>Students are challenged to implement <strong>Defense-in-Depth</strong> by securing the file loader and configuring a <strong>Content Security Policy (CSP)</strong>.</p>
+            <p><a href="lab-module3.html" class="btn">📝 Open Student Worksheet: Module 3</a></p>
+        </div>
+        <div class="lab-box">
+            <h3>Lab 3.2: CSP Nonces (2025 Best Practice)</h3>
+            <p>Learn to configure the Content Security Policy (CSP) with <strong>cryptographic nonces</strong> instead of dangerous <code>'unsafe-inline'</code> directives.</p>
+            <ul>
+                <li><strong>Concept:</strong> A nonce is a "number used once" - a random token that changes every page load.</li>
+                <li><strong>Implementation:</strong> Review how <code>SecurityUtils::generateNonce()</code> creates cryptographically secure tokens.</li>
+                <li><strong>Exercise:</strong> Inspect the CSP header and find the <code>nonce-XXXXX</code> value. Compare it to the <code>&lt;script nonce=&quot;....&quot;&gt;</code> in your JSON-LD block.</li>
+                <li><strong>Challenge:</strong> Try injecting a script without a nonce using browser DevTools - observe how CSP blocks it.</li>
+            </ul>
+        </div>
+        <div class="lab-box security-disclosure">
+            <h3>Module 3.5: Responsible Disclosure (RFC 9116)</h3>
+            <p>Understand how to communicate with security researchers using the <code>security.txt</code> standard.</p>
+            <ul>
+                <li><strong>Objective:</strong> Learn to establish a protocol for ethical vulnerability reporting.</li>
+                <li><strong>Exercise 3.5a:</strong> Verify the machine-readable <code>/.well-known/security.txt</code> file in your browser.</li>
+                <li><strong>Exercise 3.5b (Simulation):</strong> Draft a simulated email for an SQL Injection discovery following the <a href="security-policy.html">Security Policy</a> rules.</li>
+            </ul>
         </div>
     </section>
 
-    <section class="stack-recommendation">
-        <h3>Optimized Learning Stack</h3>
-        <table class="stack-table">
-            <tr>
-                <td><strong>Runtime</strong></td>
-                <td>PHP 8.4+ (Zend OPcache recommended)</td>
-            </tr>
-            <tr>
-                <td><strong>Standards</strong></td>
-                <td>PSR-12, RFC 9116, Strict Types <code>1</code></td>
-            </tr>
-            <tr>
-                <td><strong>OS Support</strong></td>
-                <td>Debian/Ubuntu Linux & Windows 11 (via Herd/WSL2)</td>
-            </tr>
-            <tr>
-                <td><strong>Dev Tools</strong></td>
-                <td>Composer, Git, PHPStan, VS Code, <strong>Google Antigravity</strong></td>
-            </tr>
-        </table>
+    <section class="module">
+        <h2>🧪 Laboratory Module 4: Automated Testing (TDD)</h2>
+        <p>Master the art of Test-Driven Development using <strong>PHPUnit 11</strong>.</p>
+        <div class="exercise">
+            <h3>Exercise: Write a new test</h3>
+            <p>Create a test in <code>tests/ThemeIntegrityTest.php</code> that fails if a student accidentally deletes the <code>style.css</code> file.</p>
+            <p><a href="lab-module4.html" class="btn">📝 Open Student Worksheet: Module 4</a></p>
+        </div>
+        <p><strong>Concept: "Green-Light Thinking"</strong>—if the tests aren't green, the code isn't ready.</p>
+    </section>
+
+    <section class="module">
+        <h2>📊 Laboratory Module 5: Test Coverage and QA</h2>
+        <p>Learn to visualize the safety net of your application using Code Coverage reports.</p>
+        <div class="exercise">
+            <h3>Exercise: Generate a Coverage Report</h3>
+            <p>Use Xdebug and PHPUnit to create an interactive HTML report to identify "dark spots" in your code.</p>
+            <p><a href="lab-module5.html" class="btn">📝 Open Student Worksheet: Module 5</a></p>
+        </div>
+        <p><strong>Concept: "Confidence in Code"</strong>—100% coverage doesn't mean bug-free, but it means everything was tested.</p>
+    </section>
+
+    <section class="module ai-module">
+        <h2>🤖 Laboratory Module 6: AI-Assisted Workflow</h2>
+        <p>Learn to lead an "AI Agent" as your junior developer. Master the Prompt-to-Product methodology.</p>
+        <div class="exercise">
+            <h3>Exercise 6.1: The Agentic Challenge</h3>
+            <p>Use Gemini/Antigravity to create a new page defined by a single sentence. Review the implementation plan and verify the automated build.</p>
+            <p><a href="ai-dev.html" class="btn">🚀 Open AI Dev Guide</a></p>
+        </div>
+        <div class="exercise">
+            <h3>Exercise 6.2: AI Ethics & Responsible Usage</h3>
+            <p>Study the <strong>Standard Operating Procedure #2025-01</strong> for ethical AI integration.</p>
+            <ul>
+                <li>Read the <a href="ai-sop.html">📜 AI Ethics SOP</a> to understand the "Think First" rule and "Trust but Verify" law.</li>
+                <li><strong>Practice:</strong> Before asking AI for help, attempt problem-solving for 10 minutes using existing documentation.</li>
+                <li><strong>Verification Loop:</strong> Always run <code>composer compliance</code> on AI-generated code before merging.</li>
+            </ul>
+        </div>
+        <div class="exercise">
+            <h3>Exercise 6.3: Cross-Platform Configuration</h3>
+            <p>Learn how to make your project AI-aware and portable across Windows/Linux environments.</p>
+            <ul>
+                <li>Examine <code>.cursorrules</code> - the "AI Configuration File" that teaches ChatGPT/Gemini your project standards.</li>
+                <li>Review <code>.vscode/settings.json</code> - note how it avoids hardcoded paths for cross-platform safety.</li>
+                <li>Check <code>.gitattributes</code> - ensures GitHub recognizes <code>.inc</code> files as PHP.</li>
+                <li><strong>Outcome:</strong> Your project is now "AI-native" and works seamlessly on any development environment.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="module exam-module">
+        <h2>🚩 The Final Exam: Break-Fix Challenge</h2>
+        <p>The ultimate test of a modern backend engineer. Repair a broken system to prove your mastery.</p>
+        <div class="exercise">
+            <h3>Challenge: Repair the Laboratory</h3>
+            <p>You must fix 5 deliberate security and logic errors to pass the certification audit.</p>
+            <p><a href="final-exam.html" class="btn">🚀 Start the Final Exam</a></p>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="case-study">
+        <h2>📝 The History of v3.1: A Modernization Case Study</h2>
+        <p>CMSForNerd v3.1 isn't just a version; it's a <strong>Modernization Journey</strong>.</p>
+        <ol>
+            <li><strong>Phase 1:</strong> Refactored the 2005 foundation into PHP 8.4+ classes with PHP 9 readiness. See the <a href="template.html">Template Guide</a>.</li>
+            <li><strong>Phase 2:</strong> Standardized the UI with CSS Grid (replacing legacy float-based layouts).</li>
+            <li><strong>Phase 3:</strong> Hardened the perimeter with Cloudflare Turnstile and <code>SecurityUtils</code>.</li>
+            <li><strong>Phase 4:</strong> Automated the workflow with PHPUnit and <code>PHP_CodeSniffer</code>.</li>
+            <li><strong>Phase 5:</strong> Visualized quality with Code Coverage and the CRAP index.</li>
+            <li><strong>Phase 6:</strong> Integrated AI-native configuration (<code>.cursorrules</code>, JSON-LD, CSP nonces) for 2025 standards.</li>
+        </ol>
+        <div class="graduation-cta">
+            <h3>🎓 Ready to Graduate?</h3>
+            <p>If you have completed all 5 modules and passed all compliance audits, you are ready to claim your certificate.</p>
+            <p><a href="graduation.html" class="btn graduation-btn">🏁 Claim Your Certificate of Completion</a></p>
+        </div>
+        <p class="motto"><strong>Educational Motto:</strong> "Modernization without loss of simplicity." — Harisfazillah Jamel & Gemini, 2025.</p>
     </section>
 </article>
 
 <style>
-    /* CSS maintained as per previous refinement for consistency */
-    .lab-home { max-width: 1000px; margin: 0 auto; line-height: 1.6; font-family: var(--f-sans, sans-serif); }
-    .hero-section h1 { color: var(--lab-heading, #2c3e50); border-bottom: 4px solid var(--lab-purple, #8e44ad); padding-bottom: 10px; margin-bottom: 10px; }
+/* ... existing styles ... */
+.graduation-cta { background: #fffbeb; border: 2px solid #fde68a; padding: 2rem; border-radius: 8px; text-align: center; margin: 2rem 0; }
+.graduation-cta h3 { color: #92400e; margin-top: 0; }
+.graduation-btn { background: #10b981; color: #fff; font-size: 1.2rem; padding: 1rem 2rem; }
+.graduation-btn:hover { background: #059669; }
+</style>
 
-    .runtime-status { margin-bottom: 25px; }
-    .badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-right: 5px; }
-    .php-version { background: #4F5B93; color: white; }
-    .status-strict { background: #27ae60; color: white; }
-    .status-check { background: #f39c12; color: white; }
-    .status-sec { background: #8e44ad; color: white; }
-
-    .intro-box { background: var(--lab-surface, #f4f7f6); border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); padding: 30px; border-radius: 12px; border-left: 6px solid var(--lab-purple, #8e44ad); margin-bottom: 40px; }
-    .quick-links { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
-
-    .btn { padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; color: white; transition: all 0.2s ease; font-size: 0.9rem; }
-    .welcome-btn { background: #2980b9; }
-    .lab-btn { background: #c0392b; }
-    .guide-btn { background: #8e44ad; }
-    .audit-btn { background: #2c3e50; }
-    .btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-
-    .grid-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin-bottom: 40px; }
-    .feature-card { background: var(--lab-surface, white); border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-    .feature-card h3 { color: var(--lab-heading, #2c3e50); margin-top: 0; border-bottom: 1px solid var(--lab-border, #eee); padding-bottom: 10px; }
-    .feature-card ul { padding-left: 20px; }
-    .feature-card li { margin-bottom: 8px; font-size: 0.95rem; }
-
-    .lab-workflow { background: #0f172a; color: white; padding: 30px; border-radius: 12px; margin-bottom: 40px; }
-    .workflow-steps { display: flex; justify-content: space-around; gap: 20px; margin-top: 20px; text-align: center; }
-    .step-num { background: #8e44ad; width: 40px; height: 40px; display: block; margin: 0 auto 10px; border-radius: 50%; line-height: 40px; font-weight: bold; font-size: 1.2rem; }
-    .step h4 { margin-bottom: 5px; color: #ecf0f1; }
-    .step p { font-size: 0.85rem; color: #bdc3c7; }
-
-    .stack-table { width: 100%; border-collapse: collapse; background: var(--lab-surface, white); border-radius: 8px; overflow: hidden; border: 1px solid var(--lab-border, #e2e8f0); color: var(--lab-text); }
-    .stack-table td { padding: 15px; border: 1px solid var(--lab-border, #eee); }
-    .stack-table tr td:first-child { background: var(--lab-bg, #f9f9f9); width: 30%; font-weight: bold; color: var(--lab-muted, #64748b); font-size: 0.9rem; }
+<style>
+.lab-manual h1 { color: #004d00; border-bottom: 2px solid #004d00; padding-bottom: 0.5rem; }
+.lab-manual h2 { color: #006600; margin-top: 2rem; border-left: 5px solid #006600; padding-left: 10px; }
+.lab-manual section { margin-bottom: 3rem; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.lab-manual .intro { font-size: 1.1rem; color: #333; line-height: 1.6; background: #e6f7ff; padding: 1.5rem; border-radius: 8px; border-left: 5px solid #007bff; }
+.lab-manual .exercise, .lab-manual .lab-box { background: #f9f9f9; padding: 1rem; border-radius: 4px; border: 1px solid #ddd; margin: 1rem 0; }
+.lab-manual .exercise h3, .lab-manual .lab-box h3 { margin-top: 0; color: #d9534f; }
+.lab-manual .motto { text-align: center; font-style: italic; font-size: 1.2rem; color: #555; margin-top: 2rem; }
+.lab-manual hr { border: 0; border-top: 2px dashed #ccc; margin: 3rem 0; }
 </style>
 <!--
 ==========================================================================
@@ -485,7 +534,7 @@ If you miss a closing </div> here, the entire layout grid will break.
     <hr style="width: 60px; border: 0; border-top: 3px solid var(--lab-highlight, #8e44ad); margin: 25px auto; opacity: 0.6;">
 
         <div style="margin-bottom: 20px;">
-        <a href="index.html?view=amp"
+        <a href="lab-manual.html?view=amp"
            style="display: inline-block; padding: 5px 12px; border: 1px solid var(--lab-highlight, #8e44ad); border-radius: 4px; color: var(--lab-highlight, #8e44ad); text-decoration: none; font-size: 0.75rem; font-family: 'SF Mono', monospace; font-weight: bold;">
            ⚡ SWITCH TO AMP MOBILE VIEW
         </a>
@@ -514,8 +563,8 @@ If you miss a closing </div> here, the entire layout grid will break.
         memory_get_usage() shows real-time RAM footprint of this request.
         -->
         <div style="margin-top: 5px; font-size: 0.7em; opacity: 0.5;">
-            Rendered: 2026-08-03 10:28:36 |
-            MEM: 542.45 KB
+            Rendered: 2026-08-03 11:03:27 |
+            MEM: 423.68 KB
         </div>
     </div>
 
@@ -525,7 +574,7 @@ If you miss a closing </div> here, the entire layout grid will break.
 [PWA FOUNDATION]
 Registers the Service Worker to enable offline capability and caching.
 -->
-<script nonce="849536faa31f9dae925921dd412e6da1">
+<script nonce="14a5bb3f90b01cbe421378746fdbe55c">
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('sw.js').then(function(registration) {
