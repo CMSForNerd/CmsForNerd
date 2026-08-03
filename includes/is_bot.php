@@ -13,51 +13,83 @@ declare(strict_types=1);
 /**
  * [SEO/PERFORMANCE] checks if the visitor is a verified search engine crawler.
  */
-function is_bot(?string $userAgent = null): bool
+function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null): bool
 {
-    static $lastIp  = '';
-    static $lastUa  = '';
-    static $lastRes = null;
+    if ($ctx === null) {
+        if (function_exists('createCmsContext')) {
+            $ctx = createCmsContext([], 'is_bot');
+        } else {
+            $ctx = new \CmsForNerd\CmsContext(
+                [],
+                'CmsForNerd',
+                'css/',
+                [],
+                'is_bot',
+                'http://localhost/',
+                'WebPage',
+                ''
+            );
+        }
+    }
 
     $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
     $ua = $userAgent ?? $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-    if ($lastRes !== null && $ip === $lastIp && $ua === $lastUa) {
-        return $lastRes;
+    if ($ctx->botCache->lastRes !== null && $ip === $ctx->botCache->lastIp && $ua === $ctx->botCache->lastUa) {
+        return $ctx->botCache->lastRes;
     }
 
     // 1. [FAST PATH] Localhost is never a bot
     if ($ip === '127.0.0.1' || $ip === '::1') {
-        return $isBotResult = false;
+        $ctx->botCache->lastIp  = $ip;
+        $ctx->botCache->lastUa  = $ua;
+        return $ctx->botCache->lastRes = false;
     }
 
-    $userAgent = $userAgent ?? $_SERVER['HTTP_USER_AGENT'] ?? '';
-    if (empty($userAgent)) {
-        return $isBotResult = false;
+    if (empty($ua)) {
+        $ctx->botCache->lastIp  = $ip;
+        $ctx->botCache->lastUa  = $ua;
+        return $ctx->botCache->lastRes = false;
     }
 
-    // 2. [PATTERN MATCH] Primary UA check
-    $pattern = '/(googlebot|bingbot|yandex|baiduspider|applebot|whatsapp|discordbot|slurp|search)/i';
-    $regexMatch = (bool) preg_match($pattern, $userAgent);
+    // 2. [PATTERN MATCH] Primary UA check (includes gptbot, chatgpt, openai, cloudflare)
+    $pattern = '/(googlebot|bingbot|yandex|baiduspider|applebot|whatsapp|' .
+        'discordbot|slurp|search|gptbot|chatgpt|openai|cloudflare)/i';
+    $regexMatch = (bool) preg_match($pattern, $ua);
 
-    // 3. [TRUST BUT VERIFY] If UA looks like a bot, check the IP
+    // 3. [TRUST BUT VERIFY] If UA looks like a bot, check the IP with provider-specific binding
     if ($regexMatch) {
-        if (is_trusted_bot_ip($ip)) {
-            $lastIp  = $ip;
-            $lastUa  = $ua;
-            return $lastRes = true;
+        $provider = null;
+        if (preg_match('/googlebot/i', $ua)) {
+            $provider = 'Google';
+        } elseif (preg_match('/bingbot/i', $ua)) {
+            $provider = 'Bing';
+        } elseif (preg_match('/cloudflare/i', $ua)) {
+            $provider = 'Cloudflare';
+        } elseif (preg_match('/gptbot/i', $ua)) {
+            $provider = 'GPTBot';
+        } elseif (preg_match('/searchbot/i', $ua)) {
+            $provider = 'SearchBot';
+        } elseif (preg_match('/chatgpt-user/i', $ua)) {
+            $provider = 'ChatGPT-User';
+        }
+
+        if (is_trusted_bot_ip($ip, $provider)) {
+            $ctx->botCache->lastIp  = $ip;
+            $ctx->botCache->lastUa  = $ua;
+            return $ctx->botCache->lastRes = true;
         }
     }
 
-    $lastIp  = $ip;
-    $lastUa  = $ua;
-    return $lastRes = false;
+    $ctx->botCache->lastIp  = $ip;
+    $ctx->botCache->lastUa  = $ua;
+    return $ctx->botCache->lastRes = false;
 }
 
 /**
  * [INTELLIGENCE] Verifies if an IP belongs to a trusted bot network.
  */
-function is_trusted_bot_ip(string $ip): bool
+function is_trusted_bot_ip(string $ip, ?string $provider = null): bool
 {
     $dataPath = dirname(__DIR__) . '/data/trusted-bots.json';
     if (!file_exists($dataPath)) {
@@ -71,6 +103,9 @@ function is_trusted_bot_ip(string $ip): bool
     }
 
     foreach ($data['bots'] as $bot) {
+        if ($provider !== null && $bot['name'] !== $provider) {
+            continue;
+        }
         foreach ($bot['prefixes'] as $prefix) {
             if (ip_in_range($ip, $prefix)) {
                 return true;
@@ -137,37 +172,134 @@ function update_trusted_bot_ips(): array
 {
     /** @var array<string, string> $sources */
     $sources = [
-        'Google' => 'https://developers.google.com/search/apis/ipranges/googlebot.json',
-        'Bing'   => 'https://www.bing.com/toolbox/bingbot.json'
+        'Google'       => 'https://developers.google.com/search/apis/ipranges/googlebot.json',
+        'Bing'         => 'https://www.bing.com/toolbox/bingbot.json',
+        'Cloudflare'   => 'https://api.cloudflare.com/client/v4/ips',
+        'GPTBot'       => 'https://openai.com/gptbot.json',
+        'SearchBot'    => 'https://openai.com/searchbot.json',
+        'ChatGPT-User' => 'https://openai.com/chatgpt-user.json',
     ];
+
+    $dataPath = dirname(__DIR__) . '/data/trusted-bots.json';
+
+    // Load existing trusted-bot dataset to fallback to if a request fails/times out
+    $existingBots = [];
+    if (file_exists($dataPath)) {
+        $existingData = json_decode((string)file_get_contents($dataPath), true);
+        if (is_array($existingData) && isset($existingData['bots'])) {
+            foreach ($existingData['bots'] as $bot) {
+                if (isset($bot['name']) && isset($bot['prefixes'])) {
+                    $existingBots[$bot['name']] = $bot['prefixes'];
+                }
+            }
+        }
+    }
 
     $results = [
         'updated' => date('c'),
         'bots'    => []
     ];
 
+    $mh = curl_multi_init();
+    $handles = [];
+
     foreach ($sources as $name => $url) {
-        $json = @file_get_contents($url);
-        if ($json) {
-            $data = json_decode($json, true);
-            $prefixes = [];
-            if ($name === 'Google' && isset($data['prefixes'])) {
-                foreach ($data['prefixes'] as $p) {
-                    $prefixes[] = $p['ipv4Prefix'] ?? $p['ipv6Prefix'];
+        $ch = curl_init();
+        if ($ch === false) {
+            continue;
+        }
+
+        /** @var non-empty-string $url */
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS); // Enforce HTTPS for safety
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+
+        /** @var non-empty-string $uaString */
+        $uaString = 'CMSForNerd-Bot-Intelligence/4.0';
+        curl_setopt($ch, CURLOPT_USERAGENT, $uaString);
+
+        curl_multi_add_handle($mh, $ch);
+        $handles[$name] = $ch;
+    }
+
+    $active = null;
+    do {
+        $status = curl_multi_exec($mh, $active);
+        if ($active) {
+            curl_multi_select($mh);
+        }
+    } while ($active && $status === CURLM_OK);
+
+    foreach ($handles as $name => $ch) {
+        $response = curl_multi_getcontent($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_multi_remove_handle($mh, $ch);
+        curl_close($ch);
+
+        $prefixes = [];
+        $success = false;
+
+        if ($response && $code === 200) {
+            $data = json_decode($response, true);
+            if (is_array($data)) {
+                if (($name === 'Google' || $name === 'Bing') && isset($data['prefixes'])) {
+                    foreach ($data['prefixes'] as $p) {
+                        if (isset($p['ipv4Prefix'])) {
+                            $prefixes[] = $p['ipv4Prefix'];
+                        }
+                        if (isset($p['ipv6Prefix'])) {
+                            $prefixes[] = $p['ipv6Prefix'];
+                        }
+                    }
+                } elseif ($name === 'Cloudflare' && isset($data['result'])) {
+                    if (isset($data['result']['ipv4_cidrs'])) {
+                        foreach ($data['result']['ipv4_cidrs'] as $cidr) {
+                            $prefixes[] = $cidr;
+                        }
+                    }
+                    if (isset($data['result']['ipv6_cidrs'])) {
+                        foreach ($data['result']['ipv6_cidrs'] as $cidr) {
+                            $prefixes[] = $cidr;
+                        }
+                    }
+                } elseif (in_array($name, ['GPTBot', 'SearchBot', 'ChatGPT-User'], true) && isset($data['prefixes'])) {
+                    foreach ($data['prefixes'] as $p) {
+                        if (isset($p['ipv4Prefix'])) {
+                            $prefixes[] = $p['ipv4Prefix'];
+                        }
+                        if (isset($p['ipv6Prefix'])) {
+                            $prefixes[] = $p['ipv6Prefix'];
+                        }
+                    }
                 }
-            } elseif ($name === 'Bing' && isset($data['prefixes'])) {
-                foreach ($data['prefixes'] as $p) {
-                    $prefixes[] = $p['ipv4Prefix'] ?? $p['ipv6Prefix'];
+
+                $prefixes = array_values(array_unique(array_filter($prefixes)));
+                if (!empty($prefixes)) {
+                    $success = true;
                 }
             }
+        }
+
+        if ($success) {
+            // Replace with validated new prefixes
             $results['bots'][] = [
-                'name' => $name,
-                'prefixes' => array_filter($prefixes)
+                'name'     => $name,
+                'prefixes' => $prefixes
+            ];
+        } elseif (isset($existingBots[$name])) {
+            // Retain last known prefixes on request timeout, error, malformed JSON, or empty prefixes
+            $results['bots'][] = [
+                'name'     => $name,
+                'prefixes' => $existingBots[$name]
             ];
         }
     }
 
-    $dataPath = dirname(__DIR__) . '/data/trusted-bots.json';
+    curl_multi_close($mh);
+
     file_put_contents($dataPath, json_encode($results, JSON_PRETTY_PRINT));
 
     return $results;

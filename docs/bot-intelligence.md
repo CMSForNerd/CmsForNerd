@@ -1,3 +1,10 @@
+---
+okf_version: "0.1"
+type: "documentation"
+title: "Bot Intelligence: Hybrid Protection (v4.0.0)"
+timestamp: "2026-08-03T22:18:15+00:00"
+---
+
 # 🤖 Bot Intelligence: Hybrid Protection (v4.0.0)
 
 To maintain a "Zero-Error" laboratory, we use a hybrid bot detection system. This ensures that legitimate crawlers (Google, Bing, Apple) are recognized even if their User-Agents are stripped, while keeping performance lean.
@@ -18,7 +25,7 @@ The logic flow in [is_bot.php](../includes/is_bot.php) is designed for maximum s
 
 1.  **Fast Path**: If the IP is `127.0.0.1`, it immediately returns `false` (Not a bot).
 2.  **Context-Aware Cache**: It stores the result of the last detection. If the IP and User-Agent haven't changed since the last call, it returns the cached result (0ms overhead).
-3.  **Pattern Match**: It checks the `HTTP_USER_AGENT` against known strings like `googlebot` or `bingbot`.
+3.  **Pattern Match**: It checks the `HTTP_USER_AGENT` against known strings like `googlebot`, `bingbot`, `gptbot`, `chatgpt`, `openai`, or `cloudflare`.
 4.  **CIDR Verification**: If the UA matches, it verifies the IP against [data/trusted-bots.json](../data/trusted-bots.json).
 
 ## 3. Data Management
@@ -26,13 +33,15 @@ The logic flow in [is_bot.php](../includes/is_bot.php) is designed for maximum s
 The project uses a local database for verified ranges. This ensures we don't make external API calls on every request.
 
 ### Automated Update
-Run the following command to sync with official Google/Bing endpoints:
+Run the following command to sync with official Google/Bing/Cloudflare/OpenAI endpoints:
 ```bash
 composer update-bots
 ```
-This executes `update_trusted_bot_ips()` which fetches live CIDR blocks from:
-*   **Google**: [googlebot.json](https://developers.google.com/search/apis/ipranges/googlebot.json)
+This executes `update_trusted_bot_ips()` which concurrently fetches live CIDR blocks from:
+*   **Google**: [googlebot.json](https://developers.google.com/search/apis/ipranges/googlebot.json) (with redirect following)
 *   **Bing**: [bingbot.json](https://www.bing.com/toolbox/bingbot.json)
+*   **Cloudflare**: [api.cloudflare.com](https://api.cloudflare.com/client/v4/ips)
+*   **OpenAI (GPTBot, SearchBot, ChatGPT-User)**: [gptbot.json](https://openai.com/gptbot.json), [searchbot.json](https://openai.com/searchbot.json), [chatgpt-user.json](https://openai.com/chatgpt-user.json)
 
 ### Manual Overrides
 Developers can manually add IP ranges to `data/trusted-bots.json`.
