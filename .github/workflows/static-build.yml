@@ -25,6 +25,9 @@ jobs:
           php-version: '8.4'
           extensions: mbstring, curl # Ensures required extensions are present
 
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+
       - name: Start Local PHP Server
         run: php -S localhost:8000 & # Run in background
 
