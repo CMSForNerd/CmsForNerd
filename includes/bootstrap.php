@@ -39,9 +39,9 @@ require_once __DIR__ . '/nav-helper.inc.php';
 $nonce = bin2hex(random_bytes(16)); //
 
 /**
- * Creates the CMS context for a page using request, theme, asset, and security settings.
+ * Creates a CMS context with page content, theme settings, asset references, and schema metadata.
  *
- * Pages without an explicit schema type are classified based on their title and body content.
+ * Automatically selects a schema type when none is provided, based on the page title and body content.
  *
  * @param array<string, mixed> $content Page content and metadata.
  * @param string $pageName Page identifier used for the context and body content lookup.
