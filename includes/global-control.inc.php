@@ -43,10 +43,12 @@ function boot_security(): void
 }
 
 /**
- * [LOGIC] get_runtime_config
- * * Aggregates theme settings, pathing, and SEO metadata.
- * It provides a local scope for theme.php to inherit.
- * @return array<string, string> The configuration map for the CMS (Key-Value strings).
+ * Builds the CMS theme and SEO configuration.
+ *
+ * Loads optional theme-specific settings and provides the theme name, CSS path,
+ * sitemap URL, and instructor key.
+ *
+ * @return array<string, string> The CMS configuration values.
  */
 function get_runtime_config(): array
 {
