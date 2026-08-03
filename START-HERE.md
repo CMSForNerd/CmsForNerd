@@ -2,10 +2,10 @@
 okf_version: 0.1
 type: documentation
 title: "📍 START-HERE: Master Onboarding Map"
-description: "Sovereign roadmap with 12 defined Entry Points mapping code, deployment, rules, and governance."
+description: "Sovereign roadmap with 14 defined Entry Points mapping code, deployment, rules, and governance."
 resource: "file:///START-HERE.md"
 topics: [onboarding, entrypoints, map, dsom]
-timestamp: 2026-07-27T12:00:00Z
+timestamp: 2026-08-01T15:00:00Z
 ---
 # 📍 START-HERE: Master Onboarding Map
 
@@ -14,7 +14,7 @@ linking to all 12 major Entry Points of the platform, enabling instant orientati
 
 ---
 
-## 🏛️ The 12 Defined Entry Points
+## 🏛️ The 14 Defined Entry Points
 
 | Entry Point | Name | File Path / Link | Semantic Purpose |
 | :---: | :--- | :--- | :--- |
@@ -31,6 +31,7 @@ linking to all 12 major Entry Points of the platform, enabling instant orientati
 | **11** | **Local Development Setup** | [`technical-resources/installation-guide.md`](technical-resources/installation-guide.md) | PHP 8.4 runtime config, local composer setup, server execution. |
 | **12** | **Core Routing & Theme** | [`themes/CmsForNerd/pager.php`](themes/CmsForNerd/pager.php) | Central routing, Standard vs AMP view, layout controller. |
 | **13** | **Pull Request & Bot Synergy SOP** | [`docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md`](docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md) | End-to-end GitHub/GitLab PR workflow & bot synergy SOP. |
+| **14** | **GitHub Pages Deployment** | [`docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md`](docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md) | Static baking, GHA workflow orchestration, and Jekyll bypassing. |
 
 ---
 

@@ -4,7 +4,7 @@ type: documentation
 title: "Project Changelog"
 description: "Sovereign log tracking all features, fixes, and architectural upgrades in CMSForNerd."
 resource: "file:///CHANGELOG.md"
-timestamp: "2026-08-01T17:45:00Z"
+timestamp: "2026-08-01T15:00:00Z"
 ---
 # CHANGELOG
 
@@ -12,6 +12,14 @@ All notable changes to this project are documented in this file.
 Entries are grouped by date (most recent first).
 
 ---
+
+## [4.2.5] - 2026-08-01 (GitHub Pages Static Deployment Alignment)
+
+### 📦 Static Baking & GitHub Pages Support
+- **Jekyll Bypassing (`.nojekyll`)**: Updated `tools/bake-static-pages.php` to automatically generate an empty `.nojekyll` file at the root of the output static build directory, completely disabling Jekyll processing on GitHub Pages to prevent Liquid template syntax conflicts, directory exclusions (e.g., `.well-known`), and routing issues.
+- **Comprehensive Guidebook**: Created `docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md` detailing the static baking pipeline, Jekyll processing risks, and step-by-step repository publishing settings.
+- **Sitemap & Navigation Mapping**: Integrated the new guide across the four required layers (`docs/SUMMARY.md`, `mkdocs.yml`, `START-HERE.md`, `llms.txt`, and `.llms/index.md`).
+- **Automated Validation**: Authored robust unit tests inside `tests/GithubPagesDeploymentTest.php` to verify successful generation of `.nojekyll` and proper documentation registrations.
 
 ## [4.2.4] - 2026-08-01 (HTML Microdata Structural Integration)
 

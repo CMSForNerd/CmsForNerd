@@ -4,13 +4,20 @@ type: documentation
 title: "Modernization History"
 description: "Sovereign log tracking the strategic phases and release milestones of CMSForNerd."
 resource: "file:///docs/HISTORY.md"
-timestamp: "2026-08-01T17:45:00Z"
+timestamp: "2026-08-01T15:00:00Z"
 ---
 # 📜 Modernization History
 
 Tracking the evolution of **CMSForNerd** from a legacy flat-file system to a modern educational powerhouse.
 
 ## Strategic Phases
+
+### Phase 24: GitHub Pages Static Deployment Alignment (v4.2.5)
+
+- **Jekyll Bypassing (`.nojekyll`)**: Updated `tools/bake-static-pages.php` to automatically generate an empty `.nojekyll` file at the root of the output static build directory, completely disabling Jekyll processing on GitHub Pages to prevent Liquid template syntax conflicts, directory exclusions (e.g., `.well-known`), and routing issues.
+- **Comprehensive Guidebook**: Created `docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md` detailing the static baking pipeline, Jekyll processing risks, and step-by-step repository publishing settings.
+- **Sitemap & Navigation Mapping**: Integrated the new guide across the four required layers (`docs/SUMMARY.md`, `mkdocs.yml`, `START-HERE.md`, `llms.txt`, and `.llms/index.md`).
+- **Automated Validation**: Authored robust unit tests inside `tests/GithubPagesDeploymentTest.php` to verify successful generation of `.nojekyll` and proper documentation registrations.
 
 ### Phase 23: HTML Microdata Structural Integration (v4.2.4)
 

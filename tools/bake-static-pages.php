@@ -173,4 +173,13 @@ foreach ($filesToCopy as $fileName) {
     }
 }
 
+// 7. Create a .nojekyll file to completely bypass Jekyll processing on GitHub Pages
+echo "📝 Generating .nojekyll file inside $outDir...\n";
+$nojekyllPath = $outDir . '/.nojekyll';
+if (file_put_contents($nojekyllPath, '') === false) {
+    echo "❌ Failed to create .nojekyll file in $outDir\n";
+} else {
+    echo "✅ .nojekyll generated successfully.\n";
+}
+
 echo "🎯 Static Baking completed successfully!\n";

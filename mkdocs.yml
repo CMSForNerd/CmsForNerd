@@ -1,6 +1,13 @@
 # ==============================================================================
 # Protocol    : Deep State of Mind (DSOM) For My AI
 # Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-08-03
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
 # Timestamp   : 2026-07-30
 # License     : GNU General Public License v3.0
 # Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
@@ -44,6 +51,7 @@ nav:
       - Windows Setup: docs/windows-setup.md
       - Google Jules on Ubuntu 26.04: docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md
       - Render Deployment Guide: docs/RENDER-DEPLOYMENT-GUIDE.md
+      - GitHub Pages Deployment Guide: docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md
   - Graduation:
       - Final Exam Challenge: docs/final-exam.md
       - Claim Your Certificate: docs/graduation.md
