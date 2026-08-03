@@ -102,7 +102,9 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
         <?php include "themes/{$ctx->themeName}/amp-sidebar.tpl"; ?>
 
         <header class="amp-header"
-                style="background:var(--lab-bg); display: flex; align-items: center;">
+                style="background:var(--lab-bg); padding:10px 15px;
+                       border-bottom:1px solid var(--lab-border);
+                       display: flex; align-items: center;">
             
             <button class="hamburger-btn" 
                     on="tap:sidebar.toggle" 

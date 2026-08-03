@@ -52,6 +52,16 @@ body {
 }
 
 /* Header & Navigation */
+.amp-header {
+    background: var(--lab-bg);
+    padding: 10px 20px;
+    border-bottom: 2px solid var(--lab-purple);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
 
 .amp-header a {
     color: var(--lab-purple);
@@ -179,14 +189,16 @@ footer a {
 
 /* --- FIX: Header Layout for Sidebar Toggle --- */
 .amp-header {
+    background: var(--lab-bg);
     padding: 10px 20px;
+    border-bottom: 2px solid var(--lab-purple);
     display: flex;
     flex-direction: row; /* Change from column to row */
     align-items: center; /* Center items vertically */
     justify-content: flex-start;
     gap: 15px;
 
-    /* Phase 11: Glass-Surface (v4.0) - glassmorphism wins over solid bg */
+    /* Phase 11: Glass-Surface (v4.0) */
     background: var(--lab-glass-bg);
     backdrop-filter: blur(var(--lab-blur));
     -webkit-backdrop-filter: blur(var(--lab-blur));
@@ -241,7 +253,7 @@ amp-sidebar {
 
 .sidebar-nav a {
     display: block;
-    padding: 15px 20px;
+    padding: 15px  20px;
     color: var(--lab-text);
     text-decoration: none;
     border-bottom: 1px solid var(--lab-border);
