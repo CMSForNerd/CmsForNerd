@@ -52,6 +52,20 @@ final class SecurityTest extends TestCase
             'Failed to detect Bingbot with mocked trusted IP'
         );
 
+        // Test GPTBot
+        $_SERVER['REMOTE_ADDR'] = '132.196.86.1';
+        $this->assertTrue(
+            is_bot('Mozilla/5.0 (compatible; GPTBot/1.0; +https://openai.com/gptbot)'),
+            'Failed to detect GPTBot with mocked trusted IP'
+        );
+
+        // Test Cloudflare bot / service
+        $_SERVER['REMOTE_ADDR'] = '173.245.48.1';
+        $this->assertTrue(
+            is_bot('Mozilla/5.0 (compatible; Cloudflare-AlwaysOnline/1.0; +http://www.cloudflare.com/always-online)'),
+            'Failed to detect Cloudflare with mocked trusted IP'
+        );
+
         // Known Humans
         $humanUa = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' .
                    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
