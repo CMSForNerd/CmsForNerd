@@ -13,6 +13,16 @@ echo "🧪 Starting CmsForNerd Static Page Baker...\n";
 
 $targetUrl = "http://127.0.0.1:8000";
 
+// Handle target output directory argument (default: build_static)
+$outDir = $argv[1] ?? 'build_static';
+
+if (!is_dir($outDir)) {
+    if (!mkdir($outDir, 0755, true) && !is_dir($outDir)) {
+        echo "❌ Failed to create output directory: $outDir\n";
+        exit(1);
+    }
+}
+
 // 1. Scan root for all php pages
 $phpFiles = glob("*.php");
 if ($phpFiles === false) {
@@ -34,13 +44,14 @@ foreach ($phpFiles as $file) {
     }
 
     $basename = pathinfo($file, PATHINFO_FILENAME);
-    $htmlFile = $basename . ".html";
+    $htmlFile = $outDir . '/' . $basename . ".html";
     $url = "$targetUrl/$file";
 
     echo "🌐 Baking $file -> $htmlFile... ";
 
     // Retrieve content via cURL
     $ch = curl_init();
+    /** @var non-empty-string $url */
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -102,6 +113,60 @@ foreach ($phpFiles as $file) {
         echo "❌ Failed to write $htmlFile\n";
     } else {
         echo "✅ Done (" . round(strlen((string)$html) / 1024, 2) . " KB)\n";
+    }
+}
+
+// 6. Copy necessary asset directories and static assets to build directory to ensure it is self-contained.
+echo "📂 Copying assets and directories to output directory...\n";
+
+/**
+ * Recursively copy a directory and its contents to a target destination.
+ */
+function recursiveCopy(string $source, string $destination): void
+{
+    if (is_dir($source)) {
+        if (!is_dir($destination)) {
+            if (!mkdir($destination, 0755, true) && !is_dir($destination)) {
+                echo "❌ Failed to create directory: $destination\n";
+                return;
+            }
+        }
+        $dir = dir($source);
+        if ($dir !== false) {
+            while (($entry = $dir->read()) !== false) {
+                if ($entry === '.' || $entry === '..') {
+                    continue;
+                }
+                recursiveCopy("$source/$entry", "$destination/$entry");
+            }
+            $dir->close();
+        }
+    } elseif (file_exists($source)) {
+        copy($source, $destination);
+    }
+}
+
+$dirsToCopy = ['assets', 'themes', 'images'];
+foreach ($dirsToCopy as $dirName) {
+    if (is_dir($dirName)) {
+        echo "   Copying directory: $dirName -> $outDir/$dirName\n";
+        recursiveCopy($dirName, $outDir . '/' . $dirName);
+    }
+}
+
+$filesToCopy = [
+    'manifest.json',
+    'sw.js',
+    'labels.rdf',
+    'robots.txt',
+    'favicon.ico',
+    'sitemap.xml',
+];
+
+foreach ($filesToCopy as $fileName) {
+    if (file_exists($fileName)) {
+        echo "   Copying file: $fileName -> $outDir/$fileName\n";
+        copy($fileName, $outDir . '/' . $fileName);
     }
 }
 

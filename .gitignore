@@ -35,3 +35,7 @@ vault/
 *.retry
 .vault_pass
 .ansible/
+
+# --- Build Artifacts & Runtime Cache ---
+build_static/
+data/cache/

@@ -170,7 +170,6 @@ final class SecurityTest extends TestCase
             dirname(__DIR__) . '/offline.php',
             dirname(__DIR__) . '/ujian-form.php',
             dirname(__DIR__) . '/tools/sanity-check.php',
-            dirname(__DIR__) . '/index.html',
             dirname(__DIR__) . '/themes/CmsForNerd/pager.php',
             dirname(__DIR__) . '/includes/common.inc.php',
         ];
