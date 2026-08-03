@@ -34,12 +34,12 @@ jobs:
       - name: Staticize (Bake) All PHP Pages
         run: |
           sleep 3 # Extra second to ensure server is fully ready
-          php tools/bake-static-pages.php
+          php tools/bake-static-pages.php build_static
 
       - name: Upload Static Files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Uploads everything including your new index.html
+          path: 'build_static' # Uploads only the self-contained baked static files
 
   deploy:
     needs: build
