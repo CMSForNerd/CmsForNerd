@@ -65,8 +65,9 @@ function createCmsContext(
     $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
     $scriptDir  = str_replace('\\', '/', dirname($scriptPath));
 
-    if (str_contains($scriptDir, '/docs')) {
-        $baseUrlVal = str_replace('/docs', '', $baseUrlVal);
+    // Remove only exact /docs segment (not /docs-preview or other prefixes)
+    if ($scriptDir === '/docs' || str_starts_with($scriptDir, '/docs/')) {
+        $baseUrlVal = preg_replace('#^(https?://[^/]+)/docs(/|$)#', '$1$2', $baseUrlVal) ?? $baseUrlVal;
     }
 
     // [v3.6] Automated Semantic Detection logic
