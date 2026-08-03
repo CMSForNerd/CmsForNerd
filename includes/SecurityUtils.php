@@ -162,11 +162,11 @@ final class SecurityUtils
 
         // Extra LFI defense: Reject any pages containing path separators or dot-dots
         if (str_contains($rawPage, '/') || str_contains($rawPage, '\\') || str_contains($rawPage, '..')) {
-            $rawPage = $invalidFallback;
+            $rawPage = $defaultFallback;
         }
 
         $isValid = self::isValidPageName($rawPage);
-        $page = $isValid ? $rawPage : $invalidFallback;
+        $page = $isValid ? $rawPage : $defaultFallback;
 
         return pathinfo($page, PATHINFO_FILENAME);
     }
