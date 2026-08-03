@@ -120,7 +120,10 @@ foreach ($phpFiles as $file) {
 echo "📂 Copying assets and directories to output directory...\n";
 
 /**
- * Recursively copy a directory and its contents to a target destination.
+ * Recursively copies a file or directory to a destination.
+ *
+ * @param string $source The file or directory to copy.
+ * @param string $destination The destination path.
  */
 function recursiveCopy(string $source, string $destination): void
 {
