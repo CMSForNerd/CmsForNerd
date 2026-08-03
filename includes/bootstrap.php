@@ -39,9 +39,9 @@ require_once __DIR__ . '/nav-helper.inc.php';
 $nonce = bin2hex(random_bytes(16)); //
 
 /**
- * Creates the CMS context for a page using request, theme, asset, and security settings.
+ * Creates a CMS context with page content, theme settings, asset references, and schema metadata.
  *
- * Pages without an explicit schema type are classified based on their title and body content.
+ * Automatically selects a schema type when none is provided, based on the page title and body content.
  *
  * @param array<string, mixed> $content Page content and metadata.
  * @param string $pageName Page identifier used for the context and body content lookup.
@@ -60,16 +60,14 @@ function createCmsContext(
     ?string $nonce = null
 ): \CmsForNerd\CmsContext {
     // [LAB] ROOT URL CALCULATION
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
-    $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $baseUrlVal = \CmsForNerd\SecurityUtils::getSafeBaseUrl();
 
     $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
     $scriptDir  = str_replace('\\', '/', dirname($scriptPath));
 
-    if (str_contains($scriptDir, '/docs')) {
-        $baseUrlVal = rtrim($protocol . $host . str_replace('/docs', '', $scriptDir), '/') . '/';
-    } else {
-        $baseUrlVal = rtrim($protocol . $host . $scriptDir, '/') . '/';
+    // Remove only exact /docs segment (not /docs-preview or other prefixes)
+    if ($scriptDir === '/docs' || str_starts_with($scriptDir, '/docs/')) {
+        $baseUrlVal = preg_replace('#^(https?://[^/]+)/docs(/|$)#', '$1$2', $baseUrlVal) ?? $baseUrlVal;
     }
 
     // [v3.6] Automated Semantic Detection logic
