@@ -34,10 +34,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const htmlFragment = await response.text();
+            const htmlResponse = await response.text();
             
-            // Hydrate the main container
-            mainContainer.innerHTML = htmlFragment;
+            // Parse response HTML to extract main content and page title.
+            // On static hosting (like GitHub Pages), the server returns the full HTML page.
+            // In dynamic PHP mode, it might return just the un-themed fragment.
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlResponse, 'text/html');
+            const fetchedMain = doc.querySelector('main');
+
+            if (fetchedMain) {
+                mainContainer.innerHTML = fetchedMain.innerHTML;
+            } else {
+                mainContainer.innerHTML = htmlResponse;
+            }
+
+            // Update page title if present in the fetched document
+            const fetchedTitle = doc.querySelector('title');
+            if (fetchedTitle && fetchedTitle.textContent) {
+                document.title = fetchedTitle.textContent;
+            }
 
             // Update the browser URL without reloading
             if (pushState) {
