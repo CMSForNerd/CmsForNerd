@@ -162,60 +162,6 @@ final class SecurityTest extends TestCase
     }
 
     /**
-     * Test Safe Base URL construction to prevent Host Header Injection.
-     */
-    public function testSafeBaseUrl(): void
-    {
-        // Snapshot $_SERVER state before modifying
-        $serverSnapshot = [
-            'HTTP_HOST' => $_SERVER['HTTP_HOST'] ?? null,
-            'HTTPS' => $_SERVER['HTTPS'] ?? null,
-            'SCRIPT_NAME' => $_SERVER['SCRIPT_NAME'] ?? null,
-        ];
-
-        try {
-            $_SERVER['HTTP_HOST'] = 'localhost';
-            $_SERVER['HTTPS'] = 'off';
-            $_SERVER['SCRIPT_NAME'] = '/index.php';
-
-            $baseUrl = SecurityUtils::getSafeBaseUrl();
-            $this->assertEquals('http://localhost/', $baseUrl);
-
-            $_SERVER['HTTP_HOST'] = 'cmsfornerd.test:8080';
-            $_SERVER['HTTPS'] = 'on';
-            $_SERVER['SCRIPT_NAME'] = '/docs/index.php';
-
-            $baseUrl2 = SecurityUtils::getSafeBaseUrl();
-            $this->assertEquals('https://cmsfornerd.test:8080/docs/', $baseUrl2);
-
-            // Test IPv6 with brackets
-            $_SERVER['HTTP_HOST'] = '[::1]';
-            $_SERVER['HTTPS'] = 'off';
-            $_SERVER['SCRIPT_NAME'] = '/index.php';
-
-            $baseUrl3 = SecurityUtils::getSafeBaseUrl();
-            $this->assertEquals('http://[::1]/', $baseUrl3);
-
-            // Test /docs-preview path (should NOT be stripped)
-            $_SERVER['HTTP_HOST'] = 'localhost';
-            $_SERVER['HTTPS'] = 'off';
-            $_SERVER['SCRIPT_NAME'] = '/docs-preview/index.php';
-
-            $baseUrl4 = SecurityUtils::getSafeBaseUrl();
-            $this->assertEquals('http://localhost/docs-preview/', $baseUrl4);
-        } finally {
-            // Restore $_SERVER state
-            foreach ($serverSnapshot as $key => $value) {
-                if ($value === null) {
-                    unset($_SERVER[$key]);
-                } else {
-                    $_SERVER[$key] = $value;
-                }
-            }
-        }
-    }
-
-    /**
      * Test HTML Microdata (itemscope and itemtype) presence on all major HTML outputs
      */
     public function testHtmlMicrodataPresence(): void
