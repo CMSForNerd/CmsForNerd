@@ -59,11 +59,24 @@ final class SecurityUtils
     {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
         $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        $host     = preg_replace('/[^a-zA-Z0-9\-.:]/', '', $host);
+
+        // Parse IPv6 bracketed hosts separately to preserve brackets
+        if (preg_match('/^\[([a-fA-F0-9:]+)\](?::(\d+))?$/', $host, $matches)) {
+            // IPv6 with brackets: [::1] or [::1]:8080
+            $hostName = $matches[1];
+            $port = $matches[2] ?? '';
+            $sanitizedHost = '[' . preg_replace('/[^a-fA-F0-9:]/', '', $hostName) . ']';
+            if ($port !== '') {
+                $sanitizedHost .= ':' . $port;
+            }
+        } else {
+            // IPv4 or hostname (may include port)
+            $sanitizedHost = preg_replace('/[^a-zA-Z0-9\-.:]/', '', $host);
+            $hostName = explode(':', $sanitizedHost)[0];
+        }
 
         // Validate host against trusted allowlist
         $allowedHosts = ['localhost', '127.0.0.1', '::1', 'cmsfornerd.test'];
-        $hostName = explode(':', $host)[0];
         if (!in_array($hostName, $allowedHosts, true)) {
             http_response_code(400);
             die("Untrusted Host header");
@@ -72,7 +85,7 @@ final class SecurityUtils
         $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
         $dirPath  = str_replace('\\', '/', dirname($scriptPath));
 
-        return rtrim($protocol . $host . $dirPath, '/') . '/';
+        return rtrim($protocol . $sanitizedHost . $dirPath, '/') . '/';
     }
 
     /**
