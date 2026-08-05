@@ -306,6 +306,93 @@ function update_trusted_bot_ips(): array
 }
 
 /**
+ * [UTILITY] Fetches IP details using local cache or ipinfo.io API with cURL.
+ *
+ * @param string $ip Client IP address.
+ * @param string $token ipinfo.io API token.
+ * @return object|null Decoded details object or null on failure.
+ */
+function fetch_ip_details(string $ip, string $token): ?object
+{
+    $cacheKey = hash('sha256', $ip);
+    $apcuKey = 'ip_info_' . $cacheKey;
+    $ttl = 86400; // 24-hour TTL
+    $json = null;
+
+    // 1. First Tier: APCu Memory Cache
+    if (function_exists('apcu_fetch')) {
+        $success = false;
+        $cached = apcu_fetch($apcuKey, $success);
+        if ($success && is_string($cached) && !empty($cached)) {
+            $json = $cached;
+        }
+    }
+
+    $cacheDir = dirname(__DIR__) . '/data/cache';
+    $cacheFile = $cacheDir . '/ip_' . $cacheKey . '.json';
+
+    // 2. Second Tier: File-based Cache fallback
+    if ($json === null || $json === false || empty($json)) {
+        if (file_exists($cacheFile) && (time() - (int)filemtime($cacheFile)) < $ttl) {
+            $json = @file_get_contents($cacheFile);
+            if (is_string($json) && !empty($json) && function_exists('apcu_store')) {
+                @apcu_store($apcuKey, $json, $ttl);
+            }
+        }
+    }
+
+    // 3. Cache Miss: API Query via cURL
+    if ($json === null || $json === false || empty($json)) {
+        $ch = curl_init();
+        if ($ch !== false) {
+            $url = "https://ipinfo.io/" . urlencode($ip) . "/json?token=" . urlencode($token);
+            /** @var non-falsy-string $url */
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+
+            // Avoid CURLOPT_PROTOCOLS deprecation warning in PHP 8.1+
+            if (defined('CURLOPT_PROTOCOLS_STR')) {
+                curl_setopt($ch, CURLOPT_PROTOCOLS_STR, 'https');
+            } else {
+                curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS);
+            }
+
+            /** @var non-empty-string $uaString */
+            $uaString = 'CMSForNerd-Bot-Intelligence/4.0';
+            curl_setopt($ch, CURLOPT_USERAGENT, $uaString);
+
+            $result = curl_exec($ch);
+            curl_close($ch);
+
+            if (is_string($result) && !empty($result)) {
+                $json = $result;
+                // Verify valid JSON structure before caching
+                $decoded = json_decode($json);
+                if (json_last_error() === JSON_ERROR_NONE && is_object($decoded)) {
+                    if (!is_dir($cacheDir)) {
+                        @mkdir($cacheDir, 0777, true);
+                    }
+                    @file_put_contents($cacheFile, $json, LOCK_EX);
+                    if (function_exists('apcu_store')) {
+                        @apcu_store($apcuKey, $json, $ttl);
+                    }
+                }
+            }
+        }
+    }
+
+    if ($json === null || $json === false || empty($json)) {
+        return null;
+    }
+
+    $decoded = json_decode($json);
+    return is_object($decoded) ? $decoded : null;
+}
+
+/**
  * [SECURITY] Blocks traffic from data centers.
  */
 function block_datacenter_traffic(string $token): void
@@ -330,57 +417,8 @@ function block_datacenter_traffic(string $token): void
         return;
     }
 
-    $cacheDir = dirname(__DIR__) . '/data/cache';
-    if (!is_dir($cacheDir)) {
-        @mkdir($cacheDir, 0777, true);
-    }
-
-    $cacheKey = hash('sha256', $ip);
-    $cacheFile = $cacheDir . '/ip_' . $cacheKey . '.json';
-
-    $json = null;
-    $ttl = 86400; // 24-hour TTL
-
-    if (file_exists($cacheFile) && (time() - (int)filemtime($cacheFile)) < $ttl) {
-        $json = @file_get_contents($cacheFile);
-    }
-
-    if ($json === null || $json === false || empty($json)) {
-        $ch = curl_init();
-        if ($ch !== false) {
-            $url = "https://ipinfo.io/" . urlencode($ip) . "/json?token=" . urlencode($token);
-            /** @var non-falsy-string $url */
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 2);
-            curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS); // Enforce HTTPS for safety
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
-
-            /** @var non-empty-string $uaString */
-            $uaString = 'CMSForNerd-Bot-Intelligence/4.0';
-            curl_setopt($ch, CURLOPT_USERAGENT, $uaString);
-
-            $result = curl_exec($ch);
-            curl_close($ch);
-
-            if (is_string($result) && !empty($result)) {
-                $json = $result;
-                // Verify valid JSON structure before caching
-                $decoded = json_decode($json);
-                if (json_last_error() === JSON_ERROR_NONE && is_object($decoded)) {
-                    @file_put_contents($cacheFile, $json);
-                }
-            }
-        }
-    }
-
-    if ($json === null || $json === false || empty($json)) {
-        return;
-    }
-
-    $details = json_decode($json);
-    if (isset($details->asn->type) && $details->asn->type === 'hosting') {
+    $details = fetch_ip_details($ip, $token);
+    if ($details !== null && isset($details->asn->type) && $details->asn->type === 'hosting') {
         http_response_code(403);
         die("Data center traffic blocked. Institutional/Bot detected.");
     }

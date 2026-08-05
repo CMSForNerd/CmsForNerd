@@ -246,19 +246,25 @@ final class SecurityTest extends TestCase
     }
 
     /**
-     * Test Block Datacenter Traffic function (caching, SSRF, localhost)
+     * Helper to get the IP cache file path.
      */
-    public function testBlockDatacenterTraffic(): void
+    private function getIpCachePath(string $ip): string
     {
         $cacheDir = dirname(__DIR__) . '/data/cache';
         if (!is_dir($cacheDir)) {
             mkdir($cacheDir, 0777, true);
         }
+        return $cacheDir . '/ip_' . hash('sha256', $ip) . '.json';
+    }
 
+    /**
+     * Test Block Datacenter Traffic function (caching, SSRF, localhost)
+     */
+    public function testBlockDatacenterTraffic(): void
+    {
         // Case 1: Localhost bypass
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $cacheKeyLocal = hash('sha256', '127.0.0.1');
-        $cacheFileLocal = $cacheDir . '/ip_' . $cacheKeyLocal . '.json';
+        $cacheFileLocal = $this->getIpCachePath('127.0.0.1');
         if (file_exists($cacheFileLocal)) {
             unlink($cacheFileLocal);
         }
@@ -267,8 +273,7 @@ final class SecurityTest extends TestCase
 
         // Case 2: SSRF Private Range bypass
         $_SERVER['REMOTE_ADDR'] = '10.0.0.1';
-        $cacheKeyPrivate = hash('sha256', '10.0.0.1');
-        $cacheFilePrivate = $cacheDir . '/ip_' . $cacheKeyPrivate . '.json';
+        $cacheFilePrivate = $this->getIpCachePath('10.0.0.1');
         if (file_exists($cacheFilePrivate)) {
             unlink($cacheFilePrivate);
         }
@@ -277,8 +282,7 @@ final class SecurityTest extends TestCase
 
         // Case 3: Public IP with mock cache (non-hosting)
         $_SERVER['REMOTE_ADDR'] = '1.1.1.1';
-        $cacheKeyPublic = hash('sha256', '1.1.1.1');
-        $cacheFilePublic = $cacheDir . '/ip_' . $cacheKeyPublic . '.json';
+        $cacheFilePublic = $this->getIpCachePath('1.1.1.1');
 
         $mockJson = json_encode(['asn' => ['type' => 'isp'], 'ip' => '1.1.1.1']);
         file_put_contents($cacheFilePublic, $mockJson);
