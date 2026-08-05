@@ -332,7 +332,7 @@ function fetch_ip_details(string $ip, string $token): ?object
     $cacheFile = $cacheDir . '/ip_' . $cacheKey . '.json';
 
     // 2. Second Tier: File-based Cache fallback
-    if ($json === null || $json === false || empty($json)) {
+    if (!is_string($json)) {
         if (file_exists($cacheFile) && (time() - (int)filemtime($cacheFile)) < $ttl) {
             $json = @file_get_contents($cacheFile);
             if (is_string($json) && !empty($json) && function_exists('apcu_store')) {
@@ -342,7 +342,7 @@ function fetch_ip_details(string $ip, string $token): ?object
     }
 
     // 3. Cache Miss: API Query via cURL
-    if ($json === null || $json === false || empty($json)) {
+    if (!is_string($json) || empty($json)) {
         $ch = curl_init();
         if ($ch !== false) {
             $url = "https://ipinfo.io/" . urlencode($ip) . "/json?token=" . urlencode($token);
