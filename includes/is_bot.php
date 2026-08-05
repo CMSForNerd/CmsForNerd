@@ -312,8 +312,16 @@ function block_datacenter_traffic(string $token): void
 {
     $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
-    // 1. [PERFORMANCE] Localhost & Validation check
-    if ($ip === '127.0.0.1' || $ip === '::1' || !filter_var($ip, FILTER_VALIDATE_IP)) {
+    // 1. [PERFORMANCE] Localhost & Validation check with SSRF Protection
+    if ($ip === '127.0.0.1' || $ip === '::1') {
+        return;
+    }
+    $isValidIp = (bool)filter_var(
+        $ip,
+        FILTER_VALIDATE_IP,
+        FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+    );
+    if (!$isValidIp) {
         return;
     }
 
@@ -322,10 +330,52 @@ function block_datacenter_traffic(string $token): void
         return;
     }
 
-    // Secure IP lookup with validated input
-    $ctx = stream_context_create(['http' => ['timeout' => 2]]);
-    $json = @file_get_contents("https://ipinfo.io/" . urlencode($ip) . "/json?token=" . urlencode($token), false, $ctx);
-    if ($json === false || empty($json)) {
+    $cacheDir = dirname(__DIR__) . '/data/cache';
+    if (!is_dir($cacheDir)) {
+        @mkdir($cacheDir, 0777, true);
+    }
+
+    $cacheKey = hash('sha256', $ip);
+    $cacheFile = $cacheDir . '/ip_' . $cacheKey . '.json';
+
+    $json = null;
+    $ttl = 86400; // 24-hour TTL
+
+    if (file_exists($cacheFile) && (time() - (int)filemtime($cacheFile)) < $ttl) {
+        $json = @file_get_contents($cacheFile);
+    }
+
+    if ($json === null || $json === false || empty($json)) {
+        $ch = curl_init();
+        if ($ch !== false) {
+            $url = "https://ipinfo.io/" . urlencode($ip) . "/json?token=" . urlencode($token);
+            /** @var non-falsy-string $url */
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+            curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS); // Enforce HTTPS for safety
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+
+            /** @var non-empty-string $uaString */
+            $uaString = 'CMSForNerd-Bot-Intelligence/4.0';
+            curl_setopt($ch, CURLOPT_USERAGENT, $uaString);
+
+            $result = curl_exec($ch);
+            curl_close($ch);
+
+            if (is_string($result) && !empty($result)) {
+                $json = $result;
+                // Verify valid JSON structure before caching
+                $decoded = json_decode($json);
+                if (json_last_error() === JSON_ERROR_NONE && is_object($decoded)) {
+                    @file_put_contents($cacheFile, $json);
+                }
+            }
+        }
+    }
+
+    if ($json === null || $json === false || empty($json)) {
         return;
     }
 
