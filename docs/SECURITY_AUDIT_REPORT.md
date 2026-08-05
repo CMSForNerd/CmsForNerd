@@ -1,4 +1,12 @@
-# CmsForNerd Security Audit Report (v4.3.0)
+---
+okf_version: 0.1
+type: report
+title: "Security Audit Report"
+description: "Comprehensive security audit and compliance analysis for CmsForNerd."
+resource: "file:///docs/SECURITY_AUDIT_REPORT.md"
+timestamp: "2026-08-05T10:00:00Z"
+---
+# CmsForNerd Security Audit Report (v4.2.0)
 
 ## 1. Enumeration Table
 
@@ -122,15 +130,19 @@ When operating inside the **Google Jules Sandbox**, the agent does not possess p
 ```
 
 ### C. Production Execution Pathway (Real OS)
-When executed on a real target OS (such as Debian, Ubuntu, RedHat, Rocky, or AlmaLinux) with root/sudo capabilities, ASIMP/setup_os runs the authentic Ansible playbooks to harden the host.
+When executed on a real target OS (such as Debian, Ubuntu, RedHat, Rocky, or AlmaLinux), ASIMP/setup_os runs the authentic Ansible playbooks to harden the host. The operator must initially possess root or sudo capability on the control node to run the playbooks, ensuring that `bootstrap_node.yml` can obtain root through `--become` privilege escalation during first-run setup.
 
 #### Execution Workflow
 To execute the live hardening loop in production:
 ```bash
-# 1. Access host control node as dsom-admin
+# 1. Ensure you have initial root or sudo privilege escalation capability on the control node.
+# If the dsom-admin identity has not been created, perform first-run bootstrapping to provision dsom-admin and configure NOPASSWD sudo:
+sudo ansible-playbook -i inventory/hosts.local.yml playbooks/bootstrap_node.yml --tags bootstrap
+
+# 2. Access host control node as dsom-admin (after identity has been bootstrapped)
 sudo su - dsom-admin
 
-# 2. Run the mock-asimp.sh script (which automatically triggers authentic playbooks when run with write access on real OS)
+# 3. Run the mock-asimp.sh script (which automatically triggers authentic playbooks when run with write access on a real OS)
 bash tools/mock-asimp.sh
 ```
 

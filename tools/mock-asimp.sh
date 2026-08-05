@@ -16,13 +16,16 @@ YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-ROOT_DIR=$(git rev-parse --show-toplevel 2>/dev/null)
-if [ -z "$ROOT_DIR" ]; then
+# Derive ROOT_DIR from the script's own location to avoid reliance on caller's CWD
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+if [[ -z "$ROOT_DIR" ]]; then
     ROOT_DIR="."
 fi
 
 # Detect Google Jules Sandbox Environment
-if [[ "$USER" == "jules" ]] || [[ "$LOGNAME" == "jules" ]] || [ ! -w /etc/sysctl.conf ]; then
+if [[ "$USER" == "jules" ]] || [[ "$LOGNAME" == "jules" ]] || [[ ! -w /etc/sysctl.conf ]]; then
     IS_JULES_MOCK=true
 else
     IS_JULES_MOCK=false
@@ -32,7 +35,7 @@ echo -e "${CYAN}================================================================
 echo -e "${CYAN}                  ASIMP SECURITY AUDIT & HARDENING ENGINE               ${NC}"
 echo -e "${CYAN}========================================================================${NC}"
 
-if [ "$IS_JULES_MOCK" = true ]; then
+if [[ "$IS_JULES_MOCK" == "true" ]]; then
     echo -e "${YELLOW}[INFO] Google Jules Sandbox Environment Detected.${NC}"
     echo -e "${YELLOW}[INFO] Simulating 'Measure, Harden, Re-Measure' workflow via mock configuration...${NC}"
 
@@ -94,7 +97,7 @@ if [ "$IS_JULES_MOCK" = true ]; then
 EOF
 
     # If real /var/log/ is writeable, copy there
-    if [ -w /var/log ]; then
+    if [[ -w /var/log ]]; then
         cp "$JSON_FILE" /var/log/asimp-baseline-scores.json 2>/dev/null || true
     fi
 
@@ -139,7 +142,7 @@ timestamp: "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 EOF
 
     # If real /opt/report/openscap/ is writeable, copy there
-    if [ -w /opt/report/openscap ]; then
+    if [[ -w /opt/report/openscap ]]; then
         cp "$REPORT_FILE" /opt/report/openscap/SECURITY_AUDIT_REPORT.md 2>/dev/null || true
     fi
 
@@ -167,7 +170,7 @@ else
 
     # Run actual localhost playbooks (requires root privilege via sudo)
     echo -e "${YELLOW}Executing bootstrap_node.yml on localhost...${NC}"
-    ansible-playbook -i inventory/hosts.local.yml playbooks/bootstrap_node.yml --connection=local --become
+    ansible-playbook -i "$ROOT_DIR/inventory/hosts.local.yml" "$ROOT_DIR/playbooks/bootstrap_node.yml" --connection=local --become
 fi
 
 exit 0
