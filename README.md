@@ -104,12 +104,17 @@ handshake is **REQUIRED** for all laboratory sessions.
 3. Learn how to set up Google Jules on Ubuntu 26.04 in our [Google Jules Ubuntu 26.04 Setup Guide](docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md).
 4. Learn how to deploy to Render Cloud in our [Render Deployment Guide](docs/RENDER-DEPLOYMENT-GUIDE.md). View the [Live Demo on Render](https://cmsfornerd.onrender.com/index.php).
 
-### 🚀 Option 4: DSOM Node Bootstrap & OpenSCAP Hardening (Unreleased - Planned v4.1.5)
+### 🚀 Option 4: DSOM Node Bootstrap, ASIMP OS Hardening & OpenSCAP Compliance
 
 1. Use our secure, sanitized dual-play bootstrapping playbook to provision a new server, VM, or node with target unprivileged identity standard (`dsom-admin:2001:2001`) and lingering.
 2. The `setup_os` role automatically handles essential software updates, kernel hardware-aware optimizations, and full security auditing via Lynis and OpenSCAP.
-3. OpenSCAP downloads a pinned, versioned SCAP guide with checksum validation, performs CIS Level 2 audits, runs USN OVAL scans, and automatically executes remediation scripts to secure and harden the underlying OS.
-4. Execute via:
+3. Integrates ASIMP (**Ansible System Integrity Management Platform**) principles to run dual-engine audits (Lynis + OpenSCAP CIS Level 2) before and after applying hardening policies to measure the security improvement.
+4. Built-in **Google Jules Sandbox** support with `tools/mock-asimp.sh` to simulate full "Measure, Harden, Re-Measure" loops and scorecards without requiring privileged root access.
+5. Execute the mock workflow inside the Google Jules sandbox:
+   ```bash
+   bash tools/mock-asimp.sh
+   ```
+6. Execute live playbooks in production on a real host:
    ```bash
    ansible-playbook -i inventory/hosts.example.yml playbooks/bootstrap_node.yml
    ```

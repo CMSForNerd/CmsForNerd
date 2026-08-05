@@ -4,7 +4,7 @@ type: documentation
 title: "Project Changelog"
 description: "Sovereign log tracking all features, fixes, and architectural upgrades in CMSForNerd."
 resource: "file:///CHANGELOG.md"
-timestamp: "2026-08-01T15:00:00Z"
+timestamp: "2026-08-05T10:00:00Z"
 ---
 # CHANGELOG
 
@@ -12,6 +12,15 @@ All notable changes to this project are documented in this file.
 Entries are grouped by date (most recent first).
 
 ---
+
+## [4.3.0] - 2026-08-05 (ASIMP OS Hardening & OpenSCAP Integration)
+
+### 🛡️ OS Hardening & ASIMP Audit Integration
+- **ASIMP Alignment**: Integrated **Ansible System Integrity Management Platform (ASIMP)** to implement a standard "Measure, Harden, Re-Measure" security loop.
+- **Google Jules Sandbox Support**: Deployed a mock execution engine `tools/mock-asimp.sh` built for Google Jules unprivileged sandboxes. It auto-detects unprivileged environments and outputs mock JSON score databases and complete `SECURITY_AUDIT_REPORT.md` markdown files directly into user-writeable workspace paths.
+- **Unified Security Metrics Reporting**: Formulated deep OS-level scorecard parameters comparing baseline and post-hardening scores side-by-side for both Lynis Hardening Index and OpenSCAP CIS Level 2 profiles.
+- **Production Host Execution**: Preserved full compatibility with live Debian/RedHat host system deployment under the standard unprivileged `dsom-admin:2001:2001` identity via setup_os Ansible roles.
+- **External Integration**: Imported and cloned the public `ASIMP` repository directly from `https://github.com/linuxmalaysia/ASIMP.git` for references and standards sync.
 
 ## [4.2.5] - 2026-08-01 (GitHub Pages Static Deployment Alignment)
 

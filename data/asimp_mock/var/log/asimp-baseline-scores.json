@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-08-05T10:28:26Z",
+  "environment": "Google Jules Sandbox Mock",
+  "scores": {
+    "before": {
+      "lynis_hi": 62,
+      "openscap_pct": 58.4
+    },
+    "after": {
+      "lynis_hi": 88,
+      "openscap_pct": 91.2
+    }
+  }
+}

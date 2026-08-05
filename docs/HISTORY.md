@@ -4,13 +4,20 @@ type: documentation
 title: "Modernization History"
 description: "Sovereign log tracking the strategic phases and release milestones of CMSForNerd."
 resource: "file:///docs/HISTORY.md"
-timestamp: "2026-08-01T15:00:00Z"
+timestamp: "2026-08-05T10:00:00Z"
 ---
 # 📜 Modernization History
 
 Tracking the evolution of **CMSForNerd** from a legacy flat-file system to a modern educational powerhouse.
 
 ## Strategic Phases
+
+### Phase 25: ASIMP OS Hardening & OpenSCAP Integration (v4.3.0)
+
+- **ASIMP Alignment**: Imported and integrated the **Ansible System Integrity Management Platform (ASIMP)** to implement a complete "Measure, Harden, Re-Measure" security loop.
+- **Google Jules Sandbox Support**: Designed and deployed a robust mock execution engine `tools/mock-asimp.sh` tailored for Google Jules unprivileged sandboxes. It automatically handles sandbox boundaries to write simulated JSON metrics and complete `SECURITY_AUDIT_REPORT.md` scorecards under unprivileged paths.
+- **Unified Security Metrics Reporting**: Formulated deep OS-level scorecard parameters comparing baseline and post-hardening scores side-by-side for both Lynis Hardening Index and OpenSCAP CIS Level 2 profiles.
+- **Production Host Execution**: Preserved direct compatibility with real Debian/RedHat host system execution under the unprivileged `dsom-admin:2001:2001` identity via the `setup_os` Ansible playbooks.
 
 ### Phase 24: GitHub Pages Static Deployment Alignment (v4.2.5)
 
