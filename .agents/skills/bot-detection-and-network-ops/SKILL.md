@@ -21,7 +21,12 @@ Use this skill when developing network-dependent code in PHP, modifying bot-dete
 ### 1. Dynamic IP CIDR Bot Detection
 The bot detection system (`includes/is_bot.php`) supports dynamic IP CIDR checks against trusted crawlers (Google, Bing, Cloudflare, and OpenAI/ChatGPT bots like GPTBot, SearchBot, ChatGPT-User).
 - These IP ranges must be fetched concurrently via `curl_multi` to avoid network delays.
-- Results should be merged and stored locally in `data/trusted-bots.json`.
+- **Refresh & Validation Safeguards:** During a range refresh (such as `update_trusted_bot_ips()`):
+  - Each `curl_multi` response must have a successful HTTP status (e.g., 200).
+  - The fetched response body must remain within a bounded size to avoid resource exhaustion.
+  - The response must successfully parse as JSON and contain only valid CIDR prefix entries before acceptance.
+  - Only successfully validated ranges should be merged.
+  - The storage file `data/trusted-bots.json` must be updated atomically using a last-known-good fallback store. The existing file must be fully retained unchanged if any individual fetch or validation step fails.
 - In `includes/bootstrap.php`, bot detection logic must always execute *after* the `$config` variable is fully initialized, ensuring sitemap URLs are available for text-mode responses.
 
 ### 2. cURL Redirect Handling

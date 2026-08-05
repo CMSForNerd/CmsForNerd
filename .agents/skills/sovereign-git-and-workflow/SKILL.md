@@ -18,12 +18,14 @@ Use this skill during Git integrations, merge operations, conflict-handling sess
 
 ## Guidelines & Best Practices
 
-### 1. Divergent Branch Merging
-If a merge attempt with a divergent Jules branch fails with the Git error `'refusing to merge unrelated histories'`, bypass this protection using:
+### 1. Divergent Branch Merging & Unrelated Histories
+Standard branch divergence must be handled via standard merging or rebasing. However, if a merge attempt with a divergent branch fails with the Git error `'refusing to merge unrelated histories'`:
+- Distinguish this from ordinary branch divergence (which does not require override flags).
+- **Identity Verification Gate:** Before permitting `--allow-unrelated-histories`, you must verify the identities of the remote, target repository, and branch to confirm it is the intended partner.
+- Once verified, use the following placeholder syntax to facilitate the integration:
 ```bash
-git merge origin/branch --allow-unrelated-histories
+git merge origin/<branch> --allow-unrelated-histories
 ```
-This forces integration when histories have diverged or been rewritten under different roots.
 
 ### 2. Independent Conflict Resolution
 When resolving merge conflicts in 'jules' branches (submitted jobs):
@@ -42,10 +44,10 @@ Prior to submitting your final changes:
 - Delete temporary runtime cache files like `data/cache/*` to keep the repository history pristine.
 
 ### 5. Incremental Commit Mandate
-The user explicitly requests making incremental Git commits for every single step taken during a task.
-- Group file modifications by logical boundaries.
-- Commit early and often, explaining exactly what each micro-step achieved.
-- Avoid large monolithic or blanket commits (e.g., `git commit -am` or dumping unrelated files).
+Incremental Git commits are required during a task only when the current user explicitly requests them.
+- Avoid the unconditional assumption that every task step must be committed automatically.
+- When incremental commits are requested or approved by the user, group file modifications strictly by logical boundaries and keep commits highly focused.
+- Avoid large monolithic or blanket commits (such as `git commit -am` or dumping unrelated files).
 
 
 ---

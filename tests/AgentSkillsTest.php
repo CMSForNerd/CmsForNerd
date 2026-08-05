@@ -377,7 +377,7 @@ final class AgentSkillsTest extends TestCase
             [
                 'update core record-keeping files (`README.md`, `CHANGELOG.md`, `HISTORY.md`) **last**',
                 'v4.0.0-alpha` (or higher)',
-                'composer install --ignore-platform-reqs',
+                'composer check-platform-reqs',
                 'LAB-GUIDE.md` and `template-guide.md`',
             ] as $expected
         ) {
@@ -420,7 +420,7 @@ final class AgentSkillsTest extends TestCase
         }
 
         $this->assertStringContainsString(
-            "php -r 'clearstatcache();'",
+            "clearstatcache()",
             $content,
             'php-performance-and-benchmarking must instruct clearing the PHP stat cache before benchmarking.'
         );
@@ -453,12 +453,12 @@ final class AgentSkillsTest extends TestCase
 
         foreach (
             [
-                'git merge origin/branch --allow-unrelated-histories',
+                'git merge origin/<branch> --allow-unrelated-histories',
                 'Proceed independently without waiting for master/main branch approvals',
                 'v4.0.0-alpha` or higher',
                 '.phpunit.cache/',
                 'data/cache/*',
-                'making incremental Git commits for every single step',
+                'Incremental Git commits are required during a task only when the current user explicitly requests them',
             ] as $expected
         ) {
             $this->assertStringContainsString($expected, $content, "sovereign-git-and-workflow must document: '{$expected}'.");

@@ -44,12 +44,14 @@ Maintain strict sequential numbering for docblock comment sections in all PHP co
 ### 4. Educational Guide Synchronization
 When modifying any core CMS routing, template logic, or architectural functions, you must proactively update corresponding educational code and template instructions inside the `docs/` Palace (such as `LAB-GUIDE.md` and `template-guide.md`) to keep references in perfect synchronization.
 
-### 5. Platform-Agnostic Composer Configuration
-If the local runtime environment has a lower PHP version (e.g., PHP 8.3) than the project's requirement (PHP 8.4):
-- Instruct or execute composer installation bypassing platform version checks:
+### 5. Production Installation & Local Runtime Validation
+The standard deployment requires PHP 8.4+ as the normal installation path.
+- In production, always perform standard installations without ignoring platform requirements.
+- If an older local runtime (e.g., PHP 8.3) is used solely to prepare dependencies or run pre-flight tests offline, dependencies can be prepared locally. However, you must instruct the developer or CI runner to validate the environment configuration against the target runtime using:
   ```bash
-  composer install --ignore-platform-reqs
+  composer check-platform-reqs
   ```
+  in the target PHP 8.4+ execution environment.
 
 
 ---

@@ -18,8 +18,8 @@ Trigger this skill when writing or modifying Ansible Playbooks, Roles, tasks, or
 
 ## Guidelines & Best Practices
 
-### 1. Rootless Podman Container hardeness
-To guarantee absolute security and SELinux compatibility:
+### 1. Rootless Podman Container Hardening
+To implement robust defense-in-depth measures and ensure SELinux compatibility (not claiming absolute security):
 - **Fully Qualified Images:** Always use fully qualified container image names with specific version tags (e.g., `docker.io/library/nginx:1.27`). Never use untagged or short names.
 - **Privilege Limitation:** Explicitly define `security_opt: [no-new-privileges]`.
 - **Capability Dropping:** Include `cap_drop: [all]` to strip all container privileges.

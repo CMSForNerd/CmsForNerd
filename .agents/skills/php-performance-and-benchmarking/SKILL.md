@@ -37,10 +37,8 @@ Avoid using the O(N) sequential search of `in_array()` inside heavy loops.
 
 ### 3. Stat Cache Resetting in Benchmarks
 PHP caches filesystem metadata internally for optimization.
-- Before running or measuring any PHP benchmarks involving filesystem I/O, always clear this internal cache to guarantee a level playing field and precise metrics:
-  ```bash
-  php -r 'clearstatcache();'
-  ```
+- To guarantee a level playing field and precise metrics, always invoke `clearstatcache()` programmatically within the PHP benchmark or setup script itself, rather than running a separate shell command.
+- Ensure the cache is cleared immediately before filesystem-I/O setup or measurement blocks are started, ensuring the benchmark runtime's process-local cache is properly reset.
 
 ### 4. File-Based Performance Caching
 Maintain and utilize the `data/cache/` directory for runtime caches (such as bot dynamic ranges or API responses).
