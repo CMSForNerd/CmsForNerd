@@ -244,4 +244,57 @@ final class SecurityTest extends TestCase
             $this->assertStringContainsString('itemtype=', $content, "File " . basename($file) . " must contain 'itemtype' microdata attribute.");
         }
     }
+
+    /**
+     * Helper to get the IP cache file path.
+     */
+    private function getIpCachePath(string $ip): string
+    {
+        $cacheDir = dirname(__DIR__) . '/data/cache';
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0777, true);
+        }
+        return $cacheDir . '/ip_' . hash('sha256', $ip) . '.json';
+    }
+
+    /**
+     * Test Block Datacenter Traffic function (caching, SSRF, localhost)
+     */
+    public function testBlockDatacenterTraffic(): void
+    {
+        // Case 1: Localhost bypass
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $cacheFileLocal = $this->getIpCachePath('127.0.0.1');
+        if (file_exists($cacheFileLocal)) {
+            unlink($cacheFileLocal);
+        }
+        block_datacenter_traffic('test_token');
+        $this->assertFileDoesNotExist($cacheFileLocal);
+
+        // Case 2: SSRF Private Range bypass
+        $_SERVER['REMOTE_ADDR'] = '10.0.0.1';
+        $cacheFilePrivate = $this->getIpCachePath('10.0.0.1');
+        if (file_exists($cacheFilePrivate)) {
+            unlink($cacheFilePrivate);
+        }
+        block_datacenter_traffic('test_token');
+        $this->assertFileDoesNotExist($cacheFilePrivate);
+
+        // Case 3: Public IP with mock cache (non-hosting)
+        $_SERVER['REMOTE_ADDR'] = '1.1.1.1';
+        $cacheFilePublic = $this->getIpCachePath('1.1.1.1');
+
+        $mockJson = json_encode(['asn' => ['type' => 'isp'], 'ip' => '1.1.1.1']);
+        file_put_contents($cacheFilePublic, $mockJson);
+
+        // This should read cache, see type !== 'hosting', and return cleanly
+        block_datacenter_traffic('test_token');
+        $this->assertFileExists($cacheFilePublic);
+
+        // Cleanup
+        if (file_exists($cacheFilePublic)) {
+            unlink($cacheFilePublic);
+        }
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    }
 }
