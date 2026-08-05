@@ -91,18 +91,24 @@ function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null):
  */
 function is_trusted_bot_ip(string $ip, ?string $provider = null): bool
 {
+    static $cache = null;
     $dataPath = dirname(__DIR__) . '/data/trusted-bots.json';
-    if (!file_exists($dataPath)) {
-        error_log("BOT-INTEL: Missing database at $dataPath");
-        return false;
+
+    if ($cache === null) {
+        if (!file_exists($dataPath)) {
+            error_log("BOT-INTEL: Missing database at $dataPath");
+            return false;
+        }
+
+        $decoded = json_decode((string)file_get_contents($dataPath), true);
+        if (is_array($decoded) && isset($decoded['bots'])) {
+            $cache = $decoded;
+        } else {
+            return false;
+        }
     }
 
-    $data = json_decode((string)file_get_contents($dataPath), true);
-    if (!isset($data['bots'])) {
-        return false;
-    }
-
-    foreach ($data['bots'] as $bot) {
+    foreach ($cache['bots'] as $bot) {
         if ($provider !== null && $bot['name'] !== $provider) {
             continue;
         }
