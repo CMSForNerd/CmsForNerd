@@ -74,7 +74,7 @@ function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null):
             $provider = 'ChatGPT-User';
         }
 
-        if (is_trusted_bot_ip($ip, $provider)) {
+        if (is_trusted_bot_ip($ip, $provider, $ctx)) {
             $ctx->botCache->lastIp  = $ip;
             $ctx->botCache->lastUa  = $ua;
             return $ctx->botCache->lastRes = true;
@@ -89,20 +89,61 @@ function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null):
 /**
  * [INTELLIGENCE] Verifies if an IP belongs to a trusted bot network.
  */
-function is_trusted_bot_ip(string $ip, ?string $provider = null): bool
+function is_trusted_bot_ip(string $ip, ?string $provider = null, ?\CmsForNerd\CmsContext $ctx = null): bool
 {
+    if ($ctx === null) {
+        if (function_exists('createCmsContext')) {
+            $ctx = createCmsContext([], 'is_bot');
+        } else {
+            $ctx = new \CmsForNerd\CmsContext(
+                [],
+                'CmsForNerd',
+                'css/',
+                [],
+                'is_bot',
+                'http://localhost/',
+                'WebPage',
+                ''
+            );
+        }
+    }
+
     $dataPath = dirname(__DIR__) . '/data/trusted-bots.json';
-    if (!file_exists($dataPath)) {
-        error_log("BOT-INTEL: Missing database at $dataPath");
-        return false;
+
+    if (!isset($ctx->botCache->trustedBots)) {
+        if (!file_exists($dataPath)) {
+            error_log("BOT-INTEL: Missing database at $dataPath");
+            return false;
+        }
+
+        $decoded = json_decode((string)file_get_contents($dataPath), true);
+        if (is_array($decoded) && isset($decoded['bots']) && is_array($decoded['bots'])) {
+            $validBots = [];
+            foreach ($decoded['bots'] as $bot) {
+                if (
+                    is_array($bot) &&
+                    isset($bot['name']) &&
+                    is_string($bot['name']) &&
+                    isset($bot['prefixes']) &&
+                    is_array($bot['prefixes'])
+                ) {
+                    foreach ($bot['prefixes'] as $prefix) {
+                        if (!is_string($prefix)) {
+                            return false;
+                        }
+                    }
+                    $validBots[] = $bot;
+                } else {
+                    return false;
+                }
+            }
+            $ctx->botCache->trustedBots = ['bots' => $validBots];
+        } else {
+            return false;
+        }
     }
 
-    $data = json_decode((string)file_get_contents($dataPath), true);
-    if (!isset($data['bots'])) {
-        return false;
-    }
-
-    foreach ($data['bots'] as $bot) {
+    foreach ($ctx->botCache->trustedBots['bots'] as $bot) {
         if ($provider !== null && $bot['name'] !== $provider) {
             continue;
         }
