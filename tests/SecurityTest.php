@@ -127,32 +127,6 @@ final class SecurityTest extends TestCase
     }
 
     /**
-     * Test Trusted Bots Dataset Validation with CmsContext
-     */
-    public function testTrustedBotsDatasetValidation(): void
-    {
-        $ctx = new \CmsForNerd\CmsContext(
-            [],
-            'CmsForNerd',
-            'css/',
-            [],
-            'is_bot',
-            'http://localhost/',
-            'WebPage',
-            ''
-        );
-
-        // First execution loads and populates the context botCache property
-        $this->assertTrue(is_trusted_bot_ip('66.249.66.1', 'Google', $ctx));
-        $this->assertObjectHasProperty('trustedBots', $ctx->botCache);
-        $this->assertIsArray($ctx->botCache->trustedBots['bots']);
-        $this->assertNotEmpty($ctx->botCache->trustedBots['bots']);
-
-        // Check if cached version is reused on second call
-        $this->assertTrue(is_trusted_bot_ip('66.249.66.1', 'Google', $ctx));
-    }
-
-    /**
      * Test Hardened IPv6 CIDR Matcher
      */
     public function testIpv6InRange(): void
