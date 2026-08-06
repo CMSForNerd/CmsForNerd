@@ -1,3 +1,9 @@
+---
+okf_version: 0.1
+type: documentation
+title: "AI Assistant Instructions"
+timestamp: "2026-08-06T15:00:00Z"
+---
 # AI Assistant Instructions for CMSForNerd (v4.3.0)
 
 This file gives concise, repo-specific guidance for using Google Gemini, GitHub Copilot, Cursor, or ChatGPT when contributing to CMSForNerd.

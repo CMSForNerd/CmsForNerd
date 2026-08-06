@@ -2,7 +2,7 @@
 
 /**
  * Nerd Hall of Fame Body
- * Featuring the Architects of the v4.3.0 Modernization.
+ * Featuring the Architects of the v4.3.0 Modernisation.
  */
 
 $contributors = [

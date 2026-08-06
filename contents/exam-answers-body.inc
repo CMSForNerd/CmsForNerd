@@ -19,9 +19,9 @@
             <pre><code>// v4.3.0 Standard Fix
 $requested = $_GET['page'] ?? 'index';
 $safePage = \CmsForNerd\SecurityUtils::sanitizePageName($requested);
-$contentPath = __DIR__ . "/contents/{$safePage}.inc";
+$contentPath = __DIR__ . "/contents/{$safePage}-body.inc";
 
-include file_exists($contentPath) ? $contentPath : "contents/404.inc";</code></pre>
+include file_exists($contentPath) ? $contentPath : "contents/404-body.inc";</code></pre>
         </div>
     </section>
 

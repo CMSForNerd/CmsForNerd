@@ -33,7 +33,7 @@ foreach ($sizes as $size) {
 
     imagestring($img, $fontSize, $x, $y, $string, $text);
 
-    // Add text "v3.5" below
+    // Add text "v4.3.0" below
     $string2 = "v4.3.0";
     $fontWidth2 = imagefontwidth($fontSize) * strlen($string2);
     $x2 = (int) (($size - $fontWidth2) / 2);

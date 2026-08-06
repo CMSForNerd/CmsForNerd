@@ -50,7 +50,7 @@ declare(strict_types=1);
             <div class="proc-card">
                 <h3>📦 CmsForNerd</h3>
                 <ul>
-                    <li>Automated Git synchronization (v4.3.0 master).</li>
+                    <li>Automated Git synchronisation (v4.3.0 master).</li>
                     <li><strong><code>composer install</code></strong> execution with optimizations.</li>
                     <li>Strict ownership mapping (<code>www-data</code> vs <code>nginx</code>).</li>
                 </ul>

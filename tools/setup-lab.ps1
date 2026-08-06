@@ -1,4 +1,4 @@
-# CMSForNerd v4.3.0 - Student Onboarding Script (Windows)
+﻿# CMSForNerd v4.3.0 - Student Onboarding Script (Windows)
 Write-Host "🧪 Starting CMSForNerd Laboratory Setup..." -ForegroundColor Cyan
 
 # 1. Check PHP Version

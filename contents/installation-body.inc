@@ -6,7 +6,7 @@
 </p>
 <p>
     We built <strong>CMSForNerd framework</strong> to help users learn the fundamentals of <strong>HTML5, CSS3, and Modern PHP (8.4+)</strong>.
-    The v4.3.0 modernization ensures full <strong>cross-platform compatibility</strong> (Windows, Linux, Unix, FreeBSD) achieved through <strong>AI-Assisted Coding</strong> using <strong>Google Antigravity</strong>.
+    The v4.3.0 modernisation ensures full <strong>cross-platform compatibility</strong> (Windows, Linux, Unix, FreeBSD) achieved through <strong>AI-Assisted Coding</strong> using <strong>Google Antigravity</strong>.
 </p>
 
 
@@ -14,7 +14,7 @@
 <h3>Requirements</h3>
 <ul>
     <li><strong>Web Server:</strong> Nginx (Recommended), Apache, IIS, or LiteSpeed.</li>
-    <li><strong>PHP Engine:</strong> PHP 8.4+ (Required for v4.3.0 strict typing features).</li>
+    <li><strong>PHP Engine:</strong> PHP 8.4+ (Required for v4.3.0 language features such as Property Hooks).</li>
     <li><strong>PHP Modules:</strong> <code>mbstring</code> (string handling), <code>openssl</code> (security), and <code>zip</code> (archives).</li>
     <li><strong>OS:</strong> Windows, Linux, Unix, or FreeBSD (Tested).</li>
     <li><strong>Dependency Manager:</strong> <a href="https://getcomposer.org/" target="_blank">Composer</a> (Required for Laboratory check scripts).</li>

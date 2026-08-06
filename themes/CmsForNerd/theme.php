@@ -6,7 +6,7 @@
  * It inherits the $themeName variable from that function.
  *
  * @package linuxmalaysia/cmsfornerd
- * @version 3.5.0
+ * @version 4.3.0
  */
 
 declare(strict_types=1);
