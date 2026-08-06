@@ -1,8 +1,8 @@
-<article class="modernization-history"> <header class="history-header"> <h1>Modernization History: The Journey to v3.5</h1> <p class="intro"> Starting in late 2025, CMSForNerd underwent a radical transformation. This log tracks the shift from a 20-year-old legacy codebase to a modern, AI-synergized developer's laboratory. </p> </header>
+<article class="modernization-history"> <header class="history-header"> <h1>Modernization History: The Journey to v4.3.0</h1> <p class="intro"> Starting in late 2025, CMSForNerd underwent a radical transformation. This log tracks the shift from a 20-year-old legacy codebase to a modern, AI-synergized developer's laboratory. </p> </header>
 <div class="timeline">
     <section class="version-block v35">
         <div class="version-tag">v3.5.1</div>
-        <h2>PWA Engine & Modernization Mastery (Current)</h2>
+        <h2>PWA Engine & Modernization Mastery</h2>
         <p><strong>Focus:</strong> SPA-Hybrid Routing, CSP Synchronization, and Architectural Finalization.</p>
         <ul>
             <li><strong>Progressive Web App:</strong> Introduced Stale-While-Revalidate caching and bfcache instantaneous navigation logic.</li>

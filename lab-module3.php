@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (lab-module3.php)
+ * CmsForNerd v4.3.0 - Page Controller (lab-module3.php)
  * * ROLE: Lab Worksheet: Module 3 - Defensive Engineering & Path Traversal.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Lab Worksheet: Module 3 - CmsForNerd v3.5",
+    'title'       => "Lab Worksheet: Module 3 - CmsForNerd v4.3.0",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Module 3: Defensive Engineering. Learn Path Traversal defense, CSP Nonces, and Bot Protection.",
     'keywords'    => "Security Lab, Path Traversal, CSP Nonce, PHP 8.4, Cyber Security",

@@ -1,7 +1,7 @@
 <article class="ui-lab">
     <header class="lab-header">
         <h1>🧪 Laboratory UI Audit Kit</h1>
-        <p class="lead">Technical verification of theme tokens, glassmorphism, and component accessibility for CMSForNerd v3.6.</p>
+        <p class="lead">Technical verification of theme tokens, glassmorphism, and component accessibility for CMSForNerd v4.3.0.</p>
     </header>
 
     <section class="ui-section">
@@ -39,7 +39,7 @@
             <p>Tertiary level for content snippets and small details.</p>
             
             <code>// Monospaced Code Block Output
-printf("CMSForNerd v3.5 Stable\n");</code>
+printf("CMSForNerd v4.3.0 Stable\n");</code>
         </div>
     </section>
 

@@ -26,7 +26,7 @@
                         <p class="cert-text">
                             Has demonstrated professional proficiency in <strong>Modern PHP Architecture</strong>, 
                             <strong>Defensive Engineering</strong>, and <strong>Automated Testing</strong> 
-                            within the CMSForNerd v3.3 Lab environment.
+                            within the CMSForNerd v4.3.0 Lab environment.
                         </p>
 
                         <table class="competency-table">

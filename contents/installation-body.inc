@@ -6,7 +6,7 @@
 </p>
 <p>
     We built <strong>CMSForNerd framework</strong> to help users learn the fundamentals of <strong>HTML5, CSS3, and Modern PHP (8.4+)</strong>.
-    The v3.4 modernization ensures full <strong>cross-platform compatibility</strong> (Windows, Linux, Unix, FreeBSD) achieved through <strong>AI-Assisted Coding</strong> using <strong>Google Antigravity</strong>.
+    The v4.3.0 modernization ensures full <strong>cross-platform compatibility</strong> (Windows, Linux, Unix, FreeBSD) achieved through <strong>AI-Assisted Coding</strong> using <strong>Google Antigravity</strong>.
 </p>
 
 
@@ -14,7 +14,7 @@
 <h3>Requirements</h3>
 <ul>
     <li><strong>Web Server:</strong> Nginx (Recommended), Apache, IIS, or LiteSpeed.</li>
-    <li><strong>PHP Engine:</strong> PHP 8.4+ (Required for v3.4 strict typing features).</li>
+    <li><strong>PHP Engine:</strong> PHP 8.4+ (Required for v4.3.0 strict typing features).</li>
     <li><strong>PHP Modules:</strong> <code>mbstring</code> (string handling), <code>openssl</code> (security), and <code>zip</code> (archives).</li>
     <li><strong>OS:</strong> Windows, Linux, Unix, or FreeBSD (Tested).</li>
     <li><strong>Dependency Manager:</strong> <a href="https://getcomposer.org/" target="_blank">Composer</a> (Required for Laboratory check scripts).</li>
@@ -31,7 +31,7 @@
 
 <h3>Step 1: Dependency Management (Composer)</h3>
 <p>
-    CMSForNerd v3.4 uses Composer to manage the PSR-4 Autoloader and technical tools. After extracting your files, open your terminal in the root directory and run:
+    CMSForNerd v4.3.0 uses Composer to manage the PSR-4 Autoloader and technical tools. After extracting your files, open your terminal in the root directory and run:
 </p>
 <div class="code-box" style="background: #1e1e1e; color: #dcdcdc; padding: 1rem; border-radius: 8px;">
 <pre><code># Install the "Nerd-Stack" and generate the Autoloader
@@ -78,9 +78,9 @@ vendor/bin/phpstan analyze</code></pre>
     <li><strong>Debugging:</strong> <a href="https://www.mozilla.org/firefox/developer/" target="_blank">Mozilla Firefox Developer Tools</a> for CSP auditing and CSS Grid debugging.</li>
 </ul>
 
-<h3>Security Features (v3.4)</h3>
+<h3>Security Features (v4.3.0)</h3>
 <p>
-    <strong>CMSForNerd v3.4</strong> includes strict input validation, <strong>Content Security Policy (CSP)</strong> nonces, and <strong>Cloudflare Turnstile</strong> support. 
+    <strong>CMSForNerd v4.3.0</strong> includes strict input validation, <strong>Content Security Policy (CSP)</strong> nonces, and <strong>Cloudflare Turnstile</strong> support.
     To enable Bot Protection on your forms, edit <code>includes/turnstile.php</code> and add your API keys.
 </p>
 

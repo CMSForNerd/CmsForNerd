@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (installation.php)
+ * CmsForNerd v4.3.0 - Page Controller (installation.php)
  * * ROLE: Technical instructions for deploying the CMSForNerd core.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,9 +28,9 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Installation Guide | CMSForNerd v3.5 Laboratory",
+    'title'       => "Installation Guide | CMSForNerd v4.3.0 Laboratory",
     'author'      => "CMSForNerd Team & Gemini AI",
-    'description' => "Official deployment steps for CMSForNerd v3.5. Learn how to install the flat-file core on modern PHP 8.4 environments.",
+    'description' => "Official deployment steps for CMSForNerd v4.3.0. Learn how to install the flat-file core on modern PHP 8.4 environments.",
     'keywords'    => "Installation, Deployment, PHP 8.4, Composer, Git, Flat-file CMS Setup",
     'schemaType'  => "HowTo"
 ];

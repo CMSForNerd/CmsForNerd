@@ -12,7 +12,7 @@ declare(strict_types=1);
 // Determine the URL to audit - Defaulting to our Lab Port 8000
 $url = $argv[1] ?? 'http://localhost:8000';
 
-echo "🔍 CMSForNerd Semantic Auditor v3.1\n";
+echo "🔍 CMSForNerd Semantic Auditor v4.3.0\n";
 echo str_repeat("=", 60) . "\n";
 echo "Auditing: {$url}\n";
 echo str_repeat("-", 60) . "\n\n";

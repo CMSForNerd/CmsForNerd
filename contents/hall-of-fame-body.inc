@@ -2,14 +2,14 @@
 
 /**
  * Nerd Hall of Fame Body
- * Featuring the Architects of the v3.5 Modernization.
+ * Featuring the Architects of the v4.3.0 Modernization.
  */
 
 $contributors = [
     [
         'name' => 'LinuxMalaysia',
         'date' => '2026-01-04',
-        'fix'  => 'Project Lead & v3.5 Architecture'
+        'fix'  => 'Project Lead & v4.3.0 Architecture'
     ],
     [
         'name' => 'Google Gemini',

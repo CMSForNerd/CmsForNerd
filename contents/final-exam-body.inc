@@ -1,6 +1,6 @@
 <article class="final-exam">
     <header class="exam-header">
-        <h1>🚩 The CMSForNerd v3.1 Final Exam</h1>
+        <h1>🚩 The CMSForNerd v4.3.0 Final Exam</h1>
         <p class="mission">Mission: Repair the Laboratory</p>
     </header>
 

@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (history.php)
- * * ROLE: Chronological log of the CMSForNerd v3.1 - v3.5 evolution.
+ * CmsForNerd v4.3.0 - Page Controller (history.php)
+ * * ROLE: Chronological log of the CMSForNerd v3.1 - v4.3.0 evolution.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
  *
@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Modernization History | CMSForNerd v3.5 Evolution",
+    'title'       => "Modernization History | CMSForNerd v4.3.0 Evolution",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Tracking the journey of CMSForNerd from a 2005 legacy core to a 2026 PHP 8.4 powerhouse.",
     'keywords'    => "Changelog, PHP 8.4, PHP 9 Readiness, Architecture, History, Open Source",

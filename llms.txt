@@ -1,4 +1,4 @@
-# CmsForNerd v4.1.0
+# CmsForNerd v4.3.0
 
 - **Live Demo:** [https://cmsfornerd.onrender.com/index.php](https://cmsfornerd.onrender.com/index.php)
 - **MCP standard crawler Access:** [https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000](https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000)

@@ -12,7 +12,7 @@ declare(strict_types=1);
 <article class="lab-documentation">
     <header class="content-header">
         <h1>🤖 Ansible Laboratory Orchestration</h1>
-        <p class="subtitle">Automated Nginx & PHP 8.4-FPM Deployment v3.5.1</p>
+        <p class="subtitle">Automated Nginx & PHP 8.4-FPM Deployment v4.3.0</p>
     </header>
 
     <section class="lab-section shadow-sm">
@@ -50,7 +50,7 @@ declare(strict_types=1);
             <div class="proc-card">
                 <h3>📦 CmsForNerd</h3>
                 <ul>
-                    <li>Automated Git synchronization (v3.5 master).</li>
+                    <li>Automated Git synchronization (v4.3.0 master).</li>
                     <li><strong><code>composer install</code></strong> execution with optimizations.</li>
                     <li>Strict ownership mapping (<code>www-data</code> vs <code>nginx</code>).</li>
                 </ul>

@@ -2,7 +2,7 @@
     <h1>📱 Progressive Web App (PWA) Architecture</h1>
     
     <p>
-        The <strong>CmsForNerd v3.5 Laboratory</strong> features a meticulously crafted Progressive Web App (PWA) engine that bridges the gap between traditional server-side rendering (SSR) and modern local-first, memory-instant navigation.
+        The <strong>CmsForNerd v4.3.0 Laboratory</strong> features a meticulously crafted Progressive Web App (PWA) engine that bridges the gap between traditional server-side rendering (SSR) and modern local-first, memory-instant navigation.
     </p>
 
     <!-- PWA Highlights -->

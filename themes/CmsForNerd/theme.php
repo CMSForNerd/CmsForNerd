@@ -23,7 +23,7 @@ $CSSPATH = "/themes/$themeName/style.css";
 
 // [METADATA] Theme Information
 // Useful for future updates or identifying the environment version.
-$THEME_VERSION = "4.2.0";
+$THEME_VERSION = "4.3.0";
 $THEME_AUTHOR  = "Harisfazillah Jamel";
 $THEME_NAME    = "CmsForNerd Laboratory";
 

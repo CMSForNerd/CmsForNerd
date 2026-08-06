@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (csp-nonce-guide.php)
+ * CmsForNerd v4.3.0 - Page Controller (csp-nonce-guide.php)
  * * ROLE: CSP Nonce Implementation Guide.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.

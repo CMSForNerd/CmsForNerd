@@ -1,6 +1,6 @@
 <article class="welcome-kit">
     <header class="kit-header">
-        <h1>🚀 CMSForNerd v3.1: Student Welcome Kit</h1>
+        <h1>🚀 CMSForNerd v4.3.0: Student Welcome Kit</h1>
         <p class="quote">"Modernization without loss of simplicity."</p>
     </header>
 

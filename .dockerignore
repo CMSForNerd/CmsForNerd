@@ -5,7 +5,7 @@
 # License     : GNU General Public License v3.0
 # Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
 # ------------------------------------------------------------------------------
-# CmsForNerd v4.1.0 - Docker Build Context Exclusions
+# CmsForNerd v4.3.0 - Docker Build Context Exclusions
 # Purpose: Exclude dev/build/CI/doc artifacts from production container image
 # =============================================================================
 

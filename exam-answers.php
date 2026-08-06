@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (exam-answers.php)
+ * CmsForNerd v4.3.0 - Page Controller (exam-answers.php)
  * * ROLE: Official Answer Key: Final Exam.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -40,9 +40,9 @@ if ((\CmsForNerd\Registry::get('instructor_mode') !== true) &&
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'          => "Official Answer Key: Final Exam | CMSForNerd v3.5",
+    'title'          => "Official Answer Key: Final Exam | CMSForNerd v4.3.0",
     'author'         => "CMSForNerd Team & Google Gemini",
-    'description'    => "Instructor grading rubric and official logic solutions for the CMSForNerd v3.5 Final Exam.",
+    'description'    => "Instructor grading rubric and official logic solutions for the CMSForNerd v4.3.0 Final Exam.",
     'keywords'       => "Answer Key, Grading Rubric, PHP 8.4 Hooks, Security Audit, PSR-12",
     'robots'         => "noindex, nofollow", // Keep exam answers out of public search engines
     'schemaType'     => "EducationalOccupationalCredential"
