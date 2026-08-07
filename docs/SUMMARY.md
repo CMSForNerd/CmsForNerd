@@ -39,6 +39,7 @@ topics: [docs, summary, cmsfornerd, laboratory, alpha]
 * [Google Jules on Ubuntu 26.04](HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md)
 * [Render Deployment Guide](RENDER-DEPLOYMENT-GUIDE.md)
 * [GitHub Pages Deployment Guide](GITHUB-PAGES-DEPLOYMENT-GUIDE.md)
+* [Telemetry & Bidirectional Feedback Pipeline SOP](governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md)
 
 ## 🎓 Graduation
 * [Final Exam Challenge](final-exam.md)
