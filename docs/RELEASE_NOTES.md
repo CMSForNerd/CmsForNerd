@@ -3,6 +3,7 @@ okf_version: 0.1
 type: documentation
 title: "Release Notes"
 timestamp: "2026-08-06T15:00:00Z"
+topics: [docs, release, notes, asimp, hardening]
 ---
 # 🚀 Release v4.3.0: The "ASIMP OS Hardening & OpenSCAP Compliance" Milestone
 

@@ -1,19 +1,11 @@
 ---
 okf_version: 0.1
-type: governance_protocol
-title: "Generative Engine Optimization (GEO)"
-description: "OKF-compliant documentation for GENERATIVE-ENGINE-OPTIMIZATION.md."
-resource: "file:///docs/governance/GENERATIVE-ENGINE-OPTIMIZATION.md"
-timestamp: 2026-08-07T05:39:28Z
-topics: [docs, governance, generative, engine, optimization]
----
-﻿---
-okf_version: 0.1
 type: documentation
 title: "Generative Engine Optimization (GEO)"
 description: "Architectural policy for ensuring documentation is machine-readable and highly cited by AI Answer Engines."
 resource: "file:///docs/governance/GENERATIVE-ENGINE-OPTIMIZATION.md"
 timestamp: 2026-07-11T23:02:18Z
+topics: [docs, governance, generative, engine, optimization]
 ---
 # Generative Engine Optimization (GEO)
 

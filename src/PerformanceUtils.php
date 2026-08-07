@@ -66,15 +66,8 @@ final class PerformanceUtils
         // Avoid caching if there is an active session indicating custom state
         if (session_status() === PHP_SESSION_ACTIVE && !empty($_SESSION)) {
             // Keep CSRF and session_created_at as exceptions (don't prevent caching just for CSRF)
-            $keys = array_keys($_SESSION);
-            $cleanSession = true;
-            foreach ($keys as $key) {
-                if ($key !== 'csrf_token' && $key !== 'session_created_at') {
-                    $cleanSession = false;
-                    break;
-                }
-            }
-            if (!$cleanSession) {
+            $diff = array_diff(array_keys($_SESSION), ['csrf_token', 'session_created_at']);
+            if (!empty($diff)) {
                 return false;
             }
         }
