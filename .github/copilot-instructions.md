@@ -1,8 +1,14 @@
-# AI Assistant Instructions for CMSForNerd (v3.5)
+---
+okf_version: 0.1
+type: documentation
+title: "AI Assistant Instructions"
+timestamp: "2026-08-06T15:00:00Z"
+---
+# AI Assistant Instructions for CMSForNerd (v4.3.0)
 
 This file gives concise, repo-specific guidance for using Google Gemini, GitHub Copilot, Cursor, or ChatGPT when contributing to CMSForNerd.
 
-## 🏛️ High-Level Contract (v3.5)
+## 🏛️ High-Level Contract (v4.3.0)
 - **Role:** You are a "Nerd Architect" assisting a student in a PHP 8.4 Laboratory.
 - **Goal:** Maintain the "Radically Simple" philosophy while ensuring 100% PSR-12 and PHP 8.4 compliance.
 - **Baseline:** Every logic change MUST be verified via `composer compliance`.

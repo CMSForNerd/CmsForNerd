@@ -86,7 +86,7 @@
         <h2>💡 Important: Why PHP 8.4/9 Matters for Beginners</h2>
         <ul>
             <li><strong>Property Hooks:</strong> You will learn to write code that is 30% shorter by using PHP 8.4 hooks instead of old-fashioned getters and setters.</li>
-            <li><strong>Type Safety:</strong> PHP 9 will continue to push for stricter types. By learning with CMSForNerd v3.1, you are learning the "Correct Way" from day one.</li>
+            <li><strong>Type Safety:</strong> PHP 9 will continue to push for stricter types. By learning with CMSForNerd v4.3.0, you are learning the "Correct Way" from day one.</li>
             <li><strong>Performance:</strong> PHP 8.4 and 9 are significantly faster than older versions, making your CMS feel "instant" on your local machine.</li>
         </ul>
     </section>

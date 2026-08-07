@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (sitemap-page.php)
+ * CmsForNerd v4.3.0 - Page Controller (sitemap-page.php)
  * * ROLE: HTML Sitemap Viewer.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.

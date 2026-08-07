@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * ==========================================================================
  * FILE: /sitemap.php
- * ROLE: Standalone XML Sitemap Generator (v3.5)
+ * ROLE: Standalone XML Sitemap Generator (v4.3.0)
  * DESCRIPTION: Operates independently of the core engine to prevent
  * HTML/XML header conflicts and 500 errors.
  * SECURITY: Implements Buffer Hardening, Strict CSP, and Pair Logic.

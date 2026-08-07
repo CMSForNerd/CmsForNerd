@@ -118,7 +118,7 @@ final class CoreVersionBumpV430Test extends TestCase
     {
         $content = $this->read('.github/copilot-instructions.md');
 
-        $this->assertStringStartsWith(
+        $this->assertStringContainsString(
             '# AI Assistant Instructions for CMSForNerd (v' . self::CURRENT_VERSION . ')',
             $content
         );
@@ -474,7 +474,7 @@ final class CoreVersionBumpV430Test extends TestCase
         $content = $this->read('contents/amp-acceleration-body.inc');
 
         $this->assertStringContainsString(
-            'mobile performance optimization in CMSForNerd v' . self::CURRENT_VERSION . '.',
+            'mobile performance optimisation in CMSForNerd v' . self::CURRENT_VERSION . '.',
             $content
         );
     }
@@ -505,7 +505,7 @@ final class CoreVersionBumpV430Test extends TestCase
         $content = $this->read('contents/ansible-lab-body.inc');
 
         $this->assertStringContainsString(
-            'Automated Git synchronization (v' . self::CURRENT_VERSION . ' master).',
+            'Automated Git synchronisation (v' . self::CURRENT_VERSION . ' master).',
             $content
         );
     }

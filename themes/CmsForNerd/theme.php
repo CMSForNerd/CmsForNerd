@@ -6,7 +6,7 @@
  * It inherits the $themeName variable from that function.
  *
  * @package linuxmalaysia/cmsfornerd
- * @version 3.5.0
+ * @version 4.3.0
  */
 
 declare(strict_types=1);
@@ -23,7 +23,7 @@ $CSSPATH = "/themes/$themeName/style.css";
 
 // [METADATA] Theme Information
 // Useful for future updates or identifying the environment version.
-$THEME_VERSION = "4.2.0";
+$THEME_VERSION = "4.3.0";
 $THEME_AUTHOR  = "Harisfazillah Jamel";
 $THEME_NAME    = "CmsForNerd Laboratory";
 

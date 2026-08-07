@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="CmsForNerd Standards">
-    <description>PSR-12 Compliance for CMSForNerd v3.5</description>
+    <description>PSR-12 Compliance for CMSForNerd v4.3.0</description>
 
     <file>index.php</file>
     <file>template.php</file>

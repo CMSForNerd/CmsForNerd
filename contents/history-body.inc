@@ -1,8 +1,8 @@
-<article class="modernization-history"> <header class="history-header"> <h1>Modernization History: The Journey to v3.5</h1> <p class="intro"> Starting in late 2025, CMSForNerd underwent a radical transformation. This log tracks the shift from a 20-year-old legacy codebase to a modern, AI-synergized developer's laboratory. </p> </header>
+<article class="modernisation-history"> <header class="history-header"> <h1>Modernisation History: The Journey to v4.3.0</h1> <p class="intro"> Starting in late 2025, CMSForNerd underwent a radical transformation. This log tracks the shift from a 20-year-old legacy codebase to a modern, AI-synergized developer's laboratory. </p> </header>
 <div class="timeline">
     <section class="version-block v35">
         <div class="version-tag">v3.5.1</div>
-        <h2>PWA Engine & Modernization Mastery (Current)</h2>
+        <h2>PWA Engine & Modernisation Mastery</h2>
         <p><strong>Focus:</strong> SPA-Hybrid Routing, CSP Synchronization, and Architectural Finalization.</p>
         <ul>
             <li><strong>Progressive Web App:</strong> Introduced Stale-While-Revalidate caching and bfcache instantaneous navigation logic.</li>
@@ -19,7 +19,7 @@
         <p><strong>Focus:</strong> AI Readiness and Metadata standardization.</p>
         <ul>
             <li><strong>JSON-LD 2.0:</strong> Modernized metadata layer in <code>common-headertag.inc</code> using the <code>CmsContext</code> object.</li>
-            <li><strong>Theme Modernization:</strong> Corrected theme path references from <code>lab_v3</code> to the standardized <code>CmsForNerd</code> theme.</li>
+            <li><strong>Theme Modernisation:</strong> Corrected theme path references from <code>lab_v3</code> to the standardized <code>CmsForNerd</code> theme.</li>
             <li><strong>Controller Sync:</strong> Synchronized 21 page controllers to the v3.4 template baseline.</li>
         </ul>
     </section>
@@ -64,7 +64,7 @@
 </footer>
 </article>
 
-<style> :root { --v35-color: #e67e22; --v34-color: #f1c40f; --v33-color: #2ecc71; --v32-color: #3498db; --v31-color: #9b59b6; --bg-gray: #f9f9f9; } .modernization-history { max-width: 900px; margin: 0 auto; line-height: 1.8; } .history-header { text-align: center; margin-bottom: 50px; } .history-header h1 { color: #2c3e50; font-size: 2.4rem; border-bottom: 3px solid var(--v33-color); display: inline-block; } .intro { background: var(--bg-gray); padding: 20px; border-left: 5px solid #ccc; font-style: italic; }
+<style> :root { --v35-color: #e67e22; --v34-color: #f1c40f; --v33-color: #2ecc71; --v32-color: #3498db; --v31-color: #9b59b6; --bg-gray: #f9f9f9; } .modernisation-history { max-width: 900px; margin: 0 auto; line-height: 1.8; } .history-header { text-align: center; margin-bottom: 50px; } .history-header h1 { color: #2c3e50; font-size: 2.4rem; border-bottom: 3px solid var(--v33-color); display: inline-block; } .intro { background: var(--bg-gray); padding: 20px; border-left: 5px solid #ccc; font-style: italic; }
 .timeline { position: relative; padding: 20px 0; }
 .version-block { margin-bottom: 40px; padding: 25px; border-radius: 12px; background: #fff; border: 1px solid #eee; position: relative; }
 .version-tag { position: absolute; top: -15px; right: 20px; padding: 5px 15px; border-radius: 20px; color: white; font-weight: bold; font-size: 0.9rem; }
@@ -82,8 +82,8 @@
 .history-footer { text-align: center; margin-top: 60px; color: #7f8c8d; font-size: 0.95rem; border-top: 1px solid #eee; padding-top: 20px; }
 </style>
 
-<article class="modernization-history">
-    <h1>Modernization History: The v3.1 Journey</h1>
+<article class="modernisation-history">
+    <h1>Modernisation History: The v3.1 Journey</h1>
     <p class="intro">
         In late 2025, a landmark project was undertaken to bring <strong>CmsForNerd</strong> from its roots in 2005 into the modern PHP era. 
         This page documents the steps, standards, and improvements that transformed a classic flat-file CMS into a high-performance, 
@@ -170,18 +170,18 @@
     </section>
 
     <p class="footer-note">
-        <em>"Modernization without loss of simplicity."</em> — Harisfazillah Jamel & Google Gemini, 2025.
+        <em>"Modernisation without loss of simplicity."</em> — Harisfazillah Jamel & Google Gemini, 2025.
     </p>
 </article>
 
 <style>
-.modernization-history h1 { color: #004d00; border-bottom: 2px solid #004d00; padding-bottom: 0.5rem; }
-.modernization-history h2 { color: #006600; margin-top: 2rem; font-size: 1.4rem; }
-.modernization-history section { margin-bottom: 2rem; }
-.modernization-history ul { list-style-type: square; padding-left: 1.5rem; }
-.modernization-history li { margin-bottom: 0.5rem; }
-.modernization-history .intro { font-style: italic; color: #444; background: #f9fff9; padding: 1rem; border-left: 4px solid #004d00; }
-.modernization-history .footer-note { margin-top: 3rem; text-align: center; color: #666; font-size: 0.9rem; }
+.modernisation-history h1 { color: #004d00; border-bottom: 2px solid #004d00; padding-bottom: 0.5rem; }
+.modernisation-history h2 { color: #006600; margin-top: 2rem; font-size: 1.4rem; }
+.modernisation-history section { margin-bottom: 2rem; }
+.modernisation-history ul { list-style-type: square; padding-left: 1.5rem; }
+.modernisation-history li { margin-bottom: 0.5rem; }
+.modernisation-history .intro { font-style: italic; color: #444; background: #f9fff9; padding: 1rem; border-left: 4px solid #004d00; }
+.modernisation-history .footer-note { margin-top: 3rem; text-align: center; color: #666; font-size: 0.9rem; }
 </style>
 
 <!-- Recent changelog entry -->

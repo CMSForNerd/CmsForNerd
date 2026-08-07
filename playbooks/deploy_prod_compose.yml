@@ -7,7 +7,7 @@
 # License     : GNU General Public License v3.0
 # Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
 # ==============================================================================
-- name: Production Deploy Orchestrator (Podman-Compose & BunkerWeb) | CmsForNerd v4.1.0
+- name: Production Deploy Orchestrator (Podman-Compose & BunkerWeb) | CmsForNerd v4.3.0
   hosts: all
   vars:
     php_version: "8.5"

@@ -6,7 +6,7 @@
 # Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
 # ==============================================================================
 # =============================================================================
-# CmsForNerd v4.1.0 - Dockerfile for Render Production Deployments
+# CmsForNerd v4.3.0 - Dockerfile for Render Production Deployments
 # Standards: PHP 8.4, Apache, Composer 2.x
 # =============================================================================
 

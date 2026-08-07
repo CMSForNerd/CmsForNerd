@@ -4,7 +4,7 @@
  * ==========================================================================
  * FILE: themes/CmsForNerd/pager.php
  * ROLE: The "Master Pair" / Layout Controller (Dual-View Edition)
- * VERSION: 4.2.3 (Interactive Sidebar, Tap Fix & Dynamic Static Caching)
+ * VERSION: 4.3.0 (Interactive Sidebar, Tap Fix & Dynamic Static Caching)
  * ==========================================================================
  */
 
@@ -146,7 +146,7 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
         <footer style="text-align:center; padding:30px;
                        border-top:1px solid var(--lab-border);
                        font-size:0.8rem; color:var(--lab-muted);">
-            <p>&copy; <?= date('Y') ?> CmsForNerd v4.2.0 Laboratory</p>
+            <p>&copy; <?= date('Y') ?> CmsForNerd v4.3.0 Laboratory</p>
             <p><a href="<?= htmlspecialchars($ctx->scriptName) ?>.php"
                   style="color:var(--lab-purple);">
                Switch to Standard Desktop View

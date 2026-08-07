@@ -1,6 +1,6 @@
 {
     "name": "linuxmalaysia/cmsfornerd",
-    "description": "A flat-file CMS modernized for PHP 8.4 Laboratory environments (Hybrid Arch) v3.6.",
+    "description": "A flat-file CMS modernized for PHP 8.4 Laboratory environments (Hybrid Arch) v4.3.0.",
     "type": "project",
     "license": "GPL-3.0-or-later",
     "authors": [
@@ -46,7 +46,7 @@
         ],
         "lab-check": [
             "@audit-pre-flight",
-            "@php -r \"echo '🧪 Validating Laboratory Readiness (v3.6)...\\n';\"",
+            "@php -r \"echo '🧪 Validating Laboratory Readiness (v4.3.0)...\\n';\"",
             "@check-version",
             "@php -r \"$f='contents/installation-body.inc'; echo (file_exists($f) ? '[OK] Installation Body found.\n' : '[FAIL] Missing contents/installation-body.inc\n');\"",
             "@php -r \"$f='includes/bootstrap.php'; echo (file_exists($f) ? '[OK] Bootstrap Layer found.\n' : '[FAIL] Missing includes/bootstrap.php\n');\"",
@@ -59,7 +59,7 @@
             "@php -r \"require 'includes/is_bot.php'; echo '🚀 Updating Bot Intelligence...\\n'; print_r(update_trusted_bot_ips());\""
         ],
         "post-install-cmd": [
-            "@php -r \"echo 'Welcome to the CMSForNerd v3.6 Laboratory (Secure Engine Mode).\\nRun [composer lab-check] to verify setup and PHPStan analysis.\\n';\""
+            "@php -r \"echo 'Welcome to the CMSForNerd v4.3.0 Laboratory (Secure Engine Mode).\\nRun [composer lab-check] to verify setup and PHPStan analysis.\\n';\""
         ]
     },
     "autoload": {

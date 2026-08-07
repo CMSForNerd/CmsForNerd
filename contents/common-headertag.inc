@@ -22,7 +22,7 @@
 
 <!-- [AI/SEO] Schema.org Image for Rich Cards/Previews -->
 <meta itemprop="image" content="<?= htmlspecialchars($ctx->baseUrl, ENT_QUOTES, 'UTF-8') ?>images/cmsfornerd-logo.png">
-<meta itemprop="description" content="<?= htmlspecialchars($ctx->content['description'] ?? 'A modern PHP 8.4+ educational CMS environment (v4.2.0).') ?>">
+<meta itemprop="description" content="<?= htmlspecialchars($ctx->content['description'] ?? 'A modern PHP 8.4+ educational CMS environment (v4.3.0).') ?>">
 
 <!-- [AI/SEO] JSON-LD Structured Data - 2025 gold standard for Google, Gemini, and ChatGPT. -->
 <script type="application/ld+json" nonce="<?= $ctx->cspNonce ?>">

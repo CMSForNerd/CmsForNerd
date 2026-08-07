@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (pwa-architecture.php)
+ * CmsForNerd v4.3.0 - Page Controller (pwa-architecture.php)
  * * ROLE: PWA features and implementation details.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.

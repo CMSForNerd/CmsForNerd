@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (final-exam.php)
+ * CmsForNerd v4.3.0 - Page Controller (final-exam.php)
  * * ROLE: Final Exam: The Break-Fix Challenge.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Final Exam: Break-Fix Challenge - CMSForNerd v3.5",
+    'title'       => "Final Exam: Break-Fix Challenge - CMSForNerd v4.3.0",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Final Certification Exam. Repair 5 deliberate errors to prove mastery of PHP 8.4+, PSR-12, and TDD.",
     'keywords'    => "Final Exam, PHP 8.4, Break-Fix, Security Audit, PSR-12, PHP Certification",

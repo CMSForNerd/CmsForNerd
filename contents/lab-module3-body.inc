@@ -172,7 +172,7 @@ document.body.appendChild(script);</code></pre>
 
     <section class="step">
         <h2>🤖 Step 4: Hybrid Security - Bot Intel & Turnstile</h2>
-        <p>In v3.5, we implement a <strong>Hybrid Security</strong> approach to handle automated traffic. We distinguish between "Good Bots" (Search Engines) and "Bad Bots" (Spammers).</p>
+        <p>In v4.3.0, we implement a <strong>Hybrid Security</strong> approach to handle automated traffic. We distinguish between "Good Bots" (Search Engines) and "Bad Bots" (Spammers).</p>
         
         <div class="comparison-grid">
             <div class="vulnerable-code" style="border-left-color: #007bff;">

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (ai-dev.php)
+ * CmsForNerd v4.3.0 - Page Controller (ai-dev.php)
  * * ROLE: AI-Assisted Development Guide.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -29,7 +29,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "AI-Assisted Development | CMSForNerd v3.5",
+    'title'       => "AI-Assisted Development | CMSForNerd v4.3.0",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Master the synergy between Google Gemini AI and Google Antigravity to build, refactor, and modernize your CMS.",
     'keywords'    => "AI Development, Google Gemini, Google Antigravity, Agentic Workflow, PHP 8.4 AI",

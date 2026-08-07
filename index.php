@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CmsForNerd v3.5 - Primary Front Controller (index.php)
+ * CmsForNerd v4.3.0 - Primary Front Controller (index.php)
  * * ROLE: The main entrance to the Laboratory.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,11 +28,11 @@ require_once __DIR__ . '/includes/bootstrap.php';
 
 /**
  * 3. [SEO/AI] Page Metadata
- * Custom values for the Homepage. In Lab v3, we use schemaType 'WebApplication'
+ * Custom values for the Homepage. In Lab v4, we use schemaType 'WebApplication'
  * for the root index to signify the CMS environment to search engines.
  */
 $content = [
-    'title'       => "CMSForNerd v4.2.0: The Secure Coding Laboratory",
+    'title'       => "CMSForNerd v4.3.0: The Secure Coding Laboratory",
     'author'      => "Harisfazillah Jamel",
     'description' => "A lightweight flat-file CMS modernized for PHP 8.4+ and strict security standards.",
     'keywords'    => "PHP 8.4, Flat-file CMS, Security Laboratory, Zero-Debt CSS, PSR-12",
@@ -96,7 +96,7 @@ if ($isAjax) {
 
 /**
  * 7. [RENDER] Theme Dispatcher
- * Hands over control to the theme's pager.php to render the full Lab_v3 UI.
+ * Hands over control to the theme's pager.php to render the full Lab_v4 UI.
  */
 $pagerPath = __DIR__ . "/themes/{$ctx->themeName}/pager.php";
 if (file_exists($pagerPath)) {

@@ -7,7 +7,7 @@
     <div class="intro-box" itemprop="description">
         <p>
             In the modern era of backend engineering, you are no longer coding in isolation. 
-            <strong>CMSForNerd v3.3</strong> was architected using a high-speed synergy between 
+            <strong>CMSForNerd v4.3.0</strong> was architected using a high-speed synergy between
             <strong>Google Gemini</strong> (The Architect) and <strong>Google Antigravity</strong> (The Agent).
         </p>
     </div>
