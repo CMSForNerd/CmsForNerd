@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🏆 Nerd Hall of Fame"
+description: "OKF-compliant documentation for hall-of-fame.md."
+resource: "file:///docs/hall-of-fame.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, hall, fame, nerd, current]
+---
 # 🏆 Nerd Hall of Fame
 
 The Hall of Fame recognizes individuals who have made significant contributions to the security, architecture, and educational quality of the **CMSForNerd** project.

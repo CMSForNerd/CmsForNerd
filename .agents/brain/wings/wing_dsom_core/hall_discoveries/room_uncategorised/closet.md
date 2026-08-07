@@ -4,6 +4,7 @@ type: discovery_log
 title: Uncategorised Discoveries
 description: Distilled knowledge for Uncategorised Discoveries
 timestamp: 2026-06-19T14:00:00Z
+topics: [brain, wings, wing, dsom, hall]
 ---
 # 🚪 Closet: Room Uncategorised (The Discovery Hall)
 

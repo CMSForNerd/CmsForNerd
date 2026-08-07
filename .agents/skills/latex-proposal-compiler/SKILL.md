@@ -5,8 +5,8 @@ title: latex-proposal-compiler
 name: latex-proposal-compiler
 description: Compiles a markdown proposal document into a professionally formatted PDF using Pandoc and XeLaTeX. Contains crucial fixes for TOC generation, double-numbering, and table layout bugs.
 topics: [latex, pandoc, pdf, proposal, document]
+timestamp: 2026-08-07T05:39:28Z
 ---
-
 # latex-proposal-compiler
 
 When the user requests to compile a proposal to PDF using LaTeX/Pandoc, follow these strict guidelines to prevent silent compilation failures:

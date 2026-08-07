@@ -5,6 +5,7 @@ title: "🛠️ HOWTO: Set Up the Ansible Baseline for a DSOM Project"
 description: "OKF-compliant documentation for HOWTO-SETUP-ANSIBLE-BASELINE.md."
 resource: "file:///docs/HOWTO-SETUP-ANSIBLE-BASELINE.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, ansible, baseline, set, dsom]
 ---
 # 🛠️ HOWTO: Set Up the Ansible Baseline for a DSOM Project
 

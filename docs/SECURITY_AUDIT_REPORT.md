@@ -5,6 +5,7 @@ title: "Security Audit Report"
 description: "Comprehensive security audit and compliance analysis for CmsForNerd."
 resource: "file:///docs/SECURITY_AUDIT_REPORT.md"
 timestamp: "2026-08-05T10:00:00Z"
+topics: [docs, security, audit, report, cmsfornerd]
 ---
 # CmsForNerd Security Audit Report (v4.2.0)
 

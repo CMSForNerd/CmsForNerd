@@ -5,6 +5,7 @@ title: "Graduation & Certification (v4.0.0)"
 description: "Student graduation guidelines and secure certification engine standards."
 resource: "file:///docs/graduation.md"
 timestamp: "2026-07-27T12:00:00Z (Planned Handover Date)"
+topics: [docs, graduation, certification, certified, nerd]
 ---
 # 🎓 Graduation & Certification (v4.0.0)
 

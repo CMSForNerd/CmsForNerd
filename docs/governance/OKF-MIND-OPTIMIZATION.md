@@ -5,6 +5,7 @@ title: "OKF-Based AI Agent Mind Optimization"
 description: "Architectural policy codifying Progressive Disclosure, Artifact Pyramid, and Semantic Routing."
 resource: "file:///docs/governance/OKF-MIND-OPTIMIZATION.md"
 timestamp: 2026-07-11T22:33:26Z
+topics: [docs, governance, okf, mind, optimization]
 ---
 # OKF-Based AI Agent Mind Optimization
 

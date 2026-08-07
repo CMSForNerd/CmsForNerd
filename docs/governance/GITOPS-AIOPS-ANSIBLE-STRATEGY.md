@@ -5,6 +5,7 @@ title: "🔄 DSOM Three-Pillar Strategy: GitOps · AIOps · Ansible (v1.0)"
 description: "OKF-compliant documentation for GITOPS-AIOPS-ANSIBLE-STRATEGY.md."
 resource: "file:///docs/governance/GITOPS-AIOPS-ANSIBLE-STRATEGY.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, governance, gitops, aiops, ansible]
 ---
 # 🔄 DSOM Three-Pillar Strategy: GitOps · AIOps · Ansible (v1.0)
 

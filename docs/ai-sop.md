@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "📜 SOP: Responsible AI Usage in the Lab (v4.0.0)"
+description: "OKF-compliant documentation for ai-sop.md."
+resource: "file:///docs/ai-sop.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, sop, responsible, usage, lab]
+---
 # 📜 SOP: Responsible AI Usage in the Lab (v4.0.0)
 
 Standard Operating Procedure for the CMSForNerd v4.0.0 Laboratory.

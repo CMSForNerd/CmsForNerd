@@ -4,6 +4,7 @@ type: tooling_registry
 title: Tooling Registry
 description: Distilled knowledge for Tooling Registry
 timestamp: 2026-06-19T14:00:00Z
+topics: [brain, wings, wing, dsom, hall]
 ---
 # 🚪 Closet: Room Tooling (The Workshop)
 

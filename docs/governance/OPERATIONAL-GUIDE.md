@@ -5,6 +5,7 @@ title: "📖 DSOM Operational Guide (Level 3 - Specialised Tasks)"
 description: "OKF-compliant documentation for OPERATIONAL-GUIDE.md."
 resource: "file:///docs/governance/OPERATIONAL-GUIDE.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, governance, operational, dsom, level]
 ---
 # 📖 DSOM Operational Guide (Level 3 - Specialised Tasks)
 

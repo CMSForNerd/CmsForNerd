@@ -1,7 +1,11 @@
 ---
 description: "How to use the Dual Testing Architecture (Pest + PHPUnit) in CMSForNerd v4.0.0."
+okf_version: 0.1
+type: documentation
+title: "⚗️ Dual Testing Guide"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, testing, dual, why, two]
 ---
-
 # ⚗️ Dual Testing Guide
 
 Welcome to the **Testing Laboratory**. 

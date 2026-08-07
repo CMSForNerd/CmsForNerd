@@ -5,6 +5,7 @@ title: "🎭 DSOM AI Response Template (v1.1)"
 description: "OKF-compliant documentation for AI-RESPONSE-TEMPLATE.md."
 resource: "file:///docs/AI-RESPONSE-TEMPLATE.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, response, template, dsom, objective]
 ---
 ### 📜 docs/AI-RESPONSE-TEMPLATE.md
 

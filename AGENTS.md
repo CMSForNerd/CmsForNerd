@@ -5,6 +5,7 @@ title: "The Agent Registry & DSOM Gateway"
 description: "Sovereign entry point instructing AI Agents to look up rules and memory under .agents/."
 resource: "file:///AGENTS.md"
 timestamp: 2026-08-01T08:30:00Z
+topics: [gateway, registry, rulebook, dsom, agent]
 ---
 # AI Agent Registry & Sovereign Gateway
 
@@ -57,7 +58,7 @@ embedded in `.agents/AGENTS.md` include:
 | Principle | Description |
 |:---|:---|
 | **Zero-Global / Spatial Memory** | No global state. Operational memory lives in `.agents/brain/`. |
-| **Open Knowledge Format (OKF)** | All `.md` documents use OKF v0.1 YAML frontmatter (`okf_version`, `type`, `title`, `timestamp`). |
+| **Open Knowledge Format (OKF)** | All `.md` documents use OKF v0.1 YAML frontmatter (`okf_version`, `type`, `title`, `timestamp`, `topics`). |
 | **Atomic Git Commits** | Every logical action results in a discrete, semantically named Git commit. No monolithic commits. |
 | **Omni-Documentation Sync** | New documents must be registered in `SUMMARY.md`, `mkdocs.yml`, `START-HERE.md`, and `llms.txt`. |
 | **Sovereign Signatures** | Every markdown or readable script modified by an AI must be processed via `dsom-signature-injector`. |
@@ -67,6 +68,40 @@ embedded in `.agents/AGENTS.md` include:
 | **Branching & PR Flow** | All edits occur on dedicated feature branches (`feat/*`, `fix/*`). Push branch, open PR (`gh pr create`), fix bot suggestions, merge to `master`/`main`, and prune feature branches so only `master`/`main` remains. |
 | **Cross-Platform Scripting** | No complex inline scripts in `composer.json`. Extract to `tools/` script files for OS-agnostic execution. |
 | **Agent Sandbox Parity** | Use `git fetch` + `git rebase` instead of `git pull`, restore shallow clones with `git fetch --unshallow`, and guard `grep -c` with `\|\| true` under `set -e`. |
+
+---
+
+## Open Knowledge Format (OKF) Integration Details
+
+This repository strictly implements the **Open Knowledge Format (OKF) v0.1** specification. OKF is a human- and agent-friendly format for representing knowledge: metadata, context, and curated insights.
+
+All Markdown documents in this repository MUST contain YAML frontmatter with the following five required fields to pass continuous integration and compliance audits:
+
+1. **`okf_version`**: The version of the OKF specification (set to `0.1`).
+2. **`type`**: The kind of concept or category of document (e.g., `documentation`, `agent_skill`, `architecture_concept`, `automation_tool`, `infrastructure_playbook`, `governance_protocol`).
+3. **`title`**: The display name of the document.
+4. **`timestamp`**: The standard ISO 8601 UTC timestamp marking when the content was last updated (e.g., `2026-08-01T08:30:00Z`).
+5. **`topics`**: A YAML array of 3 to 5 lowercase keyword strings representing critical tags (e.g., `[okf, frontmatter, yaml, compliance]`). This enables near-instant semantic routing for agent discovery without parsing full document bodies.
+
+### Compliant YAML Frontmatter Example
+
+```yaml
+---
+okf_version: 0.1
+type: documentation
+title: "Sovereign Rulebook"
+description: "The core regulatory system governing AI agents."
+resource: "file:///AGENTS.md"
+timestamp: 2026-08-01T08:30:00Z
+topics: [gateway, rulebook, compliance]
+---
+```
+
+### Purpose and Consumption Flow
+
+- **Discovery**: AI agents or platform engines scan file headers for the `topics` array to index documents without reading complete file bodies.
+- **Trust Tiers & Staleness**: Metadata such as the `timestamp` allows agents to evaluate knowledge freshness and trigger alerts if documentation becomes outdated.
+- **Automation**: The `okf-frontmatter-injector` skill automatically scans files and appends compliant OKF headers if any fields are missing.
 
 ---
 

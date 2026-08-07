@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "CmsForNerd Ansible-Podman Deployment Guide"
+description: "OKF-compliant documentation for ANSIBLE_PODMAN_GUIDE.md."
+resource: "file:///docs/ANSIBLE_PODMAN_GUIDE.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, ansible, podman, cmsfornerd, deployment]
+---
 # CmsForNerd Ansible-Podman Deployment Guide
 
 This guide describes how to deploy CmsForNerd using Ansible and Podman in a rootless environment.

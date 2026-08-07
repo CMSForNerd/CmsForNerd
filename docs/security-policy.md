@@ -5,6 +5,7 @@ title: "Security Policy (SECURITY.md)"
 description: "Vulnerability reporting policy and defensive standards for CMSForNerd v4.0.0."
 resource: "file:///docs/security-policy.md"
 timestamp: "2026-07-27T12:00:00Z (Planned Handover Date)"
+topics: [docs, security, policy, responsible, disclosure]
 ---
 # 🛡️ Security Policy (SECURITY.md)
 

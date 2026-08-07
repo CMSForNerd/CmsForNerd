@@ -5,6 +5,7 @@ title: "Sitemap & Discovery Guide"
 description: "Educational guide for dynamic sitemap and discovery pair logic with XSS protection."
 resource: "file:///docs/sitemap-guide.md"
 timestamp: "2026-07-27T12:00:00Z (Planned Handover Date)"
+topics: [docs, sitemap, discovery, logic, centralized]
 ---
 # 🗺️ Sitemap & Discovery (v4.0.0)
 

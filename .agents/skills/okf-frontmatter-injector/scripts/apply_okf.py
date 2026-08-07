@@ -23,13 +23,67 @@ def extract_title(content, filename):
         return match.group(1).strip()
     return os.path.splitext(filename)[0]
 
+def extract_topics(filepath, content, okf_type):
+    # Common words to filter out
+    stop_words = {
+        'and', 'the', 'of', 'to', 'a', 'in', 'for', 'on', 'with', 'guide',
+        'manual', 'how', 'howto', 'setup', 'an', 'is', 'it', 'by', 'at',
+        'from', 'this', 'that', 'into', 'file', 'files', 'md', 'readme', 'agents',
+        'agent', 'core', 'rulebook'
+    }
+
+    # 1. Start with words from filepath
+    path_words = re.findall(r'[a-zA-Z]+', filepath.lower())
+
+    # 2. Add words from the first few headings
+    heading_words = []
+    for line in content.split('\n')[:50]:
+        if line.startswith('#'):
+            heading_words.extend(re.findall(r'[a-zA-Z]+', line.lower()))
+
+    # Combine and clean
+    all_candidates = []
+    for word in path_words + heading_words:
+        if len(word) > 2 and word not in stop_words:
+            if word not in all_candidates:
+                all_candidates.append(word)
+
+    # If not enough, add type-specific defaults
+    defaults_by_type = {
+        'governance_protocol': ['governance', 'dsom', 'policy', 'protocol', 'compliance'],
+        'agent_skill': ['skill', 'agent', 'automation', 'tools', 'dsom'],
+        'architecture_concept': ['architecture', 'brain', 'dsom', 'memory', 'concept'],
+        'automation_tool': ['tool', 'automation', 'scripts', 'utility'],
+        'infrastructure_playbook': ['ansible', 'playbook', 'infrastructure', 'deployment', 'podman'],
+        'documentation': ['cms', 'nerd', 'documentation', 'guide']
+    }
+
+    type_defaults = defaults_by_type.get(okf_type, ['documentation', 'reference'])
+    for d in type_defaults:
+        if len(all_candidates) >= 5:
+            break
+        if d not in all_candidates:
+            all_candidates.append(d)
+
+    # Clamp to 3 to 5
+    topics = all_candidates[:5]
+    if len(topics) < 3:
+        for d in type_defaults:
+            if d not in topics:
+                topics.append(d)
+            if len(topics) >= 3:
+                break
+
+    return topics[:5]
+
 def apply_okf(root_dir):
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     modified_count = 0
+    total_count = 0
 
     for dirpath, dirnames, filenames in os.walk(root_dir):
-        # Exclude directories
-        dirnames[:] = [d for d in dirnames if d not in ['.git', 'node_modules', 'scratch']]
+        # Exclude directories in-place for walk optimization
+        dirnames[:] = [d for d in dirnames if d not in ['.git', 'node_modules', 'scratch', 'vendor', 'data', 'asimp']]
 
         for filename in filenames:
             if not filename.endswith('.md'):
@@ -38,37 +92,95 @@ def apply_okf(root_dir):
             filepath = os.path.join(dirpath, filename)
             rel_path = os.path.relpath(filepath, root_dir).replace('\\', '/')
 
-            with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read()
-
-            if content.startswith('---'):
-                print(f"Skipping (already has frontmatter): {rel_path}")
+            # Double check ignored paths in components
+            path_parts = rel_path.split('/')
+            ignored_dirs = {'.git', 'node_modules', 'scratch', 'vendor', 'data', 'asimp'}
+            if any(part in ignored_dirs for part in path_parts):
                 continue
 
+            total_count += 1
+
+            with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                content = f.read()
+
+            # Handle UTF-8 BOM
+            content = content.lstrip('\ufeff')
+
+            # Identify parameters
             okf_type = get_okf_type(rel_path)
             title = extract_title(content, filename)
+            topics = extract_topics(rel_path, content, okf_type)
+            topics_str = "[" + ", ".join(topics) + "]"
 
-            frontmatter = f"""---
+            # Check if has frontmatter
+            fm_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
+
+            if not fm_match:
+                # No frontmatter, create a new one
+                frontmatter = f"""---
 okf_version: 0.1
 type: {okf_type}
 title: "{title.replace('"', '')}"
 description: "OKF-compliant documentation for {filename}."
 resource: "file:///{rel_path}"
 timestamp: {timestamp}
+topics: {topics_str}
 ---
 """
+                new_content = frontmatter + content
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(new_content)
+                print(f"Applied OKF to: {rel_path} (new frontmatter)")
+                modified_count += 1
+                continue
 
-            new_content = frontmatter + content
+            # Frontmatter exists, check for missing fields
+            fm_content = fm_match.group(1)
+            body_content = content[fm_match.end():]
+            fm_lines = fm_content.split('\n')
+
+            # Parse existing keys
+            existing_keys = set()
+            for line in fm_lines:
+                m = re.match(r'^([a-zA-Z0-9_\-]+)\s*:', line.strip())
+                if m:
+                    existing_keys.add(m.group(1))
+
+            missing_fields = []
+            if 'okf_version' not in existing_keys:
+                missing_fields.append(f"okf_version: 0.1")
+            if 'type' not in existing_keys:
+                missing_fields.append(f"type: {okf_type}")
+            if 'title' not in existing_keys:
+                missing_fields.append(f'title: "{title.replace("\"", "")}"')
+            if 'timestamp' not in existing_keys:
+                # Use current timestamp
+                missing_fields.append(f"timestamp: {timestamp}")
+            if 'topics' not in existing_keys:
+                missing_fields.append(f"topics: {topics_str}")
+
+            if not missing_fields:
+                continue
+
+            # Append missing fields to frontmatter lines
+            new_fm_lines = list(fm_lines)
+            while new_fm_lines and new_fm_lines[-1].strip() == '':
+                new_fm_lines.pop()
+            new_fm_lines.extend(missing_fields)
+            new_fm_content = "\n".join(new_fm_lines)
+
+            new_content = f"---\n{new_fm_content}\n---\n" + body_content
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(new_content)
 
-            print(f"Applied OKF to: {rel_path}")
+            print(f"Updated missing fields in: {rel_path} ({', '.join([f.split(':')[0] for f in missing_fields])})")
             modified_count += 1
 
-    print(f"\nTotal files modified: {modified_count}")
+    print(f"\nTotal Markdown files processed: {total_count}")
+    print(f"Total Markdown files modified: {modified_count}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Inject OKF frontmatter into Markdown files.")
+    parser = argparse.ArgumentParser(description="Inject/Ensure OKF frontmatter into Markdown files.")
     parser.add_argument("directory", help="The root directory to scan.")
     args = parser.parse_args()
     apply_okf(args.directory)

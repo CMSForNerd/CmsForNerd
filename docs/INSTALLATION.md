@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🛠️ Installation Guide: CMSForNerd v4.0.0 (Glassmorphism Edition)"
+description: "OKF-compliant documentation for INSTALLATION.md."
+resource: "file:///docs/INSTALLATION.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, installation, cmsfornerd, glassmorphism, edition]
+---
 # 🛠️ Installation Guide: CMSForNerd v4.0.0 (Glassmorphism Edition)
 
 **CMSForNerd** is a lightweight, flat-file Content Management System geared towards developers and enthusiasts who want full control over their code. Unlike complex database-driven platforms, CMSForNerd stores all content in simple text files, making it incredibly fast, secure, and easy to backup—just copy the files!

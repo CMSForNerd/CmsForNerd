@@ -3,8 +3,8 @@ okf_version: "0.1"
 type: "documentation"
 title: "Bot Intelligence: Hybrid Protection (v4.0.0)"
 timestamp: "2026-08-03T22:18:15+00:00"
+topics: [docs, bot, intelligence, hybrid, protection]
 ---
-
 # 🤖 Bot Intelligence: Hybrid Protection (v4.0.0)
 
 To maintain a "Zero-Error" laboratory, we use a hybrid bot detection system. This ensures that legitimate crawlers (Google, Bing, Apple) are recognized even if their User-Agents are stripped, while keeping performance lean.

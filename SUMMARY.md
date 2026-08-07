@@ -5,6 +5,7 @@ title: "Table of Contents"
 description: "Sovereign index mapping laboratory modules, technical resources, and certification."
 resource: "file:///SUMMARY.md"
 timestamp: "2026-07-27T12:00:00Z (Planned Handover Date)"
+topics: [summary, table, contents, laboratory, docs]
 ---
 # Table of contents
 

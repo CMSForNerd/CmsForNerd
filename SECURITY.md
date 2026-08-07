@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "Security Policy"
+description: "OKF-compliant documentation for SECURITY.md."
+resource: "file:///SECURITY.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [security, policy, maintenance, stance, supported]
+---
 # Security Policy
 
 ## Maintenance Stance

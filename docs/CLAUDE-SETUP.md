@@ -5,6 +5,7 @@ title: "🎭 Claude.ai Integration Protocol (v6.1 + Palace v1.0)"
 description: "OKF-compliant documentation for CLAUDE-SETUP.md."
 resource: "file:///docs/CLAUDE-SETUP.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, claude, integration, protocol, palace]
 ---
 # 🎭 Claude.ai Integration Protocol (v6.1 + Palace v1.0)
 

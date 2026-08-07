@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "CMSForNerd - VS Code Debug Configuration"
+description: "OKF-compliant documentation for DEBUG.md."
+resource: "file:///.vscode/DEBUG.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [vscode, debug, cmsfornerd, code, configuration]
+---
 # CMSForNerd - VS Code Debug Configuration
 
 This file is a **template** for PHP debugging with Xdebug.

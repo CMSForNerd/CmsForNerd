@@ -5,6 +5,7 @@ title: "Project Walkthrough"
 description: "Sovereign log of development walkthroughs, accomplishments, and mental anchors across sessions."
 resource: "file:///.agents/brain/walkthrough.md"
 timestamp: "2026-08-01T14:00:00Z"
+topics: [brain, walkthrough, session, anchor, html]
 ---
 ## 🏁 Session Anchor: 2026-08-01 — HTML Microdata Structural Integration (v4.2.4)
 

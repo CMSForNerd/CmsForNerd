@@ -5,6 +5,7 @@ title: "🤖 DSOM Multi-Agent Protocols (v6.1)"
 description: "OKF-compliant documentation for MULTI-AGENT-PROTOCOLS.md."
 resource: "file:///docs/governance/MULTI-AGENT-PROTOCOLS.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, governance, multi, protocols, dsom]
 ---
 # 🤖 DSOM Multi-Agent Protocols (v6.1)
 

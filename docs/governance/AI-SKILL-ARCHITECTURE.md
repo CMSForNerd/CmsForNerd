@@ -5,6 +5,7 @@ title: "AI Skill Architecture: Progressive Disclosure & Semantic Routing"
 description: "Governance policy defining how AI agents discover, trigger, and execute modular skills as operational manuals, utilizing token optimization."
 resource: "file:///docs/governance/AI-SKILL-ARCHITECTURE.md"
 timestamp: 2026-07-11T23:28:03Z
+topics: [docs, governance, skill, architecture, use]
 ---
 # AI Skill Architecture
 

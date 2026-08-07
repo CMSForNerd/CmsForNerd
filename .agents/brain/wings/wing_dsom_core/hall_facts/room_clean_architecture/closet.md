@@ -4,6 +4,7 @@ type: architecture_concept
 title: Clean Architecture
 description: Distilled knowledge for Clean Architecture
 timestamp: 2026-06-19T14:00:00Z
+topics: [brain, wings, wing, dsom, hall]
 ---
 # 🚪 Closet: Room Clean Architecture (The Skeleton)
 

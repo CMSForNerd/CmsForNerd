@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🪟 Windows Setup Guide: Laboratory Readiness (v4.0.0)"
+description: "OKF-compliant documentation for windows-setup.md."
+resource: "file:///docs/windows-setup.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, windows, laboratory, readiness, phase]
+---
 # 🪟 Windows Setup Guide: Laboratory Readiness (v4.0.0)
 
 Professional toolchain configuration for the **CMSForNerd v4.0.0** Laboratory, prepared for PHP 8.4 and PHP 9.

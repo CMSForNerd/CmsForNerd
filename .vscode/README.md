@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "CMSForNerd - Development Environment Configuration"
+description: "OKF-compliant documentation for README.md."
+resource: "file:///.vscode/README.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [vscode, cmsfornerd, development, environment, configuration]
+---
 # CMSForNerd - Development Environment Configuration
 
 ## Platform-Specific Setup Instructions

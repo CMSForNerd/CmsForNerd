@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🐧 Linux Environment Setup (v4.0.0)"
+description: "OKF-compliant documentation for linux-setup.md."
+resource: "file:///docs/linux-setup.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, linux, environment, requirement, level]
+---
 # 🐧 Linux Environment Setup (v4.0.0)
 
 Standardizing the PHP 8.4 installation across Linux distributions for the CMSForNerd Laboratory.

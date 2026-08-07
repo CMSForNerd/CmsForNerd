@@ -3,6 +3,7 @@ okf_version: 0.1
 type: documentation
 title: "CMSForNerd Readme"
 timestamp: "2026-08-01T15:00:00Z"
+topics: [cmsfornerd, deep, state, mind, edition]
 ---
 # 🚀 CmsForNerd v4.3.0 (2026 Deep State of Mind Edition)
 

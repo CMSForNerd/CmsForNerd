@@ -5,6 +5,7 @@ title: "🤝 HUMAN-HANDOVER-CONTEXT.md"
 description: "OKF-compliant documentation for HUMAN-HANDOVER-CONTEXT.md."
 resource: "file:///docs/HUMAN-HANDOVER-CONTEXT.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, human, handover, context, path]
 ---
 # 🤝 HUMAN-HANDOVER-CONTEXT.md
 

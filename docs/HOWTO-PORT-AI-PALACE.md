@@ -5,6 +5,7 @@ title: "🚀 HOWTO: Port the AI Spatial Memory Palace to Other Projects"
 description: "OKF-compliant documentation for HOWTO-PORT-AI-PALACE.md."
 resource: "file:///docs/HOWTO-PORT-AI-PALACE.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, port, palace, spatial, memory]
 ---
 # 🚀 HOWTO: Port the AI Spatial Memory Palace to Other Projects
 

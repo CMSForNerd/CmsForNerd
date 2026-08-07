@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🧪 CmsForNerd Ansible Laboratory Manual (v4.0.0)"
+description: "OKF-compliant documentation for ANSIBLE-LAB-MANUAL.md."
+resource: "file:///docs/ANSIBLE-LAB-MANUAL.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, ansible, lab, cmsfornerd, laboratory]
+---
 # 🧪 CmsForNerd Ansible Laboratory Manual (v4.0.0)
 # docs/ANSIBLE-LAB-MANUAL.md
 

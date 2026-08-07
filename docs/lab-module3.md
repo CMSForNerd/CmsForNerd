@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🛡️ Lab Module 3: Defensive Engineering (v4.0.0)"
+description: "OKF-compliant documentation for lab-module3.md."
+resource: "file:///docs/lab-module3.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, lab, module, defensive, engineering]
+---
 # 🛡️ Lab Module 3: Defensive Engineering (v4.0.0)
 
 > **Topic:** Perimeter Security & XSS Neutralization

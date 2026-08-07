@@ -5,6 +5,7 @@ title: "🏛️ HOWTO: Palace Onboarding — First-Time Guide for Users and AI A
 description: "OKF-compliant documentation for HOWTO-PALACE-ONBOARDING.md."
 resource: "file:///docs/HOWTO-PALACE-ONBOARDING.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, palace, onboarding, first, time]
 ---
 # 🏛️ HOWTO: Palace Onboarding — First-Time Guide for Users and AI Agents
 

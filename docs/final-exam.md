@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🚩 The Final Exam: Break-Fix Challenge (v4.0.0)"
+description: "OKF-compliant documentation for final-exam.md."
+resource: "file:///docs/final-exam.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, final, exam, break, fix]
+---
 # 🚩 The Final Exam: Break-Fix Challenge (v4.0.0)
 
 > **Scenario:** A "junior dev" has pushed code that violates our RFC 2119 standards and breaks PSR-12 compliance. To pass the "Certified Nerd" audit, you must repair these 5 failures.

@@ -4,6 +4,7 @@ type: history_log
 title: Project Ledger
 description: Distilled knowledge for Project Ledger
 timestamp: 2026-08-01T17:45:00Z
+topics: [brain, wings, wing, dsom, hall]
 ---
 # 🚪 Closet: Room Ledger (The Universal Record)
 

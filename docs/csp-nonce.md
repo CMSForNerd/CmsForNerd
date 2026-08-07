@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🛡️ Content Security Policy (CSP) Nonces"
+description: "OKF-compliant documentation for csp-nonce.md."
+resource: "file:///docs/csp-nonce.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, csp, nonce, content, security]
+---
 # 🛡️ Content Security Policy (CSP) Nonces
 
 ## The Problem: Inline Script Vulnerabilities

@@ -5,8 +5,8 @@ title: odp-slide-generator
 name: odp-slide-generator
 description: Generates highly styled 3-column Corporate Presentation slides (PPTX/ODP format) based on a specific HTML/CSS theme using python-pptx.
 topics: [presentation, pptx, odp, python-pptx, slides]
+timestamp: 2026-08-07T05:39:28Z
 ---
-
 # odp-slide-generator
 
 ## When to use this skill

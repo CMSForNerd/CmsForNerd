@@ -11,8 +11,8 @@ description: >
 topics: [docx, proposal, word, document, formatter]
 noss_section: "Enterprise Database Migration"
 target_format: docx
+timestamp: 2026-08-07T05:39:28Z
 ---
-
 # Proposal DOCX Formatter
 
 ## Purpose

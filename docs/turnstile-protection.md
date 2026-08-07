@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🛡️ Turnstile Protection: Automated Traffic Gate (v4.0.0)"
+description: "OKF-compliant documentation for turnstile-protection.md."
+resource: "file:///docs/turnstile-protection.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, turnstile, protection, automated, traffic]
+---
 # 🛡️ Turnstile Protection: Automated Traffic Gate (v4.0.0)
 
 The CMSForNerd v4.0.0 Laboratory integrates **Cloudflare Turnstile** to provide non-intrusive CAPTCHA protection against automated form submissions and brute-force attacks.

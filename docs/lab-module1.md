@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🧪 Lab Module 1: Modern Architecture (v4.0.0)"
+description: "OKF-compliant documentation for lab-module1.md."
+resource: "file:///docs/lab-module1.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, lab, module, modern, architecture]
+---
 # 🧪 Lab Module 1: Modern Architecture (v4.0.0)
 
 > **Topic:** Modern PHP 8.4+ Architecture & PHP 9 Readiness

@@ -5,6 +5,7 @@ title: "🕯️ DSOM Ritual of Transition (v6.1 + Palace v1.0)"
 description: "OKF-compliant documentation for RITUAL-OF-TRANSITION.md."
 resource: "file:///docs/RITUAL-OF-TRANSITION.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, ritual, transition, dsom, palace]
 ---
 # 🕯️ DSOM Ritual of Transition (v6.1 + Palace v1.0)
 

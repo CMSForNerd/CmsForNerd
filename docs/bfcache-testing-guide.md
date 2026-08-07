@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🏁 Guide: Testing Back/Forward Cache (bfcache)"
+description: "OKF-compliant documentation for bfcache-testing-guide.md."
+resource: "file:///docs/bfcache-testing-guide.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, bfcache, testing, back, forward]
+---
 # 🏁 Guide: Testing Back/Forward Cache (bfcache)
 
 The CMSForNerd v4.0.0 laboratory environment utilizes an advanced Vanilla Javascript History API router. To ensure instantaneous navigation experiences, we implemented Back/Forward Cache (bfcache) optimizations (such as `AbortController` cancellation for pending network requests).

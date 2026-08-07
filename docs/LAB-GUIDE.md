@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🎓 CMSForNerd Laboratory Guide (v4.0.0-alpha)"
+description: "OKF-compliant documentation for LAB-GUIDE.md."
+resource: "file:///docs/LAB-GUIDE.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, lab, cmsfornerd, laboratory, alpha]
+---
 # 🎓 CMSForNerd Laboratory Guide (v4.0.0-alpha)
 
 Welcome to the CmsForNerd Developer Laboratory. This guide helps you understand modern PHP 8.4 architecture through hands-on exercises, focusing on the **Phase 11 Glassmorphism** evolution and **Zero-Global** engineering.

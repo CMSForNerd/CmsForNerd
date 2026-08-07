@@ -3,8 +3,10 @@ name: dsom-knowledge-ingester
 description: Executes the Ingest protocol inspired by the LLM WIKI concept to process external raw documents and synthesize them into the Sovereign Markdown Palace.
 topics: [knowledge, ingestion, okf, palace, markdown]
 okf_version: 0.1
+type: agent_skill
+title: "📥 DSOM Knowledge Ingester Skill"
+timestamp: 2026-08-07T05:39:28Z
 ---
-
 # 📥 DSOM Knowledge Ingester Skill
 
 ## When to use this skill

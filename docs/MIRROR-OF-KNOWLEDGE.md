@@ -5,6 +5,7 @@ title: "Mirror of Knowledge: AI Persona Manifest (v2.0)"
 description: "OKF-compliant documentation for MIRROR-OF-KNOWLEDGE.md."
 resource: "file:///docs/MIRROR-OF-KNOWLEDGE.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, mirror, knowledge, persona, manifest]
 ---
 # Mirror of Knowledge: AI Persona Manifest (v2.0)
 

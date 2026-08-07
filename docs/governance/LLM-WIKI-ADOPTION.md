@@ -3,6 +3,8 @@ okf_version: 0.1
 type: documentation
 title: "DSOM vs. LLM WIKI: Comparative Analysis & Adoption Strategy"
 description: "Analysis of Andrej Karpathy's LLM WIKI concept and how it maps to DSOM architecture."
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, governance, llm, wiki, adoption]
 ---
 # 🧠 DSOM vs. LLM WIKI: Comparative Analysis & Adoption Strategy
 

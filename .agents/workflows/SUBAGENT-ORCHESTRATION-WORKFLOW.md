@@ -5,8 +5,9 @@ title: Subagent Orchestration (Worktree Isolation)
 description: Procedural governance for delegating tasks to autonomous subagents using Git Worktree Isolation.
 tags: [workflows, subagents, gitops, isolation]
 owner: Lead Architect
+timestamp: 2026-08-07T05:39:28Z
+topics: [workflows, subagent, orchestration, workflow, trigger]
 ---
-
 # 🤖 Workflow: Subagent Orchestration
 
 This automated guide defines the strict procedural governance for a Lead Architect Agent (or human) when delegating tasks to autonomous subagents.

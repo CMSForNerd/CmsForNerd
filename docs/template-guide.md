@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🎨 CmsForNerd v4.0.0 Laboratory Guide"
+description: "OKF-compliant documentation for template-guide.md."
+resource: "file:///docs/template-guide.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, template, cmsfornerd, laboratory, mastering]
+---
 # 🎨 CmsForNerd v4.0.0 Laboratory Guide
 
 ### Mastering the "Pair Logic" & Context Engine
