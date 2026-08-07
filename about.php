@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (about.php)
+ * CmsForNerd v4.3.0 - Page Controller (about.php)
  * * ROLE: Mission statement and project philosophy.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -41,7 +41,7 @@ $content = [
 
 /**
  * 4. [LAB] ROUTING & SANITIZATION
- * v3.5 uses the 'match' expression—a modern, strict alternative to 'switch'.
+ * v4.3.0 uses the 'match' expression—a modern, strict alternative to 'switch'.
  * It ensures that we handle the query string or default to 'index' cleanly.
  */
 $pageName = \CmsForNerd\SecurityUtils::resolvePageName(pathinfo(basename(__FILE__), PATHINFO_FILENAME));

@@ -348,7 +348,7 @@ final class LiveDemoMcpDocumentationTest extends TestCase
         $content = file_get_contents($this->startHerePath);
 
         $this->assertStringContainsString(
-            'Welcome to the **CmsForNerd v4.1.0** Sovereign AI & Human Onboarding Map.',
+            'Welcome to the **CmsForNerd v4.3.0** Sovereign AI & Human Onboarding Map.',
             $content,
             'Inserting the new links must not clobber the original welcome sentence.'
         );
@@ -358,7 +358,7 @@ final class LiveDemoMcpDocumentationTest extends TestCase
             'Inserting the new links must not clobber the sentence describing the file purpose.'
         );
         $this->assertStringContainsString(
-            'linking to all 12 major Entry Points of the platform, enabling instant orientation and semantic traversal.',
+            'linking to all 14 major Entry Points of the platform, enabling instant orientation and semantic traversal.',
             $content
         );
     }
@@ -445,7 +445,7 @@ final class LiveDemoMcpDocumentationTest extends TestCase
     {
         $content = file_get_contents($this->llmsTxtPath);
 
-        $this->assertStringStartsWith("# CmsForNerd v4.1.0\n", $content);
+        $this->assertStringStartsWith("# CmsForNerd v4.3.0\n", $content);
     }
 
     // ---------------------------------------------------------------

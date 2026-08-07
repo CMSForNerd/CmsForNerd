@@ -21,7 +21,7 @@
 
     <section class="implementation">
         <h2>Step 1: The Verification Logic</h2>
-        <p>In <strong>CMSForNerd v3.3</strong>, we use the <code>SecurityUtils</code> class to generate a secure base64 string.</p>
+        <p>In <strong>CMSForNerd v4.3.0</strong>, we use the <code>SecurityUtils</code> class to generate a secure base64 string.</p>
         
         <div class="code-block">
             <pre><code>// SecurityUtils::generateNonce() logic
@@ -47,7 +47,7 @@ return base64_encode(random_bytes(16));</code></pre>
             </div>
 
             <div class="card after">
-                <h3>✅ v3.3 Standard (Secure)</h3>
+                <h3>✅ v4.3.0 Standard (Secure)</h3>
                 <pre><code>&lt;script nonce="XYZ123..."&gt;
   // This is safe
 &lt;/script&gt;</code></pre>

@@ -5,13 +5,13 @@ title: "CMSForNerd Readme"
 timestamp: "2026-08-01T15:00:00Z"
 topics: [cmsfornerd, deep, state, mind, edition]
 ---
-# 🚀 CmsForNerd v4.1.0 (2026 Deep State of Mind Edition)
+# 🚀 CmsForNerd v4.3.0 (2026 Deep State of Mind Edition)
 
 **CmsForNerd** is a Lightweight, Radically Simple, Database-Free PHP Laboratory CMS designed as a live learning
-environment for modern developers. Version 4.1 features the **Deep State of Mind (DSOM) Cognitive Architecture**,
+environment for modern developers. Version 4.3 features the **Deep State of Mind (DSOM) Cognitive Architecture**,
 **Zero-Global** architecture, **Automated Compliance Validation**, and professional **Rootless Container Orchestration**.
 
-**Current Version:** 4.1.0 (Production Stable)
+**Current Version:** 4.3.0 (Production Stable)
 
 **Live Demo:** [CmsForNerd Live Demo](https://cmsfornerd.onrender.com/index.php)
 
@@ -27,7 +27,7 @@ environment for modern developers. Version 4.1 features the **Deep State of Mind
 
 ## 📱 AMP & Dual-View Architecture
 
-Version 4.1.0 maintains the high-performance **Dual-View** engine:
+Version 4.3.0 maintains the high-performance **Dual-View** engine:
 
 - **AMP Hybrid Rendering**: Automatically detects `?view=amp` to serve Google-validated Accelerated Mobile Pages.
 - **Zero-JS Interactivity**: Implementation of `amp-sidebar` for lightning-fast mobile navigation.
@@ -52,13 +52,13 @@ handshake is **REQUIRED** for all laboratory sessions.
 
 1. **Update Brain**: Update `.agents/brain/walkthrough.md` with the day's logic changes to prepare for the next session.
 2. **Log Milestones**: Finalize entries in `CHANGELOG.md`.
-3. **Tag State**: Check whether the `v4.1.4` tag already exists and verify that it references the intended commit before creating it; only create the annotated tag (e.g., `git tag -a v4.1.4`) when absent, and report or handle a mismatched existing tag without overwriting it.
+3. **Tag State**: Check whether the `v4.3.0` tag already exists and verify that it references the intended commit before creating it; only create the annotated tag (e.g., `git tag -a v4.3.0`) when absent, and report or handle a mismatched existing tag without overwriting it.
 
 ---
 
 ## 📋 MASTER CONTEXT BLOCK (Copy/Paste for AI)
 
-> **PROMPT:** Act as a Lead PHP Architect for **CmsForNerd v4.1.0**. Standards: PHP 8.4 strict types, PHPStan Level 8,
+> **PROMPT:** Act as a Lead PHP Architect for **CmsForNerd v4.3.0**. Standards: PHP 8.4 strict types, PHPStan Level 8,
 > Zero-Global variables (via `Registry`), and "Pair Logic" (Logic in `.php`, UI in `-body.inc`). This is a Dual-View CMS
 > (Standard/AMP).
 > **Core Engine (bootstrap.php):** Initializes Immutable `CmsContext` with automated `schemaType` detection.
@@ -137,7 +137,7 @@ handshake is **REQUIRED** for all laboratory sessions.
 
 ---
 
-### ⚖️ Standards (RFC 2119 & v4.1.0 Engineering)
+### ⚖️ Standards (RFC 2119 & v4.3.0 Engineering)
 
 - **MUST**: Begin all files with `declare(strict_types=1);`.
 - **MUST**: All mobile output **MUST** pass the `AMP Validator`.

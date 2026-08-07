@@ -1,7 +1,7 @@
 <article class="exam-answers">
     <header class="answers-header">
         <h1>✅ Official Answer Key: Final Exam</h1>
-        <p class="subtitle">CMSForNerd v3.3 Modernization Curriculum</p>
+        <p class="subtitle">CMSForNerd v4.3.0 Modernization Curriculum</p>
     </header>
 
     <div class="answers-intro">
@@ -16,12 +16,12 @@
         <h2>✅ Answer 1: Security Breach (Path Traversal)</h2>
         <p><strong>Requirement:</strong> Utilize <code>SecurityUtils</code> for allow-list validation.</p>
         <div class="code-block fixed">
-            <pre><code>// v3.3 Standard Fix
+            <pre><code>// v4.3.0 Standard Fix
 $requested = $_GET['page'] ?? 'index';
 $safePage = \CmsForNerd\SecurityUtils::sanitizePageName($requested);
-$contentPath = __DIR__ . "/contents/{$safePage}.inc";
+$contentPath = __DIR__ . "/contents/{$safePage}-body.inc";
 
-include file_exists($contentPath) ? $contentPath : "contents/404.inc";</code></pre>
+include file_exists($contentPath) ? $contentPath : "contents/404-body.inc";</code></pre>
         </div>
     </section>
 

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v3.5 - Page Controller (lab-module2.php)
+ * CmsForNerd v4.3.0 - Page Controller (lab-module2.php)
  * * ROLE: Lab Worksheet: Module 2 - PSR-12 and the Art of Clean Code.
  * This file is synchronized with the master template.php logic to ensure
  * total architectural consistency across the entire CMS.
@@ -28,7 +28,7 @@ require_once __DIR__ . '/includes/bootstrap.php';
  * 3. [SEO/AI] Page Metadata
  */
 $content = [
-    'title'       => "Lab Worksheet: Module 2 - CmsForNerd v3.5",
+    'title'       => "Lab Worksheet: Module 2 - CmsForNerd v4.3.0",
     'author'      => "CMSForNerd Team & Google Gemini",
     'description' => "Module 2: PSR-12 and the Art of Clean Code. Learn to use PHPCBF and PHPCS for automated linting.",
     'keywords'    => "Clean Code, PSR-12, Linting, PHPCBF, PHPCS, Standards",

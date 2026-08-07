@@ -1,4 +1,4 @@
-# CMSForNerd v3.5 - Static Analysis Configuration
+# CMSForNerd v4.3.0 - Static Analysis Configuration
 # Matching Composer Script: composer analyze
 
 parameters:
@@ -46,7 +46,7 @@ parameters:
         - themes
 
     # [SECURITY & ARCHITECTURE]
-    # In Laboratory v3.5, we aim for Zero Global state. 
+    # In Laboratory v4.3.0, we aim for Zero Global state.
     # The previously ignored patterns are now removed to enforce strictness.
     # However, because we use a flat-file bootstrap pattern, PHPStan cannot see 
     # that these variables are guaranteed by 'includes/bootstrap.php'.

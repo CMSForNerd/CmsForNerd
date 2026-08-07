@@ -1,12 +1,32 @@
 ---
 okf_version: 0.1
 type: documentation
-title: "🚀 Release v4.0.0-alpha: The High-Fidelity Milestone"
-description: "OKF-compliant documentation for RELEASE_NOTES.md."
-resource: "file:///docs/RELEASE_NOTES.md"
-timestamp: 2026-08-07T05:39:28Z
-topics: [docs, release, notes, alpha, high]
+title: "Release Notes"
+timestamp: "2026-08-06T15:00:00Z"
 ---
+# 🚀 Release v4.3.0: The "ASIMP OS Hardening & OpenSCAP Compliance" Milestone
+
+We are proud to announce **CMSForNerd v4.3.0**, which introduces standard **Ansible System Integrity Management Platform (ASIMP)** "Measure, Harden, Re-Measure" auditing, dynamic **OpenSCAP CIS Level 2** scanning, and complete unprivileged **Google Jules Sandbox** compatibility via the mock execution loop.
+
+---
+
+## 🌟 What's New in v4.3.0?
+
+### 🛡️ OS Hardening & ASIMP Audit Integration
+* **ASIMP Alignment**: Standardises on the ASIMP security lifecycle to audit, harden, and verify the host system configuration.
+* **OpenSCAP CIS Level 2 Evaluation**: Evaluates system security dynamically using up-to-date SCAP security guides.
+* **SSG/OVAL Vulnerability Scanning**: Adds system patch verification using Canonical's official OVAL streams.
+* **Unified Security Metrics Reporting**: Formulates structured, side-by-side compliance matrices in `docs/SECURITY_AUDIT_REPORT.md`.
+
+### 🤖 Google Jules Sandbox Optimisation
+* **Mock Execution Suite (`tools/mock-asimp.sh`)**: Simulates the complete OS hardening loop in unprivileged environments, outputs JSON scorecard databases, and renders compliant markdown reports without requiring administrative host access.
+
+### 📦 Platform Alignment & Codebase Synchronisation
+* **Unified Version Consolidation**: Synchronised version identifiers to `v4.3.0` across all page controllers, themes, and template body fragments, resolving over 50 legacy version mismatches.
+* **Test Suite Alignment**: Upgraded the test suites to enforce and assert `v4.3.0` across theme boundaries and configuration endpoints.
+
+---
+
 # 🚀 Release v4.0.0-alpha: The "High-Fidelity" Milestone
 
 We are proud to announce **CMSForNerd v4.0.0-alpha**, focusing on **High-Fidelity Glassmorphism** and **Zero-Global** architecture. This release marks the transition to a modern, database-free, immutable state engine for professional developer training.

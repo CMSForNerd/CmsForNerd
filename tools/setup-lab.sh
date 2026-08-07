@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# CMSForNerd v3.4 - Student Onboarding Script (Linux/macOS)
+# CMSForNerd v4.3.0 - Student Onboarding Script (Linux/macOS)
 echo "🧪 Starting CMSForNerd Laboratory Setup..."
 
 # 1. Check PHP Version

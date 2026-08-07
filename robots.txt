@@ -1,4 +1,4 @@
-# CmsForNerd v3.5 - Public Sitemap Directive
+# CmsForNerd v4.3.0 - Public Sitemap Directive
 # We use X-Robots-Tag headers for internal security to prevent disclosure.
 
 User-agent: *

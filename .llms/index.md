@@ -2,7 +2,7 @@
 okf_version: 0.1
 type: documentation
 title: "🤖 .llms/index: Comprehensive AI Agent Context Index"
-description: "Hierarchical breakdown of the CmsForNerd v4.1.0 codebase, architecture, state flow, and files."
+description: "Hierarchical breakdown of the CmsForNerd v4.3.0 codebase, architecture, state flow, and files."
 resource: "file:///.llms/index.md"
 topics: [llm, indexing, architecture, code-structure, dsom]
 timestamp: 2026-08-01T15:00:00Z
@@ -14,7 +14,7 @@ timestamp: 2026-08-01T15:00:00Z
 **MCP Standard Index Context (Token Capped):** [Context7 MCP & LLM standard link](https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000)
 
 This document is optimised for parsing by LLMs, cognitive agents, and NotebookLM indexing. It provides a technical
-breakdown of the core engine, standard practices, file mappings, and architectural standards of CmsForNerd v4.1.0.
+breakdown of the core engine, standard practices, file mappings, and architectural standards of CmsForNerd v4.3.0.
 
 ---
 

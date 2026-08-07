@@ -1,7 +1,7 @@
 <article class="amp-lab">
     <header class="lab-header">
         <h1>⚡ AMP Acceleration Engineering</h1>
-        <p class="lead">Understanding the dual-view architecture and mobile performance optimization in CMSForNerd v3.5.</p>
+        <p class="lead">Understanding the dual-view architecture and mobile performance optimisation in CMSForNerd v4.3.0.</p>
     </header>
 
     <section class="ui-section">

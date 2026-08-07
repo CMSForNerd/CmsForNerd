@@ -1,7 +1,7 @@
 <article class="lab-manual">
-    <h1>🎓 CMSForNerd v3.3: The Developer’s Lab Manual</h1>
+    <h1>🎓 CMSForNerd v4.3.0: The Developer’s Lab Manual</h1>
     <p class="intro">
-        Welcome to the v3.1 educational suite. This CMS is designed to be a <strong>transparent laboratory</strong>. 
+        Welcome to the v4.3.0 educational suite. This CMS is designed to be a <strong>transparent laboratory</strong>.
         Every line of code is accessible, every architectural choice is documented, and every security feature 
         is a lesson in professional standards.
     </p>
@@ -141,8 +141,8 @@
     <hr>
 
     <section class="case-study">
-        <h2>📝 The History of v3.1: A Modernization Case Study</h2>
-        <p>CMSForNerd v3.1 isn't just a version; it's a <strong>Modernization Journey</strong>.</p>
+        <h2>📝 The History of v4.3.0: A Modernisation Case Study</h2>
+        <p>CMSForNerd v4.3.0 isn't just a version; it's a <strong>Modernisation Journey</strong>.</p>
         <ol>
             <li><strong>Phase 1:</strong> Refactored the 2005 foundation into PHP 8.4+ classes with PHP 9 readiness. See the <a href="template.php">Template Guide</a>.</li>
             <li><strong>Phase 2:</strong> Standardized the UI with CSS Grid (replacing legacy float-based layouts).</li>
@@ -156,7 +156,7 @@
             <p>If you have completed all 5 modules and passed all compliance audits, you are ready to claim your certificate.</p>
             <p><a href="graduation.php" class="btn graduation-btn">🏁 Claim Your Certificate of Completion</a></p>
         </div>
-        <p class="motto"><strong>Educational Motto:</strong> "Modernization without loss of simplicity." — Harisfazillah Jamel & Gemini, 2025.</p>
+        <p class="motto"><strong>Educational Motto:</strong> "Modernisation without loss of simplicity." — Harisfazillah Jamel & Gemini, 2025.</p>
     </section>
 </article>
 

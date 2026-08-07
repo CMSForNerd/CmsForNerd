@@ -5,7 +5,7 @@ title: "Production Podman-Compose & BunkerWeb Deployment Guide"
 timestamp: "2026-07-27T12:00:00Z"
 topics: [docs, ansible, podman, compose, deployment]
 ---
-# 🛡️ CmsForNerd Production Podman-Compose & BunkerWeb Deployment Guide (v4.1.0)
+# 🛡️ CmsForNerd Production Podman-Compose & BunkerWeb Deployment Guide (v4.3.0)
 # docs/ANSIBLE-PODMAN-COMPOSE-DEPLOYMENT.md
 
 This document serves as the official blueprint and operational handbook for deploying **CmsForNerd** into a hardened production
@@ -150,7 +150,7 @@ journalctl --user -u cmsfornerd-pod -f
 ```
 
 ---
-*Developed by the CmsForNerd Engineering Team | v4.1.0 Sovereign Architecture Blueprint*
+*Developed by the CmsForNerd Engineering Team | v4.3.0 Sovereign Architecture Blueprint*
 
 
 ---

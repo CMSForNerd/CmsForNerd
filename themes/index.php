@@ -4,7 +4,7 @@
  * ==========================================================================
  * FILE: themes/CmsForNerdNew/index.php
  * ROLE: Directory Privacy & Security Gateway (PHP Layer)
- * VERSION: 3.4 (Strict Mode)
+ * VERSION: 4.3.0 (Strict Mode)
  * ==========================================================================
  * * [SECURITY]
  * This file prevents "Directory Listing" by terminating the request at the
@@ -31,7 +31,7 @@ if (ob_get_level() > 0) {
     ob_end_clean();
 }
 
-// 3. [UI] Minimalist "Lab" aesthetic to match CMSForNerd v3.4.
+// 3. [UI] Minimalist "Lab" aesthetic to match CMSForNerd v4.3.0.
 ?>
 <!DOCTYPE html>
 <html lang="en">

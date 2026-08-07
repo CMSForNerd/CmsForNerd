@@ -10,13 +10,13 @@ use PHPUnit\Framework\TestCase;
  * Validates the "Module 22: Context Re-learning & Windows Shell Compliance
  * (v4.2.1)" version synchronisation across the CmsForNerd Laboratory theme
  * and the shared content fragments. These surfaces were still advertising
- * the stale "v3.5" product version and have been bumped to "v4.2.0" so
+ * the stale "v3.5" product version and have been bumped to "v4.3.0" so
  * every user-facing location (theme metadata, AMP footer, stylesheet
  * banner, SEO/schema description, and homepage headline) agrees.
  */
 final class ThemeVersionUpgradeTest extends TestCase
 {
-    private const CURRENT_VERSION = '4.2.0';
+    private const CURRENT_VERSION = '4.3.0';
 
     private string $themePhpPath;
     private string $pagerPhpPath;
