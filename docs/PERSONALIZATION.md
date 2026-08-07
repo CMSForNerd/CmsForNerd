@@ -5,6 +5,7 @@ title: "🧠 DSOM Personalization: The Cognitive Digital Twin — Gemini Edition
 description: "OKF-compliant documentation for PERSONALIZATION.md."
 resource: "file:///docs/PERSONALIZATION.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, personalization, refactored, dsom, cognitive]
 ---
 ### 📜 docs/PERSONALIZATION.md (Refactored v5.6)
 

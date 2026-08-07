@@ -5,8 +5,8 @@ title: "HOWTO: Clone a DSOM Project"
 description: "OKF-compliant documentation for scaffolding a new project from an existing DSOM repository."
 resource: "file:///docs/HOWTO-CLONE-DSOM-PROJECT.md"
 timestamp: 2026-07-04T11:00:00Z
+topics: [docs, clone, dsom, project, scaffolding]
 ---
-
 # HOWTO: Clone a DSOM Project (Scaffolding Blueprint)
 
 > **Entry Point 1:** This document serves as the Engineering Entry Point for the DSOM framework. See [START-HERE.md](../START-HERE.md) for the master onboarding roadmap.

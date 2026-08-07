@@ -5,6 +5,7 @@ title: "🔄 HOWTO: Migrate Existing DSOM to Sovereign Markdown Palace"
 description: "OKF-compliant documentation for HOWTO-MIGRATE-TO-PALACE.md."
 resource: "file:///docs/HOWTO-MIGRATE-TO-PALACE.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, migrate, palace, existing, dsom]
 ---
 # 🔄 HOWTO: Migrate Existing DSOM to Sovereign Markdown Palace
 

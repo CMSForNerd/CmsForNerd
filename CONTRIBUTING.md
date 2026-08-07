@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "Contributing to CmsForNerd"
+description: "OKF-compliant documentation for CONTRIBUTING.md."
+resource: "file:///CONTRIBUTING.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [contributing, cmsfornerd, our, standards, contribute]
+---
 # Contributing to CmsForNerd
 
 Thank you for your interest in improving the CmsForNerd "Nerd Stack"!

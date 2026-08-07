@@ -5,6 +5,7 @@ title: "🤖 AI Agent Skills Development Guide"
 description: "OKF-compliant documentation for AI-AGENT-SKILLS-GUIDE.md."
 resource: "file:///docs/AI-AGENT-SKILLS-GUIDE.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, skills, development, what, skill]
 ---
 # 🤖 AI Agent Skills Development Guide
 

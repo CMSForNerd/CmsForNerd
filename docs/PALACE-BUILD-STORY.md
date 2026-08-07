@@ -5,6 +5,7 @@ title: "🏛️ PALACE-BUILD-STORY: How the Sovereign Markdown Palace Was Built"
 description: "OKF-compliant documentation for PALACE-BUILD-STORY.md."
 resource: "file:///docs/PALACE-BUILD-STORY.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, palace, build, story, sovereign]
 ---
 # 🏛️ PALACE-BUILD-STORY: How the Sovereign Markdown Palace Was Built
 

@@ -5,6 +5,7 @@ title: "Python uv Environment Guide"
 description: "Governance policy and operational standard for managing isolated Python environments using the uv package manager within the DSOM framework."
 resource: "file:///docs/governance/PYTHON-UV-ENVIRONMENT-GUIDE.md"
 timestamp: 2026-07-12T07:50:00Z
+topics: [docs, governance, python, environment, problem]
 ---
 # Python `uv` Environment Setup Guide
 

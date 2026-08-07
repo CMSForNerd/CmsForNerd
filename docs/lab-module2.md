@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🎨 Lab Module 2: PSR-12 Standards (v4.0.0)"
+description: "OKF-compliant documentation for lab-module2.md."
+resource: "file:///docs/lab-module2.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, lab, module, psr, standards]
+---
 # 🎨 Lab Module 2: PSR-12 Standards (v4.0.0)
 
 > **Topic:** PSR-12 and the Art of Clean Code

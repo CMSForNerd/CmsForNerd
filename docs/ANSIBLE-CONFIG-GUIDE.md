@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "[DOC] CmsForNerd Ansible Configuration Guide (v4.0.0)"
+description: "OKF-compliant documentation for ANSIBLE-CONFIG-GUIDE.md."
+resource: "file:///docs/ANSIBLE-CONFIG-GUIDE.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, ansible, config, doc, cmsfornerd]
+---
 # [DOC] CmsForNerd Ansible Configuration Guide (v4.0.0)
 
 ## Source: `docs/ANSIBLE-CONFIG-GUIDE.md`

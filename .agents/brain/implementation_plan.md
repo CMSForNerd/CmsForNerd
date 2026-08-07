@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: architecture_concept
+title: "Phase 7: Semantic Evolution (v3.6.0)"
+description: "OKF-compliant documentation for implementation_plan.md."
+resource: "file:///.agents/brain/implementation_plan.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [brain, implementation, plan, phase, semantic]
+---
 # Phase 7: Semantic Evolution (v3.6.0)
 
 ### Completion Date: 2026-03-30

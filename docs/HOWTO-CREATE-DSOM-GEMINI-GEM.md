@@ -4,6 +4,7 @@ type: documentation
 title: "How to Create a Gemini Gem for DSOM"
 description: "Step-by-step guide to configuring a permanent DSOM Cognitive Twin Gem inside the Google Gemini interface."
 timestamp: 2026-07-18T08:56:00Z
+topics: [docs, create, dsom, gemini, gem]
 ---
 # How to Create a Gemini Gem for DSOM
 

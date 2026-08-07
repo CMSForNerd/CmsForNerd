@@ -5,8 +5,8 @@ title: "CmsForNerd Infrastructure Deployment Report"
 description: "Deployment report detailing the CmsForNerd application stack deployment under rootless Podman on Ubuntu."
 resource: "file:///docs/DEPLOYMENT_REPORT.md"
 timestamp: 2026-07-29T00:00:00Z
+topics: [docs, deployment, report, cmsfornerd, infrastructure]
 ---
-
 # CmsForNerd Infrastructure Deployment Report
 
 ## 1. Deployment Overview & Topology

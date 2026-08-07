@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🚀 Student Welcome Kit (v4.0.0)"
+description: "OKF-compliant documentation for welcome-kit.md."
+resource: "file:///docs/welcome-kit.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, welcome, kit, student, essential]
+---
 # 🚀 Student Welcome Kit (v4.0.0)
 
 > "Modernization without loss of simplicity."

@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "AI Assistant Instructions for CMSForNerd (v3.5)"
+description: "OKF-compliant documentation for copilot-instructions.md."
+resource: "file:///.github/copilot-instructions.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [github, copilot, instructions, assistant, cmsfornerd]
+---
 # AI Assistant Instructions for CMSForNerd (v3.5)
 
 This file gives concise, repo-specific guidance for using Google Gemini, GitHub Copilot, Cursor, or ChatGPT when contributing to CMSForNerd.

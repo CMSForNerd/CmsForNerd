@@ -4,8 +4,8 @@ type: documentation
 title: "DSOM Token Efficiency & Integration Report"
 description: "Comprehensive audit report detailing the 96% token reduction achieved by the DSOM Protocol and recent integration milestones."
 timestamp: 2026-07-18T17:15:00+08:00
+topics: [docs, governance, dsom, token, efficiency]
 ---
-
 # DSOM Token Efficiency & Integration Report
 
 ## 1. Executive Summary

@@ -5,6 +5,7 @@ title: "NOSS Integration Guide: Adopting National Standards into DSOM"
 description: "Governance protocol explaining how National Occupational Skills Standards (NOSS) are translated and adopted as modular AI skills under the master DSOM framework."
 resource: "file:///docs/governance/NOSS-INTEGRATION-GUIDE.md"
 timestamp: 2026-07-12T08:45:00Z
+topics: [docs, governance, noss, integration, integrating]
 ---
 # Integrating National Standards (NOSS) into the DSOM Baseline
 

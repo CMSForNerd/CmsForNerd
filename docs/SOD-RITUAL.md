@@ -5,6 +5,7 @@ title: "🌅 SOD-RITUAL.md — Start-of-Day Ritual"
 description: "OKF-compliant documentation for SOD-RITUAL.md."
 resource: "file:///docs/SOD-RITUAL.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, sod, ritual, start, day]
 ---
 # 🌅 SOD-RITUAL.md — Start-of-Day Ritual
 

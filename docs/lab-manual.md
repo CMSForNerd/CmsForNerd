@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🎓 Lab Manual: The Developer’s Laboratory (v4.0.0)"
+description: "OKF-compliant documentation for lab-manual.md."
+resource: "file:///docs/lab-manual.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, lab, developer, laboratory, module]
+---
 # 🎓 Lab Manual: The Developer’s Laboratory (v4.0.0)
 
 Welcome to the **v4.0.0 educational suite**. This CMS is designed to be a **transparent laboratory**. Every line of code is accessible, every architectural choice is documented, and every security feature is a lesson in professional standards.

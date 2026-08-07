@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🤖 AI-Assisted Development (v4.0.0)"
+description: "OKF-compliant documentation for ai-dev.md."
+resource: "file:///docs/ai-dev.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, dev, assisted, development, layer]
+---
 # 🤖 AI-Assisted Development (v4.0.0)
 Gemini + Antigravity
 

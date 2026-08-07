@@ -5,6 +5,7 @@ title: "🧩 The Reasoning Gap: What DSOM Solves and What It Doesn't"
 description: "OKF-compliant documentation for RESEARCH-REASONING-GAP.md."
 resource: "file:///docs/governance/RESEARCH-REASONING-GAP.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, governance, research, reasoning, gap]
 ---
 # 🧩 The Reasoning Gap: What DSOM Solves and What It Doesn't
 

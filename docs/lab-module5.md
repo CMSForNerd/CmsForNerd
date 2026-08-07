@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "📊 Lab Module 5: Coverage & QA (v4.0.0)"
+description: "OKF-compliant documentation for lab-module5.md."
+resource: "file:///docs/lab-module5.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, lab, module, coverage, learning]
+---
 # 📊 Lab Module 5: Coverage & QA (v4.0.0)
 
 > **Topic:** Test Coverage and Quality Assurance

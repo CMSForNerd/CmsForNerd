@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🧪 Lab Module 4: Automated Testing (v4.0.0)"
+description: "OKF-compliant documentation for lab-module4.md."
+resource: "file:///docs/lab-module4.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, lab, module, automated, testing]
+---
 # 🧪 Lab Module 4: Automated Testing (v4.0.0)
 
 > **Topic:** Automated Testing with PHPUnit 11

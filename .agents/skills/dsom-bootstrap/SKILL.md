@@ -3,8 +3,10 @@ name: dsom-bootstrap
 description: Executes the DSOM bootstrapping process for a new or existing project by reading the HOWTO-DSOM-BASELINE.md guide and pulling files from the permanent baseline repository.
 topics: [bootstrap, setup, onboarding, project-init, dsom]
 okf_version: 0.1
+type: agent_skill
+title: "🚀 DSOM Bootstrap Skill"
+timestamp: 2026-08-07T05:39:28Z
 ---
-
 # 🚀 DSOM Bootstrap Skill
 
 ## When to use this skill

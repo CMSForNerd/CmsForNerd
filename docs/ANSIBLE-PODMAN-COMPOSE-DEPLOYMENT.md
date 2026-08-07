@@ -3,6 +3,7 @@ okf_version: 0.1
 type: documentation
 title: "Production Podman-Compose & BunkerWeb Deployment Guide"
 timestamp: "2026-07-27T12:00:00Z"
+topics: [docs, ansible, podman, compose, deployment]
 ---
 # 🛡️ CmsForNerd Production Podman-Compose & BunkerWeb Deployment Guide (v4.1.0)
 # docs/ANSIBLE-PODMAN-COMPOSE-DEPLOYMENT.md

@@ -5,6 +5,7 @@ title: "The Deep State of Mind (DSOM) Framework: Defense-in-Depth Architecture"
 description: "Architectural deconstruction of the DSOM repository mapping the file structure and payload signatures to its core Defense-in-Depth design principles and AIOps integration."
 resource: "file:///docs/governance/DSOM-ARCHITECTURE-ANALYSIS.md"
 timestamp: 2026-07-12T06:52:00Z
+topics: [docs, governance, dsom, architecture, analysis]
 ---
 # The Deep State of Mind (DSOM) Framework: Defense-in-Depth Architecture
 

@@ -4,8 +4,8 @@ type: documentation
 title: "Procedural Automation: Byte-Capped Execution Framework"
 description: "Technical layout and deployment model of the DSOM Token Calculator Skill."
 timestamp: 2026-07-18T22:54:00+08:00
+topics: [docs, governance, byte, capped, execution]
 ---
-
 # Procedural Automation: Byte-Capped Execution Framework
 
 ## Abstract

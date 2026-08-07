@@ -5,6 +5,7 @@ title: "Sovereign Laboratory Index"
 description: "Detailed mapping of all laboratory manuals, modules, environments, graduation files, and records."
 resource: "file:///docs/SUMMARY.md"
 timestamp: "2026-07-27T12:00:00Z (Planned Handover Date)"
+topics: [docs, summary, cmsfornerd, laboratory, alpha]
 ---
 # Summary
 # CMSForNerd Laboratory (v4.0.0-alpha)

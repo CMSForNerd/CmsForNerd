@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🚀 CMSForNerd Project Rules (Updated v4.0.0)"
+description: "OKF-compliant documentation for PROJECT_RULES.md."
+resource: "file:///docs/PROJECT_RULES.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, project, rules, cmsfornerd, updated]
+---
 # 🚀 CMSForNerd Project Rules (Updated v4.0.0)
 
 When generating or refactoring code for **CmsForNerd v4.0.0** and above, you **MUST** follow these rules:

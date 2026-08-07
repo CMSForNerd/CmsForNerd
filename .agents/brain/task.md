@@ -5,6 +5,7 @@ title: "CMSForNerd Tasks Management"
 description: "Active registry tracking the implementation state of all development and compliance modules."
 resource: "file:///.agents/brain/task.md"
 timestamp: "2026-08-01T14:00:00Z"
+topics: [brain, task, cmsfornerd, management, module]
 ---
 # CMSForNerd v3.5, v3.6 & v4.2 Task Management
 

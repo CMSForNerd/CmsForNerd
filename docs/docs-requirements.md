@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "Architecture Requirements v4.0.0 (RFC 2119)"
+description: "OKF-compliant documentation for docs-requirements.md."
+resource: "file:///docs/docs-requirements.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, requirements, architecture, rfc, logic]
+---
 # Architecture Requirements v4.0.0 (RFC 2119)
 
 This document defines the "Laws of the Project" using the requirement levels described in RFC 2119.

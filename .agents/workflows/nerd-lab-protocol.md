@@ -1,7 +1,11 @@
 ---
 description: Daily Workflow for CMSForNerd Laboratory (v3.5)
+okf_version: 0.1
+type: documentation
+title: "🧪 The Nerd Lab Protocol (v3.5)"
+timestamp: 2026-08-07T05:39:28Z
+topics: [workflows, nerd, lab, protocol, intelligence]
 ---
-
 # 🧪 The Nerd Lab Protocol (v3.5)
 
 This workflow defines the "State of Mind" and sequence of operations required to maintain the CMSForNerd Laboratory. Follow these steps every time you resume work or collaborate with other developers/agents.

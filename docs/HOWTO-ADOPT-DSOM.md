@@ -5,6 +5,7 @@ title: "HOWTO: Adopt DSOM in Existing Projects (Brownfield)"
 description: "OKF-compliant documentation for HOWTO-ADOPT-DSOM.md."
 resource: "file:///docs/HOWTO-ADOPT-DSOM.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, adopt, dsom, existing, projects]
 ---
 # HOWTO: Adopt DSOM in Existing Projects (Brownfield)
 

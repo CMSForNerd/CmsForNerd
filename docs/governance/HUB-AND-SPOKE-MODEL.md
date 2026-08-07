@@ -5,6 +5,7 @@ title: "🏛️ The Hub-and-Spoke Collaboration Model"
 description: "OKF-compliant documentation for HUB-AND-SPOKE-MODEL.md."
 resource: "file:///docs/governance/HUB-AND-SPOKE-MODEL.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, governance, hub, spoke, model]
 ---
 ### 📜 docs/HUB-AND-SPOKE-MODEL.md (v2.0)
 

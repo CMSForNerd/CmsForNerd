@@ -5,6 +5,7 @@ title: "**Operational Sovereignty through Metacognitive Governance: Integrating 
 description: "OKF-compliant documentation for OPERATIONAL-SOVEREIGNTY.md."
 resource: "file:///docs/governance/OPERATIONAL-SOVEREIGNTY.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, governance, operational, sovereignty, through]
 ---
 # **Operational Sovereignty through Metacognitive Governance: Integrating the Deep State of Mind Protocol with CAPM and Git-Native PMO Frameworks**
 

@@ -5,6 +5,7 @@ title: "🚀 HOWTO: Adopt DSOM Using Automated Onboarding"
 description: "OKF-compliant documentation for HOWTO-DSOM-ONBOARDING.md."
 resource: "file:///docs/HOWTO-DSOM-ONBOARDING.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, dsom, onboarding, adopt, using]
 ---
 # 🚀 HOWTO: Adopt DSOM Using Automated Onboarding
 

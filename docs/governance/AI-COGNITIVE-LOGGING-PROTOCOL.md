@@ -5,6 +5,7 @@ title: "📜 AI Cognitive Logging Protocol (Cross-AI Standard)"
 description: "OKF-compliant documentation for AI-COGNITIVE-LOGGING-PROTOCOL.md."
 resource: "file:///docs/governance/AI-COGNITIVE-LOGGING-PROTOCOL.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [docs, governance, cognitive, logging, protocol]
 ---
 # 📜 AI Cognitive Logging Protocol (Cross-AI Standard)
 # docs/AI-COGNITIVE-LOGGING-PROTOCOL.md

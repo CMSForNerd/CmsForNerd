@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "[AGENT] CmsForNerd Cognitive Digital Twin: Master Operational Protocol (v4.0.0)"
+description: "OKF-compliant documentation for AI-COGNITIVE-TWIN-PROTOCOL.md."
+resource: "file:///docs/AI-COGNITIVE-TWIN-PROTOCOL.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, cognitive, twin, protocol, cmsfornerd]
+---
 # [AGENT] CmsForNerd Cognitive Digital Twin: Master Operational Protocol (v4.0.0)
 
 ## Project: CmsForNerd Laboratory Foundation

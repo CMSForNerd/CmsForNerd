@@ -5,6 +5,7 @@ title: "Google Jules Setup on Ubuntu 26.04 with Podman 5+"
 description: "Comprehensive setup and configuration guide for Google Jules with Podman 5 on Ubuntu 26.04."
 resource: "file:///docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md"
 timestamp: "2026-07-27T12:00:00Z"
+topics: [docs, google, jules, ubuntu, podman]
 ---
 # 🤖 Google Jules Setup Guide on Ubuntu 26.04 with Podman 5+
 

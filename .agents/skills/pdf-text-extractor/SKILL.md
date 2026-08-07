@@ -1,12 +1,12 @@
-﻿---
+---
 okf_version: 0.1
 type: agent_skill
 title: pdf-text-extractor
 name: pdf-text-extractor
 description: Safely download external PDF files and extract their text content using curl and an isolated uv Python environment.
 topics: [pdf, text, extraction, curl, uv]
+timestamp: 2026-08-07T06:14:57Z
 ---
-
 # PDF Text Extractor Workflow
 
 Use this skill when you need to read, parse, or extract text from an external PDF document (e.g., government directives, manuals, or research papers) provided via a URL.

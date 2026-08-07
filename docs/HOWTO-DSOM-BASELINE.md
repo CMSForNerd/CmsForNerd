@@ -5,8 +5,8 @@ category: blueprint
 title: "DSOM Bootstrapping Guide"
 description: "Agent-readable instructions for porting the DSOM architecture from the baseline repository to a new or existing workspace."
 topics: [bootstrap, onboarding, baseline, dsom, setup]
+timestamp: 2026-08-07T05:39:28Z
 ---
-
 # DSOM Bootstrapping Guide (Agent-Readable)
 
 **ATTENTION AI AGENT**: You have been asked by the user to read this file. Follow these explicit instructions to copy and merge the required intelligence, tools, and documentation from the permanent baseline repository into your current environment.

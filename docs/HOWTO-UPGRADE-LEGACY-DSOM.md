@@ -5,6 +5,7 @@ title: "HOWTO: Upgrade Legacy DSOM Projects"
 description: "OKF-compliant documentation for migrating older DSOM projects to the current architectural baseline."
 resource: "file:///docs/HOWTO-UPGRADE-LEGACY-DSOM.md"
 timestamp: 2026-07-17T08:00:00Z
+topics: [docs, upgrade, legacy, dsom, projects]
 ---
 # HOWTO: Upgrade Legacy DSOM Projects
 

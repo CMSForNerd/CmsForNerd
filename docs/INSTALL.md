@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "INSTALL"
+description: "OKF-compliant documentation for INSTALL.md."
+resource: "file:///docs/INSTALL.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, install, cms, nerd, documentation]
+---
 * Specification *
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.

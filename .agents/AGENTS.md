@@ -5,6 +5,7 @@ title: "The Core AI Rulebook (DSOM)"
 description: "OKF-compliant documentation for AGENTS.md."
 resource: "file:///.agents/AGENTS.md"
 timestamp: 2026-08-01T08:30:00Z
+topics: [dsom, rules, cms, nerd, documentation]
 ---
 # The Core AI Rulebook (DSOM)
 
@@ -16,9 +17,7 @@ Welcome to the Sovereign AI Agent Workspace. You are a Cognitive Digital Twin op
 ## Core Rules:
 1. **Zero-Global / Spatial Memory:** Your memory lives in `.agents/brain`. Never forget to synchronize context using
    `palace_registry.md`.
-2. **Open Knowledge Format (OKF):** All knowledge documents (`closet.md` and `SKILL.md`) must be OKF v0.1 compliant
-   (contain YAML frontmatter).
-   (contain YAML frontmatter).
+2. **Open Knowledge Format (OKF):** All knowledge documents must be OKF v0.1 compliant (contain YAML frontmatter with okf_version, type, title, timestamp, topics).
 3. **Agent Skills:** Use `.agents/skills` for all procedural workflows. Skills must be self-healing and embed their
    own executable scripts.
 4. **Git Sovereignty & Atomic Commits:** Every major action must be committed to Git. Avoid silent execution. **Crucially, the AI is
@@ -147,6 +146,38 @@ commands. It must:
 4. **Consensus (If Stale):** If the timestamp is old, research externally, compare, and pause to ask the human operator for a decision.
 5. **Physical Execution:** Only after discovery is complete (or if live runtime state is required) may the AI execute terminal commands.
 
+## Open Knowledge Format (OKF) Integration Details
+
+This repository strictly implements the **Open Knowledge Format (OKF) v0.1** specification. OKF is a human- and agent-friendly format for representing knowledge: metadata, context, and curated insights.
+
+All Markdown documents in this repository MUST contain YAML frontmatter with the following five required fields to pass continuous integration and compliance audits:
+
+1. **`okf_version`**: The version of the OKF specification (set to `0.1`).
+2. **`type`**: The kind of concept or category of document (e.g., `documentation`, `agent_skill`, `architecture_concept`, `automation_tool`, `infrastructure_playbook`, `governance_protocol`).
+3. **`title`**: The display name of the document.
+4. **`timestamp`**: The standard ISO 8601 UTC timestamp marking when the content was last updated (e.g., `2026-08-01T08:30:00Z`).
+5. **`topics`**: A YAML array of 3 to 5 lowercase keyword strings representing critical tags (e.g., `[okf, frontmatter, yaml, compliance]`). This enables near-instant semantic routing for agent discovery without parsing full document bodies.
+
+### Compliant YAML Frontmatter Example
+
+```yaml
+---
+okf_version: 0.1
+type: documentation
+title: "Sovereign Rulebook"
+description: "The core regulatory system governing AI agents."
+resource: "file:///AGENTS.md"
+timestamp: 2026-08-01T08:30:00Z
+topics: [gateway, rulebook, compliance]
+---
+```
+
+### Purpose and Consumption Flow
+
+- **Discovery**: AI agents or platform engines scan file headers for the `topics` array to index documents without reading complete file bodies.
+- **Trust Tiers & Staleness**: Metadata such as the `timestamp` allows agents to evaluate knowledge freshness and trigger alerts if documentation becomes outdated.
+- **Automation**: The `okf-frontmatter-injector` skill automatically scans files and appends compliant OKF headers if any fields are missing.
+
 ## Cognitive Twin Persona Profile (LinuxMalaysia)
 
 <RULE[PERSONA.md]>
@@ -174,7 +205,7 @@ description: "Core persona, linguistic DNA, and operational constraints for the 
   "Buat masa ini...").
 - **Language Rule (Default):** Strict Standard UK English only (e.g., -ise, -our, -re, -lled).
 - **Language Rule (Bilingual):** If explicitly requested by the user to answer in Bahasa Melayu, adhere strictly to standard Bahasa Melayu
-  Malaysia as codified by Dewan Bahasa dan Pustaka (DBP). Explicitly avoid Indonesian vocabulary, regional loanwords, or altered sentence
+  Malaysia as codified by Dewan Bahasa en Pustaka (DBP). Explicitly avoid Indonesian vocabulary, regional loanwords, or altered sentence
   structures. Use bracketed English technical terms where appropriate.
 
 # Response Constraints & Formatting

@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "CMSForNerd v4.0.0: 🛡️ Directory Security Lab Exercise"
+description: "OKF-compliant documentation for directory-security.md."
+resource: "file:///docs/directory-security.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, directory, security, cmsfornerd, lab]
+---
 # CMSForNerd v4.0.0: 🛡️ Directory Security Lab Exercise
 
 ## Step 4: Directory Browsing Protection

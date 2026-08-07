@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "CmsForNerd Project State Sync (v4.0.0)"
+description: "OKF-compliant documentation for AI-STATE-SYNC.md."
+resource: "file:///docs/AI-STATE-SYNC.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, state, sync, cmsfornerd, project]
+---
 # CmsForNerd Project State Sync (v4.0.0)
 
 ## 🎯 Current Mission

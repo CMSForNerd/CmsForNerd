@@ -4,6 +4,7 @@ type: history_log
 title: Brain Artifacts History
 description: Distilled knowledge for Brain Artifacts History
 timestamp: 2026-06-19T14:00:00Z
+topics: [brain, wings, wing, dsom, hall]
 ---
 # 🚪 Closet: Room Brain Artifacts (The Living Memory)
 

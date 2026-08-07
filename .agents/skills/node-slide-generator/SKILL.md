@@ -5,8 +5,8 @@ title: node-slide-generator
 name: node-slide-generator
 description: Generates a PowerPoint presentation from a markdown outline using Node.js and pptxgenjs.
 topics: [node, pptx, slides, presentation, generator]
+timestamp: 2026-08-07T05:39:28Z
 ---
-
 # node-slide-generator
 
 Use this skill when the user asks to compile, generate, or format PowerPoint presentation slides using Node.js.

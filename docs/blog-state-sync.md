@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "The Art of the Start: Intelligence Audit & State Sync in AI-Agentic Workflows"
+description: "OKF-compliant documentation for blog-state-sync.md."
+resource: "file:///docs/blog-state-sync.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, blog, state, sync, art]
+---
 # The Art of the Start: Intelligence Audit & State Sync in AI-Agentic Workflows
 
 In the fast-paced world of AI-assisted development, the biggest challenge isn't writing the code—it's **maintaining the "State of Mind"** across sessions. Have you ever returned to a project after a break, only to have your AI agent forget the architectural nuances or the specific status of a complex refactor?

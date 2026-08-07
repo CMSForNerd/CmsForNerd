@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "✅ Final Exam Answer Key (Instructor Resource)"
+description: "OKF-compliant documentation for exam-answers.md."
+resource: "file:///docs/exam-answers.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, exam, answers, final, answer]
+---
 # ✅ Final Exam Answer Key (Instructor Resource)
 
 This guide is intended for instructors to evaluate student performance in the **CMSForNerd v4.0.0** Laboratory.

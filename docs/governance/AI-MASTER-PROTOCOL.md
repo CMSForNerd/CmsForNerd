@@ -5,8 +5,8 @@ title: "📜 DSOM Master Directive: AI Governance Protocol (v6.1 + Palace v1.0 -
 description: "OKF-compliant governance protocol combining the Deep State of Mind (DSOM) framework and CMSForNerd laboratory standards."
 resource: "file:///docs/governance/AI-MASTER-PROTOCOL.md"
 timestamp: 2026-07-12T12:00:00Z
+topics: [docs, governance, master, protocol, dsom]
 ---
-
 # 📜 DSOM Master Directive: AI Governance Protocol (v6.1 + Palace v1.0)
 
 > **"Sovereignty through Persistence. Integrity through Structure. Clarity through Reflection."**

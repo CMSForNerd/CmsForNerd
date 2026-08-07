@@ -1,3 +1,12 @@
+---
+okf_version: 0.1
+type: documentation
+title: "🚀 Release v4.0.0-alpha: The High-Fidelity Milestone"
+description: "OKF-compliant documentation for RELEASE_NOTES.md."
+resource: "file:///docs/RELEASE_NOTES.md"
+timestamp: 2026-08-07T05:39:28Z
+topics: [docs, release, notes, alpha, high]
+---
 # 🚀 Release v4.0.0-alpha: The "High-Fidelity" Milestone
 
 We are proud to announce **CMSForNerd v4.0.0-alpha**, focusing on **High-Fidelity Glassmorphism** and **Zero-Global** architecture. This release marks the transition to a modern, database-free, immutable state engine for professional developer training.

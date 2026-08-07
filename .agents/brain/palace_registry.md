@@ -5,6 +5,7 @@ title: "🏛️ Palace Registry: Sovereign Retrieval Map"
 description: "OKF-compliant documentation for palace_registry.md."
 resource: "file:///.agents/brain/palace_registry.md"
 timestamp: 2026-07-04T09:40:04Z
+topics: [brain, palace, registry, sovereign, retrieval]
 ---
 # 🏛️ Palace Registry: Sovereign Retrieval Map
 
