@@ -26,18 +26,22 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 NC='\033[0;0m'
 
+# log_info logs an informational message with a timestamp.
 log_info() {
     echo -e "${BLUE}[INFO] $(date +'%Y-%m-%d %H:%M:%S') - ${1}${NC}"
 }
 
+# log_success logs a successful operation with a timestamped message.
 log_success() {
     echo -e "${GREEN}[SUCCESS] $(date +'%Y-%m-%d %H:%M:%S') - ${1}${NC}"
 }
 
+# log_warn writes a timestamped warning message to standard error.
 log_warn() {
     echo -e "${YELLOW}[WARN] $(date +'%Y-%m-%d %H:%M:%S') - ${1}${NC}" >&2
 }
 
+# log_error logs an error message with a timestamp to standard error.
 log_error() {
     echo -e "${RED}[ERROR] $(date +'%Y-%m-%d %H:%M:%S') - ${1}${NC}" >&2
 }
@@ -46,7 +50,7 @@ TELEMETRY_FILE="/tmp/jules_telemetry.json"
 FALLBACK_REPORT_DIR="data"
 FALLBACK_REPORT_FILE="${FALLBACK_REPORT_DIR}/jules_telemetry_report.md"
 
-# Cleanup function registered on exit trap
+# cleanup logs an error when the script exits with a nonzero status.
 cleanup() {
     local exit_code=$?
     if [ $exit_code -ne 0 ]; then
@@ -83,6 +87,7 @@ log_info "Parsing telemetry from ${TELEMETRY_FILE}..."
 # 2. Extract values with jq, or use robust sed/grep fallback if jq is missing
 HAS_JQ=$(command -v jq >/dev/null 2>&1 && echo "yes" || echo "no")
 
+# get_json_field extracts a top-level field value from the telemetry JSON file, using `unknown` when the field cannot be read without `jq`.
 get_json_field() {
     local field=$1
     if [ "$HAS_JQ" = "yes" ]; then
