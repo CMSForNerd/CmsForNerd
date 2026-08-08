@@ -17,6 +17,45 @@ final class PerformanceUtils
     private static bool $cacheActive = false;
 
     /**
+     * @var array<string, array<string, array{is_file: bool, mtime: int}>>
+     */
+    private static array $dirCache = [];
+
+    /**
+     * Pre-scans a directory using DirectoryIterator and caches file metadata.
+     *
+     * @param string $dirPath The directory path.
+     * @return array<string, array{is_file: bool, mtime: int}> Cached file metadata.
+     */
+    private static function getDirMetadata(string $dirPath): array
+    {
+        if (isset(self::$dirCache[$dirPath])) {
+            return self::$dirCache[$dirPath];
+        }
+
+        $metadata = [];
+        if (is_dir($dirPath)) {
+            try {
+                $dir = new \DirectoryIterator($dirPath);
+                foreach ($dir as $fileinfo) {
+                    if ($fileinfo->isDot()) {
+                        continue;
+                    }
+                    $metadata[$fileinfo->getPathname()] = [
+                        'is_file' => $fileinfo->isFile(),
+                        'mtime'   => $fileinfo->getMTime(),
+                    ];
+                }
+            } catch (\UnexpectedValueException $e) {
+                // Fall back to empty metadata on unreadable directory
+            }
+        }
+
+        self::$dirCache[$dirPath] = $metadata;
+        return $metadata;
+    }
+
+    /**
      * Get the absolute path for the cache directory.
      */
     public static function getCacheDir(): string
@@ -92,27 +131,19 @@ final class PerformanceUtils
 
         // Scan contents directory
         $contentsDir = $rootDir . '/contents';
-        if (is_dir($contentsDir)) {
-            $files = glob($contentsDir . '/*');
-            if (is_array($files)) {
-                foreach ($files as $file) {
-                    if (is_file($file)) {
-                        $maxMTime = max($maxMTime, (int) filemtime($file));
-                    }
-                }
+        $contentsMeta = self::getDirMetadata($contentsDir);
+        foreach ($contentsMeta as $meta) {
+            if ($meta['is_file']) {
+                $maxMTime = max($maxMTime, $meta['mtime']);
             }
         }
 
         // Scan theme directory
         $themeDir = $rootDir . '/themes/CmsForNerd';
-        if (is_dir($themeDir)) {
-            $files = glob($themeDir . '/*');
-            if (is_array($files)) {
-                foreach ($files as $file) {
-                    if (is_file($file)) {
-                        $maxMTime = max($maxMTime, (int) filemtime($file));
-                    }
-                }
+        $themeMeta = self::getDirMetadata($themeDir);
+        foreach ($themeMeta as $meta) {
+            if ($meta['is_file']) {
+                $maxMTime = max($maxMTime, $meta['mtime']);
             }
         }
 
@@ -238,6 +269,7 @@ final class PerformanceUtils
      */
     public static function clearCache(): void
     {
+        self::$dirCache = [];
         $dir = self::getCacheDir();
         $files = glob($dir . '/*');
         if (is_array($files)) {
