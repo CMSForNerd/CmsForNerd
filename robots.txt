@@ -6,6 +6,10 @@ User-agent: *
 # Note: While some crawlers prefer FQCN, many modern engines accept 
 # the relative path or the server handles it via the Front Controller.
 Sitemap: /sitemap.php
+Sitemap: https://www.linuxmalaysia.com/sitemap.xml
+Sitemap: https://www.linuxmalaysia.com/sitemap.txt
+Sitemap: https://linuxmalaysia.github.io/CmsForNerd/sitemap.xml
+Sitemap: https://linuxmalaysia.github.io/CmsForNerd/sitemap.txt
 
 # 2. [LAB] Optimization
 # Allow all other public assets

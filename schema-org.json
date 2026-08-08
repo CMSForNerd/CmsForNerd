@@ -1,0 +1,19 @@
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "CMSForNerd Laboratory",
+    "alternateName": "CmsForNerd",
+    "url": "https://www.linuxmalaysia.com",
+    "author": {
+        "@type": "Person",
+        "name": "Harisfazillah Jamel",
+        "description": "LinuxMalaysia"
+    },
+    "description": "A Lightweight, Radically Simple, Database-Free PHP Laboratory CMS.",
+    "sameAs": [
+        "https://github.com/CMSForNerd/CmsForNerd",
+        "https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai",
+        "https://linuxmalaysia.github.io/CmsForNerd/",
+        "https://cmsfornerd.onrender.com/"
+    ]
+}
