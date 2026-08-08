@@ -43,13 +43,15 @@ function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null):
     if ($ip === '127.0.0.1' || $ip === '::1') {
         $ctx->botCache->lastIp  = $ip;
         $ctx->botCache->lastUa  = $ua;
-        return $ctx->botCache->lastRes = false;
+        $ctx->botCache->lastRes = false;
+        return false;
     }
 
     if (empty($ua)) {
         $ctx->botCache->lastIp  = $ip;
         $ctx->botCache->lastUa  = $ua;
-        return $ctx->botCache->lastRes = false;
+        $ctx->botCache->lastRes = false;
+        return false;
     }
 
     // 2. [PATTERN MATCH] Primary UA check (includes gptbot, chatgpt, openai, cloudflare)
@@ -77,13 +79,15 @@ function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null):
         if (is_trusted_bot_ip($ip, $provider)) {
             $ctx->botCache->lastIp  = $ip;
             $ctx->botCache->lastUa  = $ua;
-            return $ctx->botCache->lastRes = true;
+            $ctx->botCache->lastRes = true;
+            return true;
         }
     }
 
     $ctx->botCache->lastIp  = $ip;
     $ctx->botCache->lastUa  = $ua;
-    return $ctx->botCache->lastRes = false;
+    $ctx->botCache->lastRes = false;
+    return false;
 }
 
 /**
