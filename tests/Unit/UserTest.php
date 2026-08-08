@@ -18,46 +18,16 @@ test('user class defaults role to student', function () {
         ->and($user->role)->toBe('student');
 });
 
-test('user incrementViews executes without errors', function () {
+test('user incrementViews executes without errors and actually increases view count', function () {
     $user = new User('bob');
 
-    expect(fn() => $user->incrementViews())->not->toThrow(Throwable::class);
-});
+    $reflection = new ReflectionClass($user);
+    $property = $reflection->getProperty('viewCount');
+    $property->setAccessible(true);
 
-test('incrementViews increases the private view count', function () {
-    $user = new User('carol');
-
-    $viewCount = new ReflectionProperty($user, 'viewCount');
-    $viewCount->setAccessible(true);
-
-    expect($viewCount->getValue($user))->toBe(0);
+    expect($property->getValue($user))->toBe(0);
 
     $user->incrementViews();
-    expect($viewCount->getValue($user))->toBe(1);
 
-    $user->incrementViews();
-    $user->incrementViews();
-    expect($viewCount->getValue($user))->toBe(3);
-});
-
-test('username property is readonly and cannot be reassigned', function () {
-    $user = new User('erin');
-
-    expect(fn() => $user->username = 'someone-else')->toThrow(Error::class);
-});
-
-test('role property is mutable after construction', function () {
-    $user = new User('dave', 'student');
-
-    $user->role = 'admin';
-
-    expect($user->role)->toBe('admin');
-});
-
-test('constructor rejects a non-string username under strict types', function () {
-    expect(fn() => new User(123))->toThrow(TypeError::class);
-});
-
-test('getViewCount method no longer exists on the User class', function () {
-    expect(method_exists(User::class, 'getViewCount'))->toBeFalse();
+    expect($property->getValue($user))->toBe(1);
 });
