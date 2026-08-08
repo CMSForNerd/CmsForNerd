@@ -14,12 +14,19 @@ namespace CmsForNerd;
 
 final class PerformanceUtils
 {
+    private const CACHE_TTL = 5;
+
     private static bool $cacheActive = false;
 
     /**
      * @var array<string, array<string, array{is_file: bool, mtime: int}>>
      */
     private static array $dirCache = [];
+
+    /**
+     * @var int|null
+     */
+    private static ?int $sourceMaxMTime = null;
 
     /**
      * Pre-scans a directory using DirectoryIterator and caches file metadata.
@@ -121,16 +128,59 @@ final class PerformanceUtils
      */
     public static function getSourceMaxMTime(): int
     {
-        static $maxMTime = null;
-        if ($maxMTime !== null) {
-            return $maxMTime;
+        if (self::$sourceMaxMTime !== null) {
+            return self::$sourceMaxMTime;
+        }
+
+        $rootDir = dirname(__DIR__);
+        $contentsDir = $rootDir . '/contents';
+        $themeDir = $rootDir . '/themes/CmsForNerd';
+        $bootstrapFile = $rootDir . '/includes/bootstrap.php';
+
+        $currentMtimes = [
+            'contents'  => is_dir($contentsDir) ? (int) filemtime($contentsDir) : 0,
+            'theme'     => is_dir($themeDir) ? (int) filemtime($themeDir) : 0,
+            'bootstrap' => file_exists($bootstrapFile) ? (int) filemtime($bootstrapFile) : 0,
+        ];
+
+        // 1. Check APCu cache first if available
+        $apcuKey = 'cmsfornerd:source_max_mtime';
+        if (function_exists('apcu_fetch')) {
+            $apcuData = apcu_fetch($apcuKey);
+            if (
+                is_array($apcuData)
+                && isset($apcuData['max_mtime'], $apcuData['dir_mtimes'], $apcuData['timestamp'])
+            ) {
+                $mtimesMatch = ($apcuData['dir_mtimes'] === $currentMtimes);
+                $isFresh = ((time() - (int) $apcuData['timestamp']) < self::CACHE_TTL);
+                if ($mtimesMatch && $isFresh) {
+                    self::$sourceMaxMTime = (int) $apcuData['max_mtime'];
+                    return self::$sourceMaxMTime;
+                }
+            }
+        }
+
+        // 2. Check persistent metadata file cache
+        $cacheFile = self::getCacheDir() . '/source_max_mtime.json';
+        if (file_exists($cacheFile)) {
+            $cacheAge = time() - (int) filemtime($cacheFile);
+            if ($cacheAge < self::CACHE_TTL) {
+                $cachedJson = file_get_contents($cacheFile);
+                if ($cachedJson !== false) {
+                    $cachedData = json_decode($cachedJson, true);
+                    if (is_array($cachedData) && isset($cachedData['max_mtime'], $cachedData['dir_mtimes'])) {
+                        if ($cachedData['dir_mtimes'] === $currentMtimes) {
+                            self::$sourceMaxMTime = (int) $cachedData['max_mtime'];
+                            return self::$sourceMaxMTime;
+                        }
+                    }
+                }
+            }
         }
 
         $maxMTime = 0;
-        $rootDir = dirname(__DIR__);
 
         // Scan contents directory
-        $contentsDir = $rootDir . '/contents';
         $contentsMeta = self::getDirMetadata($contentsDir);
         foreach ($contentsMeta as $meta) {
             if ($meta['is_file']) {
@@ -139,7 +189,6 @@ final class PerformanceUtils
         }
 
         // Scan theme directory
-        $themeDir = $rootDir . '/themes/CmsForNerd';
         $themeMeta = self::getDirMetadata($themeDir);
         foreach ($themeMeta as $meta) {
             if ($meta['is_file']) {
@@ -147,12 +196,24 @@ final class PerformanceUtils
             }
         }
 
-        // Include SecurityUtils and bootstrap changes
-        $bootstrapFile = $rootDir . '/includes/bootstrap.php';
-        if (file_exists($bootstrapFile)) {
-            $maxMTime = max($maxMTime, (int) filemtime($bootstrapFile));
+        // Include bootstrap changes
+        if ($currentMtimes['bootstrap'] > 0) {
+            $maxMTime = max($maxMTime, $currentMtimes['bootstrap']);
         }
 
+        $cacheData = [
+            'max_mtime'  => $maxMTime,
+            'dir_mtimes' => $currentMtimes,
+            'timestamp'  => time(),
+        ];
+
+        file_put_contents($cacheFile, json_encode($cacheData), LOCK_EX);
+
+        if (function_exists('apcu_store')) {
+            apcu_store($apcuKey, $cacheData, self::CACHE_TTL);
+        }
+
+        self::$sourceMaxMTime = $maxMTime;
         return $maxMTime;
     }
 
@@ -270,6 +331,10 @@ final class PerformanceUtils
     public static function clearCache(): void
     {
         self::$dirCache = [];
+        self::$sourceMaxMTime = null;
+        if (function_exists('apcu_delete')) {
+            apcu_delete('cmsfornerd:source_max_mtime');
+        }
         $dir = self::getCacheDir();
         $files = glob($dir . '/*');
         if (is_array($files)) {
