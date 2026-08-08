@@ -10,6 +10,7 @@ import sys
 import json
 import os
 import shutil
+import subprocess
 
 required = {
     "podman_cms_user": "dsom-admin",
@@ -80,7 +81,6 @@ def main(args):
 
     # 1. Start by running ansible-inventory
     try:
-        import subprocess
         ansible_bin = shutil.which("ansible-inventory")
         if ansible_bin:
             cmd = [ansible_bin, "-i", "inventory/hosts.prod.yml", "--list"]

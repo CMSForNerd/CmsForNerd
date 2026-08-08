@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Deep State of Mind (DSOM) Sovereign Architecture - Legacy Global Audit Script
  *
  * Checks target directories for legacy global keyword or $GLOBALS array access.
  */
+
+declare(strict_types=1);
 
 echo '--- Checking for Legacy Global Keyword (includes & src) ---' . PHP_EOL;
 

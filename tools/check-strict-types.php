@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Deep State of Mind (DSOM) Sovereign Architecture - Strict Types Audit Script
  *
  * Checks target directories for mandatory declare(strict_types=1) header declaration.
  */
+
+declare(strict_types=1);
 
 echo '--- Checking for strict_types=1 (includes & src) ---' . PHP_EOL;
 
