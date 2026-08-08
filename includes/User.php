@@ -21,11 +21,6 @@ class User
         $this->role = $role;
     }
 
-    public function getViewCount(): int
-    {
-        return $this->viewCount;
-    }
-
     public function incrementViews(): void
     {
         $this->viewCount++;
