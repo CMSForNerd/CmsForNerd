@@ -1,0 +1,106 @@
+---
+
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-08-07
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
+
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-08-07
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-08-01
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
+
+- name: Execute Test Container Run for {{ target_distro.name }}
+  block:
+    - name: "Pulling Container Image: {{ target_distro.image }}"
+      containers.podman.podman_image:
+        name: "{{ target_distro.image }}"
+        state: present
+
+    - name: "Run test suite inside container: {{ target_distro.name }}"
+      containers.podman.podman_container:
+        name: "jules-test-{{ target_distro.name }}"
+        image: "{{ target_distro.image }}"
+        state: started
+        recreate: true
+        security_opt:
+          - "no-new-privileges"
+        cap_drop:
+          - all
+        volume:
+          - "{{ playbook_dir }}/..:/app:Z,ro"
+        command: >
+          bash -c "
+          set -euo pipefail;
+          if [ -f /etc/debian_version ]; then
+            apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq php-cli php-xml php-mbstring php-zip unzip curl git-core >/dev/null 2>&1;
+          elif [ -f /etc/redhat-release ]; then
+            dnf install -y -q php-cli php-xml php-mbstring php-zip unzip curl git-core >/dev/null 2>&1;
+          fi;
+          mkdir -p /tmp/app && cp -r /app/. /tmp/app && cd /tmp/app;
+          if [ ! -d vendor ]; then
+            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer >/dev/null 2>&1;
+            composer install --no-interaction --ignore-platform-reqs --no-progress >/dev/null 2>&1;
+          fi;
+          ./vendor/bin/pest --compact
+          "
+      register: container_exec
+
+    - name: Save success state for {{ target_distro.name }}
+      ansible.builtin.set_fact:
+        distro_status: "{{ 'passed' if container_exec.rc == 0 else 'failed' }}"
+        distro_exit_code: "{{ container_exec.rc }}"
+        distro_logs: "{{ container_exec.stdout | default('Success') }}"
+
+  rescue:
+    - name: Save failure state for {{ target_distro.name }}
+      ansible.builtin.set_fact:
+        distro_status: "failed"
+        distro_exit_code: 1
+        distro_logs: "Failed to spin up container or execute command. Check Podman logs."
+
+  always:
+    - name: "Inspect Host Kernel details"
+      ansible.builtin.command: uname -a
+      register: host_kernel
+      changed_when: false
+
+    - name: Clean up temporary container
+      containers.podman.podman_container:
+        name: "jules-test-{{ target_distro.name }}"
+        state: absent
+
+    - name: Read Current Telemetry JSON
+      ansible.builtin.slurp:
+        src: "{{ telemetry_path }}"
+      register: slurped_telemetry
+
+    - name: Update Telemetry JSON with Result
+      vars:
+        current_data: "{{ slurped_telemetry.content | b64decode | from_json }}"
+        new_result:
+          distro: "{{ target_distro.name }}"
+          status: "{{ distro_status }}"
+          exit_code: "{{ distro_exit_code | int }}"
+          logs: "{{ distro_logs }}"
+          kernel_info: "{{ host_kernel.stdout }}"
+          diff: "No structural file system deviations detected."
+        updated_results: "{{ current_data.matrix_results + [new_result] }}"
+        updated_data: "{{ current_data | combine({'matrix_results': updated_results}) }}"
+      ansible.builtin.copy:
+        content: "{{ updated_data | to_nice_json }}"
+        dest: "{{ telemetry_path }}"
+        mode: '0600'

@@ -1,0 +1,96 @@
+---
+
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-08-07
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
+
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) For My AI
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Timestamp   : 2026-08-07
+# License     : GNU General Public License v3.0
+# Standard    : UK English | DBP-standard Bahasa Melayu Malaysia (Piawai)
+# ==============================================================================
+- name: Podman 5+ Multi-OS Matrix Orchestration Playbook
+  hosts: localhost
+  gather_facts: true
+  vars:
+    test_distributions:
+      - name: ubuntu-24.04
+        image: docker.io/library/ubuntu:24.04
+      - name: ubuntu-26.04
+        image: docker.io/library/ubuntu:26.04
+      - name: almalinux-9
+        image: docker.io/library/almalinux:9
+      - name: debian-12
+        image: docker.io/library/debian:12-slim
+
+  tasks:
+    - name: Resolve execution_mode and pr_id with precedence
+      ansible.builtin.set_fact:
+        resolved_execution_mode: "{{ execution_mode | default(lookup('ansible.builtin.env', 'EXECUTION_MODE')) | default('user') }}"
+        resolved_pr_id: "{{ pr_id | default(lookup('ansible.builtin.env', 'PR_ID')) | default('0') }}"
+
+    - name: Validate resolved_execution_mode value
+      ansible.builtin.fail:
+        msg: "Invalid execution_mode specified: {{ resolved_execution_mode }}"
+      when: resolved_execution_mode not in ["dev", "user"]
+
+    - name: Validate resolved_pr_id as numeric
+      ansible.builtin.fail:
+        msg: "resolved_pr_id must be a numeric pull-request identifier: {{ resolved_pr_id }}"
+      when:
+        - resolved_execution_mode == "dev"
+        - resolved_pr_id is not regex('^[0-9]+$')
+
+    - name: Define unique local telemetry file path
+      ansible.builtin.set_fact:
+        telemetry_path: "{{ playbook_dir }}/../data/jules_telemetry_{{ resolved_pr_id }}.json"
+
+    - name: Initialize Telemetry Report File
+      ansible.builtin.copy:
+        content: |
+          {
+            "timestamp": "{{ ansible_date_time.iso8601_micro }}",
+            "execution_mode": "{{ resolved_execution_mode }}",
+            "pr_id": "{{ resolved_pr_id }}",
+            "matrix_results": []
+          }
+        dest: "{{ telemetry_path }}"
+        mode: '0600'
+      when: resolved_execution_mode == "dev"
+
+    - name: Run Multi-OS Testing Matrix
+      block:
+        - name: Run Sequential Matrix Tests across Targets
+          ansible.builtin.include_tasks: roles/feedback_collector/tasks/main.yml
+          loop: "{{ test_distributions }}"
+          loop_control:
+            loop_var: target_distro
+          vars:
+            execution_mode: "{{ resolved_execution_mode }}"
+            pr_id: "{{ resolved_pr_id }}"
+          when: resolved_execution_mode == "dev"
+
+      rescue:
+        - name: Handle Playbook Execution Failures
+          ansible.builtin.debug:
+            msg: "Matrix run encountered an operational error, processing partial telemetry..."
+
+      always:
+        - name: Run Telemetry Dispatch Script
+          ansible.builtin.command:
+            cmd: "bash {{ playbook_dir }}/../scripts/jules_gh_feedback.sh {{ telemetry_path }}"
+          register: dispatch_result
+          changed_when: false
+          failed_when: false
+          when: resolved_execution_mode == "dev"
+
+        - name: Display Telemetry Dispatch Summary
+          ansible.builtin.debug:
+            var: dispatch_result.stdout_lines
+          when: resolved_execution_mode == "dev"

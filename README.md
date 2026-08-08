@@ -5,13 +5,13 @@ title: "CMSForNerd Readme"
 timestamp: "2026-08-01T15:00:00Z"
 topics: [cmsfornerd, deep, state, mind, edition]
 ---
-# 🚀 CmsForNerd v4.3.0 (2026 Deep State of Mind Edition)
+# 🚀 CmsForNerd v4.3.1 (2026 Deep State of Mind Edition)
 
 **CmsForNerd** is a Lightweight, Radically Simple, Database-Free PHP Laboratory CMS designed as a live learning
 environment for modern developers. Version 4.3 features the **Deep State of Mind (DSOM) Cognitive Architecture**,
 **Zero-Global** architecture, **Automated Compliance Validation**, and professional **Rootless Container Orchestration**.
 
-**Current Version:** 4.3.0 (Production Stable)
+**Current Version:** 4.3.1 (Production Stable)
 
 **Live Demo:** [CmsForNerd Live Demo](https://cmsfornerd.onrender.com/index.php)
 
@@ -126,6 +126,13 @@ handshake is **REQUIRED** for all laboratory sessions.
 2. The compilation pipeline is fully orchestrated and automated on every push to `master` via GitHub Actions (`static-build.yml`).
 3. Automatically generates a `.nojekyll` file within the distribution folder to completely bypass Jekyll rendering, preventing Liquid conflicts and allowing uninhibited progressive web app and web worker support.
 4. Read the complete setup steps in our [GitHub Pages Deployment Guide](docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md).
+
+### 📊 Option 6: WSL2 Podman Telemetry & Feedback Pipeline (v4.3.1)
+
+1. Implements a secure, bidirectional telemetry and feedback loop linking your local WSL2 Ubuntu 26.04 LTS host (running Podman 5+) with Google Jules session and active GitHub Pull Requests.
+2. The `playbooks/matrix_test.yml` playbook orchestrates sequential test container runs across Ubuntu 24.04/26.04, AlmaLinux 9, and Debian 12 images.
+3. Automatically aggregates logs and diagnostic metrics into unique local telemetry JSON reports, then triggers `scripts/jules_gh_feedback.sh` to feed errors directly to Jules (`jules remote new`) and post PR comments (`gh pr comment`).
+4. Read the complete technical specification in the [SOP: Telemetry & Bidirectional Feedback Pipeline Guide](docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md).
 
 ---
 
