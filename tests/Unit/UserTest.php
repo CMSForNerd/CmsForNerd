@@ -21,13 +21,15 @@ test('user class defaults role to student', function () {
 test('user incrementViews executes without errors and actually increases view count', function () {
     $user = new User('bob');
 
-    $reflection = new ReflectionClass($user);
-    $property = $reflection->getProperty('viewCount');
-    $property->setAccessible(true);
+    $getViewCount = function () {
+        /** @var User $this */
+        // @phpstan-ignore-next-line
+        return $this->viewCount;
+    };
 
-    expect($property->getValue($user))->toBe(0);
+    expect($getViewCount->call($user))->toBe(0);
 
     $user->incrementViews();
 
-    expect($property->getValue($user))->toBe(1);
+    expect($getViewCount->call($user))->toBe(1);
 });
