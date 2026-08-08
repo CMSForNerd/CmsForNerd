@@ -76,6 +76,17 @@ def parse_key_value_string(s):
     return parsed
 
 def main(args):
+    """
+    Validate inventory identity variables against the required Podman CMS values.
+    
+    Parameters:
+    	args (list): Command-line arguments containing optional extra-variable overrides.
+    
+    The inventory is loaded from Ansible when available, with fallback parsing of the
+    inventory file. Extra variables may be supplied as files, JSON objects, or
+    key-value strings. Exits with status 1 when variables cannot be loaded or
+    required identities conflict; otherwise exits with status 0.
+    """
     effective_vars = {}
     ansible_success = False
 
