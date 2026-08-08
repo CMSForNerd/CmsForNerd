@@ -17,7 +17,7 @@ Entries are grouped by date (most recent first).
 ## [4.3.1] - 2026-08-05 (WSL2 Podman Telemetry & Feedback Pipeline)
 
 ### 📊 Telemetry & Bidirectional Feedback Pipeline
-- **WSL2 Multi-OS Matrix Orchestration**: Deployed an Ansible-based automated test matrix (`playbooks/matrix_test.yml`) running tests in parallel across Ubuntu 24.04/26.04, AlmaLinux 9, and Debian 12 containers.
+- **WSL2 Multi-OS Matrix Orchestration**: Deployed an Ansible-based automated test matrix (`playbooks/matrix_test.yml`) running tests sequentially across Ubuntu 24.04/26.04, AlmaLinux 9, and Debian 12 containers.
 - **Bi-directional Google Jules & GitHub Bridge**: Programmed `scripts/jules_gh_feedback.sh` providing direct feedback loops back into the active Google Jules CLI session (`jules feed`) and GitHub Pull Request context (`gh pr comment`).
 - **Telemetry Aggregator Role**: Created `feedback_collector` Ansible role gathering container logs, host kernels, and exit status into `/tmp/jules_telemetry.json` on WSL2.
 - **Unified Technical Specification**: Created `docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md` mapping out the complete telemetry architecture, mode separation protocols, human-in-the-loop sequences, and configuration blueprints.

@@ -130,8 +130,8 @@ handshake is **REQUIRED** for all laboratory sessions.
 ### 📊 Option 6: WSL2 Podman Telemetry & Feedback Pipeline (v4.3.1)
 
 1. Implements a secure, bidirectional telemetry and feedback loop linking your local WSL2 Ubuntu 26.04 LTS host (running Podman 5+) with Google Jules session and active GitHub Pull Requests.
-2. The `playbooks/matrix_test.yml` playbook orchestrates parallel test container runs across Ubuntu 24.04/26.04, AlmaLinux 9, and Debian 12 images.
-3. Automatically aggregates logs and diagnostic metrics into `/tmp/jules_telemetry.json`, then triggers `scripts/jules_gh_feedback.sh` to feed errors directly to Jules (`jules feed`) and post PR comments (`gh pr comment`).
+2. The `playbooks/matrix_test.yml` playbook orchestrates sequential test container runs across Ubuntu 24.04/26.04, AlmaLinux 9, and Debian 12 images.
+3. Automatically aggregates logs and diagnostic metrics into unique local telemetry JSON reports, then triggers `scripts/jules_gh_feedback.sh` to feed errors directly to Jules (`jules remote new`) and post PR comments (`gh pr comment`).
 4. Read the complete technical specification in the [SOP: Telemetry & Bidirectional Feedback Pipeline Guide](docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md).
 
 ---

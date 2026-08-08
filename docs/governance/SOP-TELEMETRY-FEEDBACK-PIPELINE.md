@@ -26,7 +26,7 @@ To safeguard production systems and keep the execution environment clean, we enf
 | - Full Telemetry enabled                           | - Zero Telemetry             |
 | - Debug/Audit Hooks loaded                         | - Production optimization   |
 | - Active Google Jules/GitHub dispatch             | - Absolute isolation        |
-| - Compiles reports to /tmp/jules_telemetry.json  | - No external APIs called   |
+| - Compiles reports to unique local telemetry JSON | - No external APIs called   |
 +---------------------------------------------------+-----------------------------+
 ```
 
@@ -42,7 +42,7 @@ When `execution_mode` is set to `user`, telemetry task execution blocks in the A
 
 ## 2. Podman 5+ Multi-OS Matrix Orchestration
 
-To run local testing in parallel across several Linux distributions on WSL2 without polluting the host OS, we orchestrate a multi-OS matrix container run via Ansible.
+To run local testing sequentially across several Linux distributions on WSL2 without polluting the host OS, we orchestrate a multi-OS matrix container run via Ansible.
 
 ### 2.1 Multi-Distro Targeting Matrix
 
@@ -52,14 +52,14 @@ The testing matrix covers the following target container distributions:
 * **AlmaLinux 9** (`docker.io/library/almalinux:9`)
 * **Debian 12** (`docker.io/library/debian:12-slim`)
 
-### 2.2 Parallel Execution and Resiliency
+### 2.2 Sequential Execution and Resiliency
 
-The playbook utilizes FQCN `containers.podman.podman_container` and handles parallel test container instantiation. Task-level error handling is achieved using structured `block/rescue/always` blocks.
+The playbook utilizes FQCN `containers.podman.podman_container` and handles sequential test container instantiation. Task-level error handling is achieved using structured `block/rescue/always` blocks.
 
 If a test suite run fails inside any distro container:
 1. The `rescue` block is triggered immediately.
 2. The exact exit code, stdout/stderr fail-logs, kernel info (`uname -a`), and git diff metrics are intercepted.
-3. The collected telemetry payload is compiled and written into `/tmp/jules_telemetry.json` on the control node.
+3. The collected telemetry payload is compiled and written into a unique repository-local JSON file (`data/jules_telemetry_{PR_ID}.json`) on the control node.
 4. The `always` block ensures container cleanup is performed, preventing container leakage.
 
 ---
@@ -70,10 +70,34 @@ The bridge between the WSL2 execution environment and Google Jules/GitHub is pow
 
 ### 3.1 Structured Data Aggregation & Telemetry Layout
 
-The script parses `/tmp/jules_telemetry.json` and builds a highly detailed, human-readable Markdown report containing:
+The script parses the unique telemetry JSON file and builds a highly detailed, human-readable Markdown report containing:
 * Execution timestamp and overall build status.
 * Distinct diagnostic sub-sections for each distribution in the matrix.
 * Embedded kernel metrics, command exit codes, and diff highlights.
+
+#### 3.1.1 Shared Feedback Telemetry Schema
+
+The JSON payload structure defined and validated across the playbook and scripts conforms to the following schema:
+
+```json
+{
+  "timestamp": "string (ISO 8601 UTC timestamp format)",
+  "execution_mode": "string (restricted to 'dev' or 'user')",
+  "pr_id": "string (numeric string validation format, e.g., '123')",
+  "matrix_results": [
+    {
+      "distro": "string (name of the distribution, e.g., 'ubuntu-24.04')",
+      "status": "string (overall test result, either 'passed' or 'failed')",
+      "exit_code": "integer (numeric process exit code, e.g., 0 or 1)",
+      "logs": "string (command execution output logs from Pest PHP)",
+      "kernel_info": "string (system architecture and kernel details from uname -a)",
+      "diff": "string (file system deviations or git status details)"
+    }
+  ]
+}
+```
+
+This schema is strictly maintained by both the Ansible telemetry aggregation tasks (producing numeric `exit_code` values) and the bash script parser.
 
 ### 3.2 Feedback Dispatch
 
@@ -104,8 +128,8 @@ sequenceDiagram
     Human->>Jules: Ask Jules to fix or implement a feature
     Jules->>GH: Push feature branch and open Pull Request
     Human->>WSL: Execute matrix test suite (execution_mode=dev)
-    Note over WSL: Podman parallel containers run tests<br/>Aggregate logs into /tmp/jules_telemetry.json
-    WSL->>Jules: Dispatch structured telemetry (jules feed)
+    Note over WSL: Podman sequentially runs distro tests<br/>Aggregate logs into unique telemetry json
+    WSL->>Jules: Dispatch structured telemetry (jules remote new)
     WSL->>GH: Post telemetry summary (gh pr comment)
     Note over Jules: Jules ingests real WSL runtime errors<br/>Refines resolution path
     Human->>Jules: Instruct Jules to apply next refactoring iteration
@@ -222,18 +246,21 @@ all:
             "pr_id": "{{ pr_id }}",
             "matrix_results": []
           }
-        dest: /tmp/jules_telemetry.json
+        dest: "{{ telemetry_path }}"
         mode: '0600'
-      when: execution_mode == "dev"
+      when: resolved_execution_mode == "dev"
 
     - name: Run Multi-OS Testing Matrix
       block:
-        - name: Run Parallel Matrix Tests across Targets
-          include_tasks: roles/feedback_collector/tasks/main.yml
+        - name: Run Sequential Matrix Tests across Targets
+          ansible.builtin.include_tasks: roles/feedback_collector/tasks/main.yml
           loop: "{{ test_distributions }}"
           loop_control:
             loop_var: target_distro
-          when: execution_mode == "dev"
+          vars:
+            execution_mode: "{{ resolved_execution_mode }}"
+            pr_id: "{{ resolved_pr_id }}"
+          when: resolved_execution_mode == "dev"
 
       rescue:
         - name: Handle Playbook Execution Failures
@@ -315,7 +342,7 @@ all:
 
     - name: Read Current Telemetry JSON
       ansible.builtin.slurp:
-        src: /tmp/jules_telemetry.json
+        src: "{{ telemetry_path }}"
       register: slurped_telemetry
 
     - name: Update Telemetry JSON with Result
@@ -324,7 +351,7 @@ all:
         new_result:
           distro: "{{ target_distro.name }}"
           status: "{{ distro_status }}"
-          exit_code: "{{ distro_exit_code }}"
+          exit_code: "{{ distro_exit_code | int }}"
           logs: "{{ distro_logs }}"
           kernel_info: "{{ host_kernel.stdout }}"
           diff: "No structural file system deviations detected."
@@ -332,7 +359,7 @@ all:
         updated_data: "{{ current_data | combine({'matrix_results': updated_results}) }}"
       ansible.builtin.copy:
         content: "{{ updated_data | to_nice_json }}"
-        dest: /tmp/jules_telemetry.json
+        dest: "{{ telemetry_path }}"
         mode: '0600'
 ```
 
