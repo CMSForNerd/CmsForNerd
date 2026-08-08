@@ -1,12 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Deep State of Mind (DSOM) Sovereign Architecture - Strict Types Audit Script
  *
  * Checks target directories for mandatory declare(strict_types=1) header declaration.
  */
+
+declare(strict_types=1);
+
+namespace CmsForNerd;
 
 echo '--- Checking for strict_types=1 (includes & src) ---' . PHP_EOL;
 
@@ -17,7 +19,7 @@ foreach ($dirs as $dir) {
         continue;
     }
 
-    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+    $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir));
     foreach ($files as $file) {
         if ($file->isDir() || $file->getExtension() !== 'php') {
             continue;

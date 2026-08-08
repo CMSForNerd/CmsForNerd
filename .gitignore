@@ -25,6 +25,10 @@ Thumbs.db
 *.tmp
 *.bak
 *.old
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # --- AI & Agent Specific ---
 # Kita simpan .agents/brain/ tetapi abaikan fail sesi sementara jika ada

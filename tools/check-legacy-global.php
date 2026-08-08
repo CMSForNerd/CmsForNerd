@@ -1,12 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Deep State of Mind (DSOM) Sovereign Architecture - Legacy Global Audit Script
  *
  * Checks target directories for legacy global keyword or $GLOBALS array access.
  */
+
+declare(strict_types=1);
+
+namespace CmsForNerd;
 
 echo '--- Checking for Legacy Global Keyword (includes & src) ---' . PHP_EOL;
 
@@ -18,7 +20,7 @@ foreach ($dirs as $dir) {
         continue;
     }
 
-    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+    $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir));
     foreach ($files as $file) {
         if ($file->isDir() || $file->getExtension() !== 'php') {
             continue;
