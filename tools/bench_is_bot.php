@@ -35,42 +35,15 @@ $sources = [
 
 echo "=== BOT INTELLIGENCE BENCHMARK SUITE ===\n\n";
 
-// --- 1. Synchronous Baseline ---
-echo "1. Running Synchronous Baseline (Serial cURL)...\n";
+// --- 1. Running Synchronous Baseline (file_get_contents) ---
+echo "1. Running Synchronous Baseline (file_get_contents)...\n";
 $syncStart = microtime(true);
 $syncResults = [];
 foreach ($sources as $name => $url) {
     echo "   [+] Fetching $name synchronously...\n";
-    $ch = curl_init();
-    if ($ch === false) {
-        $syncResults[$name] = 0;
-        continue;
-    }
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    if (defined('CURLOPT_PROTOCOLS_STR')) {
-        curl_setopt($ch, CURLOPT_PROTOCOLS_STR, 'https');
-        curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS_STR, 'https');
-    } else {
-        curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS);
-        curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS, CURLPROTO_HTTPS);
-    }
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'CMSForNerd-Bot-Intelligence/4.0');
-
-    $response = curl_exec($ch);
-    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    if ($response !== false && $code === 200) {
-        json_decode((string)$response, true);
-        if (json_last_error() === JSON_ERROR_NONE) {
-            $syncResults[$name] = strlen((string)$response);
-        } else {
-            $syncResults[$name] = 0;
-        }
+    $json = @file_get_contents($url);
+    if ($json) {
+        $syncResults[$name] = strlen($json);
     } else {
         $syncResults[$name] = 0;
     }
