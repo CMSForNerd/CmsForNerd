@@ -21,6 +21,8 @@
 
 declare(strict_types=1);
 
+namespace CmsForNerd;
+
 // We need to fetch from the actual endpoints defined in includes/is_bot.php
 $sources = [
     'Google'       => 'https://developers.google.com/search/apis/ipranges/googlebot.json',
@@ -34,14 +36,41 @@ $sources = [
 echo "=== BOT INTELLIGENCE BENCHMARK SUITE ===\n\n";
 
 // --- 1. Synchronous Baseline ---
-echo "1. Running Synchronous Baseline (file_get_contents)...\n";
+echo "1. Running Synchronous Baseline (Serial cURL)...\n";
 $syncStart = microtime(true);
 $syncResults = [];
 foreach ($sources as $name => $url) {
     echo "   [+] Fetching $name synchronously...\n";
-    $json = @file_get_contents($url);
-    if ($json) {
-        $syncResults[$name] = strlen($json);
+    $ch = curl_init();
+    if ($ch === false) {
+        $syncResults[$name] = 0;
+        continue;
+    }
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    if (defined('CURLOPT_PROTOCOLS_STR')) {
+        curl_setopt($ch, CURLOPT_PROTOCOLS_STR, 'https');
+        curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS_STR, 'https');
+    } else {
+        curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS);
+        curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS, CURLPROTO_HTTPS);
+    }
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'CMSForNerd-Bot-Intelligence/4.0');
+
+    $response = curl_exec($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($response !== false && $code === 200) {
+        json_decode((string)$response, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $syncResults[$name] = strlen((string)$response);
+        } else {
+            $syncResults[$name] = 0;
+        }
     } else {
         $syncResults[$name] = 0;
     }
@@ -70,8 +99,10 @@ foreach ($sources as $name => $url) {
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     if (defined('CURLOPT_PROTOCOLS_STR')) {
         curl_setopt($ch, CURLOPT_PROTOCOLS_STR, 'https');
+        curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS_STR, 'https');
     } else {
         curl_setopt($ch, CURLOPT_PROTOCOLS, CURLPROTO_HTTPS);
+        curl_setopt($ch, CURLOPT_REDIR_PROTOCOLS, CURLPROTO_HTTPS);
     }
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
@@ -92,11 +123,19 @@ do {
 $asyncResults = [];
 foreach ($handles as $name => $ch) {
     $response = curl_multi_getcontent($ch);
-    if ($response) {
-        $asyncResults[$name] = strlen($response);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if ($response !== false && $code === 200) {
+        json_decode((string)$response, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $asyncResults[$name] = strlen((string)$response);
+        } else {
+            $asyncResults[$name] = 0;
+        }
     } else {
         $asyncResults[$name] = 0;
     }
+
     curl_multi_remove_handle($mh, $ch);
     curl_close($ch);
 }
