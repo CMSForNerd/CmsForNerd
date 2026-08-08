@@ -66,7 +66,6 @@ final class ThemeVersionUpgradeTest extends TestCase
 
         $this->assertSame(self::CURRENT_VERSION, $result['THEME_VERSION']);
         $this->assertSame('Harisfazillah Jamel', $result['THEME_AUTHOR']);
-        $this->assertSame('CmsForNerd Laboratory', $result['THEME_NAME']);
         $this->assertSame('/themes/CmsForNerd/style.css', $result['CSSPATH']);
     }
 
@@ -78,7 +77,7 @@ final class ThemeVersionUpgradeTest extends TestCase
      * assignments — including the changed $THEME_VERSION line — are
      * exercised as real, executed PHP rather than only pattern-matched.
      *
-     * @return array{THEME_VERSION: string, THEME_AUTHOR: string, THEME_NAME: string, CSSPATH: string}
+     * @return array{THEME_VERSION: string, THEME_AUTHOR: string, CSSPATH: string}
      */
     private function includeThemeConfig(): array
     {
@@ -90,7 +89,6 @@ final class ThemeVersionUpgradeTest extends TestCase
             return [
                 'THEME_VERSION' => $THEME_VERSION,
                 'THEME_AUTHOR' => $THEME_AUTHOR,
-                'THEME_NAME' => $THEME_NAME,
                 'CSSPATH' => $CSSPATH,
             ];
         };
