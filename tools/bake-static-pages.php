@@ -164,6 +164,10 @@ $filesToCopy = [
     'robots.txt',
     'favicon.ico',
     'sitemap.xml',
+    'sitemap.txt',
+    'rss.xml',
+    'ror.xml',
+    'schema-org.json',
 ];
 
 foreach ($filesToCopy as $fileName) {
