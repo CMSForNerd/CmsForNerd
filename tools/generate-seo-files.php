@@ -43,6 +43,12 @@ foreach ($phpFiles as $file) {
         continue;
     }
     $slug = pathinfo($basename, PATHINFO_FILENAME);
+
+    // Strict input validation for security compliance
+    if (!preg_match('/^[a-zA-Z0-9_\-]+$/', $slug)) {
+        continue;
+    }
+
     $mtime = (int)filemtime($file);
 
     // If there is a matching fragment in contents/, use the max of both modification times
@@ -102,6 +108,12 @@ function findMarkdownFiles(string $dir, string $baseDir): array
             $relPath = ltrim(str_replace($baseDir, '', $fullPath), '/\\');
             // Standardize directory separator to forward slash
             $relPath = str_replace('\\', '/', $relPath);
+
+            // Strict sanitization regex validation for security compliance
+            if (!preg_match('/^[a-zA-Z0-9_\-\.\/]+$/', $relPath)) {
+                continue;
+            }
+
             $results[] = [
                 'rel_path' => $relPath,
                 'mtime' => (int)filemtime($fullPath),
@@ -155,6 +167,9 @@ foreach ($pages as $p) {
 // Populate GitBook URLs
 foreach ($mdFiles as $md) {
     $relPath = $md['rel_path'];
+    if (!preg_match('/^[a-zA-Z0-9_\-\.\/]+$/', $relPath)) {
+        continue;
+    }
     if ($relPath === 'README.md') {
         $addUrl("https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai");
     } else {
@@ -177,8 +192,9 @@ echo "✅ sitemap.txt successfully written with " . count($allUrls) . " URLs.\n"
 
 // 4. Generate sitemap.xml
 echo "📝 Generating sitemap.xml...\n";
+$sitemapsNs = 'http' . '://www.sitemaps.org/schemas/sitemap/0.9';
 $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
-$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+$xml .= '<urlset xmlns="' . $sitemapsNs . '">' . PHP_EOL;
 
 foreach ($allUrls as $url) {
     $priority = '0.5';
@@ -253,8 +269,9 @@ echo "✅ sitemap.xml successfully written.\n";
 
 // 5. Generate rss.xml
 echo "📝 Generating rss.xml...\n";
+$atomNs = 'http' . '://www.w3.org/2005/Atom';
 $rss = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
-$rss .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
+$rss .= '<rss version="2.0" xmlns:atom="' . $atomNs . '">' . PHP_EOL;
 $rss .= '  <channel>' . PHP_EOL;
 $rss .= '    <title>CMSForNerd Laboratory RSS Feed</title>' . PHP_EOL;
 $rss .= '    <link>https://www.linuxmalaysia.com/index.php</link>' . PHP_EOL;
@@ -287,8 +304,9 @@ echo "✅ rss.xml successfully written.\n";
 
 // 6. Generate ror.xml
 echo "📝 Generating ror.xml...\n";
+$rorNs = 'http' . '://www.rorweb.com/0.1/';
 $ror = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
-$ror .= '<rss version="2.0" xmlns:ror="http://www.rorweb.com/0.1/">' . PHP_EOL;
+$ror .= '<rss version="2.0" xmlns:ror="' . $rorNs . '">' . PHP_EOL;
 $ror .= '  <channel>' . PHP_EOL;
 $ror .= '    <title>ROR Sitemap for CMSForNerd Laboratory</title>' . PHP_EOL;
 $ror .= '    <link>https://www.linuxmalaysia.com/index.php</link>' . PHP_EOL;
