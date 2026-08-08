@@ -25,7 +25,6 @@ $CSSPATH = "/themes/$themeName/style.css";
 // Useful for future updates or identifying the environment version.
 $THEME_VERSION = "4.3.0";
 $THEME_AUTHOR  = "Harisfazillah Jamel";
-$THEME_NAME    = "CmsForNerd Laboratory";
 
 /**
  * [EXTENSIBILITY] Additional Theme Logic
