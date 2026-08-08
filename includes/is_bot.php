@@ -165,11 +165,13 @@ function ip_in_range(string $ip, string $range): bool
 
 /**
  * [AUTOMATION] Updates the trusted IP list from official sources.
+ * Optimized with high-performance concurrent cURL (curl_multi) requests.
  *
  * @return array<string, mixed>
  */
 function update_trusted_bot_ips(): array
 {
+    // [PERFORMANCE] Highly-optimized asynchronous curl_multi parallel network operations
     /** @var array<string, string> $sources */
     $sources = [
         'Google'       => 'https://developers.google.com/search/apis/ipranges/googlebot.json',
