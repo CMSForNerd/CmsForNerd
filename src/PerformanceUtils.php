@@ -131,7 +131,7 @@ final class PerformanceUtils
      */
     private static function getApcuKey(): string
     {
-        return 'cmsfornerd:source_max_mtime:' . md5(dirname(__DIR__));
+        return 'cmsfornerd:source_max_mtime:' . hash('sha256', dirname(__DIR__));
     }
 
     /**
