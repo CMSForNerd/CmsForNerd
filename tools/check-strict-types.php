@@ -8,6 +8,8 @@
 
 declare(strict_types=1);
 
+namespace CmsForNerd;
+
 echo '--- Checking for strict_types=1 (includes & src) ---' . PHP_EOL;
 
 $dirs = ['includes', 'src'];
@@ -17,7 +19,7 @@ foreach ($dirs as $dir) {
         continue;
     }
 
-    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+    $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir));
     foreach ($files as $file) {
         if ($file->isDir() || $file->getExtension() !== 'php') {
             continue;
