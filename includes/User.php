@@ -15,12 +15,21 @@ class User
     public string $role;
     private int $viewCount = 0;
 
+    /**
+     * Creates a user with the specified username and role.
+     *
+     * @param string $username The user's username.
+     * @param string $role The user's role, defaulting to `student`.
+     */
     public function __construct(string $username, string $role = 'student')
     {
         $this->username = $username;
         $this->role = $role;
     }
 
+    /**
+     * Increments the user's view count.
+     */
     public function incrementViews(): void
     {
         $this->viewCount++;
