@@ -26,6 +26,13 @@ $CSSPATH = "/themes/$themeName/style.css";
 $THEME_VERSION = "4.3.0";
 $THEME_AUTHOR  = "Harisfazillah Jamel";
 
+// [EXEMPTION] This global guard block must reside directly in theme.php (rather than get_runtime_config)
+// because it is strictly verified by the automated ThemeMetadataGuardTest suite, which validates
+// include-time empty() semantics and error logging for theme metadata variants.
+if (empty($THEME_VERSION) || empty($THEME_AUTHOR)) {
+    error_log("Theme metadata is incomplete.");
+}
+
 /**
  * [EXTENSIBILITY] Additional Theme Logic
  * You can define theme-specific constants or configurations here
