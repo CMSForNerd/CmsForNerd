@@ -11,6 +11,8 @@
 
 declare(strict_types=1);
 
+namespace CmsForNerd;
+
 // [SECURITY] Prevent direct access if not called through the bootstrap function
 if (!isset($themeName)) {
     header('HTTP/1.1 403 Forbidden');
