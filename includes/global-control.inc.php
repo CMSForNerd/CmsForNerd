@@ -57,11 +57,20 @@ function get_runtime_config(): array
     // [LAB v3.4] Explicitly typed as string|null for PHPStan Level 8
     /** @var string|null $CSSPATH */
     $CSSPATH = null;
+    /** @var string|null $THEME_VERSION */
+    $THEME_VERSION = null;
+    /** @var string|null $THEME_AUTHOR */
+    $THEME_AUTHOR = null;
 
     // 3. Include theme-specific configuration
     $themePath = __DIR__ . "/../themes/$themeName/theme.php";
     if (file_exists($themePath)) {
         include_once $themePath;
+    }
+
+    // [LAB] Validate theme metadata in namespaced logic to prevent unused variable warnings
+    if (empty($THEME_VERSION) || empty($THEME_AUTHOR)) {
+        error_log("Theme metadata is incomplete inside get_runtime_config.");
     }
 
     // 4. Dynamic URL detection (Cross-platform/Server safe)

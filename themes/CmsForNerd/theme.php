@@ -26,11 +26,6 @@ $CSSPATH = "/themes/$themeName/style.css";
 $THEME_VERSION = "4.3.0";
 $THEME_AUTHOR  = "Harisfazillah Jamel";
 
-// [LAB] Prevent unused variable warnings in static analysis
-if (empty($THEME_VERSION) || empty($THEME_AUTHOR)) {
-    error_log("Theme metadata is incomplete.");
-}
-
 /**
  * [EXTENSIBILITY] Additional Theme Logic
  * You can define theme-specific constants or configurations here
