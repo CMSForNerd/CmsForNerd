@@ -81,11 +81,11 @@ foreach ($rootMds as $rmd) {
 
 // Docs-level md files
 /**
- * Helper to recursively retrieve markdown files by reference to avoid O(N^2) array_merge operations.
+ * Recursively collects Markdown files under a directory.
  *
- * @param string $dir
- * @param string $baseDir
- * @param array<int, array{rel_path: string, mtime: int}> $results
+ * @param string $dir Directory to scan.
+ * @param string $baseDir Base directory used to calculate relative file paths.
+ * @param array<int, array{rel_path: string, mtime: int}> &$results Accumulator for discovered files and their modification times.
  */
 function findMarkdownFilesHelper(string $dir, string $baseDir, array &$results): void
 {
