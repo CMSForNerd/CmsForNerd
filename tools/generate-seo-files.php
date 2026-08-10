@@ -81,21 +81,20 @@ foreach ($rootMds as $rmd) {
 
 // Docs-level md files
 /**
- * Recursively retrieves all markdown files.
+ * Helper to recursively retrieve markdown files by reference to avoid O(N^2) array_merge operations.
  *
- * @param string $dir The directory to scan.
- * @param string $baseDir The base directory to calculate relative paths.
- * @return array<int, array{rel_path: string, mtime: int}>
+ * @param string $dir
+ * @param string $baseDir
+ * @param array<int, array{rel_path: string, mtime: int}> $results
  */
-function findMarkdownFiles(string $dir, string $baseDir): array
+function findMarkdownFilesHelper(string $dir, string $baseDir, array &$results): void
 {
-    $results = [];
     if (!is_dir($dir)) {
-        return $results;
+        return;
     }
     $items = scandir($dir);
     if ($items === false) {
-        return $results;
+        return;
     }
     foreach ($items as $item) {
         if ($item === '.' || $item === '..') {
@@ -103,7 +102,7 @@ function findMarkdownFiles(string $dir, string $baseDir): array
         }
         $fullPath = $dir . '/' . $item;
         if (is_dir($fullPath)) {
-            $results = array_merge($results, findMarkdownFiles($fullPath, $baseDir));
+            findMarkdownFilesHelper($fullPath, $baseDir, $results);
         } elseif (pathinfo($fullPath, PATHINFO_EXTENSION) === 'md') {
             $relPath = ltrim(str_replace($baseDir, '', $fullPath), '/\\');
             // Standardize directory separator to forward slash
@@ -120,6 +119,19 @@ function findMarkdownFiles(string $dir, string $baseDir): array
             ];
         }
     }
+}
+
+/**
+ * Recursively retrieves all markdown files.
+ *
+ * @param string $dir The directory to scan.
+ * @param string $baseDir The base directory to calculate relative paths.
+ * @return array<int, array{rel_path: string, mtime: int}>
+ */
+function findMarkdownFiles(string $dir, string $baseDir): array
+{
+    $results = [];
+    findMarkdownFilesHelper($dir, $baseDir, $results);
     return $results;
 }
 
