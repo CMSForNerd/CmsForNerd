@@ -26,6 +26,17 @@ final class SecurityUtils
     }
 
     /**
+     * [SECURITY] isValidPath() validates relative file paths against directory traversal and unsafe characters.
+     *
+     * @param string $path The path to validate.
+     * @return bool Returns true if the path contains only safe characters.
+     */
+    public static function isValidPath(string $path): bool
+    {
+        return (bool) preg_match('/^[a-zA-Z0-9_\-\.\/]+$/', $path);
+    }
+
+    /**
      * [SECURITY] Sanitize the page parameter.
      * Requirement: Remove any character that is NOT alphanumeric, dash, or underscore.
      * * [LAB v3.4] Added explicit casting to resolve PHPStan 'string|null' variance.
