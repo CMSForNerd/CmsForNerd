@@ -66,7 +66,9 @@ function renderStandardLayout(CmsForNerd\CmsContext $ctx): void
 }
 
 /**
- * [LABORATORY METHOD] renderAmpLayout
+ * Renders the page using the AMP layout.
+ *
+ * @param CmsForNerd\CmsContext $ctx The page rendering context.
  */
 function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
 {
