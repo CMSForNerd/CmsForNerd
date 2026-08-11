@@ -19,6 +19,7 @@ https://cmsfornerd.onrender.com/lab-module3.php
 https://cmsfornerd.onrender.com/lab-module4.php
 https://cmsfornerd.onrender.com/lab-module5.php
 https://cmsfornerd.onrender.com/lab-module6.php
+https://cmsfornerd.onrender.com/legal-notice.php
 https://cmsfornerd.onrender.com/linux-setup.php
 https://cmsfornerd.onrender.com/offline.php
 https://cmsfornerd.onrender.com/pwa-architecture.php
@@ -50,6 +51,7 @@ https://linuxmalaysia.github.io/CmsForNerd/lab-module3.html
 https://linuxmalaysia.github.io/CmsForNerd/lab-module4.html
 https://linuxmalaysia.github.io/CmsForNerd/lab-module5.html
 https://linuxmalaysia.github.io/CmsForNerd/lab-module6.html
+https://linuxmalaysia.github.io/CmsForNerd/legal-notice.html
 https://linuxmalaysia.github.io/CmsForNerd/linux-setup.html
 https://linuxmalaysia.github.io/CmsForNerd/offline.html
 https://linuxmalaysia.github.io/CmsForNerd/pwa-architecture.html
@@ -191,6 +193,7 @@ https://www.linuxmalaysia.com/lab-module3.php
 https://www.linuxmalaysia.com/lab-module4.php
 https://www.linuxmalaysia.com/lab-module5.php
 https://www.linuxmalaysia.com/lab-module6.php
+https://www.linuxmalaysia.com/legal-notice.php
 https://www.linuxmalaysia.com/linux-setup.php
 https://www.linuxmalaysia.com/offline.php
 https://www.linuxmalaysia.com/pwa-architecture.php

@@ -12,6 +12,9 @@
 
 declare(strict_types=1);
 
+// Load the autoloader so that classes like SecurityUtils can be resolved
+require_once __DIR__ . '/../vendor/autoload.php';
+
 echo "🧪 Starting Automated SEO Suite Generator...\n";
 
 $rootDir = realpath(__DIR__ . '/../');
