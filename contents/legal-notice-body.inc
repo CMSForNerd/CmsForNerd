@@ -1,24 +1,24 @@
-<article class="legal-notice-page">
-    <header class="legal-header">
+<article class="ln-container">
+    <header class="ln-title-area">
         <h1>Legal Notice & Disclaimer</h1>
-        <p class="tagline">Privacy Policy, Critical Assumptions & Disclaimer of Liability</p>
+        <p class="ln-lead">Privacy Policy, Critical Assumptions & Disclaimer of Liability</p>
     </header>
 
-    <div class="legal-notice-intro-card">
+    <div class="ln-warning-banner">
         <p>
             <strong>IMPORTANT NOTICE:</strong> All costs, designs, unit amounts, and scenarios detailed within this document and project are based entirely on assumptions. This project and its accompanying documentation are compiled strictly for training, educational, and planning proposal purposes. Use at your own risk. The project contributors, authors, and organisations shall not be held liable or responsible for any decisions or actions taken based on these materials.
         </p>
     </div>
 
-    <section class="legal-sections">
-        <div class="legal-card" id="purpose">
+    <section class="ln-grid">
+        <div class="ln-box-item" id="purpose">
             <h2>1. Educational and Training Purpose</h2>
             <p>
                 This project, including its architectural designs, playbooks, scripts, configuration templates, and associated documentation, is created strictly for training, educational, and planning proposal purposes only. It serves as an open learning reference and laboratory simulation for modern rootless deployment patterns.
             </p>
         </div>
 
-        <div class="legal-card" id="assumptions">
+        <div class="ln-box-item" id="assumptions">
             <h2>2. Reliance on Critical Assumptions</h2>
             <p>
                 Please note that this project does not represent a live, production-grade deployment mandate for any specific enterprise environment without significant adaptation. In particular:
@@ -30,7 +30,7 @@
             </ul>
         </div>
 
-        <div class="legal-card" id="privacy">
+        <div class="ln-box-item" id="privacy">
             <h2>3. Privacy Statement & Data Protection</h2>
             <p>
                 We are deeply committed to privacy and data protection. We have done our best to protect anyone and organisation referenced, simulated, or involved in the design and execution of this baseline.
@@ -41,7 +41,7 @@
             </ul>
         </div>
 
-        <div class="legal-card" id="liability">
+        <div class="ln-box-item" id="liability">
             <h2>4. Assumption of Risk & Liability Disclaimer</h2>
             <p>
                 Use of this project, its code, and its documents is at your own risk.
@@ -54,11 +54,11 @@
         </div>
     </section>
 
-    <blockquote class="legal-quote">
+    <blockquote class="ln-quote-highlight">
         "We have done our best to protect anyone and organisation. Use by your own risks."
     </blockquote>
 
-    <div class="legal-footer">
+    <div class="ln-footer-tag">
         <p>
             [ REGULATION: DISCLAIMER ] | [ PURPOSE: TRAINING ] | [ RISK: ASSUMED ]
         </p>
@@ -66,112 +66,100 @@
 </article>
 
 <style>
-    :root {
-        --legal-primary: #2c3e50;
-        --legal-accent: #8e44ad;
-        --legal-light: #f6f8fa;
-        --legal-border-color: rgba(142, 68, 173, 0.2);
+    .ln-container {
+        max-width: 880px;
+        margin: 10px auto;
+        line-height: 1.75;
+        color: var(--lab-text, #1e293b);
+        padding: 15px;
     }
-    .legal-notice-page {
-        max-width: 900px;
-        margin: 0 auto;
-        line-height: 1.8;
-        color: var(--lab-text, #333);
-        padding: 20px;
-    }
-    .legal-header {
+    .ln-title-area {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 35px;
     }
-    .legal-header h1 {
-        font-size: 2.8rem;
-        color: var(--lab-text, var(--legal-primary));
-        margin-bottom: 10px;
+    .ln-title-area h1 {
+        font-size: 2.6rem;
+        color: var(--lab-text, #0f172a);
+        margin-bottom: 8px;
         position: relative;
         display: inline-block;
     }
-    .legal-header h1::after {
+    .ln-title-area h1::after {
         content: '';
         display: block;
-        width: 80px;
+        width: 75px;
         height: 4px;
-        background: var(--legal-accent);
-        margin: 10px auto 0;
+        background: var(--lab-purple, #8e44ad);
+        margin: 8px auto 0;
         border-radius: 2px;
     }
-    .legal-header .tagline {
-        font-size: 1.1rem;
-        color: var(--lab-muted, #7f8c8d);
+    .ln-lead {
+        font-size: 1.15rem;
+        color: var(--lab-muted, #64748b);
         font-weight: 500;
     }
 
-    .legal-notice-intro-card {
-        background: var(--lab-bg, #fff);
-        border: 1px solid var(--lab-border, #eee);
-        border-left: 6px solid #e74c3c;
-        padding: 25px 30px;
-        border-radius: 8px;
-        margin-bottom: 40px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-    .legal-notice-intro-card p {
-        margin: 0;
-        font-size: 1.05rem;
-        color: var(--lab-text, #333);
-    }
-
-    .legal-card {
-        background: var(--lab-bg, #fff);
-        border: 1px solid var(--lab-border, #eee);
-        border-top: 4px solid var(--legal-accent);
-        padding: 30px;
-        border-radius: 8px;
-        margin-bottom: 30px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .legal-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(142, 68, 173, 0.1);
-    }
-    .legal-card h2 {
-        margin-top: 0;
-        color: var(--legal-accent);
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-    }
-    .legal-card ul {
-        margin-top: 15px;
-        padding-left: 20px;
-    }
-    .legal-card li {
-        margin-bottom: 10px;
-    }
-
-    .legal-quote {
-        font-size: 1.25rem;
-        font-style: italic;
-        color: var(--lab-text, #555);
+    .ln-warning-banner {
         background: var(--lab-bg, #f8f9fa);
-        border: 1px solid var(--lab-border, #eee);
-        border-left: 5px solid var(--legal-accent);
-        border-radius: 8px;
-        padding: 30px;
-        text-align: center;
-        margin: 40px 0;
+        border: 1px solid var(--lab-border, #e2e8f0);
+        border-left: 5px solid #e74c3c;
+        padding: 20px 25px;
+        border-radius: 6px;
+        margin-bottom: 35px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+    .ln-warning-banner p {
+        margin: 0;
+        font-size: 1rem;
     }
 
-    .legal-footer {
+    .ln-box-item {
+        background: var(--lab-bg, #f8f9fa);
+        border: 1px solid var(--lab-border, #e2e8f0);
+        border-top: 4px solid var(--lab-purple, #8e44ad);
+        padding: 25px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    }
+    .ln-box-item h2 {
+        margin-top: 0;
+        color: var(--lab-purple, #8e44ad);
+        font-size: 1.45rem;
+        margin-bottom: 12px;
+    }
+    .ln-box-item ul {
+        margin-top: 10px;
+        padding-left: 18px;
+    }
+    .ln-box-item li {
+        margin-bottom: 8px;
+    }
+
+    .ln-quote-highlight {
+        font-size: 1.2rem;
+        font-style: italic;
+        color: var(--lab-text, #1e293b);
+        background: var(--lab-bg, #f8f9fa);
+        border: 1px solid var(--lab-border, #e2e8f0);
+        border-left: 5px solid var(--lab-purple, #8e44ad);
+        border-radius: 6px;
+        padding: 25px;
         text-align: center;
-        margin-top: 50px;
-        padding: 20px;
-        font-family: 'SF Mono', monospace;
-        font-size: 0.85rem;
+        margin: 35px 0;
+    }
+
+    .ln-footer-tag {
+        text-align: center;
+        margin-top: 45px;
+        padding: 15px;
+        font-family: var(--f-mono, monospace);
+        font-size: 0.8rem;
         color: var(--lab-muted, #94a3b8);
-        border-top: 1px dashed var(--lab-border, #eee);
+        border-top: 1px dashed var(--lab-border, #e2e8f0);
     }
 
     @media (max-width: 768px) {
-        .legal-header h1 { font-size: 2rem; }
+        .ln-title-area h1 { font-size: 1.95rem; }
     }
 </style>

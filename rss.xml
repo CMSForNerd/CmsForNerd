@@ -5,7 +5,7 @@
     <link>https://www.linuxmalaysia.com/index.php</link>
     <description>SEO Optimized Static Feed for the CMSForNerd Laboratory.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Aug 2026 19:45:24 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 23:28:43 +0000</lastBuildDate>
     <atom:link href="https://www.linuxmalaysia.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
@@ -152,7 +152,7 @@
       <link>https://www.linuxmalaysia.com/legal-notice.php</link>
       <description>Static details for the Legal notice module.</description>
       <guid isPermaLink="true">https://www.linuxmalaysia.com/legal-notice.php</guid>
-      <pubDate>Tue, 11 Aug 2026 19:43:17 +0000</pubDate>
+      <pubDate>Tue, 11 Aug 2026 23:28:39 +0000</pubDate>
     </item>
     <item>
       <title>Linux setup</title>
