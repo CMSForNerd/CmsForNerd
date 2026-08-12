@@ -68,6 +68,50 @@ final class AnsiblePlaybookTest extends TestCase
     }
 
     /**
+     * Parses a playbook's content and extracts plays with direct play-level keys.
+     *
+     * @param string $content
+     * @return array<int, array{keys: array<int, string>}>
+     */
+    private function parsePlaybook(string $content): array
+    {
+        $lines = explode("\n", $content);
+        $plays = [];
+        $currentPlay = null;
+
+        foreach ($lines as $line) {
+            $trimmed = trim($line);
+            if ($trimmed === '' || str_starts_with($trimmed, '#') || $trimmed === '---' || $trimmed === '...') {
+                continue;
+            }
+
+            // 1. Detect root-level play item (0 spaces of indentation before the leading dash)
+            if (preg_match('/^-\s+([a-zA-Z0-9_\-]+):/', $line, $matches)) {
+                if ($currentPlay !== null) {
+                    $plays[] = $currentPlay;
+                }
+                $currentPlay = [
+                    'keys' => [$matches[1]] // Record the initial key captured (preserving leading-dash form)
+                ];
+                continue;
+            }
+
+            // 2. Collect direct play-level fields (exactly 2 spaces of indentation, excluding nested blocks)
+            if ($currentPlay !== null) {
+                if (preg_match('/^  ([a-zA-Z0-9_\-]+):/', $line, $matches)) {
+                    $currentPlay['keys'][] = $matches[1];
+                }
+            }
+        }
+
+        if ($currentPlay !== null) {
+            $plays[] = $currentPlay;
+        }
+
+        return $plays;
+    }
+
+    /**
      * Parse each playbook to verify that every play block defined has a valid play-level 'hosts' key.
      */
     public function testPlaybooksHaveStructuredHostsKeyPerPlay(): void
@@ -76,42 +120,16 @@ final class AnsiblePlaybookTest extends TestCase
 
         foreach ($this->playbookPaths as $path) {
             $content = (string) file_get_contents($path);
-            $lines = explode("\n", $content);
-
-            $plays = [];
-            $currentPlay = null;
-
-            // Structured indentation-scanner to group list of plays
-            foreach ($lines as $line) {
-                $trimmed = trim($line);
-                if ($trimmed === '' || str_starts_with($trimmed, '#') || $trimmed === '---' || $trimmed === '...') {
-                    continue;
-                }
-
-                // A play in Ansible YAML starts with an item indicator '-' at the root level (no leading indentation)
-                if (preg_match('/^-\s+([a-zA-Z0-9_\-]+):/', $line, $matches) || preg_match('/^-\s+name:/', $line)) {
-                    if ($currentPlay !== null) {
-                        $plays[] = $currentPlay;
-                    }
-                    $currentPlay = [
-                        'keys' => []
-                    ];
-                }
-
-                if ($currentPlay !== null) {
-                    if (preg_match('/^\s*([a-zA-Z0-9_\-]+):/', $line, $matches)) {
-                        $currentPlay['keys'][] = $matches[1];
-                    }
-                }
-            }
-
-            if ($currentPlay !== null) {
-                $plays[] = $currentPlay;
-            }
+            $plays = $this->parsePlaybook($content);
 
             $this->assertNotEmpty($plays, "Playbook {$path} must define at least one structured play.");
 
             foreach ($plays as $index => $play) {
+                // Exclude top-level import_playbook entries from the hosts requirement
+                if (in_array('import_playbook', $play['keys'], true)) {
+                    continue;
+                }
+
                 $this->assertContains(
                     'hosts',
                     $play['keys'],

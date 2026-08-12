@@ -83,35 +83,52 @@ final class MarkdownOkfComplianceTest extends TestCase
                 continue;
             }
 
-            // We expect at least the start of YAML frontmatter
-            $this->assertStringStartsWith(
+            $lines = explode("\n", $content);
+            $this->assertNotEmpty($lines);
+
+            // Locate opening delimiter on the very first non-empty line
+            $openingLineIndex = null;
+            foreach ($lines as $idx => $line) {
+                if (trim($line) !== '') {
+                    $openingLineIndex = $idx;
+                    break;
+                }
+            }
+
+            $this->assertNotNull($openingLineIndex, "Markdown file {$path} is empty.");
+            $this->assertSame(
                 '---',
-                trim($content),
+                trim($lines[$openingLineIndex]),
                 "Markdown file {$path} must start with YAML frontmatter delimiters ('---')."
             );
 
-            // Extract content between the opening and closing frontmatter delimiters
-            $delimiterPos = strpos($content, '---');
-            $secondDelimiterPos = strpos($content, '---', $delimiterPos + 3);
+            // Locate closing delimiter only on lines whose trimmed content is exactly '---'
+            $closingLineIndex = null;
+            for ($i = $openingLineIndex + 1; $i < count($lines); $i++) {
+                if (trim($lines[$i]) === '---') {
+                    $closingLineIndex = $i;
+                    break;
+                }
+            }
 
-            $this->assertNotFalse(
-                $secondDelimiterPos,
+            $this->assertNotNull(
+                $closingLineIndex,
                 "Markdown file {$path} must contain a closing YAML frontmatter delimiter ('---')."
             );
 
-            $frontmatterYaml = substr($content, $delimiterPos + 3, $secondDelimiterPos - ($delimiterPos + 3));
-
-            // Parse keys into an associative mapping
-            $lines = explode("\n", $frontmatterYaml);
+            // Parse keys into an associative mapping (accepting only entries with zero indentation)
             $parsedKeys = [];
-            foreach ($lines as $line) {
+            for ($i = $openingLineIndex + 1; $i < $closingLineIndex; $i++) {
+                $line = $lines[$i];
                 $trimmed = trim($line);
+
                 if ($trimmed === '' || str_starts_with($trimmed, '#')) {
                     continue;
                 }
-                if (str_contains($trimmed, ':')) {
-                    [$key] = explode(':', $trimmed, 2);
-                    $parsedKeys[trim($key)] = true;
+
+                // Match only lines with zero indentation (must start with non-space/non-tab word characters and have a colon)
+                if (preg_match('/^([a-zA-Z0-9_\-]+)\s*:/', $line, $matches)) {
+                    $parsedKeys[$matches[1]] = true;
                 }
             }
 

@@ -81,17 +81,17 @@ final class PerformanceUtils
      * Resolves the absolute path to the directory hosting compiled caches.
      *
      * Automatically creates the cache directory with restrictive (0700) permissions
-     * if it does not exist, throwing a RuntimeException if creation fails.
+     * if it does not exist, throwing a CacheDirectoryException if creation fails.
      *
      * @return string Absolute directory path of data caches folder.
-     * @throws \RuntimeException If the directory does not exist and cannot be created.
+     * @throws CacheDirectoryException If the directory does not exist and cannot be created.
      */
     public static function getCacheDir(): string
     {
         $dir = dirname(__DIR__) . '/data/cache';
         if (!is_dir($dir)) {
             if (!@mkdir($dir, 0700, true) && !is_dir($dir)) {
-                throw new \RuntimeException("Failed to create cache directory: " . $dir);
+                throw new CacheDirectoryException("Failed to create cache directory: " . $dir);
             }
         }
         return $dir;
@@ -147,7 +147,7 @@ final class PerformanceUtils
     /**
      * Formulates the APCu namespace-isolated identification key.
      *
-     * Uses SHA-256 validation to avoid collisions and comply with Sonar requirements.
+     * SHA-256 hashing of the base namespace produces the key and reduces collision risk.
      *
      * @return string A unique APCu cache key string.
      */
