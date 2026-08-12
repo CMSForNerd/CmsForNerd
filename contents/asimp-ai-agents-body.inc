@@ -18,8 +18,8 @@
             <h2>🧠 Cognitive Governance (DSOM)</h2>
             <p class="role">Sovereign Rules & Local Memory</p>
             <ul>
-                <li><strong>Constitutional Mandates:</strong> Restricts all autonomous activities to the directives detailed in <code>AGENTS.md</code>.</li>
-                <li><strong>Spatial Memory Partitioning:</strong> Records operational walkthrough traces and anchors directly under <code>.agents/brain/</code>.</li>
+                <li><strong>Constitutional Mandates:</strong> Restricts all autonomous activities to the directives detailed in <code>.agents/AGENTS.md</code>.</li>
+                <li><strong>Spatial Memory Partitioning:</strong> Records operational walkthrough traces and anchors directly under <code>.agents/brain/task.md</code>, <code>.agents/brain/walkthrough.md</code>, and <code>.agents/brain/palace_registry.md</code>.</li>
                 <li><strong>Low-Token Overhead:</strong> Utilises compact frontmatter structures for efficient context parsing and routing.</li>
             </ul>
         </div>
@@ -50,7 +50,7 @@
             <div class="mode-card production">
                 <h3>Target VM Provisioning</h3>
                 <p class="tech-detail">Production Host VM Mode</p>
-                <code class="code-snippet">ansible-playbook -i ... --become</code>
+                <code class="code-snippet">ansible-playbook -i inventory/hosts.yml playbooks/bootstrap_node.yml --become</code>
                 <p>Directly locks down operating system options (disabling compiler access, securing SSH services, updating sysctl network values).</p>
             </div>
         </div>
@@ -62,19 +62,19 @@
         <div class="memory-channels-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
             <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
                 <h3 style="color: var(--dsom-purple); margin-top: 0;">📜 Core Rules</h3>
-                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The root <strong>AGENTS.md</strong> governs sovereign software ideals, FOSS constraints, and strict UK English phrasing guidelines.</p>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The master rulebook <strong>.agents/AGENTS.md</strong> governs sovereign software ideals, FOSS constraints, and strict UK English phrasing guidelines.</p>
             </div>
             <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
                 <h3 style="color: var(--dsom-purple); margin-top: 0;">📋 Active Tasks</h3>
-                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The local <strong>task.md</strong> catalogues current system remediations, scan timelines, and overall target security indexes.</p>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The local <strong>.agents/brain/task.md</strong> catalogues current system remediations, scan timelines, and overall target security indexes.</p>
             </div>
             <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
                 <h3 style="color: var(--dsom-purple); margin-top: 0;">⏳ Session Walkthroughs</h3>
-                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The episodic <strong>walkthrough.md</strong> tracks sequential terminal history, execution outputs, and audit validation marks.</p>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The episodic <strong>.agents/brain/walkthrough.md</strong> tracks sequential terminal history, execution outputs, and audit validation marks.</p>
             </div>
             <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
                 <h3 style="color: var(--dsom-purple); margin-top: 0;">📂 Spatial Indexes</h3>
-                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The master <strong>palace_registry.md</strong> connects automation and indexing spiders directly to generated compliance reports.</p>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The master <strong>.agents/brain/palace_registry.md</strong> connects automation and indexing spiders directly to generated compliance reports.</p>
             </div>
         </div>
     </section>

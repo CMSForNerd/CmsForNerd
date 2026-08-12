@@ -26,8 +26,10 @@ final class CiWorkflowVersionPinTest extends TestCase
 {
     private string $buildWorkflowPath;
     private string $phpWorkflowPath;
+    private string $sonarPropertiesPath;
     private string $buildWorkflowContent;
     private string $phpWorkflowContent;
+    private string $sonarPropertiesContent;
 
     protected function setUp(): void
     {
@@ -35,9 +37,11 @@ final class CiWorkflowVersionPinTest extends TestCase
 
         $this->buildWorkflowPath = $root . '/.github/workflows/build.yml';
         $this->phpWorkflowPath = $root . '/.github/workflows/php.yml';
+        $this->sonarPropertiesPath = $root . '/sonar-project.properties';
 
         $this->buildWorkflowContent = (string) file_get_contents($this->buildWorkflowPath);
         $this->phpWorkflowContent = (string) file_get_contents($this->phpWorkflowPath);
+        $this->sonarPropertiesContent = (string) file_get_contents($this->sonarPropertiesPath);
     }
 
     // ---------------------------------------------------------------
@@ -81,17 +85,30 @@ final class CiWorkflowVersionPinTest extends TestCase
             '-Dsonar.cpd.exclusions=**/*',
             $this->buildWorkflowContent
         );
+        $this->assertStringContainsString(
+            'sonar.cpd.exclusions=**/*',
+            $this->sonarPropertiesContent
+        );
     }
 
-    public function testBuildWorkflowCpdExclusionsValueIsExactlyDoubleAsterisk(): void
+    public function testBuildWorkflowCpdExclusionsValueIsExactlyDoubleAsteriskSlashAsterisk(): void
     {
-        $matched = preg_match('/-Dsonar\.cpd\.exclusions=([^\r\n]+)/', $this->buildWorkflowContent, $matches);
-        $this->assertSame(1, $matched, 'Expected to find a single -Dsonar.cpd.exclusions= entry.');
-
+        // 1. Verify build.yml
+        $matchedWorkflow = preg_match('/-Dsonar\.cpd\.exclusions=([^\r\n]+)/', $this->buildWorkflowContent, $matchesWorkflow);
+        $this->assertSame(1, $matchedWorkflow, 'Expected to find a single -Dsonar.cpd.exclusions= entry in build.yml.');
         $this->assertSame(
             '**/*',
-            trim($matches[1]),
-            'sonar.cpd.exclusions must be collapsed to the blanket "**/*" glob, not a partial list.'
+            trim($matchesWorkflow[1]),
+            'sonar.cpd.exclusions in build.yml must be collapsed to the blanket "**/*" glob, not a partial list.'
+        );
+
+        // 2. Verify sonar-project.properties
+        $matchedProperties = preg_match('/sonar\.cpd\.exclusions=([^\r\n]+)/', $this->sonarPropertiesContent, $matchesProperties);
+        $this->assertSame(1, $matchedProperties, 'Expected to find a single sonar.cpd.exclusions= entry in sonar-project.properties.');
+        $this->assertSame(
+            '**/*',
+            trim($matchesProperties[1]),
+            'sonar.cpd.exclusions in sonar-project.properties must be collapsed to the blanket "**/*" glob, not a partial list.'
         );
     }
 
