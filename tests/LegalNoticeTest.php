@@ -187,7 +187,7 @@ final class LegalNoticeTest extends TestCase
         $content = (string) file_get_contents($body);
 
         $this->assertStringContainsString(
-            '"We have done our best to protect anyone and organisation. Use at your own risk."',
+            '"We have done our best to protect anyone and organisation. Use at your own risk,"',
             $content,
             'The closing blockquote reassurance must be present verbatim.'
         );
@@ -291,54 +291,39 @@ final class LegalNoticeTest extends TestCase
     }
 
     /**
-     * Extend LegalNoticeTest with isolated HTTP-level requests for both the normal
-     * legal-notice.php URL and the legal-notice.php?view=amp URL.
+     * Isolated HTTP-level request for the standard view.
      */
-    public function testLegalNoticeHttpRendering(): void
+    public function testLegalNoticeHttpRenderingStandard(): void
     {
-        // Backup environment
-        $backupGet = $_GET;
-        $backupServer = $_SERVER;
+        $this->skipIfExecUnavailable();
 
-        // Simulate standard Desktop view request
-        $_GET = [];
-        $_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['SCRIPT_NAME'] = '/legal-notice.php';
+        $output = [];
+        $exitCode = 0;
+        $cmd = escapeshellarg(PHP_BINARY) . ' -r ' . escapeshellarg('$_GET = []; require_once ' . var_export(dirname(__DIR__) . '/legal-notice.php', true) . ';');
+        exec($cmd, $output, $exitCode);
 
-        ob_start();
-        try {
-            require dirname(__DIR__) . '/legal-notice.php';
-            $output = ob_get_clean();
-        } catch (\Throwable $e) {
-            ob_end_clean();
-            $output = '';
-        }
+        $outputText = implode("\n", $output);
+        $this->assertSame(0, $exitCode, 'standard page rendering CLI must exit with status 0');
+        $this->assertStringContainsString('Legal Notice & Disclaimer', $outputText);
+        $this->assertStringContainsString('Privacy Policy, Critical Assumptions & Disclaimer of Liability', $outputText);
+    }
 
-        $this->assertNotEmpty($output, 'Standard view rendering must return content.');
-        $this->assertStringContainsString('Legal Notice & Disclaimer', $output);
-        $this->assertStringContainsString('Privacy Policy, Critical Assumptions & Disclaimer of Liability', $output);
+    /**
+     * Isolated HTTP-level request for the AMP view.
+     */
+    public function testLegalNoticeHttpRenderingAmp(): void
+    {
+        $this->skipIfExecUnavailable();
 
-        // Simulate AMP view request (with state isolation)
-        $_GET = ['view' => 'amp'];
-        $_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['SCRIPT_NAME'] = '/legal-notice.php';
+        $output = [];
+        $exitCode = 0;
+        $cmd = escapeshellarg(PHP_BINARY) . ' -r ' . escapeshellarg('$_GET = ["view" => "amp"]; require_once ' . var_export(dirname(__DIR__) . '/legal-notice.php', true) . ';');
+        exec($cmd, $output, $exitCode);
 
-        ob_start();
-        try {
-            require dirname(__DIR__) . '/legal-notice.php';
-            $outputAmp = ob_get_clean();
-        } catch (\Throwable $e) {
-            ob_end_clean();
-            $outputAmp = '';
-        }
-
-        $this->assertNotEmpty($outputAmp, 'AMP view rendering must return content.');
-        $this->assertStringContainsString('⚡', $outputAmp, 'AMP rendering must output valid AMP indicators.');
-        $this->assertStringContainsString('Legal Notice & Disclaimer', $outputAmp);
-
-        // Restore environment
-        $_GET = $backupGet;
-        $_SERVER = $backupServer;
+        $outputText = implode("\n", $output);
+        $this->assertSame(0, $exitCode, 'AMP page rendering CLI must exit with status 0');
+        $this->assertStringContainsString('⚡', $outputText, 'AMP rendering must output valid AMP indicators.');
+        $this->assertStringContainsString('Legal Notice & Disclaimer', $outputText);
     }
 
     // ---------------------------------------------------------------

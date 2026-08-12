@@ -55,7 +55,7 @@
     </section>
 
     <blockquote class="legal-quote">
-        "We have done our best to protect anyone and organisation. Use at your own risk."
+        "We have done our best to protect anyone and organisation. Use at your own risk,"
     </blockquote>
 
     <div class="legal-footer">

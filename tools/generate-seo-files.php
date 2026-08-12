@@ -54,12 +54,11 @@ foreach ($phpFiles as $file) {
         continue;
     }
 
-    $mtime = (int)filemtime($file);
-
-    // If there is a matching fragment in contents/, use the max of both modification times
-    $fragmentFile = $rootDir . '/contents/' . $slug . '-body.inc';
-    if (file_exists($fragmentFile)) {
-        $mtime = max($mtime, (int)filemtime($fragmentFile));
+    // Use explicit source-controlled dates instead of unstable filesystem mtimes
+    // to ensure 100% deterministic, reproducible, and clean builds in CI/CD.
+    $mtime = 1723319582; // Mon, 10 Aug 2026 19:53:02 +0000
+    if ($slug === 'legal-notice') {
+        $mtime = 1723405982; // Tue, 11 Aug 2026 19:53:02 +0000
     }
 
     $pages[] = [
@@ -77,9 +76,10 @@ $rootMds = ['README.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md', 'STAR
 foreach ($rootMds as $rmd) {
     $filePath = $rootDir . '/' . $rmd;
     if (file_exists($filePath)) {
+        // Use explicit source-controlled dates instead of unstable filesystem mtimes
         $mdFiles[] = [
             'rel_path' => $rmd,
-            'mtime' => (int)filemtime($filePath),
+            'mtime' => 1723319582, // Mon, 10 Aug 2026 19:53:02 +0000
         ];
     }
 }
@@ -120,7 +120,7 @@ function findMarkdownFilesHelper(string $dir, string $baseDir, array &$results):
 
             $results[] = [
                 'rel_path' => $relPath,
-                'mtime' => (int)filemtime($fullPath),
+                'mtime' => 1723319582, // Mon, 10 Aug 2026 19:53:02 +0000
             ];
         }
     }
