@@ -6,21 +6,21 @@
 
     <div class="intro-box" itemprop="description">
         <p>
-            Operating inside <strong>CmsForNerd v4.3.1</strong>, the <strong>Ansible System Integrity Management Platform (ASIMP)</strong>
-            empowers systems engineers and automated actors to scan and defend local operating system infrastructures. By leveraging
-            the <strong>Deep State of Mind (DSOM)</strong> protocol, our local agent ecosystem utilizes ASIMP to measure system vulnerabilities,
-            apply idempotent configurations, and re-verify compliance scores natively.
+            Within the <strong>CmsForNerd v4.3.1</strong> system architecture, the <strong>Ansible System Integrity Management Platform</strong>
+            functions as a decentralized mechanism for protecting computing nodes. Directed by the <strong>Deep State of Mind</strong>
+            specification, our cognitive agents employ ASIMP to continuously assess platform posture, apply safe declarative definitions,
+            and re-calculate compliance figures without administrative friction.
         </p>
     </div>
 
     <section class="workflow-grid">
         <div class="workflow-card dsom">
-            <h2>🧠 The Cognitive Control Layer (DSOM)</h2>
+            <h2>🧠 Cognitive Governance (DSOM)</h2>
             <p class="role">Sovereign Rules & Local Memory</p>
             <ul>
-                <li><strong>Constitutional Guidance:</strong> Operates strictly under the security rules defined in <code>AGENTS.md</code>.</li>
-                <li><strong>Spatial Data Storage:</strong> Persists session-based walkthrough anchors inside <code>.agents/brain/</code>.</li>
-                <li><strong>Minimized Overhead:</strong> References small YAML frontmatter arrays for semantic routing.</li>
+                <li><strong>Constitutional Mandates:</strong> Restricts all autonomous activities to the directives detailed in <code>AGENTS.md</code>.</li>
+                <li><strong>Spatial Memory Partitioning:</strong> Records operational walkthrough traces and anchors directly under <code>.agents/brain/</code>.</li>
+                <li><strong>Low-Token Overhead:</strong> Utilises compact frontmatter structures for efficient context parsing and routing.</li>
             </ul>
         </div>
 
@@ -28,53 +28,53 @@
             <h2>🛡️ Idempotent Execution (ASIMP)</h2>
             <p class="role">Scans & Host Level Audits</p>
             <ul>
-                <li><strong>Rigorous Diagnostics:</strong> Compiles scores using Lynis and OpenSCAP CIS profiles.</li>
-                <li><strong>Sandbox Isolation Bypass:</strong> Executes mock templates when restricted from root privileges.</li>
-                <li><strong>Declarative Hardening:</strong> Deploys structured Ansible playbooks system-wide.</li>
+                <li><strong>Systemic Diagnostics:</strong> Audits software package integrity using standard OpenSCAP rulesets and Lynis profiles.</li>
+                <li><strong>Unprivileged Containment:</strong> Automatically defaults to simulated testing when local root capabilities are unavailable.</li>
+                <li><strong>Declarative Hardening:</strong> Applies structured, self-correcting playbooks across physical or cloud environments.</li>
             </ul>
         </div>
     </section>
 
     <section class="dual-mode-section">
         <h2>🌐 Architectural Modes: Sandbox vs. Live</h2>
-        <p>To support unprivileged cloud containers as well as production nodes, ASIMP provides two distinct pathways:</p>
+        <p>ASIMP dynamically shifts between two deployment schemes to adapt to modern unprivileged or fully-privileged targets:</p>
 
         <div class="mode-grid">
             <div class="mode-card sandbox">
                 <h3>Unprivileged Mocking</h3>
                 <p class="tech-detail">Google Jules Sandbox Mode</p>
                 <code class="code-snippet">bash tools/mock-asimp.sh</code>
-                <p>Bypasses root locks by running mock hardening loops. Writes report databases under the <code>data/asimp_mock/</code> directory.</p>
+                <p>Simulates policy enforcement and records diagnostic databases inside the <code>data/asimp_mock/</code> subdirectory.</p>
             </div>
 
             <div class="mode-card production">
                 <h3>Target VM Provisioning</h3>
                 <p class="tech-detail">Production Host VM Mode</p>
                 <code class="code-snippet">ansible-playbook -i ... --become</code>
-                <p>Authentically locks down system configurations (restricts compilers, hardens SSH daemons, updates sysctl limits).</p>
+                <p>Directly locks down operating system options (disabling compiler access, securing SSH services, updating sysctl network values).</p>
             </div>
         </div>
     </section>
 
     <section class="integration-details">
         <h2>🛠️ Sovereign Memory Channels</h2>
-        <p>During an active auditing run, the AI agent updates its state using several local files:</p>
+        <p>While performing audits, the AI engine processes its telemetry via several specialized flat files:</p>
         <div class="memory-channels-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
             <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
                 <h3 style="color: var(--dsom-purple); margin-top: 0;">📜 Core Rules</h3>
-                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;"><strong>AGENTS.md</strong> governs structural rules, FOSS priorities, and standard UK English writing styles.</p>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The root <strong>AGENTS.md</strong> governs sovereign software ideals, FOSS constraints, and strict UK English phrasing guidelines.</p>
             </div>
             <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
                 <h3 style="color: var(--dsom-purple); margin-top: 0;">📋 Active Tasks</h3>
-                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;"><strong>task.md</strong> tracks the active status of system patches, scan schedules, and security scoring objectives.</p>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The local <strong>task.md</strong> catalogues current system remediations, scan timelines, and overall target security indexes.</p>
             </div>
             <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
                 <h3 style="color: var(--dsom-purple); margin-top: 0;">⏳ Session Walkthroughs</h3>
-                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;"><strong>walkthrough.md</strong> maintains chronological lists of executed commands, test exit codes, and audit milestones.</p>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The episodic <strong>walkthrough.md</strong> tracks sequential terminal history, execution outputs, and audit validation marks.</p>
             </div>
             <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
                 <h3 style="color: var(--dsom-purple); margin-top: 0;">📂 Spatial Indexes</h3>
-                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;"><strong>palace_registry.md</strong> points developers and crawlers directly to generated compliance logs and reports.</p>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;">The master <strong>palace_registry.md</strong> connects automation and indexing spiders directly to generated compliance reports.</p>
             </div>
         </div>
     </section>
