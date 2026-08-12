@@ -1,11 +1,10 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Page Controller for the CMS Legal Notice & Disclaimer.
  * This file is compliant with PHP 8.4 strict types.
  */
-
-declare(strict_types=1);
 
 namespace CmsForNerd;
 
