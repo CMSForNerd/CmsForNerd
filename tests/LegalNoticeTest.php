@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CmsForNerd\Tests;
@@ -188,19 +187,21 @@ final class LegalNoticeTest extends TestCase
         $content = (string) file_get_contents($body);
 
         $this->assertStringContainsString(
-            '"We have done our best to protect anyone and organisation. Use by your own risks."',
+            '"We have done our best to protect anyone and organisation. Use at your own risk,"',
             $content,
             'The closing blockquote reassurance must be present verbatim.'
         );
-        $this->assertStringContainsString('<style>', $content);
-        $this->assertStringContainsString('</style>', $content);
-        $this->assertStringContainsString('.legal-notice-page', $content, 'The style block must scope rules to the legal notice page wrapper.');
+
+        // Verify that styling has been successfully relocated to stylesheets to preserve AMP validation
+        $styleCss = (string) file_get_contents(dirname(__DIR__) . '/themes/CmsForNerd/style.css');
+        $ampCss = (string) file_get_contents(dirname(__DIR__) . '/themes/CmsForNerd/css/amp.css');
+
+        $this->assertStringContainsString('.legal-notice-page', $styleCss);
+        $this->assertStringContainsString('.legal-notice-page', $ampCss);
     }
 
     public function testLegalNoticeBodyIsSyntacticallyValidPhp(): void
     {
-        // Content fragments are plain HTML/PHP includes; `php -l` still validates
-        // that any embedded PHP tags are well-formed.
         $this->assertPhpFileLintsCleanly(dirname(__DIR__) . '/contents/legal-notice-body.inc');
     }
 
@@ -287,6 +288,42 @@ final class LegalNoticeTest extends TestCase
     public function testPagerPhpIsSyntacticallyValidPhp(): void
     {
         $this->assertPhpFileLintsCleanly(dirname(__DIR__) . '/themes/CmsForNerd/pager.php');
+    }
+
+    /**
+     * Isolated HTTP-level request for the standard view.
+     */
+    public function testLegalNoticeHttpRenderingStandard(): void
+    {
+        $this->skipIfExecUnavailable();
+
+        $output = [];
+        $exitCode = 0;
+        $cmd = escapeshellarg(PHP_BINARY) . ' -r ' . escapeshellarg('$_GET = []; require_once ' . var_export(dirname(__DIR__) . '/legal-notice.php', true) . ';');
+        exec($cmd, $output, $exitCode);
+
+        $outputText = implode("\n", $output);
+        $this->assertSame(0, $exitCode, 'standard page rendering CLI must exit with status 0');
+        $this->assertStringContainsString('Legal Notice & Disclaimer', $outputText);
+        $this->assertStringContainsString('Privacy Policy, Critical Assumptions & Disclaimer of Liability', $outputText);
+    }
+
+    /**
+     * Isolated HTTP-level request for the AMP view.
+     */
+    public function testLegalNoticeHttpRenderingAmp(): void
+    {
+        $this->skipIfExecUnavailable();
+
+        $output = [];
+        $exitCode = 0;
+        $cmd = escapeshellarg(PHP_BINARY) . ' -r ' . escapeshellarg('$_GET = ["view" => "amp"]; require_once ' . var_export(dirname(__DIR__) . '/legal-notice.php', true) . ';');
+        exec($cmd, $output, $exitCode);
+
+        $outputText = implode("\n", $output);
+        $this->assertSame(0, $exitCode, 'AMP page rendering CLI must exit with status 0');
+        $this->assertStringContainsString('⚡', $outputText, 'AMP rendering must output valid AMP indicators.');
+        $this->assertStringContainsString('Legal Notice & Disclaimer', $outputText);
     }
 
     // ---------------------------------------------------------------

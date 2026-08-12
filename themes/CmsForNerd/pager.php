@@ -147,10 +147,15 @@ function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
                        border-top:1px solid var(--lab-border);
                        font-size:0.8rem; color:var(--lab-muted);">
             <p>&copy; <?= date('Y') ?> CmsForNerd v4.3.0 Laboratory</p>
-            <p><a href="<?= htmlspecialchars($ctx->scriptName) ?>.php"
-                  style="color:var(--lab-purple);">
-               Switch to Standard Desktop View
-            </a></p>
+            <p>
+                <a href="legal-notice.php?view=amp" style="color:var(--lab-purple); text-decoration:none; margin-right:15px;">
+                   Legal Notice & Disclaimer
+                </a>
+                <a href="<?= htmlspecialchars($ctx->scriptName) ?>.php"
+                   style="color:var(--lab-purple);">
+                   Switch to Standard Desktop View
+                </a>
+            </p>
         </footer>
     </body>
     </html>

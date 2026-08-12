@@ -52,6 +52,7 @@ declare(strict_types=1);
     <div style="font-size: 0.85rem; line-height: 1.8;">
         <span style="opacity: 0.7;">CmsForNerd Infrastructure:</span> 
         <a href="https://www.linuxmalaysia.com" style="color: var(--lab-highlight, #8e44ad); text-decoration: none; font-weight: 600;">linuxmalaysia.com</a>
+        • <a href="legal-notice.php" style="color: var(--lab-highlight, #8e44ad); text-decoration: none; font-weight: 600;">Legal Notice & Disclaimer</a>
         <br>
         <span style="font-family: 'SF Mono', monospace; font-size: 0.8rem;">
             Copyright &copy; 2005 - <?= date("Y") ?> Harisfazillah Jamel
@@ -60,5 +61,7 @@ declare(strict_types=1);
     
     <div style="font-family: 'SF Mono', monospace; font-size: 0.65rem; color: #94a3b8; margin-top: 30px; letter-spacing: 0.5px;">
         [ REL: 3.5.1 ] | [ STD: RFC_9116 ] | [ ENV: PHP_8.4 ] | [ VIEW: STANDARD ]
+        <br>
+        [ REGULATION: DISCLAIMER ] | [ PURPOSE: TRAINING ] | [ RISK: ASSUMED ]
     </div>
 </div>
