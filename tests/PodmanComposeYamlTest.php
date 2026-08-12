@@ -72,8 +72,44 @@ final class PodmanComposeYamlTest extends TestCase
         $this->assertFileExists($composeTemplate);
         $content = (string) file_get_contents($composeTemplate);
 
-        $this->assertStringContainsString('services:', $content, "Compose template must define services.");
-        $this->assertStringContainsString('nginx:', $content, "Compose template must configure Nginx service.");
-        $this->assertStringContainsString('php:', $content, "Compose template must configure PHP container service.");
+        // Structured parsing to extract keys defined directly under the 'services:' block (at exactly 2 spaces of indentation)
+        $lines = explode("\n", $content);
+        $inServices = false;
+        $serviceKeys = [];
+
+        foreach ($lines as $line) {
+            if (preg_match('/^services:\s*$/', $line)) {
+                $inServices = true;
+                continue;
+            }
+            if ($inServices) {
+                // If we hit any non-indented root-level key after services, stop
+                if (preg_match('/^[a-zA-Z0-9_\-]+:/', $line)) {
+                    $inServices = false;
+                    continue;
+                }
+                // Match lines that define a service key at exactly 2 spaces indentation
+                if (preg_match('/^  ([a-zA-Z0-9_\-]+):\s*$/', $line, $matches)) {
+                    $serviceKeys[] = $matches[1];
+                }
+            }
+        }
+
+        $this->assertNotEmpty($serviceKeys, "Compose template must define services in its services mapping block.");
+
+        // Assert that nginx and php are validated as keys directly under the Compose services mapping
+        $hasNginx = false;
+        $hasPhp = false;
+        foreach ($serviceKeys as $key) {
+            if (str_contains($key, 'nginx')) {
+                $hasNginx = true;
+            }
+            if (str_contains($key, 'php')) {
+                $hasPhp = true;
+            }
+        }
+
+        $this->assertTrue($hasNginx, "Compose services must configure an nginx-related service key.");
+        $this->assertTrue($hasPhp, "Compose services must configure a php-related service key.");
     }
 }

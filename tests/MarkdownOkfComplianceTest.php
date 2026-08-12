@@ -43,13 +43,15 @@ final class MarkdownOkfComplianceTest extends TestCase
             if ($file->isFile() && $file->getExtension() === 'md') {
                 $path = $file->getRealPath();
 
-                // Exclude vendor, .git, node_modules, build, etc.
+                // Exclude vendor, .git, node_modules, build, asimp, and data checks
                 if (
                     str_contains($path, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR) ||
                     str_contains($path, DIRECTORY_SEPARATOR . '.git' . DIRECTORY_SEPARATOR) ||
                     str_contains($path, DIRECTORY_SEPARATOR . 'node_modules' . DIRECTORY_SEPARATOR) ||
                     str_contains($path, DIRECTORY_SEPARATOR . 'asimp' . DIRECTORY_SEPARATOR) ||
-                    str_contains($path, DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR)
+                    str_contains($path, DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR) ||
+                    str_contains($path, DIRECTORY_SEPARATOR . 'build' . DIRECTORY_SEPARATOR) ||
+                    str_contains($path, DIRECTORY_SEPARATOR . 'build_static' . DIRECTORY_SEPARATOR)
                 ) {
                     continue;
                 }
@@ -88,18 +90,40 @@ final class MarkdownOkfComplianceTest extends TestCase
                 "Markdown file {$path} must start with YAML frontmatter delimiters ('---')."
             );
 
-            // Parse frontmatter
-            $hasOkfVersion = str_contains($content, 'okf_version:');
-            $hasType = str_contains($content, 'type:');
-            $hasTitle = str_contains($content, 'title:');
-            $hasTimestamp = str_contains($content, 'timestamp:');
-            $hasTopics = str_contains($content, 'topics:');
+            // Extract content between the opening and closing frontmatter delimiters
+            $delimiterPos = strpos($content, '---');
+            $secondDelimiterPos = strpos($content, '---', $delimiterPos + 3);
 
-            $this->assertTrue($hasOkfVersion, "Markdown {$path} is missing 'okf_version' field.");
-            $this->assertTrue($hasType, "Markdown {$path} is missing 'type' field.");
-            $this->assertTrue($hasTitle, "Markdown {$path} is missing 'title' field.");
-            $this->assertTrue($hasTimestamp, "Markdown {$path} is missing 'timestamp' field.");
-            $this->assertTrue($hasTopics, "Markdown {$path} is missing 'topics' field.");
+            $this->assertNotFalse(
+                $secondDelimiterPos,
+                "Markdown file {$path} must contain a closing YAML frontmatter delimiter ('---')."
+            );
+
+            $frontmatterYaml = substr($content, $delimiterPos + 3, $secondDelimiterPos - ($delimiterPos + 3));
+
+            // Parse keys into an associative mapping
+            $lines = explode("\n", $frontmatterYaml);
+            $parsedKeys = [];
+            foreach ($lines as $line) {
+                $trimmed = trim($line);
+                if ($trimmed === '' || str_starts_with($trimmed, '#')) {
+                    continue;
+                }
+                if (str_contains($trimmed, ':')) {
+                    [$key] = explode(':', $trimmed, 2);
+                    $parsedKeys[trim($key)] = true;
+                }
+            }
+
+            // Validate the required OKF keys from that YAML mapping
+            $requiredKeys = ['okf_version', 'type', 'title', 'timestamp', 'topics'];
+            foreach ($requiredKeys as $key) {
+                $this->assertArrayHasKey(
+                    $key,
+                    $parsedKeys,
+                    "Markdown {$path} is missing required OKF frontmatter key: '{$key}'."
+                );
+            }
         }
     }
 

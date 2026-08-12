@@ -17,7 +17,11 @@ namespace CmsForNerd;
 /**
  * Class CmsContext
  *
- * Represents an immutable snapshot of execution state used by controllers and templates.
+ * Represents a readonly container of execution state used by controllers and templates.
+ * While the CmsContext container itself is readonly (immutable), its public stdClass property
+ * $botCache remains mutable to allow dynamic bot detection caching across requests.
+ * The script includes/is_bot.php updates botCache fields lastIp, lastUa, and lastRes
+ * after the context has been constructed.
  *
  * @package CmsForNerd
  */

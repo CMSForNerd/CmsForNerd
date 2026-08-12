@@ -68,19 +68,56 @@ final class AnsiblePlaybookTest extends TestCase
     }
 
     /**
-     * Verifies that key playbook definitions exist and are validly structured YAML blocks.
+     * Parse each playbook to verify that every play block defined has a valid play-level 'hosts' key.
      */
-    public function testPlaybooksContainExpectedKeys(): void
+    public function testPlaybooksHaveStructuredHostsKeyPerPlay(): void
     {
         $this->assertNotEmpty($this->playbookPaths, "Should discover at least some playbooks.");
 
         foreach ($this->playbookPaths as $path) {
             $content = (string) file_get_contents($path);
-            $this->assertStringContainsString(
-                'hosts:',
-                $content,
-                "Playbook {$path} must define targets via 'hosts:'."
-            );
+            $lines = explode("\n", $content);
+
+            $plays = [];
+            $currentPlay = null;
+
+            // Structured indentation-scanner to group list of plays
+            foreach ($lines as $line) {
+                $trimmed = trim($line);
+                if ($trimmed === '' || str_starts_with($trimmed, '#') || $trimmed === '---' || $trimmed === '...') {
+                    continue;
+                }
+
+                // A play in Ansible YAML starts with an item indicator '-' at the root level (no leading indentation)
+                if (preg_match('/^-\s+([a-zA-Z0-9_\-]+):/', $line, $matches) || preg_match('/^-\s+name:/', $line)) {
+                    if ($currentPlay !== null) {
+                        $plays[] = $currentPlay;
+                    }
+                    $currentPlay = [
+                        'keys' => []
+                    ];
+                }
+
+                if ($currentPlay !== null) {
+                    if (preg_match('/^\s*([a-zA-Z0-9_\-]+):/', $line, $matches)) {
+                        $currentPlay['keys'][] = $matches[1];
+                    }
+                }
+            }
+
+            if ($currentPlay !== null) {
+                $plays[] = $currentPlay;
+            }
+
+            $this->assertNotEmpty($plays, "Playbook {$path} must define at least one structured play.");
+
+            foreach ($plays as $index => $play) {
+                $this->assertContains(
+                    'hosts',
+                    $play['keys'],
+                    "Play #{$index} in playbook {$path} must define a play-level 'hosts:' key."
+                );
+            }
         }
     }
 }
