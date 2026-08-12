@@ -1,94 +1,86 @@
 <article class="ai-asimp-guide" itemscope itemtype="https://schema.org/TechArticle">
     <header class="guide-header">
-        <h1 itemprop="headline">🛡️ ASIMP for AI Agents: Metacognitive Auditing</h1>
-        <p class="subtitle">Enforcing Sovereign Security with "Measure, Harden, Re-Measure" loops</p>
+        <h1 itemprop="headline">🛡️ ASIMP-Driven Agent Security Compliance</h1>
+        <p class="subtitle">Orchestrating Autonomous Host Auditing and Hardening Safely</p>
     </header>
 
     <div class="intro-box" itemprop="description">
         <p>
-            Within the <strong>CMSForNerd v4.3.1</strong> ecosystem, security is not an afterthought.
-            The <strong>Ansible System Integrity Management Platform (ASIMP)</strong> is a host-based,
-            automated security hardening and compliance framework. Following the <strong>Deep State of Mind (DSOM)</strong>
-            principles of <strong>My AI Protocol</strong>, AI Agents leverage ASIMP to execute safe, idempotent system-wide integrity modifications.
+            Operating inside <strong>CmsForNerd v4.3.1</strong>, the <strong>Ansible System Integrity Management Platform (ASIMP)</strong>
+            empowers systems engineers and automated actors to scan and defend local operating system infrastructures. By leveraging
+            the <strong>Deep State of Mind (DSOM)</strong> protocol, our local agent ecosystem utilizes ASIMP to measure system vulnerabilities,
+            apply idempotent configurations, and re-verify compliance scores natively.
         </p>
     </div>
 
     <section class="workflow-grid">
         <div class="workflow-card dsom">
-            <h2>🧠 Deep State of Mind (DSOM)</h2>
-            <p class="role">The Cognitive Framework</p>
+            <h2>🧠 The Cognitive Control Layer (DSOM)</h2>
+            <p class="role">Sovereign Rules & Local Memory</p>
             <ul>
-                <li><strong>Sovereign Rulebook:</strong> Driven by core constitutional laws in <code>AGENTS.md</code>.</li>
-                <li><strong>Spatial Memory:</strong> Uses externalised local state in <code>.agents/brain/</code>.</li>
-                <li><strong>Progressive Disclosure:</strong> Indexes knowledge with zero-cost metadata.</li>
+                <li><strong>Constitutional Guidance:</strong> Operates strictly under the security rules defined in <code>AGENTS.md</code>.</li>
+                <li><strong>Spatial Data Storage:</strong> Persists session-based walkthrough anchors inside <code>.agents/brain/</code>.</li>
+                <li><strong>Minimized Overhead:</strong> References small YAML frontmatter arrays for semantic routing.</li>
             </ul>
         </div>
 
         <div class="workflow-card asimp">
-            <h2>🛡️ ASIMP Controls</h2>
-            <p class="role">The Execution System</p>
+            <h2>🛡️ Idempotent Execution (ASIMP)</h2>
+            <p class="role">Scans & Host Level Audits</p>
             <ul>
-                <li><strong>Multi-Engine Scans:</strong> Leverages Lynis and OpenSCAP compliance tests.</li>
-                <li><strong>Sandbox Isolation:</strong> Bypasses unprivileged locks via mock scripts.</li>
-                <li><strong>Idempotency:</strong> Declarative state enforcement using Ansible.</li>
+                <li><strong>Rigorous Diagnostics:</strong> Compiles scores using Lynis and OpenSCAP CIS profiles.</li>
+                <li><strong>Sandbox Isolation Bypass:</strong> Executes mock templates when restricted from root privileges.</li>
+                <li><strong>Declarative Hardening:</strong> Deploys structured Ansible playbooks system-wide.</li>
             </ul>
         </div>
     </section>
 
     <section class="dual-mode-section">
-        <h2>🌐 Execution Modes: Sandbox vs. Production</h2>
-        <p>To support unprivileged environments, ASIMP separates runtime modes cleanly:</p>
+        <h2>🌐 Architectural Modes: Sandbox vs. Live</h2>
+        <p>To support unprivileged cloud containers as well as production nodes, ASIMP provides two distinct pathways:</p>
 
         <div class="mode-grid">
             <div class="mode-card sandbox">
-                <h3>Unprivileged Sandbox</h3>
-                <p class="tech-detail">Google Jules Workspace</p>
+                <h3>Unprivileged Mocking</h3>
+                <p class="tech-detail">Google Jules Sandbox Mode</p>
                 <code class="code-snippet">bash tools/mock-asimp.sh</code>
-                <p>Simulates scans and writes JSON results to unprivileged paths under <code>data/asimp_mock/</code>.</p>
+                <p>Bypasses root locks by running mock hardening loops. Writes report databases under the <code>data/asimp_mock/</code> directory.</p>
             </div>
 
             <div class="mode-card production">
-                <h3>Production Server</h3>
-                <p class="tech-detail">Real target host Virtual Machines</p>
+                <h3>Target VM Provisioning</h3>
+                <p class="tech-detail">Production Host VM Mode</p>
                 <code class="code-snippet">ansible-playbook -i ... --become</code>
-                <p>Applies real system-level hardening (sysctl adjustments, SSH lockdowns, OpenSCAP remediation).</p>
+                <p>Authentically locks down system configurations (restricts compilers, hardens SSH daemons, updates sysctl limits).</p>
             </div>
         </div>
     </section>
 
     <section class="integration-details">
-        <h2>🛠️ Memory Channels & Metacognitive Integration</h2>
-        <p>When executing an ASIMP cycle, the AI Agent reads and updates specific components:</p>
-        <table class="compliance-table">
-            <thead>
-                <tr>
-                    <th>Memory File</th>
-                    <th>ASIMP Alignment</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>AGENTS.md</code></td>
-                    <td>Sovereign rulebook governing legal compliance, standard UK English, and FOSS priorities.</td>
-                </tr>
-                <tr>
-                    <td><code>.agents/brain/task.md</code></td>
-                    <td>Contains current ASIMP targets (e.g., Target Lynis Hardening Index of 85+).</td>
-                </tr>
-                <tr>
-                    <td><code>.agents/brain/walkthrough.md</code></td>
-                    <td>Persistent history of audit outputs, remediation actions, and test exit codes.</td>
-                </tr>
-                <tr>
-                    <td><code>.agents/brain/palace_registry.md</code></td>
-                    <td>Spatial index pointing to stored compliance reports and security logs.</td>
-                </tr>
-            </tbody>
-        </table>
+        <h2>🛠️ Sovereign Memory Channels</h2>
+        <p>During an active auditing run, the AI agent updates its state using several local files:</p>
+        <div class="memory-channels-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+            <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--dsom-purple); margin-top: 0;">📜 Core Rules</h3>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;"><strong>AGENTS.md</strong> governs structural rules, FOSS priorities, and standard UK English writing styles.</p>
+            </div>
+            <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--dsom-purple); margin-top: 0;">📋 Active Tasks</h3>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;"><strong>task.md</strong> tracks the active status of system patches, scan schedules, and security scoring objectives.</p>
+            </div>
+            <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--dsom-purple); margin-top: 0;">⏳ Session Walkthroughs</h3>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;"><strong>walkthrough.md</strong> maintains chronological lists of executed commands, test exit codes, and audit milestones.</p>
+            </div>
+            <div class="channel-item" style="background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--dsom-purple); margin-top: 0;">📂 Spatial Indexes</h3>
+                <p style="color: #d1d5db; font-size: 0.9rem; margin-bottom: 0;"><strong>palace_registry.md</strong> points developers and crawlers directly to generated compliance logs and reports.</p>
+            </div>
+        </div>
     </section>
 
     <nav class="footer-nav">
-        <p>Understand the security integration? Explore further guidelines.</p>
+        <p>Finished reviewing the ASIMP control parameters? Continue with our core policies.</p>
         <div class="btn-group">
             <a href="security-policy.php" class="btn btn-secondary">🛡️ Security Policy</a>
             <a href="index.php" class="btn btn-primary">Return Home</a>
@@ -124,11 +116,6 @@
     .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px; }
     .mode-card { background: var(--glass-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); }
     .code-snippet { display: block; background: #111827; color: #f3f4f6; padding: 8px; border-radius: 4px; font-size: 0.85rem; margin: 10px 0; font-family: 'Courier New', monospace; border: 1px solid #4b5563; }
-
-    .compliance-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--glass-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
-    .compliance-table th, .compliance-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
-    .compliance-table th { background-color: rgba(13, 148, 136, 0.2); color: #fff; font-weight: bold; }
-    .compliance-table td { color: #d1d5db; }
 
     .footer-nav { margin-top: 50px; text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; }
     .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
