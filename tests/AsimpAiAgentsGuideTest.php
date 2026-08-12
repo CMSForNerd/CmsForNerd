@@ -159,8 +159,8 @@ final class AsimpAiAgentsGuideTest extends TestCase
 
         $this->assertStringContainsString('Cognitive Governance (DSOM)', $content);
         $this->assertStringContainsString('Idempotent Execution (ASIMP)', $content);
-        $this->assertStringContainsString('<code>AGENTS.md</code>', $content);
-        $this->assertStringContainsString('<code>.agents/brain/</code>', $content);
+        $this->assertStringContainsString('<code>.agents/AGENTS.md</code>', $content);
+        $this->assertStringContainsString('<code>.agents/brain/task.md</code>', $content);
     }
 
     public function testBodyIncDescribesSandboxAndProductionModes(): void
@@ -171,14 +171,14 @@ final class AsimpAiAgentsGuideTest extends TestCase
         $this->assertStringContainsString('Google Jules Sandbox Mode', $content);
         $this->assertStringContainsString('bash tools/mock-asimp.sh', $content);
         $this->assertStringContainsString('Target VM Provisioning', $content);
-        $this->assertStringContainsString('ansible-playbook -i ... --become', $content);
+        $this->assertStringContainsString('ansible-playbook -i inventory/hosts.yml playbooks/bootstrap_node.yml --become', $content);
     }
 
     public function testBodyIncListsAllFourSovereignMemoryChannels(): void
     {
         $content = $this->read($this->bodyPath);
 
-        foreach (['<strong>AGENTS.md</strong>', '<strong>task.md</strong>', '<strong>walkthrough.md</strong>', '<strong>palace_registry.md</strong>'] as $channel) {
+        foreach (['<strong>.agents/AGENTS.md</strong>', '<strong>.agents/brain/task.md</strong>', '<strong>.agents/brain/walkthrough.md</strong>', '<strong>.agents/brain/palace_registry.md</strong>'] as $channel) {
             $this->assertStringContainsString($channel, $content, "Sovereign memory channel section must reference {$channel}.");
         }
     }

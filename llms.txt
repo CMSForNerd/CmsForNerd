@@ -27,11 +27,12 @@
 
 - [AGENTS.md](AGENTS.md): Lightweight root gateway for platform agents.
 - [.agents/AGENTS.md](.agents/AGENTS.md): Core rulebook and sovereign constitution.
-- [START-HERE.md](START-HERE.md): Onboarding blueprint with 15 defined Entry Points.
+- [START-HERE.md](START-HERE.md): Onboarding blueprint with 16 defined Entry Points.
 - [docs/governance/AI-INITIALIZATION-SEQUENCE.md](docs/governance/AI-INITIALIZATION-SEQUENCE.md): The 5-step Mechanical Boot Sequence.
 - [docs/governance/SOP-KNOWLEDGE-FIRST-DISCOVERY.md](docs/governance/SOP-KNOWLEDGE-FIRST-DISCOVERY.md): Discovery protocols.
 - [docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md](docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md): End-to-End Pull Request & Bot Synergy SOP (GitHub & GitLab).
 - [docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md](docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md): End-to-End telemetry pipeline and bidirectional WSL2 Podman multi-OS feedback pipeline SOP.
+- [docs/governance/ASIMP-FOR-AI-AGENTS.md](docs/governance/ASIMP-FOR-AI-AGENTS.md): ASIMP for AI Agents detailing how the Ansible System Integrity Management Platform (ASIMP) aligns with AI agents, DSOM spatial memory, and the OpenWiki emulator.
 
 ## Laboratory Modules
 

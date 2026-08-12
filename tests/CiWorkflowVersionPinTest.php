@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  *   `SonarSource/sonarqube-scan-action@v7` to `@v8`, and the Copy-Paste
  *   Detection (CPD) exclusion list was collapsed from an explicit
  *   comma-separated list (`**\/tests/**,tests/**,offline.php,ujian-form.php,
- *   tools/sanity-check.php`) down to a single blanket `**` glob, meaning CPD
+ *   tools/sanity-check.php`) down to a single blanket **-slash-* glob pattern, meaning CPD
  *   analysis is now disabled across the entire project rather than only for
  *   a curated set of paths.
  * - .github/workflows/php.yml: `actions/cache` was bumped from `@v3` to
@@ -26,8 +26,10 @@ final class CiWorkflowVersionPinTest extends TestCase
 {
     private string $buildWorkflowPath;
     private string $phpWorkflowPath;
+    private string $sonarPropertiesPath;
     private string $buildWorkflowContent;
     private string $phpWorkflowContent;
+    private string $sonarPropertiesContent;
 
     protected function setUp(): void
     {
@@ -35,9 +37,11 @@ final class CiWorkflowVersionPinTest extends TestCase
 
         $this->buildWorkflowPath = $root . '/.github/workflows/build.yml';
         $this->phpWorkflowPath = $root . '/.github/workflows/php.yml';
+        $this->sonarPropertiesPath = $root . '/sonar-project.properties';
 
         $this->buildWorkflowContent = (string) file_get_contents($this->buildWorkflowPath);
         $this->phpWorkflowContent = (string) file_get_contents($this->phpWorkflowPath);
+        $this->sonarPropertiesContent = (string) file_get_contents($this->sonarPropertiesPath);
     }
 
     // ---------------------------------------------------------------
@@ -78,20 +82,33 @@ final class CiWorkflowVersionPinTest extends TestCase
     public function testBuildWorkflowCollapsesCpdExclusionsToBlanketGlob(): void
     {
         $this->assertStringContainsString(
-            '-Dsonar.cpd.exclusions=**',
+            '-Dsonar.cpd.exclusions=**/*',
             $this->buildWorkflowContent
+        );
+        $this->assertStringContainsString(
+            'sonar.cpd.exclusions=**/*',
+            $this->sonarPropertiesContent
         );
     }
 
-    public function testBuildWorkflowCpdExclusionsValueIsExactlyDoubleAsterisk(): void
+    public function testBuildWorkflowCpdExclusionsValueIsExactlyDoubleAsteriskSlashAsterisk(): void
     {
-        $matched = preg_match('/-Dsonar\.cpd\.exclusions=([^\r\n]+)/', $this->buildWorkflowContent, $matches);
-        $this->assertSame(1, $matched, 'Expected to find a single -Dsonar.cpd.exclusions= entry.');
-
+        // 1. Verify build.yml using preg_match_all and an anchored pattern to exclude comments
+        $matchedWorkflow = preg_match_all('/^\s*-Dsonar\.cpd\.exclusions=([^\r\n]+)/m', $this->buildWorkflowContent, $matchesWorkflow);
+        $this->assertSame(1, $matchedWorkflow, 'Expected to find exactly one active -Dsonar.cpd.exclusions= entry in build.yml.');
         $this->assertSame(
-            '**',
-            trim($matches[1]),
-            'sonar.cpd.exclusions must be collapsed to the blanket "**" glob, not a partial list.'
+            '**/*',
+            trim($matchesWorkflow[1][0]),
+            'sonar.cpd.exclusions in build.yml must be collapsed to the blanket "**/*" glob, not a partial list.'
+        );
+
+        // 2. Verify sonar-project.properties using preg_match_all and an anchored pattern to exclude comments
+        $matchedProperties = preg_match_all('/^\s*sonar\.cpd\.exclusions=([^\r\n]+)/m', $this->sonarPropertiesContent, $matchesProperties);
+        $this->assertSame(1, $matchedProperties, 'Expected to find exactly one active sonar.cpd.exclusions= entry in sonar-project.properties.');
+        $this->assertSame(
+            '**/*',
+            trim($matchesProperties[1][0]),
+            'sonar.cpd.exclusions in sonar-project.properties must be collapsed to the blanket "**/*" glob, not a partial list.'
         );
     }
 
@@ -109,7 +126,7 @@ final class CiWorkflowVersionPinTest extends TestCase
                 $staleEntry,
                 $this->buildWorkflowContent,
                 "Regression guard: the stale curated CPD exclusion entry '{$staleEntry}' must not reappear " .
-                'now that sonar.cpd.exclusions is a blanket "**" glob.'
+                'now that sonar.cpd.exclusions is a blanket "**/*" glob.'
             );
         }
     }

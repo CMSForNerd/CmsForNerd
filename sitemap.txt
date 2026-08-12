@@ -4,6 +4,7 @@ https://cmsfornerd.onrender.com/ai-dev.php
 https://cmsfornerd.onrender.com/ai-sop.php
 https://cmsfornerd.onrender.com/amp-acceleration.php
 https://cmsfornerd.onrender.com/ansible-lab.php
+https://cmsfornerd.onrender.com/asimp-ai-agents.php
 https://cmsfornerd.onrender.com/csp-nonce-guide.php
 https://cmsfornerd.onrender.com/exam-answers.php
 https://cmsfornerd.onrender.com/final-exam.php
@@ -36,6 +37,7 @@ https://linuxmalaysia.github.io/CmsForNerd/ai-dev.html
 https://linuxmalaysia.github.io/CmsForNerd/ai-sop.html
 https://linuxmalaysia.github.io/CmsForNerd/amp-acceleration.html
 https://linuxmalaysia.github.io/CmsForNerd/ansible-lab.html
+https://linuxmalaysia.github.io/CmsForNerd/asimp-ai-agents.html
 https://linuxmalaysia.github.io/CmsForNerd/csp-nonce-guide.html
 https://linuxmalaysia.github.io/CmsForNerd/exam-answers.html
 https://linuxmalaysia.github.io/CmsForNerd/final-exam.html
@@ -96,6 +98,7 @@ https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protoc
 https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/ai-master-protocol
 https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/ai-skill-architecture
 https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/ai-slash-commands-guide
+https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/asimp-for-ai-agents
 https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/automation-audit-list
 https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/byte-capped-execution-framework
 https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/crisp2-operational-strategy
@@ -178,6 +181,7 @@ https://www.linuxmalaysia.com/ai-dev.php
 https://www.linuxmalaysia.com/ai-sop.php
 https://www.linuxmalaysia.com/amp-acceleration.php
 https://www.linuxmalaysia.com/ansible-lab.php
+https://www.linuxmalaysia.com/asimp-ai-agents.php
 https://www.linuxmalaysia.com/csp-nonce-guide.php
 https://www.linuxmalaysia.com/exam-answers.php
 https://www.linuxmalaysia.com/final-exam.php
