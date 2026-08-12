@@ -44,10 +44,10 @@ final class PerformanceUtils
     private static ?int $sourceMaxMTimeTimestamp = null;
 
     /**
-     * Pre-scans a directory using DirectoryIterator and caches file metadata.
+     * Collects file metadata for a directory and caches the result.
      *
-     * @param string $dirPath The absolute path to the target directory.
-     * @return array<string, array{is_file: bool, mtime: int}> Cached file metadata.
+     * @param string $dirPath The directory path to inspect.
+     * @return array<string, array{is_file: bool, mtime: int}> Metadata for directory entries, or an empty array when the directory is unavailable.
      */
     private static function getDirMetadata(string $dirPath): array
     {
@@ -94,10 +94,10 @@ final class PerformanceUtils
     }
 
     /**
-     * Builds the sanitized output file cache path based on page routing and view.
+     * Builds the cache file path for a page and view.
      *
-     * @param string $pageName The page slug name used in the cache filename.
-     * @param string $view The active view mode used in the cache filename.
+     * @param string $pageName The page name used in the cache filename.
+     * @param string $view The view name used in the cache filename.
      * @return string The sanitized cache file path.
      */
     public static function getCacheFilePath(string $pageName, string $view = 'standard'): string
@@ -155,9 +155,7 @@ final class PerformanceUtils
     /**
      * Determines the latest modification time among relevant source files.
      *
-     * Operates with double cache levels (persistent disk metadata and local APCu).
-     *
-     * @return int The latest modification timestamp, or 0 when no applicable files exist.
+     * @return int The latest modification timestamp, or 0 if no relevant files exist.
      */
     public static function getSourceMaxMTime(): int
     {

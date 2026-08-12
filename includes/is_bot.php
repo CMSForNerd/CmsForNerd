@@ -13,13 +13,11 @@
 declare(strict_types=1);
 
 /**
- * Checks if the visitor is a verified search engine crawler or bot.
+ * Determines whether the request originates from a verified bot.
  *
- * Utilizes in-memory caching and IP-to-provider range matching.
- *
- * @param string|null $userAgent Optional override for visitor user agent.
- * @param \CmsForNerd\CmsContext|null $ctx Optional rendering context carrying bot cache state.
- * @return bool True if verified as a crawler, false otherwise.
+ * @param string|null $userAgent Optional user-agent value to evaluate instead of the request header.
+ * @param \CmsForNerd\CmsContext|null $ctx Optional context used to cache the result.
+ * @return bool True if the user agent and IP address identify a trusted bot, false otherwise.
  */
 function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null): bool
 {
@@ -99,13 +97,11 @@ function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null):
 }
 
 /**
- * Verifies if a given IP address belongs to a trusted search engine or provider.
+ * Determines whether an IP address belongs to a trusted bot provider.
  *
- * Matches against a pre-compiled JSON database of official ranges.
- *
- * @param string $ip Client IP address to verify.
- * @param string|null $provider Specific provider slug (e.g. 'Google', 'Bing') or null for all.
- * @return bool True if IP is in the provider's official range, false otherwise.
+ * @param string $ip The IP address to check.
+ * @param string|null $provider Restricts the check to a specific provider when provided.
+ * @return bool True if the IP address matches a trusted range, false otherwise.
  */
 function is_trusted_bot_ip(string $ip, ?string $provider = null): bool
 {
@@ -135,13 +131,13 @@ function is_trusted_bot_ip(string $ip, ?string $provider = null): bool
 }
 
 /**
- * Checks if an IP address is contained within a specific CIDR subnet range.
+ * Determines whether an IP address belongs to a specified CIDR range.
  *
- * Supports both IPv4 and IPv6 addresses.
+ * Supports IPv4 and IPv6 addresses.
  *
- * @param string $ip Client IP address.
- * @param string $range Target range, potentially with CIDR bitmask component (e.g., /24, /121).
- * @return bool True if IP falls within the range, false otherwise.
+ * @param string $ip The IP address to test.
+ * @param string $range The CIDR range to test against.
+ * @return bool `true` if the IP address belongs to the range, `false` otherwise.
  */
 function ip_in_range(string $ip, string $range): bool
 {
@@ -188,11 +184,11 @@ function ip_in_range(string $ip, string $range): bool
 }
 
 /**
- * Updates the trusted IP database from official provider URLs.
+ * Refreshes the trusted bot IP database from official provider data.
  *
- * Utilizes high-performance curl_multi for asynchronous range downloads.
+ * Existing provider ranges are retained when an update fails or returns no valid prefixes.
  *
- * @return array<string, mixed> Updated bot database with timestamps.
+ * @return array<string, mixed> The updated database with its timestamp and bot prefixes.
  */
 function update_trusted_bot_ips(): array
 {
@@ -333,13 +329,11 @@ function update_trusted_bot_ips(): array
 }
 
 /**
- * Fetches geolocation/ASN metadata for a visitor IP address.
+ * Retrieves geolocation and ASN metadata for an IP address, using cached data when available.
  *
- * Automatically caches queries for 24h using APCu and local disk storage.
- *
- * @param string $ip Target IP address.
- * @param string $token ipinfo.io developer token.
- * @return object|null Geolocation/ASN details object, or null on error.
+ * @param string $ip The IP address to look up.
+ * @param string $token The ipinfo.io API token.
+ * @return object|null The decoded metadata object, or null if unavailable or invalid.
  */
 function fetch_ip_details(string $ip, string $token): ?object
 {
@@ -422,9 +416,9 @@ function fetch_ip_details(string $ip, string $token): ?object
 }
 
 /**
- * Restricts access for hosting datacenters and proxies (non-residential).
+ * Blocks requests originating from hosting datacenters unless they are verified bots.
  *
- * @param string $token ipinfo.io API token.
+ * @param string $token The ipinfo.io API token.
  * @return void
  */
 function block_datacenter_traffic(string $token): void
@@ -457,10 +451,9 @@ function block_datacenter_traffic(string $token): void
 }
 
 /**
- * Serves lightweight plain text version for verified bots.
+ * Sends the bot text-mode response with the configured sitemap URL.
  *
- * @param array<string, mixed> $config Runtime environment configurations.
- * @return never
+ * @param array<string, mixed> $config Configuration containing an optional `sitemap_url` value.
  */
 function serve_bot_text_mode(array $config): void
 {
