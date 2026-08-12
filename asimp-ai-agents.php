@@ -38,10 +38,10 @@ $content['data'] = $pageName;
 /**
  * 5. [MODERN PHP] CmsContext Initialization (Factory Method)
  */
-$ctx = \createCmsContext(
+$ctx = createCmsContext(
     content: $content,
     pageName: $pageName,
-    themeName: $themeName,
+    themeName: $content['themeName'] ?? 'default',
     cssPath: $cssPath,
     dataFile: $dataFile,
     nonce: $nonce
@@ -53,7 +53,7 @@ $ctx = \createCmsContext(
 $pagerPath = __DIR__ . "/themes/{$ctx->themeName}/pager.php";
 if (file_exists($pagerPath)) {
     require_once $pagerPath;
-    \pager($ctx);
+    pager($ctx);
 } else {
     header('HTTP/1.1 500 Internal Server Error');
     exit("Fatal Error: Theme engine (pager.php) missing in /themes/{$ctx->themeName}/");

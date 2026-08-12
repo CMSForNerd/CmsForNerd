@@ -93,21 +93,21 @@ final class CiWorkflowVersionPinTest extends TestCase
 
     public function testBuildWorkflowCpdExclusionsValueIsExactlyDoubleAsteriskSlashAsterisk(): void
     {
-        // 1. Verify build.yml
-        $matchedWorkflow = preg_match('/-Dsonar\.cpd\.exclusions=([^\r\n]+)/', $this->buildWorkflowContent, $matchesWorkflow);
-        $this->assertSame(1, $matchedWorkflow, 'Expected to find a single -Dsonar.cpd.exclusions= entry in build.yml.');
+        // 1. Verify build.yml using preg_match_all and an anchored pattern to exclude comments
+        $matchedWorkflow = preg_match_all('/^\s*-Dsonar\.cpd\.exclusions=([^\r\n]+)/m', $this->buildWorkflowContent, $matchesWorkflow);
+        $this->assertSame(1, $matchedWorkflow, 'Expected to find exactly one active -Dsonar.cpd.exclusions= entry in build.yml.');
         $this->assertSame(
             '**/*',
-            trim($matchesWorkflow[1]),
+            trim($matchesWorkflow[1][0]),
             'sonar.cpd.exclusions in build.yml must be collapsed to the blanket "**/*" glob, not a partial list.'
         );
 
-        // 2. Verify sonar-project.properties
-        $matchedProperties = preg_match('/sonar\.cpd\.exclusions=([^\r\n]+)/', $this->sonarPropertiesContent, $matchesProperties);
-        $this->assertSame(1, $matchedProperties, 'Expected to find a single sonar.cpd.exclusions= entry in sonar-project.properties.');
+        // 2. Verify sonar-project.properties using preg_match_all and an anchored pattern to exclude comments
+        $matchedProperties = preg_match_all('/^\s*sonar\.cpd\.exclusions=([^\r\n]+)/m', $this->sonarPropertiesContent, $matchesProperties);
+        $this->assertSame(1, $matchedProperties, 'Expected to find exactly one active sonar.cpd.exclusions= entry in sonar-project.properties.');
         $this->assertSame(
             '**/*',
-            trim($matchesProperties[1]),
+            trim($matchesProperties[1][0]),
             'sonar.cpd.exclusions in sonar-project.properties must be collapsed to the blanket "**/*" glob, not a partial list.'
         );
     }
