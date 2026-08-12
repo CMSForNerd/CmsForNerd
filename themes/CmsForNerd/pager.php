@@ -39,9 +39,7 @@ function pager(CmsForNerd\CmsContext $ctx): void
 }
 
 /**
- * Renders the standard page layout, or only the page content for XMLHttpRequest requests.
- *
- * @param CmsForNerd\CmsContext $ctx The context used to render the page.
+ * [LABORATORY METHOD] renderStandardLayout
  */
 function renderStandardLayout(CmsForNerd\CmsContext $ctx): void
 {

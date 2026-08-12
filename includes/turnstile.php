@@ -22,11 +22,13 @@ if (!defined('TURNSTILE_SECRET_KEY')) {
 }
 
 /**
- * Verifies a Turnstile response token with Cloudflare.
+ * [SECURITY] verifyTurnstile() performs a "Server-to-Server" check.
  *
- * @param string $token The client response token.
- * @param string $remoteIp The client's remote IP address.
- * @return bool `true` if Cloudflare verifies the token, `false` otherwise.
+ * Verifies the client's Turnstile response token against the Cloudflare API.
+ *
+ * @param string $token    The client response token from the front-end form.
+ * @param string $remoteIp The user's remote IP address.
+ * @return bool True if verification succeeds, false otherwise.
  */
 function verifyTurnstile(string $token, string $remoteIp): bool
 {

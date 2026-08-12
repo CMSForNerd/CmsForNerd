@@ -27,20 +27,17 @@ readonly class CmsContext
     public \stdClass $botCache;
 
     /**
-     * Creates an immutable snapshot of CMS execution state for rendering.
+     * CmsContext Constructor.
      *
-     * The bot cache container is created when omitted, and its `lastIp`, `lastUa`,
-     * and `lastRes` properties are initialized when absent.
-     *
-     * @param array<string, mixed> $content Site metadata and content snippets.
-     * @param string $themeName Directory name of the active theme.
-     * @param string $cssPath Public path to the theme's stylesheets.
-     * @param array<int, string> $dataFile Data files associated with the request.
-     * @param string $scriptName Normalized name of the current route or page.
-     * @param string $baseUrl Fully resolved base URL of the site.
-     * @param string $schemaType Schema.org type used for semantic markup.
-     * @param string $cspNonce Nonce used to protect inline scripts.
-     * @param \stdClass|null $botCache Optional bot-cache container.
+     * @param array<string, mixed> $content Site metadata (title, author, content snippets, etc.).
+     * @param string $themeName The directory name of the active theme under /themes/.
+     * @param string $cssPath The public path to the theme's stylesheets directory.
+     * @param array<int, string> $dataFile Array of data files associated with the request context.
+     * @param string $scriptName The normalized name of the current execution route/page.
+     * @param string $baseUrl The fully resolved base URL of the site.
+     * @param string $schemaType The Schema.org vocabulary type for semantic markup (e.g. 'WebPage').
+     * @param string $cspNonce A cryptographically secure nonce value for inline script protection.
+     * @param \stdClass|null $botCache Optional pre-configured bot caching helper container.
      */
     public function __construct(
         public array $content,

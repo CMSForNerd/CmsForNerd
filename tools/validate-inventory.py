@@ -61,13 +61,8 @@ def load_vars_from_file(filepath):
 
 def parse_key_value_string(s):
     """
-    Parse comma- or space-separated key-value pairs.
-    
-    Parameters:
-        s (str): String containing pairs in the form ``key=value``.
-    
-    Returns:
-        dict: Mapping of valid identifier-style keys to their values.
+    Parses space-separated or comma-separated key=value pairs into a dictionary safely.
+    Uses split-based parsing to avoid ReDoS (Regular Expression Denial of Service) risks.
     """
     parsed = {}
     parts = s.replace(",", " ").split()
