@@ -118,6 +118,42 @@ final class SonarConfigurationTest extends TestCase
         $this->assertSame(['**/vendor/**', '**/tests/**', '**/node_modules/**'], $exclusions);
     }
 
+    public function testSonarPropertiesCpdExclusionsUseBlanketDoubleStarSlashStarGlob(): void
+    {
+        $content = file_get_contents($this->sonarPropertiesPath);
+
+        $matched = preg_match('/sonar\.cpd\.exclusions=([^\r\n]+)/', $content, $matches);
+        $this->assertSame(1, $matched, 'Expected to find a single sonar.cpd.exclusions= entry.');
+
+        $this->assertSame(
+            '**/*',
+            trim($matches[1]),
+            'sonar.cpd.exclusions must be the blanket "**/*" glob, not a bare "**" or a partial list.'
+        );
+    }
+
+    public function testSonarPropertiesCpdExclusionsNoLongerUseTheBareDoubleStarGlob(): void
+    {
+        $content = file_get_contents($this->sonarPropertiesPath);
+
+        $this->assertDoesNotMatchRegularExpression(
+            '/sonar\.cpd\.exclusions=\*\*\s*(\r?\n|$)/',
+            $content,
+            'Regression guard: sonar.cpd.exclusions must not regress to the bare "**" glob, which SonarCloud ' .
+            'interprets differently from "**/*" for directory matching.'
+        );
+    }
+
+    public function testSonarPropertiesCpdExclusionsCommentExplainsIntent(): void
+    {
+        $content = file_get_contents($this->sonarPropertiesPath);
+
+        $this->assertStringContainsString(
+            '# Copy-Paste Detection (CPD) Exclusions to avoid false positive duplications on tests and static views',
+            $content
+        );
+    }
+
     public function testBuildWorkflowFileExists(): void
     {
         $this->assertFileExists($this->buildWorkflowPath);
@@ -169,6 +205,24 @@ final class SonarConfigurationTest extends TestCase
             $propertiesExclusions,
             $workflowExclusions,
             'The CI-driven SonarCloud scan and the local sonar-project.properties must exclude the same set of paths.'
+        );
+    }
+
+    public function testBuildWorkflowCpdExclusionsMatchPropertiesFileCpdExclusions(): void
+    {
+        $workflowContent = file_get_contents($this->buildWorkflowPath);
+        $propertiesContent = file_get_contents($this->sonarPropertiesPath);
+
+        $workflowMatched = preg_match('/-Dsonar\.cpd\.exclusions=([^\r\n]+)/', $workflowContent, $workflowMatches);
+        $propertiesMatched = preg_match('/sonar\.cpd\.exclusions=([^\r\n]+)/', $propertiesContent, $propertiesMatches);
+
+        $this->assertSame(1, $workflowMatched, 'Expected a single -Dsonar.cpd.exclusions= entry in build.yml.');
+        $this->assertSame(1, $propertiesMatched, 'Expected a single sonar.cpd.exclusions= entry in sonar-project.properties.');
+
+        $this->assertSame(
+            trim($propertiesMatches[1]),
+            trim($workflowMatches[1]),
+            'The CI-driven SonarCloud scan and the local sonar-project.properties must use the same sonar.cpd.exclusions glob.'
         );
     }
 
