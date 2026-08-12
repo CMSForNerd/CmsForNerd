@@ -2,16 +2,24 @@
 
 /**
  * ==========================================================================
- * FILE: /includes/is_bot.php
+ * FILE: includes/is_bot.php
  * ROLE: Hybrid Bot Intelligence & Protection (v3.5)
- * DESCRIPTION: Combines User-Agent regex with verified IP CIDR matching.
+ * DESCRIPTION: Combines User-Agent regex with verified IP CIDR matching
+ *              to classify search engine bots and defend against malicious scrapers.
  * ==========================================================================
+ * Compliance: PHP 8.4+, PSR-12, PHPStan Level 8
  */
 
 declare(strict_types=1);
 
 /**
- * [SEO/PERFORMANCE] checks if the visitor is a verified search engine crawler.
+ * Checks if the visitor is a verified search engine crawler or bot.
+ *
+ * Utilizes in-memory caching and IP-to-provider range matching.
+ *
+ * @param string|null $userAgent Optional override for visitor user agent.
+ * @param \CmsForNerd\CmsContext|null $ctx Optional rendering context carrying bot cache state.
+ * @return bool True if verified as a crawler, false otherwise.
  */
 function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null): bool
 {
@@ -91,7 +99,13 @@ function is_bot(?string $userAgent = null, ?\CmsForNerd\CmsContext $ctx = null):
 }
 
 /**
- * [INTELLIGENCE] Verifies if an IP belongs to a trusted bot network.
+ * Verifies if a given IP address belongs to a trusted search engine or provider.
+ *
+ * Matches against a pre-compiled JSON database of official ranges.
+ *
+ * @param string $ip Client IP address to verify.
+ * @param string|null $provider Specific provider slug (e.g. 'Google', 'Bing') or null for all.
+ * @return bool True if IP is in the provider's official range, false otherwise.
  */
 function is_trusted_bot_ip(string $ip, ?string $provider = null): bool
 {
@@ -121,7 +135,13 @@ function is_trusted_bot_ip(string $ip, ?string $provider = null): bool
 }
 
 /**
- * [LOGIC] CIDR Matcher (IPv4/IPv6 Support)
+ * Checks if an IP address is contained within a specific CIDR subnet range.
+ *
+ * Supports both IPv4 and IPv6 addresses.
+ *
+ * @param string $ip Client IP address.
+ * @param string $range Target range, potentially with CIDR bitmask component (e.g., /24, /121).
+ * @return bool True if IP falls within the range, false otherwise.
  */
 function ip_in_range(string $ip, string $range): bool
 {
@@ -168,10 +188,11 @@ function ip_in_range(string $ip, string $range): bool
 }
 
 /**
- * [AUTOMATION] Updates the trusted IP list from official sources.
- * Optimized with high-performance concurrent cURL (curl_multi) requests.
+ * Updates the trusted IP database from official provider URLs.
  *
- * @return array<string, mixed>
+ * Utilizes high-performance curl_multi for asynchronous range downloads.
+ *
+ * @return array<string, mixed> Updated bot database with timestamps.
  */
 function update_trusted_bot_ips(): array
 {
@@ -312,11 +333,13 @@ function update_trusted_bot_ips(): array
 }
 
 /**
- * [UTILITY] Fetches IP details using local cache or ipinfo.io API with cURL.
+ * Fetches geolocation/ASN metadata for a visitor IP address.
  *
- * @param string $ip Client IP address.
- * @param string $token ipinfo.io API token.
- * @return object|null Decoded details object or null on failure.
+ * Automatically caches queries for 24h using APCu and local disk storage.
+ *
+ * @param string $ip Target IP address.
+ * @param string $token ipinfo.io developer token.
+ * @return object|null Geolocation/ASN details object, or null on error.
  */
 function fetch_ip_details(string $ip, string $token): ?object
 {
@@ -399,7 +422,10 @@ function fetch_ip_details(string $ip, string $token): ?object
 }
 
 /**
- * [SECURITY] Blocks traffic from data centers.
+ * Restricts access for hosting datacenters and proxies (non-residential).
+ *
+ * @param string $token ipinfo.io API token.
+ * @return void
  */
 function block_datacenter_traffic(string $token): void
 {
@@ -431,9 +457,9 @@ function block_datacenter_traffic(string $token): void
 }
 
 /**
- * [SEO/AI] Serve a lightweight text version for bots.
+ * Serves lightweight plain text version for verified bots.
  *
- * @param array<string, mixed> $config The runtime configuration.
+ * @param array<string, mixed> $config Runtime environment configurations.
  * @return never
  */
 function serve_bot_text_mode(array $config): void

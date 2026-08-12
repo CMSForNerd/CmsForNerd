@@ -1,42 +1,52 @@
 <?php
 
 /**
- * [PERFORMANCE] PerformanceUtils - v4.2.3 Laboratory Standard.
- * This class provides advanced site performance optimizations for the CMS core.
- * It implements static page caching, smart cache invalidation, page metadata caching,
- * and HTTP conditional request headers (ETag, Last-Modified, 304 Not Modified).
- * * Compliance: PHP 8.4+, PSR-12, PHPStan Level 8.
+ * ==========================================================================
+ * FILE: src/PerformanceUtils.php
+ * ROLE: Core Performance & Smart Caching Engine (v4.3.0)
+ * DESCRIPTION: Provides high-performance static page caching, smart
+ *              cache invalidation, metadata caches, and standard HTTP/1.1
+ *              conditional requests processing (ETag, Last-Modified, 304).
+ * ==========================================================================
+ * Compliance: PHP 8.4+, PSR-12, PHPStan Level 8.
  */
 
 declare(strict_types=1);
 
 namespace CmsForNerd;
 
+/**
+ * Class PerformanceUtils
+ *
+ * Implements high-fidelity performance optimization protocols including
+ * static page caching, directory iteration cache, and cache state purging.
+ *
+ * @package CmsForNerd
+ */
 final class PerformanceUtils
 {
+    /** @var int Time-to-Live (TTL) limit for runtime memory cached states. */
     private const CACHE_TTL = 5;
 
+    /** @var bool Active caching loop tracker flag. */
     private static bool $cacheActive = false;
 
     /**
      * @var array<string, array<string, array{is_file: bool, mtime: int}>>
+     *     In-memory cache for DirectoryIterator file entries.
      */
     private static array $dirCache = [];
 
-    /**
-     * @var int|null
-     */
+    /** @var int|null Cached max mtime value of source dependencies. */
     private static ?int $sourceMaxMTime = null;
 
-    /**
-     * @var int|null
-     */
+    /** @var int|null Unix epoch timestamp when the source max mtime was cached. */
     private static ?int $sourceMaxMTimeTimestamp = null;
 
     /**
      * Pre-scans a directory using DirectoryIterator and caches file metadata.
      *
-     * @param string $dirPath The directory path.
+     * @param string $dirPath The absolute path to the target directory.
      * @return array<string, array{is_file: bool, mtime: int}> Cached file metadata.
      */
     private static function getDirMetadata(string $dirPath): array
@@ -68,7 +78,11 @@ final class PerformanceUtils
     }
 
     /**
-     * Get the absolute path for the cache directory.
+     * Resolves the secure absolute path to the directory hosting compiled caches.
+     *
+     * Automatically creates the cache directory if it does not already exist.
+     *
+     * @return string Absolute directory path of data caches folder.
      */
     public static function getCacheDir(): string
     {
@@ -80,11 +94,11 @@ final class PerformanceUtils
     }
 
     /**
-     * Builds the cache file path for a page and view.
+     * Builds the sanitized output file cache path based on page routing and view.
      *
-     * @param string $pageName The page name used in the cache filename.
-     * @param string $view The view name used in the cache filename.
-     * @return string The sanitized HTML cache file path.
+     * @param string $pageName The page slug name used in the cache filename.
+     * @param string $view The active view mode used in the cache filename.
+     * @return string The sanitized cache file path.
      */
     public static function getCacheFilePath(string $pageName, string $view = 'standard'): string
     {
@@ -127,7 +141,11 @@ final class PerformanceUtils
     }
 
     /**
-     * Get the installation-specific APCu key.
+     * Formulates the APCu namespace-isolated identification key.
+     *
+     * Uses SHA-256 validation to avoid collisions and comply with Sonar requirements.
+     *
+     * @return string A unique APCu cache key string.
      */
     private static function getApcuKey(): string
     {
@@ -136,6 +154,8 @@ final class PerformanceUtils
 
     /**
      * Determines the latest modification time among relevant source files.
+     *
+     * Operates with double cache levels (persistent disk metadata and local APCu).
      *
      * @return int The latest modification timestamp, or 0 when no applicable files exist.
      */
@@ -345,6 +365,10 @@ final class PerformanceUtils
 
     /**
      * Helper to clear all cache files (useful for administrative tasks).
+     *
+     * Resets memory, APCu, and file-based cache states.
+     *
+     * @return void
      */
     public static function clearCache(): void
     {

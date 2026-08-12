@@ -76,6 +76,11 @@ def parse_key_value_string(s):
     return parsed
 
 def main(args):
+    """Validate inventory identity variables for the Podman CMS.
+
+    This function coordinates validation of required platform identity settings.
+    Exits with status 1 if any standards are violated, and status 0 if completely compliant.
+    """
     effective_vars = {}
     ansible_success = False
 
