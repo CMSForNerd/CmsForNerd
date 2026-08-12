@@ -76,6 +76,11 @@ def parse_key_value_string(s):
     return parsed
 
 def main(args):
+    """Validate inventory identity variables for the Podman CMS.
+
+    This function coordinates validation of required platform identity settings.
+    Exits with status 1 if any standards are violated, and status 0 if completely compliant.
+    """
     effective_vars = {}
     ansible_success = False
 
@@ -162,10 +167,12 @@ def main(args):
     violations = 0
     for k, expected in required.items():
         val = effective_vars.get(k)
-        if val is not None:
-            if val != expected:
-                print(f"\033[0;31m[FAIL] Identity Standard violation: {k} is overridden to {val} (expected: {expected})")
-                violations += 1
+        if val is None:
+            print(f"\033[0;31m[FAIL] Identity Standard violation: required key '{k}' is absent from effective variables.\033[0m")
+            violations += 1
+        elif val != expected:
+            print(f"\033[0;31m[FAIL] Identity Standard violation: {k} is overridden to {val} (expected: {expected})")
+            violations += 1
 
     if violations > 0:
         print("\033[0;31m[FAIL] Conflicting overrides detected. Aborting deployment to preserve Sovereign Gate.\033[0m")

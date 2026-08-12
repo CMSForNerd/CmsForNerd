@@ -152,6 +152,35 @@ class ValidateInventoryMainBehaviourTest(unittest.TestCase):
         called_cmd = mock_run.call_args[0][0]
         self.assertIn("ansible-inventory", called_cmd[0])
 
+    def test_main_exits_one_when_one_required_key_is_missing(self):
+        """Regression test ensuring SystemExit(1) is raised when exactly one required key is absent."""
+        payload_vars = dict(validate_inventory.required)
+        del payload_vars["podman_cms_user"] # Remove exactly one required identity key
+        fake_result = MagicMock(returncode=0, stdout=json.dumps({"all": {"vars": payload_vars}, "_meta": {"hostvars": {}}}), stderr="")
+        with patch.object(validate_inventory.shutil, "which", return_value="/usr/bin/ansible-inventory"), \
+                patch.object(validate_inventory.subprocess, "run", return_value=fake_result):
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                with self.assertRaises(SystemExit) as raised:
+                    validate_inventory.main([])
+        self.assertEqual(raised.exception.code, 1)
+        self.assertIn("Identity Standard violation", buf.getvalue())
+        self.assertIn("required key 'podman_cms_user' is absent", buf.getvalue())
+
+    def test_main_exits_one_when_vars_contain_only_unrelated_keys(self):
+        """Regression test ensuring SystemExit(1) is raised when loaded variables contain only unrelated keys."""
+        payload_vars = {"some_completely_unrelated_key": "some_value"}
+        fake_result = MagicMock(returncode=0, stdout=json.dumps({"all": {"vars": payload_vars}, "_meta": {"hostvars": {}}}), stderr="")
+        with patch.object(validate_inventory.shutil, "which", return_value="/usr/bin/ansible-inventory"), \
+                patch.object(validate_inventory.subprocess, "run", return_value=fake_result):
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                with self.assertRaises(SystemExit) as raised:
+                    validate_inventory.main([])
+        self.assertEqual(raised.exception.code, 1)
+        self.assertIn("Identity Standard violation", buf.getvalue())
+        self.assertIn("required key 'podman_cms_user' is absent", buf.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()

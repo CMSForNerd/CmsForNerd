@@ -1,12 +1,12 @@
 <?php
 
 /**
- * [SECURITY] Cloudflare Turnstile Integration - v3.5
- *
- * This module blocks automated bots via Server-to-Server verification.
- * It works in tandem with the Hybrid Bot Intelligence layer (is_bot.php)
- * to provide a defense-in-depth strategy for the v3.5 Laboratory.
- *
+ * ==========================================================================
+ * FILE: includes/turnstile.php
+ * ROLE: Cloudflare Turnstile Integration - v3.5
+ * DESCRIPTION: Provides secure automated bot blocking via Server-to-Server
+ *              verification, collaborating with is_bot.php for defense-in-depth.
+ * ==========================================================================
  * Compliance: PHP 8.4, PSR-12, PSR-1 (Side-effect management)
  */
 
@@ -22,11 +22,13 @@ if (!defined('TURNSTILE_SECRET_KEY')) {
 }
 
 /**
- * 2. [SECURITY] verifyTurnstile() performs a "Server-to-Server" check.
+ * [SECURITY] verifyTurnstile() performs a "Server-to-Server" check.
  *
- * @param string $token    The client response token.
- * @param string $remoteIp The user's IP address.
- * @return bool
+ * Verifies the client's Turnstile response token against the Cloudflare API.
+ *
+ * @param string $token    The client response token from the front-end form.
+ * @param string $remoteIp The user's remote IP address.
+ * @return bool True if verification succeeds, false otherwise.
  */
 function verifyTurnstile(string $token, string $remoteIp): bool
 {

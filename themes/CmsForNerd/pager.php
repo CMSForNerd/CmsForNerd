@@ -10,154 +10,182 @@
 
 declare(strict_types=1);
 
-/**
- * Renders the requested standard or AMP page layout.
- *
- * The `view` query parameter selects AMP rendering; all other values use the standard layout.
- *
- * @param CmsForNerd\CmsContext $ctx The immutable rendering context.
- */
-function pager(CmsForNerd\CmsContext $ctx): void
-{
-    $viewMode = $_GET['view'] ?? 'standard';
+namespace CmsForNerd {
 
-    // [PERFORMANCE] Start static page cache interception
-    if (class_exists('\\CmsForNerd\\PerformanceUtils')) {
-        \CmsForNerd\PerformanceUtils::startPageCache($ctx->scriptName, $viewMode);
+    use CmsForNerd\CmsContext;
+
+    // Define class alias to prevent relative CmsForNerd\CmsContext references from failing
+    if (!class_exists('CmsForNerd\CmsForNerd\CmsContext', false)) {
+        class_alias(CmsContext::class, 'CmsForNerd\CmsForNerd\CmsContext');
     }
 
-    if ($viewMode === 'amp') {
-        renderAmpLayout($ctx);
-    } else {
-        renderStandardLayout($ctx);
+    /**
+     * Renders the requested standard or AMP page layout.
+     *
+     * The `view` query parameter selects AMP rendering; all other values use the standard layout.
+     *
+     * @param CmsForNerd\CmsContext $ctx The immutable rendering context.
+     */
+    function pager(CmsForNerd\CmsContext $ctx): void
+    {
+        $viewMode = $_GET['view'] ?? 'standard';
+
+        // [PERFORMANCE] Start static page cache interception
+        if (class_exists('\\CmsForNerd\\PerformanceUtils')) {
+            \CmsForNerd\PerformanceUtils::startPageCache($ctx->scriptName, $viewMode);
+        }
+
+        if ($viewMode === 'amp') {
+            renderAmpLayout($ctx);
+        } else {
+            renderStandardLayout($ctx);
+        }
+
+        // [PERFORMANCE] Capture output buffer and persist cache file
+        if (class_exists('\\CmsForNerd\\PerformanceUtils')) {
+            \CmsForNerd\PerformanceUtils::endPageCache($ctx->scriptName, $viewMode);
+        }
     }
 
-    // [PERFORMANCE] Capture output buffer and persist cache file
-    if (class_exists('\\CmsForNerd\\PerformanceUtils')) {
-        \CmsForNerd\PerformanceUtils::endPageCache($ctx->scriptName, $viewMode);
-    }
-}
-
-/**
- * [LABORATORY METHOD] renderStandardLayout
- */
-function renderStandardLayout(CmsForNerd\CmsContext $ctx): void
-{
-    // [PWA / SPA] Hydration Interceptor
-    // If a JavaScript router calls ANY root controller, return only the content payload.
-    $isAjax = (
-        !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-        strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'
-    );
-
-    if ($isAjax) {
-        header('Content-Type: text/html; charset=utf-8');
-        pagecontent($ctx);
-        return;
-    }
-
-    pageheader($ctx);
-    print("<body>");
-    include "themes/{$ctx->themeName}/bodytop.tpl";
-    pagecontent($ctx);
-    include "themes/{$ctx->themeName}/bodyfooter.tpl";
-    print("</body>");
-    pagetailer($ctx);
-}
-
-/**
- * [LABORATORY METHOD] renderAmpLayout
- */
-function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
-{
-    $actualFile = basename($_SERVER['SCRIPT_NAME'], '.php');
-
-    if ($ctx->scriptName !== $actualFile) {
-        $ctx = new \CmsForNerd\CmsContext(
-            content:    $ctx->content,
-            themeName:  $ctx->themeName,
-            cssPath:    $ctx->cssPath,
-            dataFile:   $ctx->dataFile,
-            scriptName: $actualFile,
-            baseUrl:    $ctx->baseUrl,
-            cspNonce:   $ctx->cspNonce
+    /**
+     * [LABORATORY METHOD] renderStandardLayout
+     *
+     * @param CmsForNerd\CmsContext $ctx The page rendering context.
+     */
+    function renderStandardLayout(CmsForNerd\CmsContext $ctx): void
+    {
+        // [PWA / SPA] Hydration Interceptor
+        // If a JavaScript router calls ANY root controller, return only the content payload.
+        $isAjax = (
+            !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'
         );
+
+        if ($isAjax) {
+            header('Content-Type: text/html; charset=utf-8');
+            pagecontent($ctx);
+            return;
+        }
+
+        pageheader($ctx);
+        print("<body>");
+        include "themes/{$ctx->themeName}/bodytop.tpl";
+        pagecontent($ctx);
+        include "themes/{$ctx->themeName}/bodyfooter.tpl";
+        print("</body>");
+        pagetailer($ctx);
     }
 
-    ?>
-    <!doctype html>
-    <html ⚡ lang="en" itemscope itemtype="https://schema.org/<?= htmlspecialchars($ctx->schemaType, ENT_QUOTES, 'UTF-8') ?>">
-    <head>
-        <?php pageheader_amp($ctx); ?>
-        
-        <!-- PWA Foundation -->
-        <link rel="manifest" href="/manifest.json">
-        <meta name="theme-color" content="#0d6efd">
+    /**
+     * Renders the page using the AMP layout.
+     *
+     * @param CmsForNerd\CmsContext $ctx The page rendering context.
+     */
+    function renderAmpLayout(CmsForNerd\CmsContext $ctx): void
+    {
+        $actualFile = basename($_SERVER['SCRIPT_NAME'], '.php');
 
-    </head>
-    <body [class]="themeState">
-        <amp-state id="themeState">
-            <script type="application/json">""</script>
-        </amp-state>
-        <?php include "themes/{$ctx->themeName}/amp-sidebar.tpl"; ?>
-
-        <header class="amp-header"
-                style="background:var(--lab-bg); padding:10px 15px;
-                       border-bottom:1px solid var(--lab-border);
-                       display: flex; align-items: center;">
-            
-            <button class="hamburger-btn" 
-                    on="tap:sidebar.toggle" 
-                    role="button" 
-                    tabindex="0" 
-                    aria-label="Open Navigation">☰</button>
-            
-            <a href="index.php?view=amp"
-               style="text-decoration:none; color:var(--lab-purple);
-                      font-weight:bold; flex-grow: 1;">
-               🏠 Laboratory Home
-            </a>
-            
-            <span style="font-family:monospace; font-size:0.7rem; color:var(--lab-muted);">
-               [ AMP ]
-            </span>
-        </header>
-
-        <main style="padding:20px;">
-            <?php
-            ob_start();
-            pagecontent($ctx);
-            $rawHtml = (string) ob_get_clean();
-
-            // Transform images for AMP
-            $cleanHtml = str_replace(
-                '<img',
-                '<amp-img width="600" height="400" layout="responsive"',
-                $rawHtml
+        if ($ctx->scriptName !== $actualFile) {
+            $ctx = new CmsForNerd\CmsContext(
+                content:    $ctx->content,
+                themeName:  $ctx->themeName,
+                cssPath:    $ctx->cssPath,
+                dataFile:   $ctx->dataFile,
+                scriptName: $actualFile,
+                baseUrl:    $ctx->baseUrl,
+                cspNonce:   $ctx->cspNonce
             );
+        }
 
-            // Remove illegal body styles
-            $cleanHtml = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $cleanHtml);
+        ?>
+        <!doctype html>
+        <html ⚡ lang="en" itemscope itemtype="https://schema.org/<?= htmlspecialchars($ctx->schemaType, ENT_QUOTES, 'UTF-8') ?>">
+        <head>
+            <?php pageheader_amp($ctx); ?>
 
-            echo $cleanHtml;
-            ?>
-        </main>
+            <!-- PWA Foundation -->
+            <link rel="manifest" href="/manifest.json">
+            <meta name="theme-color" content="#0d6efd">
 
-        <footer style="text-align:center; padding:30px;
-                       border-top:1px solid var(--lab-border);
-                       font-size:0.8rem; color:var(--lab-muted);">
-            <p>&copy; <?= date('Y') ?> CmsForNerd v4.3.0 Laboratory</p>
-            <p>
-                <a href="legal-notice.php?view=amp" style="color:var(--lab-purple); text-decoration:none; margin-right:15px;">
-                   Legal Notice & Disclaimer
+        </head>
+        <body [class]="themeState">
+            <amp-state id="themeState">
+                <script type="application/json">""</script>
+            </amp-state>
+            <?php include "themes/{$ctx->themeName}/amp-sidebar.tpl"; ?>
+
+            <header class="amp-header"
+                    style="background:var(--lab-bg); padding:10px 15px;
+                           border-bottom:1px solid var(--lab-border);
+                           display: flex; align-items: center;">
+
+                <button class="hamburger-btn"
+                        on="tap:sidebar.toggle"
+                        role="button"
+                        tabindex="0"
+                        aria-label="Open Navigation">☰</button>
+
+                <a href="index.php?view=amp"
+                   style="text-decoration:none; color:var(--lab-purple);
+                          font-weight:bold; flex-grow: 1;">
+                   🏠 Laboratory Home
                 </a>
-                <a href="<?= htmlspecialchars($ctx->scriptName) ?>.php"
-                   style="color:var(--lab-purple);">
-                   Switch to Standard Desktop View
-                </a>
-            </p>
-        </footer>
-    </body>
-    </html>
-    <?php
+
+                <span style="font-family:monospace; font-size:0.7rem; color:var(--lab-muted);">
+                   [ AMP ]
+                </span>
+            </header>
+
+            <main style="padding:20px;">
+                <?php
+                ob_start();
+                pagecontent($ctx);
+                $rawHtml = (string) ob_get_clean();
+
+                // Transform images for AMP
+                $cleanHtml = str_replace(
+                    '<img',
+                    '<amp-img width="600" height="400" layout="responsive"',
+                    $rawHtml
+                );
+
+                // Remove illegal body styles
+                $cleanHtml = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $cleanHtml);
+
+                echo $cleanHtml;
+                ?>
+            </main>
+
+            <footer style="text-align:center; padding:30px;
+                           border-top:1px solid var(--lab-border);
+                           font-size:0.8rem; color:var(--lab-muted);">
+                <p>&copy; <?= date('Y') ?> CmsForNerd v4.3.0 Laboratory</p>
+                <p>
+                    <a href="legal-notice.php?view=amp" style="color:var(--lab-purple); text-decoration:none; margin-right:15px;">
+                       Legal Notice & Disclaimer
+                    </a>
+                    <a href="<?= htmlspecialchars($ctx->scriptName) ?>.php"
+                       style="color:var(--lab-purple);">
+                       Switch to Standard Desktop View
+                    </a>
+                </p>
+            </footer>
+        </body>
+        </html>
+        <?php
+    }
+}
+
+namespace {
+    if (!function_exists('pager')) {
+        /**
+         * Global alias function for themes/CmsForNerd/pager.php.
+         *
+         * @param \CmsForNerd\CmsContext $ctx The immutable rendering context.
+         */
+        function pager(\CmsForNerd\CmsContext $ctx): void
+        {
+            \CmsForNerd\pager($ctx);
+        }
+    }
 }
