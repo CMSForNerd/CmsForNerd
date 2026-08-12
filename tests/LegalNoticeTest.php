@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CmsForNerd\Tests;
@@ -188,19 +187,21 @@ final class LegalNoticeTest extends TestCase
         $content = (string) file_get_contents($body);
 
         $this->assertStringContainsString(
-            '"We have done our best to protect anyone and organisation. Use by your own risks."',
+            '"We have done our best to protect anyone and organisation. Use at your own risk."',
             $content,
             'The closing blockquote reassurance must be present verbatim.'
         );
-        $this->assertStringContainsString('<style>', $content);
-        $this->assertStringContainsString('</style>', $content);
-        $this->assertStringContainsString('.legal-notice-page', $content, 'The style block must scope rules to the legal notice page wrapper.');
+
+        // Verify that styling has been successfully relocated to stylesheets to preserve AMP validation
+        $styleCss = (string) file_get_contents(dirname(__DIR__) . '/themes/CmsForNerd/style.css');
+        $ampCss = (string) file_get_contents(dirname(__DIR__) . '/themes/CmsForNerd/css/amp.css');
+
+        $this->assertStringContainsString('.legal-notice-page', $styleCss);
+        $this->assertStringContainsString('.legal-notice-page', $ampCss);
     }
 
     public function testLegalNoticeBodyIsSyntacticallyValidPhp(): void
     {
-        // Content fragments are plain HTML/PHP includes; `php -l` still validates
-        // that any embedded PHP tags are well-formed.
         $this->assertPhpFileLintsCleanly(dirname(__DIR__) . '/contents/legal-notice-body.inc');
     }
 
@@ -287,6 +288,57 @@ final class LegalNoticeTest extends TestCase
     public function testPagerPhpIsSyntacticallyValidPhp(): void
     {
         $this->assertPhpFileLintsCleanly(dirname(__DIR__) . '/themes/CmsForNerd/pager.php');
+    }
+
+    /**
+     * Extend LegalNoticeTest with isolated HTTP-level requests for both the normal
+     * legal-notice.php URL and the legal-notice.php?view=amp URL.
+     */
+    public function testLegalNoticeHttpRendering(): void
+    {
+        // Backup environment
+        $backupGet = $_GET;
+        $backupServer = $_SERVER;
+
+        // Simulate standard Desktop view request
+        $_GET = [];
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SCRIPT_NAME'] = '/legal-notice.php';
+
+        ob_start();
+        try {
+            require dirname(__DIR__) . '/legal-notice.php';
+            $output = ob_get_clean();
+        } catch (\Throwable $e) {
+            ob_end_clean();
+            $output = '';
+        }
+
+        $this->assertNotEmpty($output, 'Standard view rendering must return content.');
+        $this->assertStringContainsString('Legal Notice & Disclaimer', $output);
+        $this->assertStringContainsString('Privacy Policy, Critical Assumptions & Disclaimer of Liability', $output);
+
+        // Simulate AMP view request (with state isolation)
+        $_GET = ['view' => 'amp'];
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SCRIPT_NAME'] = '/legal-notice.php';
+
+        ob_start();
+        try {
+            require dirname(__DIR__) . '/legal-notice.php';
+            $outputAmp = ob_get_clean();
+        } catch (\Throwable $e) {
+            ob_end_clean();
+            $outputAmp = '';
+        }
+
+        $this->assertNotEmpty($outputAmp, 'AMP view rendering must return content.');
+        $this->assertStringContainsString('⚡', $outputAmp, 'AMP rendering must output valid AMP indicators.');
+        $this->assertStringContainsString('Legal Notice & Disclaimer', $outputAmp);
+
+        // Restore environment
+        $_GET = $backupGet;
+        $_SERVER = $backupServer;
     }
 
     // ---------------------------------------------------------------

@@ -12,8 +12,10 @@
 
 declare(strict_types=1);
 
-// Load the autoloader so that classes like SecurityUtils can be resolved
-require_once __DIR__ . '/../vendor/autoload.php';
+namespace CmsForNerd;
+
+// Load the bootstrap file to comply with namespacing and core bootstrapping rules
+require_once __DIR__ . '/../includes/bootstrap.php';
 
 echo "🧪 Starting Automated SEO Suite Generator...\n";
 
