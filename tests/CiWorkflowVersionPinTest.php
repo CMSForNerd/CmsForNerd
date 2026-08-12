@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  *   `SonarSource/sonarqube-scan-action@v7` to `@v8`, and the Copy-Paste
  *   Detection (CPD) exclusion list was collapsed from an explicit
  *   comma-separated list (`**\/tests/**,tests/**,offline.php,ujian-form.php,
- *   tools/sanity-check.php`) down to a single blanket `**` glob, meaning CPD
+ *   tools/sanity-check.php`) down to a single blanket **-slash-* glob pattern, meaning CPD
  *   analysis is now disabled across the entire project rather than only for
  *   a curated set of paths.
  * - .github/workflows/php.yml: `actions/cache` was bumped from `@v3` to
@@ -78,7 +78,7 @@ final class CiWorkflowVersionPinTest extends TestCase
     public function testBuildWorkflowCollapsesCpdExclusionsToBlanketGlob(): void
     {
         $this->assertStringContainsString(
-            '-Dsonar.cpd.exclusions=**',
+            '-Dsonar.cpd.exclusions=**/*',
             $this->buildWorkflowContent
         );
     }
@@ -89,9 +89,9 @@ final class CiWorkflowVersionPinTest extends TestCase
         $this->assertSame(1, $matched, 'Expected to find a single -Dsonar.cpd.exclusions= entry.');
 
         $this->assertSame(
-            '**',
+            '**/*',
             trim($matches[1]),
-            'sonar.cpd.exclusions must be collapsed to the blanket "**" glob, not a partial list.'
+            'sonar.cpd.exclusions must be collapsed to the blanket "**/*" glob, not a partial list.'
         );
     }
 
@@ -109,7 +109,7 @@ final class CiWorkflowVersionPinTest extends TestCase
                 $staleEntry,
                 $this->buildWorkflowContent,
                 "Regression guard: the stale curated CPD exclusion entry '{$staleEntry}' must not reappear " .
-                'now that sonar.cpd.exclusions is a blanket "**" glob.'
+                'now that sonar.cpd.exclusions is a blanket "**/*" glob.'
             );
         }
     }
