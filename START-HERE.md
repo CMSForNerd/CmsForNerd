@@ -14,7 +14,7 @@ linking to all 15 major Entry Points of the platform, enabling instant orientati
 
 ---
 
-## 🏛️ The 15 Defined Entry Points
+## 🏛️ The 16 Defined Entry Points
 
 | Entry Point | Name | File Path / Link | Semantic Purpose |
 | :---: | :--- | :--- | :--- |
@@ -33,6 +33,7 @@ linking to all 15 major Entry Points of the platform, enabling instant orientati
 | **13** | **Pull Request & Bot Synergy SOP** | [`docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md`](docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md) | End-to-end GitHub/GitLab PR workflow & bot synergy SOP. |
 | **14** | **GitHub Pages Deployment** | [`docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md`](docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md) | Static baking, GHA workflow orchestration, and Jekyll bypassing. |
 | **15** | **Telemetry & Feedback Pipeline** | [`docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md`](docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md) | Local WSL2 Podman multi-OS test matrix and Google Jules telemetry integration. |
+| **16** | **ASIMP for AI Agents** | [`docs/governance/ASIMP-FOR-AI-AGENTS.md`](docs/governance/ASIMP-FOR-AI-AGENTS.md) | Details how Ansible System Integrity Management Platform (ASIMP) aligns with AI agents, DSOM spatial memory protocols, and the OpenWiki emulator. |
 
 ---
 

@@ -60,6 +60,7 @@ nav:
       - Render Deployment Guide: docs/RENDER-DEPLOYMENT-GUIDE.md
       - GitHub Pages Deployment Guide: docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md
       - Telemetry & Bidirectional Feedback Pipeline SOP: docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md
+      - ASIMP for AI Agents Guide: docs/governance/ASIMP-FOR-AI-AGENTS.md
   - Graduation:
       - Final Exam Challenge: docs/final-exam.md
       - Claim Your Certificate: docs/graduation.md

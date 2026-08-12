@@ -33,6 +33,7 @@ topics: [summary, table, contents, laboratory, docs]
 * [🛡️ XSS & Host Protection](docs/xss-protection-guide.md)
 * [🤖 Google Jules Ubuntu 26.04 Setup Guide](docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md)
 * [🚀 Render Deployment Guide](docs/RENDER-DEPLOYMENT-GUIDE.md)
+* [🛡️ ASIMP for AI Agents Guide](docs/governance/ASIMP-FOR-AI-AGENTS.md)
 
 ## 🏁 Certification
 

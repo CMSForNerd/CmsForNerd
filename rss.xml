@@ -5,7 +5,7 @@
     <link>https://www.linuxmalaysia.com/index.php</link>
     <description>SEO Optimized Static Feed for the CMSForNerd Laboratory.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Aug 2026 03:12:17 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Aug 2026 15:34:30 +0000</lastBuildDate>
     <atom:link href="https://www.linuxmalaysia.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
@@ -40,6 +40,13 @@
       <link>https://www.linuxmalaysia.com/ansible-lab.php</link>
       <description>Static details for the Ansible lab module.</description>
       <guid isPermaLink="true">https://www.linuxmalaysia.com/ansible-lab.php</guid>
+      <pubDate>Sat, 10 Aug 2024 19:53:02 +0000</pubDate>
+    </item>
+    <item>
+      <title>Asimp ai agents</title>
+      <link>https://www.linuxmalaysia.com/asimp-ai-agents.php</link>
+      <description>Static details for the Asimp ai agents module.</description>
+      <guid isPermaLink="true">https://www.linuxmalaysia.com/asimp-ai-agents.php</guid>
       <pubDate>Sat, 10 Aug 2024 19:53:02 +0000</pubDate>
     </item>
     <item>

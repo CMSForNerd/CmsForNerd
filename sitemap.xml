@@ -37,6 +37,12 @@
         <priority>0.5</priority>
     </url>
     <url>
+        <loc>https://cmsfornerd.onrender.com/asimp-ai-agents.php</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://cmsfornerd.onrender.com/csp-nonce-guide.php</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
@@ -224,6 +230,12 @@
     </url>
     <url>
         <loc>https://linuxmalaysia.github.io/CmsForNerd/ansible-lab.html</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://linuxmalaysia.github.io/CmsForNerd/asimp-ai-agents.html</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
@@ -584,6 +596,12 @@
     </url>
     <url>
         <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/ai-slash-commands-guide</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/governance/asimp-for-ai-agents</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
@@ -1076,6 +1094,12 @@
     </url>
     <url>
         <loc>https://www.linuxmalaysia.com/ansible-lab.php</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.linuxmalaysia.com/asimp-ai-agents.php</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
