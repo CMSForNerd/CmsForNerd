@@ -67,6 +67,7 @@ This is the active ledger of all AI Agent Skills currently deployed in this repo
 
 | Skill Name | Path | Purpose |
 | :--- | :--- | :--- |
+| **ASIMP and AI Agents Integration** | `.agents/skills/asimp-and-ai-integration/SKILL.md` | Integrates OS security compliance audits and YAML structures validation. |
 | **Cross-Platform Translator** | `.agents/skills/cross-platform-translator/SKILL.md` | Translates Shell/PowerShell scripts cross-platform. |
 | **DSOM Bootstrap** | `.agents/skills/dsom-bootstrap/SKILL.md` | Bootstraps DSOM architecture for new projects. |
 | **DSOM Project Cloner** | `.agents/skills/dsom-project-cloner/SKILL.md` | Scaffolds a new DSOM project by copying baseline assets to a new target path. |
@@ -82,8 +83,10 @@ This is the active ledger of all AI Agent Skills currently deployed in this repo
 | **PDF Text Extractor** | `.agents/skills/pdf-text-extractor/SKILL.md` | Extracts raw text from PDF files for agent analysis. |
 | **Persona Injector** | `.agents/skills/persona-injector/SKILL.md` | Guides a user to define their Sovereign Persona and injects it into the core AGENTS.md rulebook. |
 | **Proposal DOCX Formatter** | `.agents/skills/proposal-docx-formatter/SKILL.md` | Formats markdown proposals into Microsoft Word (DOCX) files. |
+| **Python Utility & Security** | `.agents/skills/python-utility-and-security/SKILL.md` | Restricts path traversal, prevents ReDoS, and validates Python structures. |
 | **SOD Palace Sync** | `.agents/skills/sod-palace-sync/SKILL.md` | The Reanimation ritual to load the workspace context and establish the day's tasks. |
 | **SSH Passwordless Setup** | `.agents/skills/ssh-passwordless-setup/SKILL.md` | Configures passwordless, multi-hop SSH routing using `~/.ssh/config` to bypass agent limits. |
+| **Telemetry & Feedback Operations** | `.agents/skills/telemetry-and-feedback-ops/SKILL.md` | Manages dev-mode telemetry log compiling and formatted Markdown feedback. |
 
 
 ---
