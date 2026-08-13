@@ -21,14 +21,15 @@ import sys
 
 
 def is_safe_path(filepath: str, base_dir: str = "") -> bool:
-    """Validates that the path does not escape the workspace to prevent directory traversal.
-
-    Args:
-        filepath: The path to validate.
-        base_dir: Optional base directory, defaults to current working directory.
-
+    """
+    Determine whether a path is within the specified base directory.
+    
+    Parameters:
+        filepath (str): Path to validate.
+        base_dir (str): Directory that contains the allowed path; defaults to the current working directory.
+    
     Returns:
-        True if the path is safe, False otherwise.
+        bool: True if the path is within the base directory, false otherwise.
     """
     if not base_dir:
         target_base = os.path.abspath(os.getcwd())
@@ -39,33 +40,15 @@ def is_safe_path(filepath: str, base_dir: str = "") -> bool:
 
 
 def parse_llms_txt(content: str) -> dict:
-    """Parses the content of an llms.txt file.
-
-    This function uses a robust, regex-free line-by-line parsing strategy
-    to avoid any risk of Regular Expression Denial of Service (ReDoS).
-
-    Args:
-        content: The raw string content of the llms.txt file.
-
+    """
+    Parse llms.txt content into project metadata and section entries.
+    
+    Parameters:
+        content (str): Raw llms.txt content.
+    
     Returns:
-        A dictionary containing the structured sections of the llms.txt file.
-        Format:
-        {
-            "title": str,
-            "summary": str,
-            "info": str,
-            "sections": {
-                "Section Name": [
-                    {
-                        "title": str,
-                        "url": str,
-                        "desc": str or None
-                    },
-                    ...
-                ],
-                ...
-            }
-        }
+        dict: Parsed title, summary, preamble information, and sections containing
+        linked resources or plain-text entries.
     """
     title = "Untitled"
     summary_lines = []
@@ -175,14 +158,16 @@ def xml_escape(text: str) -> str:
 
 
 def generate_xml_context(parsed_data: dict, base_dir: str = "") -> str:
-    """Generates an XML context document from parsed llms.txt data.
-
-    Args:
-        parsed_data: Dictionary representing the parsed llms.txt.
-        base_dir: Optional base directory to load referenced local files.
-
+    """
+    Build an XML context document from parsed llms.txt data.
+    
+    Parameters:
+        parsed_data (dict): Parsed project metadata, sections, links, and notes.
+        base_dir (str): Base directory for loading referenced local files.
+    
     Returns:
-        A string containing the formatted XML document.
+        str: The formatted XML document, including available local file contents and
+            messages for missing, blocked, or unreadable files.
     """
     title = xml_escape(parsed_data["title"])
     summary = xml_escape(parsed_data["summary"])
@@ -238,14 +223,15 @@ def generate_xml_context(parsed_data: dict, base_dir: str = "") -> str:
 
 
 def generate_llms_full_markdown(parsed_data: dict, base_dir: str = "") -> str:
-    """Generates a single consolidated Markdown string combining all local files.
-
-    Args:
-        parsed_data: Dictionary representing the parsed llms.txt.
-        base_dir: Base directory to load referenced local files.
-
+    """
+    Generate consolidated Markdown documentation from parsed `llms.txt` data.
+    
+    Parameters:
+        parsed_data (dict): Parsed project metadata, sections, and referenced items.
+        base_dir (str): Base directory used to resolve local file references.
+    
     Returns:
-        Consolidated markdown content as a string.
+        str: Consolidated Markdown content with embedded readable local files and references to external resources.
     """
     full_md = [
         f"# {parsed_data['title']} - Full Consolidated Documentation",
@@ -302,9 +288,8 @@ def generate_llms_full_markdown(parsed_data: dict, base_dir: str = "") -> str:
 
 
 def main():
-    """Main execution block of the generator utility.
-
-    Parses command-line arguments and coordinates parsing and document output.
+    """
+    Run the command-line interface for parsing ``llms.txt`` and generating XML and Markdown documentation.
     """
     parser = argparse.ArgumentParser(
         description="Parse llms.txt and create LLM-friendly context documents."
