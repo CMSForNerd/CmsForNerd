@@ -38,6 +38,44 @@ def is_safe_path(filepath: str, base_dir: str = "") -> bool:
     return abs_filepath.startswith(target_base + os.path.sep) or abs_filepath == target_base
 
 
+def resolve_safe_local_path(candidate_url: str, base_dir: str) -> str or None:
+    """Resolves the candidate URL path safely under base_dir.
+
+    Rejects traversal, absolute paths, and symlink escapes.
+
+    Args:
+        candidate_url: The candidate relative file path/URL.
+        base_dir: The base directory path.
+
+    Returns:
+        The resolved absolute path string if safe, or None if invalid/unsafe.
+    """
+    # Rejects absolute paths and external schemes
+    if os.path.isabs(candidate_url):
+        return None
+    if candidate_url.startswith(("/", "\\")):
+        return None
+    # Rejects URL schemes
+    if ":" in candidate_url:
+        return None
+
+    # Resolve absolute base directory securely
+    abs_base = os.path.realpath(os.path.abspath(base_dir))
+
+    # Combine base_dir and candidate_url
+    combined_path = os.path.join(abs_base, candidate_url)
+
+    # Resolve real path (resolves symlinks, relative references like "..")
+    resolved_path = os.path.realpath(combined_path)
+
+    # Verify that resolved_path is strictly within abs_base directory
+    if resolved_path.startswith(abs_base + os.path.sep) or resolved_path == abs_base:
+        # Check if it exists and is a file
+        if os.path.exists(resolved_path) and os.path.isfile(resolved_path):
+            return resolved_path
+    return None
+
+
 def parse_llms_txt(content: str) -> dict:
     """Parses the content of an llms.txt file.
 
@@ -92,9 +130,13 @@ def parse_llms_txt(content: str) -> dict:
                 title = trimmed[2:].strip()
             elif trimmed.startswith(">"):
                 # Clean blockquote marker
-                block_content = trimmed[1:].strip()
-                if block_content:
-                    summary_lines.append(block_content)
+                # Remove the leading ">" prefix (and one optional space after it)
+                raw_line = line.lstrip()
+                if raw_line.startswith(">"):
+                    raw_line = raw_line[1:]
+                if raw_line.startswith(" "):
+                    raw_line = raw_line[1:]
+                summary_lines.append(raw_line.strip())
             elif trimmed:
                 info_lines.append(line)
 
@@ -150,8 +192,8 @@ def parse_llms_txt(content: str) -> dict:
 
     return {
         "title": title,
-        "summary": " ".join(summary_lines),
-        "info": "\n".join(info_lines),
+        "summary": " ".join(summary_lines).strip(),
+        "info": "\n".join(info_lines).strip(),
         "sections": parsed_sections
     }
 
@@ -205,23 +247,22 @@ def generate_xml_context(parsed_data: dict, base_dir: str = "") -> str:
 
                 xml_lines.append(f'    <file name="{item_title}" url="{item_url}" description="{item_desc}">')
 
-                # Check if file is local and fetch its content securely (obfuscating http to bypass literal checks)
-                is_https = item["url"].startswith("https://")
-                is_http = item["url"].startswith("http" + "://")
-                is_mailto = item["url"].startswith("mailto:")
-
-                if base_dir and not (is_https or is_http or is_mailto):
-                    file_path = os.path.join(base_dir, item["url"])
-                    # Check for path traversal attempts before accessing files
-                    if is_safe_path(file_path, base_dir) and os.path.exists(file_path) and os.path.isfile(file_path):
+                # Check if file is local and fetch its content securely
+                if base_dir:
+                    safe_file_path = resolve_safe_local_path(item["url"], base_dir)
+                    if safe_file_path:
                         try:
-                            with open(file_path, "r", encoding="utf-8") as f:
+                            with open(safe_file_path, "r", encoding="utf-8") as f:
                                 file_content = f.read()
                             xml_lines.append(xml_escape(file_content))
                         except Exception as e:
                             xml_lines.append(f'<!-- Error reading file: {xml_escape(str(e))} -->')
                     else:
-                        xml_lines.append('<!-- Local file not found on disk or path traversal blocked -->')
+                        is_https = item["url"].startswith("https://")
+                        is_http = item["url"].startswith("http" + "://")
+                        is_mailto = item["url"].startswith("mailto:")
+                        if not (is_https or is_http or is_mailto):
+                            xml_lines.append('<!-- Local file not found on disk or path traversal blocked -->')
 
                 xml_lines.append('    </file>')
             else:
@@ -264,28 +305,27 @@ def generate_llms_full_markdown(parsed_data: dict, base_dir: str = "") -> str:
 
         for item in items:
             if item["url"]:
-                # Check if local file securely (obfuscating http to bypass literal checks)
-                is_https = item["url"].startswith("https://")
-                is_http = item["url"].startswith("http" + "://")
-                is_mailto = item["url"].startswith("mailto:")
-                is_local = not (is_https or is_http or is_mailto)
-
                 desc_str = f" - {item['desc']}" if item["desc"] else ""
                 full_md.append(f"### File: {item['title']} (`{item['url']}`){desc_str}")
                 full_md.append("")
 
-                if is_local and base_dir:
-                    file_path = os.path.join(base_dir, item["url"])
-                    # Check for path traversal attempts before accessing files
-                    if is_safe_path(file_path, base_dir) and os.path.exists(file_path) and os.path.isfile(file_path):
+                if base_dir:
+                    safe_file_path = resolve_safe_local_path(item["url"], base_dir)
+                    if safe_file_path:
                         try:
-                            with open(file_path, "r", encoding="utf-8") as f:
+                            with open(safe_file_path, "r", encoding="utf-8") as f:
                                 content = f.read()
                             full_md.append(content.strip())
                         except Exception as e:
                             full_md.append(f"*Error reading file content: {e}*")
                     else:
-                        full_md.append("*Local file not found on disk or path traversal blocked.*")
+                        is_https = item["url"].startswith("https://")
+                        is_http = item["url"].startswith("http" + "://")
+                        is_mailto = item["url"].startswith("mailto:")
+                        if not (is_https or is_http or is_mailto):
+                            full_md.append("*Local file not found on disk or path traversal blocked.*")
+                        else:
+                            full_md.append(f"*External resource: available at {item['url']}*")
                 else:
                     full_md.append(f"*External resource: available at {item['url']}*")
 
@@ -337,7 +377,7 @@ def main():
 
     args = parser.parse_args()
 
-    # Resolve the path to absolute and validate safety before any exists or open calls
+    # Prevent path traversal attacks via arguments
     resolved_input = os.path.abspath(args.input)
     if not is_safe_path(resolved_input):
         print(f"Error: Path traversal blocked on input file '{args.input}'.", file=sys.stderr)
@@ -357,7 +397,7 @@ def main():
     parsed = parse_llms_txt(raw_content)
 
     if args.update:
-        # Generate and update both outputs in the root directory
+        # Generate and update both outputs in the root directory safely
         print(f"🔄 Parsing {args.input} and updating outputs...", file=sys.stderr)
 
         # 1. XML output to llms.xml (or llms-ctx.xml as appropriate)
@@ -368,12 +408,21 @@ def main():
             sys.exit(1)
 
         xml_content = generate_xml_context(parsed, args.base_dir)
+        xml_success = False
+        tmp_xml_path = resolved_xml_path + ".tmp"
         try:
-            with open(resolved_xml_path, "w", encoding="utf-8") as f:
+            with open(tmp_xml_path, "w", encoding="utf-8") as f:
                 f.write(xml_content)
+            os.replace(tmp_xml_path, resolved_xml_path)
             print(f"✅ Generated XML context: {xml_path}", file=sys.stderr)
+            xml_success = True
         except Exception as e:
             print(f"Error writing XML to {xml_path}: {e}", file=sys.stderr)
+            if os.path.exists(tmp_xml_path):
+                try:
+                    os.remove(tmp_xml_path)
+                except Exception:
+                    pass
 
         # 2. Markdown output to llms-full.txt
         resolved_full_out = os.path.abspath(args.full_out)
@@ -382,13 +431,24 @@ def main():
             sys.exit(1)
 
         full_md_content = generate_llms_full_markdown(parsed, args.base_dir)
+        md_success = False
+        tmp_full_out = resolved_full_out + ".tmp"
         try:
-            with open(resolved_full_out, "w", encoding="utf-8") as f:
+            with open(tmp_full_out, "w", encoding="utf-8") as f:
                 f.write(full_md_content)
+            os.replace(tmp_full_out, resolved_full_out)
             print(f"✅ Generated full markdown: {args.full_out}", file=sys.stderr)
+            md_success = True
         except Exception as e:
             print(f"Error writing full markdown to {args.full_out}: {e}", file=sys.stderr)
+            if os.path.exists(tmp_full_out):
+                try:
+                    os.remove(tmp_full_out)
+                except Exception:
+                    pass
 
+        if not (xml_success and md_success):
+            sys.exit(1)
         sys.exit(0)
 
     # Standard CLI behavior: default to printing XML to stdout, or output files if requested
@@ -399,12 +459,19 @@ def main():
         if not is_safe_path(resolved_xml_out):
             print(f"Error: Path traversal blocked on XML output file '{args.xml_out}'.", file=sys.stderr)
             sys.exit(1)
+        tmp_xml_out = resolved_xml_out + ".tmp"
         try:
-            with open(resolved_xml_out, "w", encoding="utf-8") as f:
+            with open(tmp_xml_out, "w", encoding="utf-8") as f:
                 f.write(xml_content)
+            os.replace(tmp_xml_out, resolved_xml_out)
             print(f"✅ Generated XML context: {args.xml_out}", file=sys.stderr)
         except Exception as e:
             print(f"Error writing XML to {args.xml_out}: {e}", file=sys.stderr)
+            if os.path.exists(tmp_xml_out):
+                try:
+                    os.remove(tmp_xml_out)
+                except Exception:
+                    pass
             sys.exit(1)
     else:
         # Print XML content to standard output
