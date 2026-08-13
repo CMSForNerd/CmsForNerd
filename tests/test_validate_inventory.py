@@ -15,7 +15,6 @@ import inspect
 import io
 import json
 import os
-import sys
 import tempfile
 import unittest
 from contextlib import redirect_stdout
@@ -278,9 +277,6 @@ class ValidateInventoryLoadVarsFromFileTest(unittest.TestCase):
                     result = validate_inventory.load_vars_from_file(os.path.join("..", "outside_vars.json"))
                 self.assertEqual(result, {})
                 self.assertIn("Access denied", buf.getvalue())
-            except ValueError:
-                # Our startswith raising behavior is also perfectly valid and safe!
-                pass
             finally:
                 os.chdir(original_cwd)
                 if os.path.exists(outside_file):

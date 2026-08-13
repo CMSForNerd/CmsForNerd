@@ -140,30 +140,38 @@ class GenerateLlmsFilesTest(unittest.TestCase):
     def test_pre_existing_symlink_safety(self):
         """Tests that pre-existing temporary symlinks are completely bypassed and not followed."""
         with tempfile.TemporaryDirectory() as tmp_dir:
+            # 1. Create the expected llms.txt input
+            llms_txt_path = os.path.join(tmp_dir, "llms.txt")
+            with open(llms_txt_path, "w", encoding="utf-8") as f:
+                f.write("# Sample Project\n\n> Summary.\n\nInfo.\n")
+
+            # 2. Setup the target output path and the pre-existing symlink
             xml_out_path = os.path.join(tmp_dir, "llms.xml")
             symlink_path = xml_out_path + ".tmp"
 
             outside_file = os.path.join(os.path.dirname(tmp_dir), "outside_malicious.txt")
-            with open(outside_file, "w") as f:
+            with open(outside_file, "w", encoding="utf-8") as f:
                 f.write("unaffected original")
 
             try:
+                # 3. Create the symlink
                 os.symlink(outside_file, symlink_path)
 
-                parsed = {
-                    "title": "Title",
-                    "summary": "Summary",
-                    "info": "Info",
-                    "sections": {}
-                }
+                # 4. Invoke main() with --xml-out llms.xml
+                self._run_main_in_tmp_dir(tmp_dir, ["llms.txt", "--xml-out", "llms.xml"])
 
-                xml_content = gen_llms.generate_xml_context(parsed)
-
-                # Verify that the outside_file contents are NOT overwritten/affected!
-                with open(outside_file, "r") as check_f:
+                # 5. Verify the external target remains unchanged
+                with open(outside_file, "r", encoding="utf-8") as check_f:
                     outside_content = check_f.read()
                 self.assertEqual(outside_content, "unaffected original")
+
+                # 6. Verify the XML output file was indeed created successfully
+                self.assertTrue(os.path.exists(xml_out_path))
+                with open(xml_out_path, "r", encoding="utf-8") as check_xml:
+                    self.assertIn('<project title="Sample Project"', check_xml.read())
+
             except (OSError, NotImplementedError, AttributeError):
+                # Symlinks not supported or allowed in this environment, skipping test block.
                 pass
             finally:
                 if os.path.exists(outside_file):

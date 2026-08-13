@@ -36,7 +36,10 @@ def is_safe_path(filepath: str, base_dir: str = "") -> bool:
     else:
         target_base = os.path.realpath(os.path.abspath(base_dir))
     abs_filepath = os.path.realpath(os.path.abspath(filepath))
-    return os.path.commonpath([target_base, abs_filepath]) == target_base
+    try:
+        return os.path.commonpath([target_base, abs_filepath]) == target_base
+    except ValueError:
+        return False
 
 
 def resolve_safe_local_path(candidate_url: str, base_dir: str) -> str or None:
@@ -397,7 +400,11 @@ def main():
         sys.exit(1)
 
     try:
-        with open(resolved_input, "r", encoding="utf-8") as f:
+        flags = os.O_RDONLY
+        if hasattr(os, 'O_NOFOLLOW'):
+            flags |= os.O_NOFOLLOW
+        fd = os.open(resolved_input, flags)
+        with open(fd, "r", encoding="utf-8") as f:
             raw_content = f.read()
     except Exception as e:
         print(f"Error reading input file '{args.input}': {e}", file=sys.stderr)

@@ -7,7 +7,8 @@
 # description: "Measures token footprints per file and per Markdown section. Raises breach alerts when sections exceed the 4,000-token quality gate."
 # license: "GNU General Public License v3.0"
 # author: "Harisfazillah Jamel (LinuxMalaysia)"
-# timestamp: 2026-07-19
+# timestamp: 2026-08-01
+# topics: [sovereignty, tokens, calculator, dsom, metadata]
 # ---
 
 import io
@@ -51,14 +52,36 @@ def split_markdown_sections(md_text: str) -> list:
         sections.append((f"## {title}", body))
     return sections
 
+def is_safe_path(filepath, base_dir=""):
+    """
+    Validates that the file path does not escape the current workspace directory (project root),
+    preventing path traversal vulnerabilities (SonarCloud S2083).
+    """
+    if not base_dir:
+        base_dir = os.getcwd()
+    abs_filepath = os.path.realpath(os.path.abspath(filepath))
+    abs_base = os.path.realpath(os.path.abspath(base_dir))
+    try:
+        return os.path.commonpath([abs_base, abs_filepath]) == abs_base
+    except ValueError:
+        return False
+
 def analyse_file(filepath: str, enc, verbose_sections: bool = False):
     """
     Analyse a single file: total tokens, per-section tokens, breach flags.
     Returns (total_tokens, breached: bool).
     """
+    if os.path.islink(filepath) or not is_safe_path(filepath):
+        print(f"  [ERROR]  Could not read {filepath}: Symlink or unsafe path blocked")
+        return 0, False
+
     try:
         t0 = time.perf_counter()
-        with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
+        flags = os.O_RDONLY
+        if hasattr(os, 'O_NOFOLLOW'):
+            flags |= os.O_NOFOLLOW
+        fd = os.open(filepath, flags)
+        with open(fd, "r", encoding="utf-8", errors="ignore") as f:
             text = f.read()
         read_ms = (time.perf_counter() - t0) * 1000
 
@@ -88,17 +111,6 @@ def _report_sections(text: str, enc, filename: str):
         flag = "  [BREACH]" if sec_tokens >= GATE_THRESHOLD else ""
         print(f"           {sec_tokens:>6,} tok  {title[:70]}{flag}")
 
-def is_safe_path(filepath, base_dir=""):
-    """
-    Validates that the file path does not escape the current workspace directory (project root),
-    preventing path traversal vulnerabilities (SonarCloud S2083).
-    """
-    if not base_dir:
-        base_dir = os.getcwd()
-    abs_filepath = os.path.realpath(os.path.abspath(filepath))
-    abs_base = os.path.realpath(os.path.abspath(base_dir))
-    return os.path.commonpath([abs_base, abs_filepath]) == abs_base
-
 def scan_path(target_path: str, verbose_sections: bool = False):
     """Scan a file or directory tree and report token footprints with breach flags."""
     if not is_safe_path(target_path):
@@ -126,11 +138,16 @@ def scan_path(target_path: str, verbose_sections: bool = False):
         total_breaches = int(breached)
         file_count = 1
     elif os.path.isdir(target_path):
-        for root, _, files in os.walk(target_path):
+        for root, dirs, files in os.walk(target_path):
+            dirs[:] = [d for d in dirs if d not in ('.git', 'node_modules', 'scratch', 'vendor', 'data', 'asimp')]
             for fname in sorted(files):
                 if not fname.endswith(ALLOWED_EXTS):
                     continue
                 fpath = os.path.join(root, fname)
+                if os.path.islink(fpath):
+                    continue
+                if not is_safe_path(fpath):
+                    continue
                 tokens, breached = analyse_file(fpath, enc, verbose_sections=verbose_sections)
                 total_tokens += tokens
                 total_breaches += int(breached)

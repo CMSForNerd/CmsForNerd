@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+# ---
+# okf_version: 0.1
+# type: executable_script
+# title: "OKF Frontmatter Injector"
+# description: "Injects or updates compliant Open Knowledge Format (OKF) v0.1 frontmatter metadata in all Markdown files."
+# license: "GNU General Public License v3.0"
+# author: "Harisfazillah Jamel (LinuxMalaysia)"
+# timestamp: 2026-08-01
+# topics: [sovereignty, okf, frontmatter, dsom, metadata]
+# ---
 import os
 import re
 import sys
@@ -86,7 +97,10 @@ def is_safe_path(filepath, base_dir=""):
         base_dir = os.getcwd()
     abs_filepath = os.path.realpath(os.path.abspath(filepath))
     abs_base = os.path.realpath(os.path.abspath(base_dir))
-    return os.path.commonpath([abs_base, abs_filepath]) == abs_base
+    try:
+        return os.path.commonpath([abs_base, abs_filepath]) == abs_base
+    except ValueError:
+        return False
 
 def apply_okf(root_dir):
     if not is_safe_path(root_dir):
@@ -106,6 +120,14 @@ def apply_okf(root_dir):
                 continue
 
             filepath = os.path.join(dirpath, filename)
+
+            # Skip symlinks completely to satisfy CWE-22 and TOCTOU
+            if os.path.islink(filepath):
+                continue
+
+            if not is_safe_path(filepath):
+                continue
+
             rel_path = os.path.relpath(filepath, root_dir).replace('\\', '/')
 
             # Double check ignored paths in components
@@ -116,8 +138,16 @@ def apply_okf(root_dir):
 
             total_count += 1
 
-            with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
-                content = f.read()
+            try:
+                flags = os.O_RDONLY
+                if hasattr(os, 'O_NOFOLLOW'):
+                    flags |= os.O_NOFOLLOW
+                fd = os.open(filepath, flags)
+                with open(fd, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+            except Exception as e:
+                print(f"Error reading {filepath}: {e}")
+                continue
 
             # Handle UTF-8 BOM
             content = content.lstrip('\ufeff')
@@ -144,10 +174,17 @@ topics: {topics_str}
 ---
 """
                 new_content = frontmatter + content
-                with open(filepath, 'w', encoding='utf-8') as f:
-                    f.write(new_content)
-                print(f"Applied OKF to: {rel_path} (new frontmatter)")
-                modified_count += 1
+                try:
+                    flags = os.O_WRONLY | os.O_TRUNC
+                    if hasattr(os, 'O_NOFOLLOW'):
+                        flags |= os.O_NOFOLLOW
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                    print(f"Applied OKF to: {rel_path} (new frontmatter)")
+                    modified_count += 1
+                except Exception as e:
+                    print(f"Error writing to {filepath}: {e}")
                 continue
 
             # Frontmatter exists, check for missing fields
@@ -186,11 +223,17 @@ topics: {topics_str}
             new_fm_content = "\n".join(new_fm_lines)
 
             new_content = f"---\n{new_fm_content}\n---\n" + body_content
-            with open(filepath, 'w', encoding='utf-8') as f:
-                f.write(new_content)
-
-            print(f"Updated missing fields in: {rel_path} ({', '.join([f.split(':')[0] for f in missing_fields])})")
-            modified_count += 1
+            try:
+                flags = os.O_WRONLY | os.O_TRUNC
+                if hasattr(os, 'O_NOFOLLOW'):
+                    flags |= os.O_NOFOLLOW
+                fd = os.open(filepath, flags)
+                with open(fd, 'w', encoding='utf-8') as f:
+                    f.write(new_content)
+                print(f"Updated missing fields in: {rel_path} ({', '.join([f.split(':')[0] for f in missing_fields])})")
+                modified_count += 1
+            except Exception as e:
+                print(f"Error writing to {filepath}: {e}")
 
     print(f"\nTotal Markdown files processed: {total_count}")
     print(f"Total Markdown files modified: {modified_count}")

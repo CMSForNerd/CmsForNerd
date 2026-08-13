@@ -26,7 +26,10 @@ def is_safe_path(filepath):
     """
     abs_filepath = os.path.realpath(os.path.abspath(filepath))
     base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
-    return os.path.commonpath([base_dir, abs_filepath]) == base_dir
+    try:
+        return os.path.commonpath([base_dir, abs_filepath]) == base_dir
+    except ValueError:
+        return False
 
 def load_vars_from_file(filepath):
     """
@@ -40,7 +43,12 @@ def load_vars_from_file(filepath):
         if not (safe_filepath.startswith(base_dir + os.path.sep) or safe_filepath == base_dir):
             raise ValueError(f"Access denied to path '{filepath}'")
 
-        with open(safe_filepath, "r", encoding="utf-8") as f:
+        # Open with O_NOFOLLOW to reject symlinks at open time (closing TOCTOU gap)
+        flags = os.O_RDONLY
+        if hasattr(os, 'O_NOFOLLOW'):
+            flags |= os.O_NOFOLLOW
+        fd = os.open(safe_filepath, flags)
+        with open(fd, "r", encoding="utf-8") as f:
             content = f.read()
         try:
             return json.loads(content)
