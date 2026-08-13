@@ -27,7 +27,7 @@ The Telemetry and Bidirectional Feedback Pipeline must remain documented in `doc
 
 ### 2. Execution-Mode Separated Telemetry Loops
 The local telemetry loop separates execution environments using the `execution_mode` configuration flag:
-- **`dev` mode:** The `feedback_collector` role compiles active logs, kernel states, and exit codes. To protect data before external transmission:
+- **`dev` mode:** The `feedback_collector` role compiles active logs, kernel states, and exit codes into `/tmp/jules_telemetry.json`. To protect data before external transmission:
   - Write compiled telemetry strictly to a securely created temporary file with permissions set to `0600` and guaranteed cleanup on exit.
   - Allowlist or redact sensitive log and kernel-state fields.
   - Require explicit operator authorization before sending reports through the `jules feed` or `gh pr comment` channels.
