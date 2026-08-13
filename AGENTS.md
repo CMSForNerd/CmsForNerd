@@ -4,7 +4,7 @@ type: documentation
 title: "The Agent Registry & DSOM Gateway"
 description: "Sovereign entry point instructing AI Agents to look up rules and memory under .agents/."
 resource: "file:///AGENTS.md"
-timestamp: 2026-08-01T08:30:00Z
+timestamp: 2026-08-01T09:00:00Z
 topics: [gateway, registry, rulebook, dsom, agent]
 ---
 # AI Agent Registry & Sovereign Gateway
@@ -149,6 +149,18 @@ To execute workflows autonomously and check compliance, the workspace provides p
 - **End-of-Day (EOD) Palace Synchronization (`.agents/skills/eod-palace-sync/`)**
   - *What it does:* Externalises ephemeral conversational memory to walkthroughs, commits changes, and performs GitOps-safe rebasing.
   - *How to interact:* Follow instructions in `docs/EOD-RITUAL.md` or execute `bash tools/eod-palace.sh`.
+
+- **Python Utility & Security (`.agents/skills/python-utility-and-security/`)**
+  - *What it does:* Enforces path traversal boundaries (CWE-22) using `os.path.abspath`, blocks ReDoS via regex-free parsing, prevents insecure protocol triggers, and tests Google-style docstrings.
+  - *How to interact:* Utilize when writing or validating any repository Python scripts.
+
+- **ASIMP and AI Agents Integration (`.agents/skills/asimp-and-ai-integration/`)**
+  - *What it does:* Directs automated OS-level security compliance audits via Lynis and OpenSCAP, simulates unprivileged mock auditing via `tools/mock-asimp.sh`, and validates YAML structures.
+  - *How to interact:* Load on-demand for infrastructure compliance checks or automated YAML tests.
+
+- **Telemetry and Bidirectional Feedback (`.agents/skills/telemetry-and-feedback-ops/`)**
+  - *What it does:* Manages the local telemetry loop in `dev` execution mode to compile and dispatch formatted Markdown feedback reports back to Google Jules VM and active pull requests.
+  - *How to interact:* Executed dynamically in dev mode or as part of WSL2 multi-distro matrix workflows.
 
 ---
 

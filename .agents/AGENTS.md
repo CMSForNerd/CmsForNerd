@@ -4,7 +4,7 @@ type: documentation
 title: "The Core AI Rulebook (DSOM)"
 description: "OKF-compliant documentation for AGENTS.md."
 resource: "file:///.agents/AGENTS.md"
-timestamp: 2026-08-01T08:30:00Z
+timestamp: 2026-08-01T09:00:00Z
 topics: [dsom, rules, cms, nerd, documentation]
 ---
 # The Core AI Rulebook (DSOM)
@@ -126,6 +126,46 @@ Welcome to the Sovereign AI Agent Workspace. You are a Cognitive Digital Twin op
     - **No Literal `git pull`**: Never execute literal `git pull` in scripts or automated pipelines; execute `git fetch origin` followed by `git rebase origin/master` to avoid sandbox command blocks.
     - **Shallow Clone Restoration**: When running on shallow-cloned instances, run `git fetch --unshallow` or `git fetch origin` before performing branch merges or history audits.
     - **Safe `set -e` Grep Execution**: Guard line-count extractions with `grep -c ... || true` or use `grep | wc -l` so zero-match exits (exit code 1) do not prematurely terminate `set -e` scripts.
+
+## Active AI Agent Skills & Custom Tooling
+
+To execute workflows autonomously and check compliance, the workspace provides programmatic tools and structured Agent Skills:
+
+### Core DevOps Auditing and Testing
+
+1. **Pre-flight Environmental Gateway (`tools/audit-pre-flight.sh`)**
+   - *What it does:* Checks PHP 8.4/8.3 constraints, verifies lock files, and runs deep sanity checks for DSOM memory consistency.
+   - *How to interact:* Execute via `bash tools/audit-pre-flight.sh` or through the automated `composer lab-check` suite.
+
+2. **Compliance & Quality Check Suite (`composer lab-check`)**
+   - *What it does:* Runs pre-flight checks, PHPStan Level 8 static analysis, style audits, Zero-Global checks, and Pest PHP tests.
+   - *Input/Output:* Returns console report and exits with `0` on 100% compliance. Required before committing any major changes.
+
+### Key AI Agent Skills (`.agents/skills/`)
+
+- **Sovereign Signature Injector (`.agents/skills/dsom-signature-injector/`)**
+  - *What it does:* Programmatically appends digital sovereignty headers, timestamps, and GPL v3.0 license info to modified files.
+  - *How to interact:* Execute `uv run .agents/skills/dsom-signature-injector/scripts/inject.py <target_path>`.
+
+- **Token Calculator Quality Gate (`.agents/skills/dsom-token-calculator/`)**
+  - *What it does:* Enforces the strict 4,000-token limit for individual skill files (`SKILL.md`) to prevent context window bloat.
+  - *How to interact:* Execute `uv run --with tiktoken .agents/skills/dsom-token-calculator/scripts/calculate-tokens.py .agents/skills/`.
+
+- **End-of-Day (EOD) Palace Synchronization (`.agents/skills/eod-palace-sync/`)**
+  - *What it does:* Externalises ephemeral conversational memory to walkthroughs, commits changes, and performs GitOps-safe rebasing.
+  - *How to interact:* Follow instructions in `docs/EOD-RITUAL.md` or execute `bash tools/eod-palace.sh`.
+
+- **Python Utility & Security (`.agents/skills/python-utility-and-security/`)**
+  - *What it does:* Enforces path traversal boundaries (CWE-22) using `os.path.abspath`, blocks ReDoS via regex-free parsing, prevents insecure protocol triggers, and tests Google-style docstrings.
+  - *How to interact:* Utilize when writing or validating any repository Python scripts.
+
+- **ASIMP and AI Agents Integration (`.agents/skills/asimp-and-ai-integration/`)**
+  - *What it does:* Directs automated OS-level security compliance audits via Lynis and OpenSCAP, simulates unprivileged mock auditing via `tools/mock-asimp.sh`, and validates YAML structures.
+  - *How to interact:* Load on-demand for infrastructure compliance checks or automated YAML tests.
+
+- **Telemetry and Bidirectional Feedback (`.agents/skills/telemetry-and-feedback-ops/`)**
+  - *What it does:* Manages the local telemetry loop in `dev` execution mode to compile and dispatch formatted Markdown feedback reports back to Google Jules VM and active pull requests.
+  - *How to interact:* Executed dynamically in dev mode or as part of WSL2 multi-distro matrix workflows.
 
 ## Cognitive Engine Protocols (Boot & Discovery)
 
