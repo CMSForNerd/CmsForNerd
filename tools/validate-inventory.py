@@ -37,8 +37,14 @@ def load_vars_from_file(filepath):
         print(f"Warning: Access denied to path '{filepath}' (must reside within the project root).")
         return {}
 
+    # Resolve to safe realpath before opening to satisfy SonarCloud
+    safe_filepath = os.path.realpath(os.path.abspath(filepath))
+    if not is_safe_path(safe_filepath):
+        print(f"Warning: Access denied to path '{safe_filepath}' (must reside within the project root).")
+        return {}
+
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with open(safe_filepath, "r", encoding="utf-8") as f:
             content = f.read()
         try:
             return json.loads(content)
