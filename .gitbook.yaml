@@ -1,6 +1,10 @@
-# GitBook Configuration for CmsForNerd Laboratory
+# GitBook configuration version
+version: "1.0.0"
+
+# Defines the root directory of your content (change to ./docs if using a subfolder)
 root: ./
 
+# Maps core structural files
 structure:
   readme: README.md
   summary: SUMMARY.md

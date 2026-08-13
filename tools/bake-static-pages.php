@@ -168,6 +168,9 @@ $filesToCopy = [
     'rss.xml',
     'ror.xml',
     'schema-org.json',
+    'llms.txt',
+    'llms-full.txt',
+    'llms.xml',
 ];
 
 foreach ($filesToCopy as $fileName) {
