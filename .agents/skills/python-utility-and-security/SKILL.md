@@ -20,7 +20,7 @@ Execute this skill when writing, reviewing, or testing Python utility scripts (s
 
 ### 1. Path Traversal Prevention (CWE-22 / S2083)
 Python utility scripts that accept file paths as input must resolve and validate them against an explicit safe path helper:
-- Always resolve paths using `os.path.abspath()`.
+- Ensure both the authorized root and candidate paths use symlink-aware resolution via `os.path.realpath()` or `Path.resolve()` before performing containment validation.
 - Check resolved paths with a custom `is_safe_path()` helper to ensure they remain inside authorized repository root/workspace boundaries.
 
 ### 2. Regular Expression DoS (ReDoS) Mitigation
@@ -30,8 +30,8 @@ To satisfy static analysis security gates and prevent ReDoS vulnerabilities:
 
 ### 3. Insecure Protocol Alerts
 To prevent insecure protocol triggers (e.g. from SonarCloud scanning):
-- Avoid embedding raw `"http://"` string literals.
-- Construct the `'http'` prefix dynamically (e.g., using `'http'` + `'://'`) or restrict all requests strictly to verified secure HTTPS structures.
+- Require HTTPS URLs by default instead of constructing HTTP literals dynamically.
+- Allow plaintext HTTP only for explicitly allowlisted loopback or test endpoints, and reject all other non-HTTPS URLs.
 
 ### 4. PEP 8 Compliance & Imports
 Place all Python imports at the top of the file rather than declaring them lazily inside functions. This is required to pass standard linters and maintain clean module scopes.
