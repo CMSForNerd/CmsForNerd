@@ -18,14 +18,6 @@ def get_sh_yml_header(date_str):
 """
 
 def get_ps1_header(date_str):
-    """Generate a PowerShell block-comment header containing DSOM protocol metadata.
-    
-    Parameters:
-    	date_str (str): Date to include in the timestamp field.
-    
-    Returns:
-    	str: Formatted PowerShell header text.
-    """
     return f"""<#
 .SYNOPSIS
     Deep State of Mind (DSOM) For My AI Protocol
@@ -39,14 +31,8 @@ def get_ps1_header(date_str):
 
 def is_safe_path(filepath, base_dir=""):
     """
-    Determine whether a path remains within a specified base directory.
-    
-    Parameters:
-        filepath (str): Path to validate.
-        base_dir (str): Directory that the path must remain within. Defaults to the current working directory.
-    
-    Returns:
-        bool: True if the resolved path is within the resolved base directory, false otherwise.
+    Validates that the file path does not escape the current workspace directory (project root),
+    preventing path traversal vulnerabilities (SonarCloud S2083).
     """
     if not base_dir:
         base_dir = os.getcwd()
@@ -55,16 +41,6 @@ def is_safe_path(filepath, base_dir=""):
     return os.path.commonpath([abs_base, abs_filepath]) == abs_base
 
 def inject_signature(target_path):
-    """
-    Inject DSOM protocol signatures into supported files.
-    
-    Parameters:
-    	target_path: A file or directory to process. Directory traversal is limited to
-    	paths within the current working directory.
-    
-    The function processes Markdown, shell, YAML, and PowerShell files, skipping files
-    that already contain a DSOM signature.
-    """
     if not is_safe_path(target_path):
         print(f"Error: Path traversal blocked on target path '{target_path}'.", file=sys.stderr)
         sys.exit(1)

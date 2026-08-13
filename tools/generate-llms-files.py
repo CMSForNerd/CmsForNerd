@@ -21,14 +21,14 @@ import sys
 
 
 def is_safe_path(filepath: str, base_dir: str = "") -> bool:
-    """Determine whether a path is contained within a base directory after resolution.
-    
-    Parameters:
-        filepath (str): Path to evaluate.
-        base_dir (str): Directory that must contain the resolved path; defaults to the current working directory.
-    
+    """Validates that the path does not escape the workspace to prevent directory traversal.
+
+    Args:
+        filepath: The path to validate.
+        base_dir: Optional base directory, defaults to current working directory.
+
     Returns:
-        bool: `True` if the resolved path is within the base directory, `False` otherwise.
+        True if the path is safe, False otherwise.
     """
     if not base_dir:
         target_base = os.path.realpath(os.path.abspath(os.getcwd()))
@@ -39,15 +39,16 @@ def is_safe_path(filepath: str, base_dir: str = "") -> bool:
 
 
 def resolve_safe_local_path(candidate_url: str, base_dir: str) -> str or None:
-    """Resolve a local file path safely within a base directory.
-    
-    Parameters:
-        candidate_url (str): Relative local path to resolve.
-        base_dir (str): Directory that must contain the resolved path.
-    
+    """Resolves the candidate URL path safely under base_dir.
+
+    Rejects traversal, absolute paths, and symlink escapes.
+
+    Args:
+        candidate_url: The candidate relative file path/URL.
+        base_dir: The base directory path.
+
     Returns:
-        str or None: The resolved path if it is an existing regular file within
-            the base directory; otherwise, None.
+        The resolved absolute path string if safe, or None if invalid/unsafe.
     """
     # Rejects absolute paths and external schemes
     if os.path.isabs(candidate_url):
@@ -341,10 +342,9 @@ def generate_llms_full_markdown(parsed_data: dict, base_dir: str = "") -> str:
 
 
 def main():
-    """
-    Parse the input documentation file and generate XML and Markdown outputs according to the command-line options.
-    
-    Input and output paths are validated against the current working directory. Exits with status 1 when validation, input, or output processing fails.
+    """Main execution block of the generator utility.
+
+    Parses command-line arguments and coordinates parsing and document output.
     """
     parser = argparse.ArgumentParser(
         description="Parse llms.txt and create LLM-friendly context documents."
@@ -381,7 +381,7 @@ def main():
 
     # Prevent path traversal attacks via arguments
     resolved_input = os.path.realpath(os.path.abspath(args.input))
-    if os.path.commonpath([base_dir_abs, resolved_input]) != base_dir_abs:
+    if not (resolved_input.startswith(base_dir_abs + os.path.sep) or resolved_input == base_dir_abs):
         print(f"Error: Path traversal blocked on input file '{args.input}'.", file=sys.stderr)
         sys.exit(1)
 
@@ -405,26 +405,31 @@ def main():
         # 1. XML output to llms.xml (or llms-ctx.xml as appropriate)
         xml_path = args.xml_out if args.xml_out else "llms.xml"
         resolved_xml_path = os.path.realpath(os.path.abspath(xml_path))
-        if os.path.commonpath([base_dir_abs, resolved_xml_path]) != base_dir_abs:
+        if not (resolved_xml_path.startswith(base_dir_abs + os.path.sep) or resolved_xml_path == base_dir_abs):
             print(f"Error: Path traversal blocked on XML output file '{xml_path}'.", file=sys.stderr)
             sys.exit(1)
 
         xml_content = generate_xml_context(parsed, args.base_dir)
         xml_success = False
         tmp_xml_path = resolved_xml_path + ".tmp"
-        if os.path.commonpath([base_dir_abs, tmp_xml_path]) != base_dir_abs:
+        if not (tmp_xml_path.startswith(base_dir_abs + os.path.sep) or tmp_xml_path == base_dir_abs):
             print(f"Error: Path traversal blocked on temporary XML file.", file=sys.stderr)
             sys.exit(1)
 
         try:
+            if not (tmp_xml_path.startswith(base_dir_abs + os.path.sep) or tmp_xml_path == base_dir_abs):
+                raise ValueError("Path traversal")
             with open(tmp_xml_path, "w", encoding="utf-8") as f:
                 f.write(xml_content)
+
+            if not (resolved_xml_path.startswith(base_dir_abs + os.path.sep) or resolved_xml_path == base_dir_abs):
+                raise ValueError("Path traversal")
             os.replace(tmp_xml_path, resolved_xml_path)
             print(f"✅ Generated XML context: {xml_path}", file=sys.stderr)
             xml_success = True
         except Exception as e:
             print(f"Error writing XML to {xml_path}: {e}", file=sys.stderr)
-            if os.path.commonpath([base_dir_abs, tmp_xml_path]) == base_dir_abs and os.path.exists(tmp_xml_path):
+            if (tmp_xml_path.startswith(base_dir_abs + os.path.sep) or tmp_xml_path == base_dir_abs) and os.path.exists(tmp_xml_path):
                 try:
                     os.remove(tmp_xml_path)
                 except Exception:
@@ -433,26 +438,31 @@ def main():
 
         # 2. Markdown output to llms-full.txt
         resolved_full_out = os.path.realpath(os.path.abspath(args.full_out))
-        if os.path.commonpath([base_dir_abs, resolved_full_out]) != base_dir_abs:
+        if not (resolved_full_out.startswith(base_dir_abs + os.path.sep) or resolved_full_out == base_dir_abs):
             print(f"Error: Path traversal blocked on full markdown output file '{args.full_out}'.", file=sys.stderr)
             sys.exit(1)
 
         full_md_content = generate_llms_full_markdown(parsed, args.base_dir)
         md_success = False
         tmp_full_out = resolved_full_out + ".tmp"
-        if os.path.commonpath([base_dir_abs, tmp_full_out]) != base_dir_abs:
+        if not (tmp_full_out.startswith(base_dir_abs + os.path.sep) or tmp_full_out == base_dir_abs):
             print(f"Error: Path traversal blocked on temporary markdown file.", file=sys.stderr)
             sys.exit(1)
 
         try:
+            if not (tmp_full_out.startswith(base_dir_abs + os.path.sep) or tmp_full_out == base_dir_abs):
+                raise ValueError("Path traversal")
             with open(tmp_full_out, "w", encoding="utf-8") as f:
                 f.write(full_md_content)
+
+            if not (resolved_full_out.startswith(base_dir_abs + os.path.sep) or resolved_full_out == base_dir_abs):
+                raise ValueError("Path traversal")
             os.replace(tmp_full_out, resolved_full_out)
             print(f"✅ Generated full markdown: {args.full_out}", file=sys.stderr)
             md_success = True
         except Exception as e:
             print(f"Error writing full markdown to {args.full_out}: {e}", file=sys.stderr)
-            if os.path.commonpath([base_dir_abs, tmp_full_out]) == base_dir_abs and os.path.exists(tmp_full_out):
+            if (tmp_full_out.startswith(base_dir_abs + os.path.sep) or tmp_full_out == base_dir_abs) and os.path.exists(tmp_full_out):
                 try:
                     os.remove(tmp_full_out)
                 except Exception:
@@ -468,22 +478,27 @@ def main():
 
     if args.xml_out:
         resolved_xml_out = os.path.realpath(os.path.abspath(args.xml_out))
-        if os.path.commonpath([base_dir_abs, resolved_xml_out]) != base_dir_abs:
+        if not (resolved_xml_out.startswith(base_dir_abs + os.path.sep) or resolved_xml_out == base_dir_abs):
             print(f"Error: Path traversal blocked on XML output file '{args.xml_out}'.", file=sys.stderr)
             sys.exit(1)
         tmp_xml_out = resolved_xml_out + ".tmp"
-        if os.path.commonpath([base_dir_abs, tmp_xml_out]) != base_dir_abs:
+        if not (tmp_xml_out.startswith(base_dir_abs + os.path.sep) or tmp_xml_out == base_dir_abs):
             print(f"Error: Path traversal blocked on temporary XML file.", file=sys.stderr)
             sys.exit(1)
 
         try:
+            if not (tmp_xml_out.startswith(base_dir_abs + os.path.sep) or tmp_xml_out == base_dir_abs):
+                raise ValueError("Path traversal")
             with open(tmp_xml_out, "w", encoding="utf-8") as f:
                 f.write(xml_content)
+
+            if not (resolved_xml_out.startswith(base_dir_abs + os.path.sep) or resolved_xml_out == base_dir_abs):
+                raise ValueError("Path traversal")
             os.replace(tmp_xml_out, resolved_xml_out)
             print(f"✅ Generated XML context: {args.xml_out}", file=sys.stderr)
         except Exception as e:
             print(f"Error writing XML to {args.xml_out}: {e}", file=sys.stderr)
-            if os.path.commonpath([base_dir_abs, tmp_xml_out]) == base_dir_abs and os.path.exists(tmp_xml_out):
+            if (tmp_xml_out.startswith(base_dir_abs + os.path.sep) or tmp_xml_out == base_dir_abs) and os.path.exists(tmp_xml_out):
                 try:
                     os.remove(tmp_xml_out)
                 except Exception:

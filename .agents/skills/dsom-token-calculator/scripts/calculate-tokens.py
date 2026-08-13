@@ -90,14 +90,8 @@ def _report_sections(text: str, enc, filename: str):
 
 def is_safe_path(filepath, base_dir=""):
     """
-    Determine whether a path is within the specified base directory.
-    
-    Parameters:
-        filepath (str): Path to validate.
-        base_dir (str): Directory that must contain the path; defaults to the current working directory.
-    
-    Returns:
-        bool: `True` if the resolved path is within the base directory, `False` otherwise.
+    Validates that the file path does not escape the current workspace directory (project root),
+    preventing path traversal vulnerabilities (SonarCloud S2083).
     """
     if not base_dir:
         base_dir = os.getcwd()
@@ -106,13 +100,7 @@ def is_safe_path(filepath, base_dir=""):
     return os.path.commonpath([abs_base, abs_filepath]) == abs_base
 
 def scan_path(target_path: str, verbose_sections: bool = False):
-    """
-    Scan a file or directory tree and report token counts and gate breaches.
-    
-    Parameters:
-        target_path (str): File or directory to scan.
-        verbose_sections (bool): Whether to report token counts for Markdown sections.
-    """
+    """Scan a file or directory tree and report token footprints with breach flags."""
     if not is_safe_path(target_path):
         print(f"Error: Path traversal blocked on target path '{target_path}'.", file=sys.stderr)
         sys.exit(1)

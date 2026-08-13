@@ -26,17 +26,6 @@ def extract_title(content, filename):
 
 def extract_topics(filepath, content, okf_type):
     # Common words to filter out
-    """
-    Build topic tags from a file path, document headings, and resource type.
-    
-    Parameters:
-    	filepath (str): Path used to derive topic words.
-    	content (str): Markdown content whose headings supply additional topic words.
-    	okf_type (str): Resource classification used to select fallback topics.
-    
-    Returns:
-    	list[str]: Three to five topic tags.
-    """
     stop_words = {
         'and', 'the', 'of', 'to', 'a', 'in', 'for', 'on', 'with', 'guide',
         'manual', 'how', 'howto', 'setup', 'an', 'is', 'it', 'by', 'at',
@@ -90,14 +79,8 @@ def extract_topics(filepath, content, okf_type):
 
 def is_safe_path(filepath, base_dir=""):
     """
-    Determine whether a path remains within a specified base directory.
-    
-    Parameters:
-        filepath (str): Path to validate.
-        base_dir (str): Directory that the path must remain within; defaults to the current working directory.
-    
-    Returns:
-        bool: `True` if the path is within the base directory, `False` otherwise.
+    Validates that the file path does not escape the current workspace directory (project root),
+    preventing path traversal vulnerabilities (SonarCloud S2083).
     """
     if not base_dir:
         base_dir = os.getcwd()
@@ -106,14 +89,6 @@ def is_safe_path(filepath, base_dir=""):
     return os.path.commonpath([abs_base, abs_filepath]) == abs_base
 
 def apply_okf(root_dir):
-    """
-    Apply OKF frontmatter metadata to Markdown files under a directory.
-    
-    Parameters:
-        root_dir (str): Root directory to scan recursively.
-    
-    The scan excludes configured dependency, generated-content, and data directories. Unsafe root paths cause the process to exit with status 1.
-    """
     if not is_safe_path(root_dir):
         print(f"Error: Path traversal blocked on root directory '{root_dir}'.", file=sys.stderr)
         sys.exit(1)

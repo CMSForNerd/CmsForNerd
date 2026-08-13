@@ -21,13 +21,8 @@ required = {
 
 def is_safe_path(filepath):
     """
-    Determine whether a path is contained within the current workspace.
-    
-    Parameters:
-        filepath: Path to evaluate.
-    
-    Returns:
-        True if the path is within the current workspace, false otherwise.
+    Validates that the file path does not escape the current workspace directory (project root),
+    preventing path traversal vulnerabilities (SonarCloud S2083).
     """
     abs_filepath = os.path.realpath(os.path.abspath(filepath))
     base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
@@ -35,22 +30,14 @@ def is_safe_path(filepath):
 
 def load_vars_from_file(filepath):
     """
-    Load variables from a JSON or simple YAML-style file within the current project.
-    
-    Parameters:
-        filepath: Path to a variable file located within the current project directory.
-    
-    Returns:
-        A dictionary containing the parsed variables, or an empty dictionary if the file
-        cannot be accessed or parsed.
+    Loads and parses variables from a YAML or JSON file safely.
+    Uses JSON parsing if JSON, otherwise line-by-line parsing for YAML.
     """
     base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
     safe_filepath = os.path.realpath(os.path.abspath(filepath))
 
-    # Perform inline path validation to guarantee safety to SonarCloud
-    if os.path.commonpath([base_dir, safe_filepath]) != base_dir:
-        print(f"Warning: Access denied to path '{filepath}' (must reside within the project root).")
-        return {}
+    if not (safe_filepath.startswith(base_dir + os.path.sep) or safe_filepath == base_dir):
+        raise ValueError(f"Access denied to path '{filepath}'")
 
     try:
         with open(safe_filepath, "r", encoding="utf-8") as f:
@@ -158,7 +145,15 @@ def main(args):
         # Detect @filename inputs
         if evar.startswith("@"):
             filepath = evar[1:]
-            file_vars = load_vars_from_file(filepath)
+
+            # Resolve and validate path traversal directly at CLI boundary to satisfy SonarCloud
+            base_dir_abs = os.path.realpath(os.path.abspath(os.getcwd()))
+            resolved_filepath = os.path.realpath(os.path.abspath(filepath))
+            if not (resolved_filepath.startswith(base_dir_abs + os.path.sep) or resolved_filepath == base_dir_abs):
+                print(f"Error: Path traversal blocked on extra-vars file '{filepath}'.", file=sys.stderr)
+                sys.exit(1)
+
+            file_vars = load_vars_from_file(resolved_filepath)
             for k, v in file_vars.items():
                 effective_vars[k] = str(v)
         elif evar.startswith("{"):
