@@ -21,14 +21,14 @@ import sys
 
 
 def is_safe_path(filepath: str, base_dir: str = "") -> bool:
-    """Validates that the path does not escape the workspace to prevent directory traversal.
-
-    Args:
-        filepath: The path to validate.
-        base_dir: Optional base directory, defaults to current working directory.
-
+    """Determine whether a path is contained within a base directory after resolution.
+    
+    Parameters:
+        filepath (str): Path to evaluate.
+        base_dir (str): Directory that must contain the resolved path; defaults to the current working directory.
+    
     Returns:
-        True if the path is safe, False otherwise.
+        bool: `True` if the resolved path is within the base directory, `False` otherwise.
     """
     if not base_dir:
         target_base = os.path.realpath(os.path.abspath(os.getcwd()))
@@ -39,16 +39,15 @@ def is_safe_path(filepath: str, base_dir: str = "") -> bool:
 
 
 def resolve_safe_local_path(candidate_url: str, base_dir: str) -> str or None:
-    """Resolves the candidate URL path safely under base_dir.
-
-    Rejects traversal, absolute paths, and symlink escapes.
-
-    Args:
-        candidate_url: The candidate relative file path/URL.
-        base_dir: The base directory path.
-
+    """Resolve a local file path safely within a base directory.
+    
+    Parameters:
+        candidate_url (str): Relative local path to resolve.
+        base_dir (str): Directory that must contain the resolved path.
+    
     Returns:
-        The resolved absolute path string if safe, or None if invalid/unsafe.
+        str or None: The resolved path if it is an existing regular file within
+            the base directory; otherwise, None.
     """
     # Rejects absolute paths and external schemes
     if os.path.isabs(candidate_url):
@@ -342,9 +341,10 @@ def generate_llms_full_markdown(parsed_data: dict, base_dir: str = "") -> str:
 
 
 def main():
-    """Main execution block of the generator utility.
-
-    Parses command-line arguments and coordinates parsing and document output.
+    """
+    Parse the input documentation file and generate XML and Markdown outputs according to the command-line options.
+    
+    Input and output paths are validated against the current working directory. Exits with status 1 when validation, input, or output processing fails.
     """
     parser = argparse.ArgumentParser(
         description="Parse llms.txt and create LLM-friendly context documents."

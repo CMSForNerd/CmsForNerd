@@ -21,8 +21,13 @@ required = {
 
 def is_safe_path(filepath):
     """
-    Validates that the file path does not escape the current workspace directory (project root),
-    preventing path traversal vulnerabilities (SonarCloud S2083).
+    Determine whether a path is contained within the current workspace.
+    
+    Parameters:
+        filepath: Path to evaluate.
+    
+    Returns:
+        True if the path is within the current workspace, false otherwise.
     """
     abs_filepath = os.path.realpath(os.path.abspath(filepath))
     base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
@@ -30,8 +35,14 @@ def is_safe_path(filepath):
 
 def load_vars_from_file(filepath):
     """
-    Loads and parses variables from a YAML or JSON file safely.
-    Uses JSON parsing if JSON, otherwise line-by-line parsing for YAML.
+    Load variables from a JSON or simple YAML-style file within the current project.
+    
+    Parameters:
+        filepath: Path to a variable file located within the current project directory.
+    
+    Returns:
+        A dictionary containing the parsed variables, or an empty dictionary if the file
+        cannot be accessed or parsed.
     """
     base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
     safe_filepath = os.path.realpath(os.path.abspath(filepath))
