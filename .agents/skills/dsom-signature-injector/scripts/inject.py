@@ -95,9 +95,17 @@ def inject_signature(target_path):
             flags = os.O_RDONLY
             if hasattr(os, 'O_NOFOLLOW'):
                 flags |= os.O_NOFOLLOW
-            fd = os.open(filepath, flags)
-            with open(fd, 'r', encoding='utf-8', errors='ignore') as f:
-                lines = f.readlines()
+            fd = None
+            try:
+                fd = os.open(filepath, flags)
+                with open(fd, 'r', encoding='utf-8', errors='ignore') as f:
+                    lines = f.readlines()
+            finally:
+                if fd is not None:
+                    try:
+                        os.close(fd)
+                    except OSError:
+                        pass
         except Exception as e:
             print(f"Error reading {filepath}: {e}")
             continue
@@ -112,9 +120,17 @@ def inject_signature(target_path):
                 flags = os.O_WRONLY | os.O_APPEND
                 if hasattr(os, 'O_NOFOLLOW'):
                     flags |= os.O_NOFOLLOW
-                fd = os.open(filepath, flags)
-                with open(fd, 'w', encoding='utf-8') as f:
-                    f.write(content + md_footer)
+                fd = None
+                try:
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'w', encoding='utf-8') as f:
+                        f.write(content + md_footer)
+                finally:
+                    if fd is not None:
+                        try:
+                            os.close(fd)
+                        except OSError:
+                            pass
                 print(f"Appended Markdown footer to {filepath}")
             elif filepath.endswith(('.sh', '.yml', '.yaml', '.py')):
                 header = get_sh_yml_header(date_str)
@@ -129,9 +145,17 @@ def inject_signature(target_path):
                 flags = os.O_WRONLY | os.O_TRUNC
                 if hasattr(os, 'O_NOFOLLOW'):
                     flags |= os.O_NOFOLLOW
-                fd = os.open(filepath, flags)
-                with open(fd, 'w', encoding='utf-8') as f:
-                    f.write(new_content)
+                fd = None
+                try:
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                finally:
+                    if fd is not None:
+                        try:
+                            os.close(fd)
+                        except OSError:
+                            pass
                 print(f"Prepended SH/YML/PY header to {filepath}")
             elif filepath.endswith('.ps1'):
                 header = get_ps1_header(date_str)
@@ -139,9 +163,17 @@ def inject_signature(target_path):
                 flags = os.O_WRONLY | os_O_TRUNC
                 if hasattr(os, 'O_NOFOLLOW'):
                     flags |= os.O_NOFOLLOW
-                fd = os.open(filepath, flags)
-                with open(fd, 'w', encoding='utf-8') as f:
-                    f.write(new_content)
+                fd = None
+                try:
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                finally:
+                    if fd is not None:
+                        try:
+                            os.close(fd)
+                        except OSError:
+                            pass
                 print(f"Prepended PS1 header to {filepath}")
         except Exception as e:
             print(f"Error processing {filepath}: {e}")

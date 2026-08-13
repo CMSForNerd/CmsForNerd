@@ -142,9 +142,17 @@ def apply_okf(root_dir):
                 flags = os.O_RDONLY
                 if hasattr(os, 'O_NOFOLLOW'):
                     flags |= os.O_NOFOLLOW
-                fd = os.open(filepath, flags)
-                with open(fd, 'r', encoding='utf-8', errors='ignore') as f:
-                    content = f.read()
+                fd = None
+                try:
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'r', encoding='utf-8', errors='ignore') as f:
+                        content = f.read()
+                finally:
+                    if fd is not None:
+                        try:
+                            os.close(fd)
+                        except OSError:
+                            pass
             except Exception as e:
                 print(f"Error reading {filepath}: {e}")
                 continue
@@ -178,9 +186,17 @@ topics: {topics_str}
                     flags = os.O_WRONLY | os.O_TRUNC
                     if hasattr(os, 'O_NOFOLLOW'):
                         flags |= os.O_NOFOLLOW
-                    fd = os.open(filepath, flags)
-                    with open(fd, 'w', encoding='utf-8') as f:
-                        f.write(new_content)
+                    fd = None
+                    try:
+                        fd = os.open(filepath, flags)
+                        with open(fd, 'w', encoding='utf-8') as f:
+                            f.write(new_content)
+                    finally:
+                        if fd is not None:
+                            try:
+                                os.close(fd)
+                            except OSError:
+                                pass
                     print(f"Applied OKF to: {rel_path} (new frontmatter)")
                     modified_count += 1
                 except Exception as e:
@@ -227,9 +243,17 @@ topics: {topics_str}
                 flags = os.O_WRONLY | os.O_TRUNC
                 if hasattr(os, 'O_NOFOLLOW'):
                     flags |= os.O_NOFOLLOW
-                fd = os.open(filepath, flags)
-                with open(fd, 'w', encoding='utf-8') as f:
-                    f.write(new_content)
+                fd = None
+                try:
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                finally:
+                    if fd is not None:
+                        try:
+                            os.close(fd)
+                        except OSError:
+                            pass
                 print(f"Updated missing fields in: {rel_path} ({', '.join([f.split(':')[0] for f in missing_fields])})")
                 modified_count += 1
             except Exception as e:

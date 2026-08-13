@@ -403,9 +403,17 @@ def main():
         flags = os.O_RDONLY
         if hasattr(os, 'O_NOFOLLOW'):
             flags |= os.O_NOFOLLOW
-        fd = os.open(resolved_input, flags)
-        with open(fd, "r", encoding="utf-8") as f:
-            raw_content = f.read()
+        fd = None
+        try:
+            fd = os.open(resolved_input, flags)
+            with open(fd, "r", encoding="utf-8") as f:
+                raw_content = f.read()
+        finally:
+            if fd is not None:
+                try:
+                    os.close(fd)
+                except OSError:
+                    pass
     except Exception as e:
         print(f"Error reading input file '{args.input}': {e}", file=sys.stderr)
         sys.exit(1)

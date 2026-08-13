@@ -47,9 +47,17 @@ def load_vars_from_file(filepath):
         flags = os.O_RDONLY
         if hasattr(os, 'O_NOFOLLOW'):
             flags |= os.O_NOFOLLOW
-        fd = os.open(safe_filepath, flags)
-        with open(fd, "r", encoding="utf-8") as f:
-            content = f.read()
+        fd = None
+        try:
+            fd = os.open(safe_filepath, flags)
+            with open(fd, "r", encoding="utf-8") as f:
+                content = f.read()
+        finally:
+            if fd is not None:
+                try:
+                    os.close(fd)
+                except OSError:
+                    pass
         try:
             return json.loads(content)
         except json.JSONDecodeError:

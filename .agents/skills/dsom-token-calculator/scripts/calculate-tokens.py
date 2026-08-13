@@ -80,9 +80,17 @@ def analyse_file(filepath: str, enc, verbose_sections: bool = False):
         flags = os.O_RDONLY
         if hasattr(os, 'O_NOFOLLOW'):
             flags |= os.O_NOFOLLOW
-        fd = os.open(filepath, flags)
-        with open(fd, "r", encoding="utf-8", errors="ignore") as f:
-            text = f.read()
+        fd = None
+        try:
+            fd = os.open(filepath, flags)
+            with open(fd, "r", encoding="utf-8", errors="ignore") as f:
+                text = f.read()
+        finally:
+            if fd is not None:
+                try:
+                    os.close(fd)
+                except OSError:
+                    pass
         read_ms = (time.perf_counter() - t0) * 1000
 
         t1 = time.perf_counter()
