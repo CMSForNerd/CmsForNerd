@@ -35,7 +35,7 @@ def is_safe_path(filepath: str, base_dir: str = "") -> bool:
     else:
         target_base = os.path.realpath(os.path.abspath(base_dir))
     abs_filepath = os.path.realpath(os.path.abspath(filepath))
-    return abs_filepath.startswith(target_base + os.path.sep) or abs_filepath == target_base
+    return os.path.commonpath([target_base, abs_filepath]) == target_base
 
 
 def resolve_safe_local_path(candidate_url: str, base_dir: str) -> str or None:
@@ -377,9 +377,11 @@ def main():
 
     args = parser.parse_args()
 
+    base_dir_abs = os.path.realpath(os.path.abspath(os.getcwd()))
+
     # Prevent path traversal attacks via arguments
     resolved_input = os.path.realpath(os.path.abspath(args.input))
-    if not is_safe_path(resolved_input):
+    if os.path.commonpath([base_dir_abs, resolved_input]) != base_dir_abs:
         print(f"Error: Path traversal blocked on input file '{args.input}'.", file=sys.stderr)
         sys.exit(1)
 
@@ -403,14 +405,14 @@ def main():
         # 1. XML output to llms.xml (or llms-ctx.xml as appropriate)
         xml_path = args.xml_out if args.xml_out else "llms.xml"
         resolved_xml_path = os.path.realpath(os.path.abspath(xml_path))
-        if not is_safe_path(resolved_xml_path):
+        if os.path.commonpath([base_dir_abs, resolved_xml_path]) != base_dir_abs:
             print(f"Error: Path traversal blocked on XML output file '{xml_path}'.", file=sys.stderr)
             sys.exit(1)
 
         xml_content = generate_xml_context(parsed, args.base_dir)
         xml_success = False
         tmp_xml_path = resolved_xml_path + ".tmp"
-        if not is_safe_path(tmp_xml_path):
+        if os.path.commonpath([base_dir_abs, tmp_xml_path]) != base_dir_abs:
             print(f"Error: Path traversal blocked on temporary XML file.", file=sys.stderr)
             sys.exit(1)
 
@@ -422,7 +424,7 @@ def main():
             xml_success = True
         except Exception as e:
             print(f"Error writing XML to {xml_path}: {e}", file=sys.stderr)
-            if is_safe_path(tmp_xml_path) and os.path.exists(tmp_xml_path):
+            if os.path.commonpath([base_dir_abs, tmp_xml_path]) == base_dir_abs and os.path.exists(tmp_xml_path):
                 try:
                     os.remove(tmp_xml_path)
                 except Exception:
@@ -431,14 +433,14 @@ def main():
 
         # 2. Markdown output to llms-full.txt
         resolved_full_out = os.path.realpath(os.path.abspath(args.full_out))
-        if not is_safe_path(resolved_full_out):
+        if os.path.commonpath([base_dir_abs, resolved_full_out]) != base_dir_abs:
             print(f"Error: Path traversal blocked on full markdown output file '{args.full_out}'.", file=sys.stderr)
             sys.exit(1)
 
         full_md_content = generate_llms_full_markdown(parsed, args.base_dir)
         md_success = False
         tmp_full_out = resolved_full_out + ".tmp"
-        if not is_safe_path(tmp_full_out):
+        if os.path.commonpath([base_dir_abs, tmp_full_out]) != base_dir_abs:
             print(f"Error: Path traversal blocked on temporary markdown file.", file=sys.stderr)
             sys.exit(1)
 
@@ -450,7 +452,7 @@ def main():
             md_success = True
         except Exception as e:
             print(f"Error writing full markdown to {args.full_out}: {e}", file=sys.stderr)
-            if is_safe_path(tmp_full_out) and os.path.exists(tmp_full_out):
+            if os.path.commonpath([base_dir_abs, tmp_full_out]) == base_dir_abs and os.path.exists(tmp_full_out):
                 try:
                     os.remove(tmp_full_out)
                 except Exception:
@@ -466,11 +468,11 @@ def main():
 
     if args.xml_out:
         resolved_xml_out = os.path.realpath(os.path.abspath(args.xml_out))
-        if not is_safe_path(resolved_xml_out):
+        if os.path.commonpath([base_dir_abs, resolved_xml_out]) != base_dir_abs:
             print(f"Error: Path traversal blocked on XML output file '{args.xml_out}'.", file=sys.stderr)
             sys.exit(1)
         tmp_xml_out = resolved_xml_out + ".tmp"
-        if not is_safe_path(tmp_xml_out):
+        if os.path.commonpath([base_dir_abs, tmp_xml_out]) != base_dir_abs:
             print(f"Error: Path traversal blocked on temporary XML file.", file=sys.stderr)
             sys.exit(1)
 
@@ -481,7 +483,7 @@ def main():
             print(f"✅ Generated XML context: {args.xml_out}", file=sys.stderr)
         except Exception as e:
             print(f"Error writing XML to {args.xml_out}: {e}", file=sys.stderr)
-            if is_safe_path(tmp_xml_out) and os.path.exists(tmp_xml_out):
+            if os.path.commonpath([base_dir_abs, tmp_xml_out]) == base_dir_abs and os.path.exists(tmp_xml_out):
                 try:
                     os.remove(tmp_xml_out)
                 except Exception:

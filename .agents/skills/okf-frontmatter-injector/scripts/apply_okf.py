@@ -86,7 +86,7 @@ def is_safe_path(filepath, base_dir=""):
         base_dir = os.getcwd()
     abs_filepath = os.path.realpath(os.path.abspath(filepath))
     abs_base = os.path.realpath(os.path.abspath(base_dir))
-    return abs_filepath.startswith(abs_base + os.path.sep) or abs_filepath == abs_base
+    return os.path.commonpath([abs_base, abs_filepath]) == abs_base
 
 def apply_okf(root_dir):
     if not is_safe_path(root_dir):

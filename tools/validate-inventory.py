@@ -26,21 +26,19 @@ def is_safe_path(filepath):
     """
     abs_filepath = os.path.realpath(os.path.abspath(filepath))
     base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
-    return abs_filepath.startswith(base_dir + os.path.sep) or abs_filepath == base_dir
+    return os.path.commonpath([base_dir, abs_filepath]) == base_dir
 
 def load_vars_from_file(filepath):
     """
     Loads and parses variables from a YAML or JSON file safely.
     Uses JSON parsing if JSON, otherwise line-by-line parsing for YAML.
     """
-    if not is_safe_path(filepath):
-        print(f"Warning: Access denied to path '{filepath}' (must reside within the project root).")
-        return {}
-
-    # Resolve to safe realpath before opening to satisfy SonarCloud
+    base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
     safe_filepath = os.path.realpath(os.path.abspath(filepath))
-    if not is_safe_path(safe_filepath):
-        print(f"Warning: Access denied to path '{safe_filepath}' (must reside within the project root).")
+
+    # Perform inline path validation to guarantee safety to SonarCloud
+    if os.path.commonpath([base_dir, safe_filepath]) != base_dir:
+        print(f"Warning: Access denied to path '{filepath}' (must reside within the project root).")
         return {}
 
     try:
