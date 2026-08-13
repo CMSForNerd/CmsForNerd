@@ -15,6 +15,7 @@ import inspect
 import io
 import json
 import os
+import tempfile
 import unittest
 from contextlib import redirect_stdout
 from unittest.mock import MagicMock, mock_open, patch
@@ -180,6 +181,175 @@ class ValidateInventoryMainBehaviourTest(unittest.TestCase):
         self.assertEqual(raised.exception.code, 1)
         self.assertIn("Identity Standard violation", buf.getvalue())
         self.assertIn("required key 'podman_cms_user' is absent", buf.getvalue())
+
+
+class ValidateInventoryIsSafePathTest(unittest.TestCase):
+    """Tests the is_safe_path helper in validate-inventory.py."""
+
+    def test_is_safe_path_with_valid_and_invalid_paths(self):
+        self.assertTrue(validate_inventory.is_safe_path("inventory/hosts.prod.yml"))
+        self.assertFalse(validate_inventory.is_safe_path("../escaping_file.yml"))
+
+    def test_is_safe_path_symlink_safety(self):
+        """Tests that is_safe_path correctly rejects symlinks escaping the current working directory."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            parent_dir = os.path.dirname(tmp_dir)
+            outside_file = os.path.join(parent_dir, "outside_secret.txt")
+            with open(outside_file, "w") as f:
+                f.write("secret data")
+
+            try:
+                symlink_path = os.path.join(tmp_dir, "bad_link.txt")
+                os.symlink(outside_file, symlink_path)
+
+                # is_safe_path should return False because realpath points outside current working directory
+                self.assertFalse(validate_inventory.is_safe_path(symlink_path))
+            except (OSError, NotImplementedError, AttributeError):
+                # Symlinks not supported/allowed in the test environment, skip gracefully
+                pass
+            finally:
+                if os.path.exists(outside_file):
+                    os.remove(outside_file)
+
+    def test_is_safe_path_accepts_a_dot_relative_traversal_that_stays_inside_cwd(self):
+        """Tests that a '..'-containing path resolving back inside cwd is still considered safe."""
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            try:
+                os.chdir(tmp_dir)
+                os.makedirs("nested", exist_ok=True)
+                self.assertTrue(validate_inventory.is_safe_path(os.path.join("nested", "..", "file.yml")))
+            finally:
+                os.chdir(original_cwd)
+
+    def test_is_safe_path_accepts_the_current_working_directory_itself(self):
+        """Tests that the current working directory path itself is considered safe."""
+        self.assertTrue(validate_inventory.is_safe_path(os.getcwd()))
+
+
+class ValidateInventoryLoadVarsFromFileTest(unittest.TestCase):
+    """Tests the load_vars_from_file helper, including its inline path safety check."""
+
+    def test_loads_json_content_from_a_file_within_the_project(self):
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            try:
+                os.chdir(tmp_dir)
+                filepath = "vars.json"
+                with open(filepath, "w", encoding="utf-8") as f:
+                    json.dump({"podman_cms_uid": "9999"}, f)
+
+                result = validate_inventory.load_vars_from_file(filepath)
+                self.assertEqual(result, {"podman_cms_uid": "9999"})
+            finally:
+                os.chdir(original_cwd)
+
+    def test_loads_simple_yaml_style_content_from_a_file_within_the_project(self):
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            try:
+                os.chdir(tmp_dir)
+                filepath = "vars.yml"
+                with open(filepath, "w", encoding="utf-8") as f:
+                    f.write(
+                        "---\n"
+                        "podman_cms_user: dsom-admin\n"
+                        "# a comment line\n"
+                        "podman_cms_uid: 2001\n"
+                    )
+
+                result = validate_inventory.load_vars_from_file(filepath)
+                self.assertEqual(result, {"podman_cms_user": "dsom-admin", "podman_cms_uid": "2001"})
+            finally:
+                os.chdir(original_cwd)
+
+    def test_returns_empty_dict_and_warns_when_path_escapes_the_project_root(self):
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            outside_file = os.path.join(os.path.dirname(tmp_dir), "outside_vars.json")
+            with open(outside_file, "w", encoding="utf-8") as f:
+                json.dump({"podman_cms_uid": "9999"}, f)
+            try:
+                os.chdir(tmp_dir)
+                buf = io.StringIO()
+                with redirect_stdout(buf):
+                    result = validate_inventory.load_vars_from_file(os.path.join("..", "outside_vars.json"))
+                self.assertEqual(result, {})
+                self.assertIn("Access denied", buf.getvalue())
+            finally:
+                os.chdir(original_cwd)
+                os.remove(outside_file)
+
+    def test_returns_empty_dict_and_warns_when_file_does_not_exist(self):
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            try:
+                os.chdir(tmp_dir)
+                buf = io.StringIO()
+                with redirect_stdout(buf):
+                    result = validate_inventory.load_vars_from_file("does_not_exist.json")
+                self.assertEqual(result, {})
+                self.assertIn("Failed to load extra-vars file", buf.getvalue())
+            finally:
+                os.chdir(original_cwd)
+
+
+class ValidateInventoryMainExtraVarsFileIntegrationTest(unittest.TestCase):
+    """Integration tests confirming '-e @file' overrides flow safely through main()."""
+
+    def test_main_applies_extra_vars_override_from_an_at_file_reference(self):
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            try:
+                os.chdir(tmp_dir)
+                override_path = "override.json"
+                with open(override_path, "w", encoding="utf-8") as f:
+                    json.dump({"podman_cms_uid": "8888"}, f)
+
+                payload_vars = dict(validate_inventory.required)
+                fake_result = MagicMock(
+                    returncode=0,
+                    stdout=json.dumps({"all": {"vars": payload_vars}, "_meta": {"hostvars": {}}}),
+                    stderr="",
+                )
+                with patch.object(validate_inventory.shutil, "which", return_value="/usr/bin/ansible-inventory"), \
+                        patch.object(validate_inventory.subprocess, "run", return_value=fake_result):
+                    buf = io.StringIO()
+                    with redirect_stdout(buf):
+                        with self.assertRaises(SystemExit) as raised:
+                            validate_inventory.main(["-e", f"@{override_path}"])
+                self.assertEqual(raised.exception.code, 1)
+                self.assertIn("podman_cms_uid", buf.getvalue())
+                self.assertIn("8888", buf.getvalue())
+            finally:
+                os.chdir(original_cwd)
+
+    def test_main_ignores_extra_vars_file_that_escapes_the_project_root(self):
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            outside_file = os.path.join(os.path.dirname(tmp_dir), "outside_override.json")
+            with open(outside_file, "w", encoding="utf-8") as f:
+                json.dump({"podman_cms_uid": "9999"}, f)
+            try:
+                os.chdir(tmp_dir)
+                payload_vars = dict(validate_inventory.required)
+                fake_result = MagicMock(
+                    returncode=0,
+                    stdout=json.dumps({"all": {"vars": payload_vars}, "_meta": {"hostvars": {}}}),
+                    stderr="",
+                )
+                with patch.object(validate_inventory.shutil, "which", return_value="/usr/bin/ansible-inventory"), \
+                        patch.object(validate_inventory.subprocess, "run", return_value=fake_result):
+                    buf = io.StringIO()
+                    with redirect_stdout(buf):
+                        with self.assertRaises(SystemExit) as raised:
+                            validate_inventory.main(["-e", "@" + os.path.join("..", "outside_override.json")])
+                self.assertEqual(raised.exception.code, 0)
+                self.assertIn("Access denied", buf.getvalue())
+                self.assertIn("Sovereign Gate validation complete", buf.getvalue())
+            finally:
+                os.chdir(original_cwd)
+                os.remove(outside_file)
 
 
 if __name__ == "__main__":
