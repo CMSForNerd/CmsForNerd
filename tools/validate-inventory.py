@@ -36,10 +36,10 @@ def load_vars_from_file(filepath):
     base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
     safe_filepath = os.path.realpath(os.path.abspath(filepath))
 
-    if not (safe_filepath.startswith(base_dir + os.path.sep) or safe_filepath == base_dir):
-        raise ValueError(f"Access denied to path '{filepath}'")
-
     try:
+        if not (safe_filepath.startswith(base_dir + os.path.sep) or safe_filepath == base_dir):
+            raise ValueError(f"Access denied to path '{filepath}'")
+
         with open(safe_filepath, "r", encoding="utf-8") as f:
             content = f.read()
         try:
@@ -145,15 +145,7 @@ def main(args):
         # Detect @filename inputs
         if evar.startswith("@"):
             filepath = evar[1:]
-
-            # Resolve and validate path traversal directly at CLI boundary to satisfy SonarCloud
-            base_dir_abs = os.path.realpath(os.path.abspath(os.getcwd()))
-            resolved_filepath = os.path.realpath(os.path.abspath(filepath))
-            if not (resolved_filepath.startswith(base_dir_abs + os.path.sep) or resolved_filepath == base_dir_abs):
-                print(f"Error: Path traversal blocked on extra-vars file '{filepath}'.", file=sys.stderr)
-                sys.exit(1)
-
-            file_vars = load_vars_from_file(resolved_filepath)
+            file_vars = load_vars_from_file(filepath)
             for k, v in file_vars.items():
                 effective_vars[k] = str(v)
         elif evar.startswith("{"):

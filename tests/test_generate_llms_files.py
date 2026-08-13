@@ -8,6 +8,7 @@ of consolidated markdown documents (llms-full.txt).
 import importlib.util
 import os
 import tempfile
+import sys
 import unittest
 from unittest.mock import patch, mock_open
 
@@ -167,6 +168,136 @@ class GenerateLlmsFilesTest(unittest.TestCase):
             finally:
                 if os.path.exists(outside_file):
                     os.remove(outside_file)
+
+    def test_is_safe_path_default_base_dir_uses_cwd(self):
+        """Tests that is_safe_path defaults to validating against the current working directory."""
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            try:
+                os.chdir(tmp_dir)
+                self.assertTrue(gen_llms.is_safe_path("safe_file.txt"))
+                self.assertFalse(gen_llms.is_safe_path("../escape.txt"))
+            finally:
+                os.chdir(original_cwd)
+
+    def test_is_safe_path_rejects_parent_traversal_with_explicit_base_dir(self):
+        """Tests that a '..'-based relative path escaping an explicit base_dir is rejected."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            nested = os.path.join(tmp_dir, "nested")
+            os.makedirs(nested)
+            escaping = os.path.join(nested, "..", "..", "outside.txt")
+            self.assertFalse(gen_llms.is_safe_path(escaping, base_dir=tmp_dir))
+
+    def test_is_safe_path_accepts_the_base_dir_itself(self):
+        """Tests that the base directory path itself is considered safe."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            self.assertTrue(gen_llms.is_safe_path(tmp_dir, base_dir=tmp_dir))
+
+    def _run_main_in_tmp_dir(self, tmp_dir, argv):
+        """Helper: runs gen_llms.main() with cwd and sys.argv set for the given tmp_dir/argv."""
+        original_cwd = os.getcwd()
+        os.chdir(tmp_dir)
+        try:
+            with patch.object(sys, "argv", ["generate-llms-files.py"] + argv):
+                gen_llms.main()
+        finally:
+            os.chdir(original_cwd)
+
+    def test_main_blocks_path_traversal_on_input_file(self):
+        """Tests that main() exits with status 1 when the input path escapes the working directory."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with self.assertRaises(SystemExit) as raised:
+                self._run_main_in_tmp_dir(tmp_dir, ["../outside.txt"])
+            self.assertEqual(raised.exception.code, 1)
+
+    def test_main_errors_when_input_file_is_missing(self):
+        """Tests that main() exits with status 1 when the (safe) input file does not exist."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with self.assertRaises(SystemExit) as raised:
+                self._run_main_in_tmp_dir(tmp_dir, ["missing.txt"])
+            self.assertEqual(raised.exception.code, 1)
+
+    def test_main_update_mode_writes_xml_and_full_outputs(self):
+        """Tests that --update writes both llms.xml and llms-full.txt and exits with status 0."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            llms_txt_path = os.path.join(tmp_dir, "llms.txt")
+            with open(llms_txt_path, "w", encoding="utf-8") as f:
+                f.write(
+                    "# Sample Project\n\n"
+                    "> Summary line.\n\n"
+                    "Info body.\n\n"
+                    "## Section\n\n"
+                    "- Plain note\n"
+                )
+
+            with self.assertRaises(SystemExit) as raised:
+                self._run_main_in_tmp_dir(tmp_dir, ["llms.txt", "--update"])
+            self.assertEqual(raised.exception.code, 0)
+
+            xml_path = os.path.join(tmp_dir, "llms.xml")
+            full_path = os.path.join(tmp_dir, "llms-full.txt")
+            self.assertTrue(os.path.exists(xml_path))
+            self.assertTrue(os.path.exists(full_path))
+            self.assertFalse(os.path.exists(xml_path + ".tmp"))
+            self.assertFalse(os.path.exists(full_path + ".tmp"))
+
+            with open(xml_path, encoding="utf-8") as f:
+                xml_out = f.read()
+            self.assertIn('<project title="Sample Project"', xml_out)
+
+            with open(full_path, encoding="utf-8") as f:
+                full_out = f.read()
+            self.assertIn("# Sample Project - Full Consolidated Documentation", full_out)
+
+    def test_main_blocks_path_traversal_on_xml_out(self):
+        """Tests that main() exits with status 1 when --xml-out escapes the working directory."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with open(os.path.join(tmp_dir, "llms.txt"), "w", encoding="utf-8") as f:
+                f.write("# Sample Project\n\n> Summary.\n\nInfo.\n")
+
+            with self.assertRaises(SystemExit) as raised:
+                self._run_main_in_tmp_dir(tmp_dir, ["llms.txt", "--xml-out", "../escape.xml"])
+            self.assertEqual(raised.exception.code, 1)
+
+    def test_main_blocks_path_traversal_on_full_out_in_update_mode(self):
+        """Tests that main() exits with status 1 when --full-out escapes the working directory during --update."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with open(os.path.join(tmp_dir, "llms.txt"), "w", encoding="utf-8") as f:
+                f.write("# Sample Project\n\n> Summary.\n\nInfo.\n")
+
+            with self.assertRaises(SystemExit) as raised:
+                self._run_main_in_tmp_dir(
+                    tmp_dir, ["llms.txt", "--update", "--full-out", "../escape-full.txt"]
+                )
+            self.assertEqual(raised.exception.code, 1)
+
+    def test_main_writes_xml_out_to_a_safe_relative_path(self):
+        """Tests that main() writes the XML output file when the given path is safe."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with open(os.path.join(tmp_dir, "llms.txt"), "w", encoding="utf-8") as f:
+                f.write("# Sample Project\n\n> Summary.\n\nInfo.\n")
+
+            self._run_main_in_tmp_dir(tmp_dir, ["llms.txt", "--xml-out", "custom.xml"])
+
+            custom_xml_path = os.path.join(tmp_dir, "custom.xml")
+            self.assertTrue(os.path.exists(custom_xml_path))
+            with open(custom_xml_path, encoding="utf-8") as f:
+                self.assertIn('<project title="Sample Project"', f.read())
+
+    def test_main_exits_one_when_xml_out_directory_does_not_exist(self):
+        """Tests that main() exits with status 1 and cleans up when the XML output cannot be written."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with open(os.path.join(tmp_dir, "llms.txt"), "w", encoding="utf-8") as f:
+                f.write("# Sample Project\n\n> Summary.\n\nInfo.\n")
+
+            with self.assertRaises(SystemExit) as raised:
+                self._run_main_in_tmp_dir(
+                    tmp_dir, ["llms.txt", "--xml-out", "nonexistent_dir/out.xml"]
+                )
+            self.assertEqual(raised.exception.code, 1)
+            self.assertFalse(
+                os.path.exists(os.path.join(tmp_dir, "nonexistent_dir", "out.xml.tmp"))
+            )
 
     def test_generate_xml_context_structure(self):
         """Tests that XML context content is generated with expected structure."""
