@@ -1,14 +1,9 @@
 # CmsForNerd v4.3.0 - Full Consolidated Documentation
 
-> CmsForNerd is a hardened, flat-file PHP laboratory CMS targeting PHP 8.4+ strict types, PHPStan Level 8
+> CmsForNerd is a hardened, flat-file PHP laboratory CMS targeting PHP 8.4+ strict types, PHPStan Level 8 static analysis, Zero-Global variables (via Registry), and "Pair Logic" (Logic in `.php` files, UI in `-body.inc` files). It supports Dual-View rendering (Standard with hybrid-SPA AJAX routing and AMP via `?view=amp`) controlled by `themes/CmsForNerd/pager.php`.
 
 - **Live Demo:** [https://cmsfornerd.onrender.com/index.php](https://cmsfornerd.onrender.com/index.php)
 - **MCP standard crawler Access:** [https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000](https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000)
-
-
-> static analysis, Zero-Global variables (via Registry), and "Pair Logic" (Logic in `.php` files, UI in
-> `-body.inc` files). It supports Dual-View rendering (Standard with hybrid-SPA AJAX routing and AMP via
-> `?view=amp`) controlled by `themes/CmsForNerd/pager.php`.
 
 ---
 

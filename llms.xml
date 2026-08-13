@@ -1,11 +1,6 @@
-<project title="CmsForNerd v4.3.0" summary="CmsForNerd is a hardened, flat-file PHP laboratory CMS targeting PHP 8.4+ strict types, PHPStan Level 8">
+<project title="CmsForNerd v4.3.0" summary="CmsForNerd is a hardened, flat-file PHP laboratory CMS targeting PHP 8.4+ strict types, PHPStan Level 8 static analysis, Zero-Global variables (via Registry), and &quot;Pair Logic&quot; (Logic in `.php` files, UI in `-body.inc` files). It supports Dual-View rendering (Standard with hybrid-SPA AJAX routing and AMP via `?view=amp`) controlled by `themes/CmsForNerd/pager.php`.">
 <info>- **Live Demo:** [https://cmsfornerd.onrender.com/index.php](https://cmsfornerd.onrender.com/index.php)
-- **MCP standard crawler Access:** [https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000](https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000)
-
-
-&gt; static analysis, Zero-Global variables (via Registry), and &quot;Pair Logic&quot; (Logic in `.php` files, UI in
-&gt; `-body.inc` files). It supports Dual-View rendering (Standard with hybrid-SPA AJAX routing and AMP via
-&gt; `?view=amp`) controlled by `themes/CmsForNerd/pager.php`.</info>
+- **MCP standard crawler Access:** [https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000](https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000)</info>
   <section title="Architectural Standards">
     <note>**PHP 8.4+ &amp; Strict Types:** The codebase enforces strict types (`declare(strict_types=1);`) and modern features.</note>
     <note>**PHPStan Level 8:** Absolute type safety with strict static analysis across the entire application.</note>
