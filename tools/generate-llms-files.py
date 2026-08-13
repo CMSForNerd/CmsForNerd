@@ -21,15 +21,14 @@ import sys
 
 
 def is_safe_path(filepath: str, base_dir: str = "") -> bool:
-    """
-    Determine whether a path is within the specified base directory.
-    
-    Parameters:
-        filepath (str): Path to validate.
-        base_dir (str): Directory that contains the allowed path; defaults to the current working directory.
-    
+    """Validates that the path does not escape the workspace to prevent directory traversal.
+
+    Args:
+        filepath: The path to validate.
+        base_dir: Optional base directory, defaults to current working directory.
+
     Returns:
-        bool: True if the path is within the base directory, false otherwise.
+        True if the path is safe, False otherwise.
     """
     if not base_dir:
         target_base = os.path.abspath(os.getcwd())
@@ -40,15 +39,33 @@ def is_safe_path(filepath: str, base_dir: str = "") -> bool:
 
 
 def parse_llms_txt(content: str) -> dict:
-    """
-    Parse llms.txt content into project metadata and section entries.
-    
-    Parameters:
-        content (str): Raw llms.txt content.
-    
+    """Parses the content of an llms.txt file.
+
+    This function uses a robust, regex-free line-by-line parsing strategy
+    to avoid any risk of Regular Expression Denial of Service (ReDoS).
+
+    Args:
+        content: The raw string content of the llms.txt file.
+
     Returns:
-        dict: Parsed title, summary, preamble information, and sections containing
-        linked resources or plain-text entries.
+        A dictionary containing the structured sections of the llms.txt file.
+        Format:
+        {
+            "title": str,
+            "summary": str,
+            "info": str,
+            "sections": {
+                "Section Name": [
+                    {
+                        "title": str,
+                        "url": str,
+                        "desc": str or None
+                    },
+                    ...
+                ],
+                ...
+            }
+        }
     """
     title = "Untitled"
     summary_lines = []
@@ -158,16 +175,14 @@ def xml_escape(text: str) -> str:
 
 
 def generate_xml_context(parsed_data: dict, base_dir: str = "") -> str:
-    """
-    Build an XML context document from parsed llms.txt data.
-    
-    Parameters:
-        parsed_data (dict): Parsed project metadata, sections, links, and notes.
-        base_dir (str): Base directory for loading referenced local files.
-    
+    """Generates an XML context document from parsed llms.txt data.
+
+    Args:
+        parsed_data: Dictionary representing the parsed llms.txt.
+        base_dir: Optional base directory to load referenced local files.
+
     Returns:
-        str: The formatted XML document, including available local file contents and
-            messages for missing, blocked, or unreadable files.
+        A string containing the formatted XML document.
     """
     title = xml_escape(parsed_data["title"])
     summary = xml_escape(parsed_data["summary"])
@@ -223,15 +238,14 @@ def generate_xml_context(parsed_data: dict, base_dir: str = "") -> str:
 
 
 def generate_llms_full_markdown(parsed_data: dict, base_dir: str = "") -> str:
-    """
-    Generate consolidated Markdown documentation from parsed `llms.txt` data.
-    
-    Parameters:
-        parsed_data (dict): Parsed project metadata, sections, and referenced items.
-        base_dir (str): Base directory used to resolve local file references.
-    
+    """Generates a single consolidated Markdown string combining all local files.
+
+    Args:
+        parsed_data: Dictionary representing the parsed llms.txt.
+        base_dir: Base directory to load referenced local files.
+
     Returns:
-        str: Consolidated Markdown content with embedded readable local files and references to external resources.
+        Consolidated markdown content as a string.
     """
     full_md = [
         f"# {parsed_data['title']} - Full Consolidated Documentation",
@@ -288,8 +302,9 @@ def generate_llms_full_markdown(parsed_data: dict, base_dir: str = "") -> str:
 
 
 def main():
-    """
-    Run the command-line interface for parsing ``llms.txt`` and generating XML and Markdown documentation.
+    """Main execution block of the generator utility.
+
+    Parses command-line arguments and coordinates parsing and document output.
     """
     parser = argparse.ArgumentParser(
         description="Parse llms.txt and create LLM-friendly context documents."
@@ -322,17 +337,18 @@ def main():
 
     args = parser.parse_args()
 
-    # Prevent path traversal attacks via arguments
-    if not is_safe_path(args.input):
+    # Resolve the path to absolute and validate safety before any exists or open calls
+    resolved_input = os.path.abspath(args.input)
+    if not is_safe_path(resolved_input):
         print(f"Error: Path traversal blocked on input file '{args.input}'.", file=sys.stderr)
         sys.exit(1)
 
-    if not os.path.exists(args.input):
+    if not os.path.exists(resolved_input):
         print(f"Error: Input file '{args.input}' does not exist.", file=sys.stderr)
         sys.exit(1)
 
     try:
-        with open(args.input, "r", encoding="utf-8") as f:
+        with open(resolved_input, "r", encoding="utf-8") as f:
             raw_content = f.read()
     except Exception as e:
         print(f"Error reading input file '{args.input}': {e}", file=sys.stderr)
@@ -346,26 +362,28 @@ def main():
 
         # 1. XML output to llms.xml (or llms-ctx.xml as appropriate)
         xml_path = args.xml_out if args.xml_out else "llms.xml"
-        if not is_safe_path(xml_path):
+        resolved_xml_path = os.path.abspath(xml_path)
+        if not is_safe_path(resolved_xml_path):
             print(f"Error: Path traversal blocked on XML output file '{xml_path}'.", file=sys.stderr)
             sys.exit(1)
 
         xml_content = generate_xml_context(parsed, args.base_dir)
         try:
-            with open(xml_path, "w", encoding="utf-8") as f:
+            with open(resolved_xml_path, "w", encoding="utf-8") as f:
                 f.write(xml_content)
             print(f"✅ Generated XML context: {xml_path}", file=sys.stderr)
         except Exception as e:
             print(f"Error writing XML to {xml_path}: {e}", file=sys.stderr)
 
         # 2. Markdown output to llms-full.txt
-        if not is_safe_path(args.full_out):
+        resolved_full_out = os.path.abspath(args.full_out)
+        if not is_safe_path(resolved_full_out):
             print(f"Error: Path traversal blocked on full markdown output file '{args.full_out}'.", file=sys.stderr)
             sys.exit(1)
 
         full_md_content = generate_llms_full_markdown(parsed, args.base_dir)
         try:
-            with open(args.full_out, "w", encoding="utf-8") as f:
+            with open(resolved_full_out, "w", encoding="utf-8") as f:
                 f.write(full_md_content)
             print(f"✅ Generated full markdown: {args.full_out}", file=sys.stderr)
         except Exception as e:
@@ -377,11 +395,12 @@ def main():
     xml_content = generate_xml_context(parsed, args.base_dir)
 
     if args.xml_out:
-        if not is_safe_path(args.xml_out):
+        resolved_xml_out = os.path.abspath(args.xml_out)
+        if not is_safe_path(resolved_xml_out):
             print(f"Error: Path traversal blocked on XML output file '{args.xml_out}'.", file=sys.stderr)
             sys.exit(1)
         try:
-            with open(args.xml_out, "w", encoding="utf-8") as f:
+            with open(resolved_xml_out, "w", encoding="utf-8") as f:
                 f.write(xml_content)
             print(f"✅ Generated XML context: {args.xml_out}", file=sys.stderr)
         except Exception as e:
