@@ -422,6 +422,7 @@ def main():
                 try:
                     os.remove(tmp_xml_path)
                 except Exception:
+                    # Ignore errors when attempting to delete temporary XML file as cleanup is best-effort.
                     pass
 
         # 2. Markdown output to llms-full.txt
@@ -445,6 +446,7 @@ def main():
                 try:
                     os.remove(tmp_full_out)
                 except Exception:
+                    # Ignore errors when attempting to delete temporary Markdown file as cleanup is best-effort.
                     pass
 
         if not (xml_success and md_success):
@@ -471,6 +473,7 @@ def main():
                 try:
                     os.remove(tmp_xml_out)
                 except Exception:
+                    # Ignore errors when attempting to delete temporary XML file as cleanup is best-effort.
                     pass
             sys.exit(1)
     else:
