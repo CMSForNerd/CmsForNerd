@@ -24,8 +24,8 @@ def is_safe_path(filepath):
     Validates that the file path does not escape the current workspace directory (project root),
     preventing path traversal vulnerabilities (SonarCloud S2083).
     """
-    abs_filepath = os.path.abspath(filepath)
-    base_dir = os.path.abspath(os.getcwd())
+    abs_filepath = os.path.realpath(os.path.abspath(filepath))
+    base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
     return abs_filepath.startswith(base_dir + os.path.sep) or abs_filepath == base_dir
 
 def load_vars_from_file(filepath):

@@ -31,10 +31,10 @@ def is_safe_path(filepath: str, base_dir: str = "") -> bool:
         True if the path is safe, False otherwise.
     """
     if not base_dir:
-        target_base = os.path.abspath(os.getcwd())
+        target_base = os.path.realpath(os.path.abspath(os.getcwd()))
     else:
-        target_base = os.path.abspath(base_dir)
-    abs_filepath = os.path.abspath(filepath)
+        target_base = os.path.realpath(os.path.abspath(base_dir))
+    abs_filepath = os.path.realpath(os.path.abspath(filepath))
     return abs_filepath.startswith(target_base + os.path.sep) or abs_filepath == target_base
 
 

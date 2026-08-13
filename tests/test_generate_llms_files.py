@@ -115,6 +115,27 @@ class GenerateLlmsFilesTest(unittest.TestCase):
             resolved_http = gen_llms.resolve_safe_local_path("http://example.com/test.txt", tmp_dir)
             self.assertIsNone(resolved_http)
 
+    def test_is_safe_path_symlink_safety(self):
+        """Tests that is_safe_path correctly rejects symlinks escaping the base directory."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            parent_dir = os.path.dirname(tmp_dir)
+            outside_file = os.path.join(parent_dir, "outside_secret.txt")
+            with open(outside_file, "w") as f:
+                f.write("secret data")
+
+            try:
+                symlink_path = os.path.join(tmp_dir, "bad_link.txt")
+                os.symlink(outside_file, symlink_path)
+
+                # is_safe_path should return False because realpath points outside tmp_dir
+                self.assertFalse(gen_llms.is_safe_path(symlink_path, base_dir=tmp_dir))
+            except (OSError, NotImplementedError, AttributeError):
+                # Symlinks not supported/allowed in the test environment, skip gracefully
+                pass
+            finally:
+                if os.path.exists(outside_file):
+                    os.remove(outside_file)
+
     def test_generate_xml_context_structure(self):
         """Tests that XML context content is generated with expected structure."""
         parsed = {

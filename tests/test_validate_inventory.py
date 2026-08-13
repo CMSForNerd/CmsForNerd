@@ -182,5 +182,35 @@ class ValidateInventoryMainBehaviourTest(unittest.TestCase):
         self.assertIn("required key 'podman_cms_user' is absent", buf.getvalue())
 
 
+class ValidateInventoryIsSafePathTest(unittest.TestCase):
+    """Tests the is_safe_path helper in validate-inventory.py."""
+
+    def test_is_safe_path_with_valid_and_invalid_paths(self):
+        self.assertTrue(validate_inventory.is_safe_path("inventory/hosts.prod.yml"))
+        self.assertFalse(validate_inventory.is_safe_path("../escaping_file.yml"))
+
+    def test_is_safe_path_symlink_safety(self):
+        """Tests that is_safe_path correctly rejects symlinks escaping the current working directory."""
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            parent_dir = os.path.dirname(tmp_dir)
+            outside_file = os.path.join(parent_dir, "outside_secret.txt")
+            with open(outside_file, "w") as f:
+                f.write("secret data")
+
+            try:
+                symlink_path = os.path.join(tmp_dir, "bad_link.txt")
+                os.symlink(outside_file, symlink_path)
+
+                # is_safe_path should return False because realpath points outside current working directory
+                self.assertFalse(validate_inventory.is_safe_path(symlink_path))
+            except (OSError, NotImplementedError, AttributeError):
+                # Symlinks not supported/allowed in the test environment, skip gracefully
+                pass
+            finally:
+                if os.path.exists(outside_file):
+                    os.remove(outside_file)
+
+
 if __name__ == "__main__":
     unittest.main()

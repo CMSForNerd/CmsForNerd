@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import argparse
 from datetime import datetime, timezone
 
@@ -76,7 +77,22 @@ def extract_topics(filepath, content, okf_type):
 
     return topics[:5]
 
+def is_safe_path(filepath, base_dir=""):
+    """
+    Validates that the file path does not escape the current workspace directory (project root),
+    preventing path traversal vulnerabilities (SonarCloud S2083).
+    """
+    if not base_dir:
+        base_dir = os.getcwd()
+    abs_filepath = os.path.realpath(os.path.abspath(filepath))
+    abs_base = os.path.realpath(os.path.abspath(base_dir))
+    return abs_filepath.startswith(abs_base + os.path.sep) or abs_filepath == abs_base
+
 def apply_okf(root_dir):
+    if not is_safe_path(root_dir):
+        print(f"Error: Path traversal blocked on root directory '{root_dir}'.", file=sys.stderr)
+        sys.exit(1)
+
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     modified_count = 0
     total_count = 0

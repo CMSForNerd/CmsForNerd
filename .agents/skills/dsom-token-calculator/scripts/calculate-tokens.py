@@ -88,8 +88,23 @@ def _report_sections(text: str, enc, filename: str):
         flag = "  [BREACH]" if sec_tokens >= GATE_THRESHOLD else ""
         print(f"           {sec_tokens:>6,} tok  {title[:70]}{flag}")
 
+def is_safe_path(filepath, base_dir=""):
+    """
+    Validates that the file path does not escape the current workspace directory (project root),
+    preventing path traversal vulnerabilities (SonarCloud S2083).
+    """
+    if not base_dir:
+        base_dir = os.getcwd()
+    abs_filepath = os.path.realpath(os.path.abspath(filepath))
+    abs_base = os.path.realpath(os.path.abspath(base_dir))
+    return abs_filepath.startswith(abs_base + os.path.sep) or abs_filepath == abs_base
+
 def scan_path(target_path: str, verbose_sections: bool = False):
     """Scan a file or directory tree and report token footprints with breach flags."""
+    if not is_safe_path(target_path):
+        print(f"Error: Path traversal blocked on target path '{target_path}'.", file=sys.stderr)
+        sys.exit(1)
+
     if not os.path.exists(target_path):
         print(f"[ERROR] Target path '{target_path}' does not exist.")
         sys.exit(1)
