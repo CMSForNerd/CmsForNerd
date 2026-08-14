@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+# ---
+# okf_version: 0.1
+# type: executable_script
+# title: "Sovereign Signature Injector"
+# description: "Injects deep digital sovereignty headers, footers and licenses to workspace documents and scripts."
+# license: "GNU General Public License v3.0"
+# author: "Harisfazillah Jamel (LinuxMalaysia)"
+# timestamp: 2026-08-01
+# topics: [sovereignty, injector, digital-signature, dsom, metadata]
+# ---
 import os
 import sys
 import glob
@@ -29,26 +40,70 @@ def get_ps1_header(date_str):
 #>
 """
 
+def is_safe_path(filepath, base_dir=""):
+    """
+    Validates that the file path does not escape the current workspace directory (project root),
+    preventing path traversal vulnerabilities (SonarCloud S2083).
+    """
+    if not base_dir:
+        base_dir = os.getcwd()
+    abs_filepath = os.path.realpath(os.path.abspath(filepath))
+    abs_base = os.path.realpath(os.path.abspath(base_dir))
+    try:
+        return os.path.commonpath([abs_base, abs_filepath]) == abs_base
+    except ValueError:
+        return False
+
 def inject_signature(target_path):
+    if not is_safe_path(target_path):
+        print(f"Error: Path traversal blocked on target path '{target_path}'.", file=sys.stderr)
+        sys.exit(1)
+
     files_to_process = []
 
     if os.path.isfile(target_path):
-        files_to_process.append(target_path)
+        if not os.path.islink(target_path):
+            files_to_process.append(target_path)
     elif os.path.isdir(target_path):
-        for root, _, files in os.walk(target_path):
-            if '.git' in root or os.path.join('.agents', 'brain') in root:
-                continue
+        for root, dirs, files in os.walk(target_path):
+            dirs[:] = [d for d in dirs if d not in ('.git', 'node_modules', 'scratch', 'vendor', 'data', 'asimp')]
             for file in files:
-                if file.endswith(('.md', '.sh', '.ps1', '.yml', '.yaml')):
-                    files_to_process.append(os.path.join(root, file))
+                fpath = os.path.join(root, file)
+                if os.path.islink(fpath):
+                    continue
+                if not is_safe_path(fpath):
+                    continue
+                if file.endswith(('.md', '.sh', '.ps1', '.yml', '.yaml', '.py')):
+                    files_to_process.append(fpath)
 
     for filepath in files_to_process:
+        if os.path.islink(filepath) or not is_safe_path(filepath):
+            continue
+
         date_str = get_last_modified_date(filepath)
 
         md_footer = f"\n\n---\n*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | {date_str}*\n*Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*\n"
 
-        with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
-            lines = f.readlines()
+        # Check and read file descriptor securely using O_NOFOLLOW
+        try:
+            flags = os.O_RDONLY
+            if hasattr(os, 'O_NOFOLLOW'):
+                flags |= os.O_NOFOLLOW
+            fd = None
+            try:
+                fd = os.open(filepath, flags)
+                with open(fd, 'r', encoding='utf-8', errors='ignore') as f:
+                    lines = f.readlines()
+            finally:
+                if fd is not None:
+                    try:
+                        os.close(fd)
+                    except OSError:
+                        # Ignore if descriptor was already closed by standard open wrapper
+                        pass
+        except Exception as e:
+            print(f"Error reading {filepath}: {e}")
+            continue
 
         content = "".join(lines)
         if "Deep State of Mind (DSOM) For My AI Protocol" in content:
@@ -57,10 +112,23 @@ def inject_signature(target_path):
 
         try:
             if filepath.endswith('.md'):
-                with open(filepath, 'a', encoding='utf-8') as f:
-                    f.write(md_footer)
+                flags = os.O_WRONLY | os.O_APPEND
+                if hasattr(os, 'O_NOFOLLOW'):
+                    flags |= os.O_NOFOLLOW
+                fd = None
+                try:
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'w', encoding='utf-8') as f:
+                        f.write(content + md_footer)
+                finally:
+                    if fd is not None:
+                        try:
+                            os.close(fd)
+                        except OSError:
+                            # Ignore if descriptor was already closed by standard open wrapper
+                            pass
                 print(f"Appended Markdown footer to {filepath}")
-            elif filepath.endswith(('.sh', '.yml', '.yaml')):
+            elif filepath.endswith(('.sh', '.yml', '.yaml', '.py')):
                 header = get_sh_yml_header(date_str)
                 if len(lines) > 0 and (lines[0].startswith("#!") or lines[0].startswith("---")):
                     # Shebang or YAML doc start present, insert after it
@@ -70,14 +138,40 @@ def inject_signature(target_path):
                 else:
                     new_content = header + content
 
-                with open(filepath, 'w', encoding='utf-8') as f:
-                    f.write(new_content)
-                print(f"Prepended SH/YML header to {filepath}")
+                flags = os.O_WRONLY | os.O_TRUNC
+                if hasattr(os, 'O_NOFOLLOW'):
+                    flags |= os.O_NOFOLLOW
+                fd = None
+                try:
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                finally:
+                    if fd is not None:
+                        try:
+                            os.close(fd)
+                        except OSError:
+                            # Ignore if descriptor was already closed by standard open wrapper
+                            pass
+                print(f"Prepended SH/YML/PY header to {filepath}")
             elif filepath.endswith('.ps1'):
                 header = get_ps1_header(date_str)
                 new_content = header + content
-                with open(filepath, 'w', encoding='utf-8') as f:
-                    f.write(new_content)
+                flags = os.O_WRONLY | os.O_TRUNC
+                if hasattr(os, 'O_NOFOLLOW'):
+                    flags |= os.O_NOFOLLOW
+                fd = None
+                try:
+                    fd = os.open(filepath, flags)
+                    with open(fd, 'w', encoding='utf-8') as f:
+                        f.write(new_content)
+                finally:
+                    if fd is not None:
+                        try:
+                            os.close(fd)
+                        except OSError:
+                            # Ignore if descriptor was already closed by standard open wrapper
+                            pass
                 print(f"Prepended PS1 header to {filepath}")
         except Exception as e:
             print(f"Error processing {filepath}: {e}")
