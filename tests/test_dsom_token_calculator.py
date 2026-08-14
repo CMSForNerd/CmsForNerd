@@ -75,9 +75,9 @@ class DsomTokenCalculatorIsSafePathTest(unittest.TestCase):
         """Tests that is_safe_path correctly rejects symlinks escaping the base directory."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             parent_dir = os.path.dirname(tmp_dir)
-            outside_file = os.path.join(parent_dir, "outside_secret.txt")
-            with open(outside_file, "w") as f:
-                f.write("secret data")
+            with tempfile.NamedTemporaryFile(dir=parent_dir, delete=False) as outside_f:
+                outside_file = outside_f.name
+                outside_f.write(b"secret data")
 
             try:
                 symlink_path = os.path.join(tmp_dir, "bad_link.txt")

@@ -192,11 +192,12 @@ class ValidateInventoryIsSafePathTest(unittest.TestCase):
 
     def test_is_safe_path_symlink_safety(self):
         """Tests that is_safe_path correctly rejects symlinks escaping the current working directory."""
+        import tempfile
         with tempfile.TemporaryDirectory() as tmp_dir:
             parent_dir = os.path.dirname(tmp_dir)
-            outside_file = os.path.join(parent_dir, "outside_secret.txt")
-            with open(outside_file, "w") as f:
-                f.write("secret data")
+            with tempfile.NamedTemporaryFile(dir=parent_dir, delete=False) as outside_f:
+                outside_file = outside_f.name
+                outside_f.write(b"secret data")
 
             try:
                 symlink_path = os.path.join(tmp_dir, "bad_link.txt")
@@ -278,7 +279,8 @@ class ValidateInventoryLoadVarsFromFileTest(unittest.TestCase):
                 self.assertIn("Access denied", buf.getvalue())
             finally:
                 os.chdir(original_cwd)
-                os.remove(outside_file)
+                if os.path.exists(outside_file):
+                    os.remove(outside_file)
 
     def test_returns_empty_dict_and_warns_when_file_does_not_exist(self):
         original_cwd = os.getcwd()
@@ -349,7 +351,8 @@ class ValidateInventoryMainExtraVarsFileIntegrationTest(unittest.TestCase):
                 self.assertIn("Sovereign Gate validation complete", buf.getvalue())
             finally:
                 os.chdir(original_cwd)
-                os.remove(outside_file)
+                if os.path.exists(outside_file):
+                    os.remove(outside_file)
 
 
 if __name__ == "__main__":

@@ -7,8 +7,8 @@ of consolidated markdown documents (llms-full.txt).
 
 import importlib.util
 import os
-import sys
 import tempfile
+import sys
 import unittest
 from unittest.mock import patch, mock_open
 
@@ -120,9 +120,9 @@ class GenerateLlmsFilesTest(unittest.TestCase):
         """Tests that is_safe_path correctly rejects symlinks escaping the base directory."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             parent_dir = os.path.dirname(tmp_dir)
-            outside_file = os.path.join(parent_dir, "outside_secret.txt")
-            with open(outside_file, "w") as f:
-                f.write("secret data")
+            with tempfile.NamedTemporaryFile(dir=parent_dir, delete=False) as outside_f:
+                outside_file = outside_f.name
+                outside_f.write(b"secret data")
 
             try:
                 symlink_path = os.path.join(tmp_dir, "bad_link.txt")
@@ -132,6 +132,46 @@ class GenerateLlmsFilesTest(unittest.TestCase):
                 self.assertFalse(gen_llms.is_safe_path(symlink_path, base_dir=tmp_dir))
             except (OSError, NotImplementedError, AttributeError):
                 # Symlinks not supported/allowed in the test environment, skip gracefully
+                pass
+            finally:
+                if os.path.exists(outside_file):
+                    os.remove(outside_file)
+
+    def test_pre_existing_symlink_safety(self):
+        """Tests that pre-existing temporary symlinks are completely bypassed and not followed."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            # 1. Create the expected llms.txt input
+            llms_txt_path = os.path.join(tmp_dir, "llms.txt")
+            with open(llms_txt_path, "w", encoding="utf-8") as f:
+                f.write("# Sample Project\n\n> Summary.\n\nInfo.\n")
+
+            # 2. Setup the target output path and the pre-existing symlink
+            xml_out_path = os.path.join(tmp_dir, "llms.xml")
+            symlink_path = xml_out_path + ".tmp"
+
+            outside_file = os.path.join(os.path.dirname(tmp_dir), "outside_malicious.txt")
+            with open(outside_file, "w", encoding="utf-8") as f:
+                f.write("unaffected original")
+
+            try:
+                # 3. Create the symlink
+                os.symlink(outside_file, symlink_path)
+
+                # 4. Invoke main() with --xml-out llms.xml
+                self._run_main_in_tmp_dir(tmp_dir, ["llms.txt", "--xml-out", "llms.xml"])
+
+                # 5. Verify the external target remains unchanged
+                with open(outside_file, "r", encoding="utf-8") as check_f:
+                    outside_content = check_f.read()
+                self.assertEqual(outside_content, "unaffected original")
+
+                # 6. Verify the XML output file was indeed created successfully
+                self.assertTrue(os.path.exists(xml_out_path))
+                with open(xml_out_path, "r", encoding="utf-8") as check_xml:
+                    self.assertIn('<project title="Sample Project"', check_xml.read())
+
+            except (OSError, NotImplementedError, AttributeError):
+                # Symlinks not supported or allowed in this environment, skipping test block.
                 pass
             finally:
                 if os.path.exists(outside_file):

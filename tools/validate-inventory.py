@@ -24,22 +24,40 @@ def is_safe_path(filepath):
     Validates that the file path does not escape the current workspace directory (project root),
     preventing path traversal vulnerabilities (SonarCloud S2083).
     """
-    abs_filepath = os.path.abspath(filepath)
-    base_dir = os.path.abspath(os.getcwd())
-    return abs_filepath.startswith(base_dir + os.path.sep) or abs_filepath == base_dir
+    abs_filepath = os.path.realpath(os.path.abspath(filepath))
+    base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
+    try:
+        return os.path.commonpath([base_dir, abs_filepath]) == base_dir
+    except ValueError:
+        return False
 
 def load_vars_from_file(filepath):
     """
     Loads and parses variables from a YAML or JSON file safely.
     Uses JSON parsing if JSON, otherwise line-by-line parsing for YAML.
     """
-    if not is_safe_path(filepath):
-        print(f"Warning: Access denied to path '{filepath}' (must reside within the project root).")
-        return {}
+    base_dir = os.path.realpath(os.path.abspath(os.getcwd()))
+    safe_filepath = os.path.realpath(os.path.abspath(filepath))
 
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
-            content = f.read()
+        if not (safe_filepath.startswith(base_dir + os.path.sep) or safe_filepath == base_dir):
+            raise ValueError(f"Access denied to path '{filepath}'")
+
+        # Open with O_NOFOLLOW to reject symlinks at open time (closing TOCTOU gap)
+        flags = os.O_RDONLY
+        if hasattr(os, 'O_NOFOLLOW'):
+            flags |= os.O_NOFOLLOW
+        fd = None
+        try:
+            fd = os.open(safe_filepath, flags)
+            with open(fd, "r", encoding="utf-8") as f:
+                content = f.read()
+        finally:
+            if fd is not None:
+                try:
+                    os.close(fd)
+                except OSError:
+                    pass
         try:
             return json.loads(content)
         except json.JSONDecodeError:
