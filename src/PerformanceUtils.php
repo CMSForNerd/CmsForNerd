@@ -159,12 +159,7 @@ final class PerformanceUtils
     /**
      * Determines the latest modification time among relevant source files.
      *
-     * Operates with three cache layers queried in the following lookup order:
-     * 1. Static in-memory class properties (self::$sourceMaxMTime)
-     * 2. APCu user cache
-     * 3. Disk metadata cache file (source_max_mtime.json)
-     *
-     * @return int The latest modification timestamp, or 0 when no applicable files exist.
+     * @return int The latest modification timestamp, or 0 if no applicable files exist.
      */
     public static function getSourceMaxMTime(): int
     {
@@ -222,27 +217,16 @@ final class PerformanceUtils
             }
         }
 
-        $maxMTime = 0;
+        $maxMTime = $currentMtimes['bootstrap'];
 
-        // Scan contents directory
-        $contentsMeta = self::getDirMetadata($contentsDir);
-        foreach ($contentsMeta as $meta) {
-            if ($meta['is_file']) {
-                $maxMTime = max($maxMTime, $meta['mtime']);
+        // Single pass over source directory metadata to compute maximum modification time
+        foreach ([$contentsDir, $themeDir] as $dirPath) {
+            $dirMeta = self::getDirMetadata($dirPath);
+            foreach ($dirMeta as $meta) {
+                if ($meta['is_file'] && $meta['mtime'] > $maxMTime) {
+                    $maxMTime = $meta['mtime'];
+                }
             }
-        }
-
-        // Scan theme directory
-        $themeMeta = self::getDirMetadata($themeDir);
-        foreach ($themeMeta as $meta) {
-            if ($meta['is_file']) {
-                $maxMTime = max($maxMTime, $meta['mtime']);
-            }
-        }
-
-        // Include bootstrap changes
-        if ($currentMtimes['bootstrap'] > 0) {
-            $maxMTime = max($maxMTime, $currentMtimes['bootstrap']);
         }
 
         $cacheData = [
