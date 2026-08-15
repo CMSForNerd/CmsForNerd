@@ -159,12 +159,7 @@ final class PerformanceUtils
     /**
      * Determines the latest modification time among relevant source files.
      *
-     * Operates with three cache layers queried in the following lookup order:
-     * 1. Static in-memory class properties (self::$sourceMaxMTime)
-     * 2. APCu user cache
-     * 3. Disk metadata cache file (source_max_mtime.json)
-     *
-     * @return int The latest modification timestamp, or 0 when no applicable files exist.
+     * @return int The latest modification timestamp, or 0 if no applicable files exist.
      */
     public static function getSourceMaxMTime(): int
     {
