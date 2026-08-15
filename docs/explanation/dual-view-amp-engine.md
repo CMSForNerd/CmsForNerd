@@ -48,5 +48,5 @@ This bidirectional linking allows Google Search crawlers to index the AMP versio
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-15*
+*Deep State of Mind (DSOM) For My AI Protocol | Dual-View Google AMP Rendering Architecture | Harisfazillah Jamel (LinuxMalaysia)*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

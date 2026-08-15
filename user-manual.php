@@ -3,10 +3,8 @@
 declare(strict_types=1);
 
 /**
- * CmsForNerd v4.3.0 - Page Controller (user-manual.php)
- * * ROLE: Local User Manual and Diátaxis documentation index controller.
- * This file is synchronized with template.php logic to ensure
- * total architectural consistency across the entire CMS.
+ * CmsForNerd v4.3.0 - Local User Manual Entry Point Controller (user-manual.php)
+ * Serves the Diátaxis-based user manual index view fragment.
  *
  * @package     linuxmalaysia/cmsfornerd
  * @author      Harisfazillah Jamel <linuxmalaysia@songketmail.org>
@@ -14,14 +12,12 @@ declare(strict_types=1);
  * @license     GPL-3.0-or-later
  */
 
-// 1. [PERFORMANCE] Enable GZIP and Output Buffering
+// Initialize GZIP response compression buffer
 if (!ob_start("ob_gzhandler")) {
     ob_start();
 }
 
-/**
- * 2. [LAB] BOOTSTRAP PHASE
- */
+// Bootstrap CmsContext and autoload core utilities
 require_once __DIR__ . '/includes/bootstrap.php';
 
 /**

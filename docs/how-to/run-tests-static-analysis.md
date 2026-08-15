@@ -72,5 +72,5 @@ This runs PHPStan Level 8, PSR-12 style analysis, OKF frontmatter compliance, an
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-15*
+*Deep State of Mind (DSOM) For My AI Protocol | CmsForNerd Pest PHP & PHPStan Audit Guide | Harisfazillah Jamel (LinuxMalaysia)*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

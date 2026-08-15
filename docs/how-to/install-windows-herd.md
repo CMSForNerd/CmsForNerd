@@ -68,5 +68,5 @@ composer install
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-15*
+*Deep State of Mind (DSOM) For My AI Protocol | CmsForNerd Windows Herd Installation | Harisfazillah Jamel (LinuxMalaysia)*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

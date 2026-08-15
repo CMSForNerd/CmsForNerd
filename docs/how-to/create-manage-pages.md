@@ -49,12 +49,12 @@ $pageName = \CmsForNerd\SecurityUtils::resolvePageName(pathinfo(basename(__FILE_
 $content['data'] = $pageName;
 
 $ctx = createCmsContext(
-    content: $content,
-    pageName: $pageName,
-    themeName: $themeName,
-    cssPath: $cssPath,
-    dataFile: $dataFile,
-    nonce: $nonce
+    content: $pageMeta,
+    pageName: $slug,
+    themeName: $activeTheme,
+    cssPath: "themes/{$activeTheme}/style.css",
+    dataFile: "contents/{$slug}-body.inc",
+    nonce: $requestNonce
 );
 
 $pagerPath = __DIR__ . "/themes/{$ctx->themeName}/pager.php";
@@ -100,5 +100,5 @@ Create `contents/services-body.inc`:
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-15*
+*Deep State of Mind (DSOM) For My AI Protocol | CmsForNerd Pair Logic Page Construction | Harisfazillah Jamel (LinuxMalaysia)*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

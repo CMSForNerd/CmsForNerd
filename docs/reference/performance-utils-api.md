@@ -55,5 +55,5 @@ PerformanceUtils::bakePage('http://localhost:8000/user-manual.php', 'build_stati
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-15*
+*Deep State of Mind (DSOM) For My AI Protocol | PerformanceUtils API Reference Specification | Harisfazillah Jamel (LinuxMalaysia)*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

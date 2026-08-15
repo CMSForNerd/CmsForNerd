@@ -29,9 +29,10 @@ sudo apt install -y php8.4-fpm php8.4-cli php8.4-mbstring php8.4-xml php8.4-zip 
 ### On AlmaLinux 9 / 10:
 
 ```bash
-sudo dnf install -y epel-release https://rpms.remirepo.net/enterprise/remi-release-10.rpm
-sudo dnf module reset php -y
-sudo dnf module enable php:remi-8.4 -y
+# Enable Remi repository for PHP 8.4 on AlmaLinux/RHEL
+sudo dnf install -y epel-release https://rpms.remirepo.net/enterprise/remi-release-10.rpm && \
+sudo dnf module reset php -y && \
+sudo dnf module enable php:remi-8.4 -y && \
 sudo dnf install -y php-fpm php-cli php-mbstring php-xml php-zip php-opcache composer git nginx
 ```
 
@@ -98,5 +99,5 @@ sudo systemctl reload nginx
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-15*
+*Deep State of Mind (DSOM) For My AI Protocol | CmsForNerd Native Linux Server Deployment | Harisfazillah Jamel (LinuxMalaysia)*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

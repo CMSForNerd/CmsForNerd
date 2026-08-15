@@ -127,9 +127,10 @@ Inside your AlmaLinux 10 terminal, update system packages and install the develo
 > ⚠️ **Crucial Performance Rule:** Always clone your repository into the native Linux filesystem (`/home/username/code/`) rather than the Windows mount (`/mnt/c/`). Native Linux filesystem I/O is up to 10x faster.
 
 ```bash
-mkdir -p ~/code && cd ~/code
-git clone https://github.com/CMSForNerd/CmsForNerd.git
-cd CmsForNerd
+# Clone directly inside Linux home directory for 10x faster I/O performance
+mkdir -p ~/workspace && cd ~/workspace
+git clone https://github.com/CMSForNerd/CmsForNerd.git cmsfornerd-lab
+cd cmsfornerd-lab
 ```
 
 ---
@@ -206,5 +207,5 @@ podman rm cmsfornerd-app
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-15*
+*Deep State of Mind (DSOM) For My AI Protocol | CmsForNerd WSL2 AlmaLinux 10 Container Guide | Harisfazillah Jamel (LinuxMalaysia)*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*
