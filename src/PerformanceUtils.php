@@ -222,27 +222,16 @@ final class PerformanceUtils
             }
         }
 
-        $maxMTime = 0;
+        $maxMTime = $currentMtimes['bootstrap'];
 
-        // Scan contents directory
-        $contentsMeta = self::getDirMetadata($contentsDir);
-        foreach ($contentsMeta as $meta) {
-            if ($meta['is_file']) {
-                $maxMTime = max($maxMTime, $meta['mtime']);
+        // Single pass over source directory metadata to compute maximum modification time
+        foreach ([$contentsDir, $themeDir] as $dirPath) {
+            $dirMeta = self::getDirMetadata($dirPath);
+            foreach ($dirMeta as $meta) {
+                if ($meta['is_file'] && $meta['mtime'] > $maxMTime) {
+                    $maxMTime = $meta['mtime'];
+                }
             }
-        }
-
-        // Scan theme directory
-        $themeMeta = self::getDirMetadata($themeDir);
-        foreach ($themeMeta as $meta) {
-            if ($meta['is_file']) {
-                $maxMTime = max($maxMTime, $meta['mtime']);
-            }
-        }
-
-        // Include bootstrap changes
-        if ($currentMtimes['bootstrap'] > 0) {
-            $maxMTime = max($maxMTime, $currentMtimes['bootstrap']);
         }
 
         $cacheData = [
