@@ -1,6 +1,7 @@
 <?php
-
 declare(strict_types=1);
+
+namespace CmsForNerd;
 
 /**
  * CmsForNerd v4.3.0 - Local User Manual Entry Point Controller (user-manual.php)
@@ -12,13 +13,13 @@ declare(strict_types=1);
  * @license     GPL-3.0-or-later
  */
 
-// Initialize GZIP response compression buffer
+// 1. [LAB] BOOTSTRAP PHASE - Must load bootstrap before executing buffering/logic
+require_once __DIR__ . '/includes/bootstrap.php';
+
+// 2. [PERFORMANCE] Enable GZIP and Output Buffering
 if (!ob_start("ob_gzhandler")) {
     ob_start();
 }
-
-// Bootstrap CmsContext and autoload core utilities
-require_once __DIR__ . '/includes/bootstrap.php';
 
 /**
  * 3. [SEO/AI] Page Metadata
@@ -26,22 +27,21 @@ require_once __DIR__ . '/includes/bootstrap.php';
 $content = [
     'title'       => "Local User Manual | CMSForNerd v4.3.0 Laboratory",
     'author'      => "CMSForNerd Engineering Team",
-    'description' => "Complete local user manual for CmsForNerd v4.3.0. Step-by-step guides for WSL2, AlmaLinux 10, Podman, Herd, Pair Logic, and OWASP security.",
-    'keywords'    => "User Manual, Local Setup, WSL2, AlmaLinux 10, Podman, Diataxis, PHP 8.4, CmsForNerd",
+    'description' => "Complete local user manual for CmsForNerd v4.3.0. Step-by-step guides for WSL2, AlmaLinux, Podman, Herd, Pair Logic, and OWASP security.",
+    'keywords'    => "User Manual, Local Setup, WSL2, AlmaLinux, Podman, Diataxis, PHP 8.4, CmsForNerd",
     'schemaType'  => "HowTo"
 ];
 
 /**
  * 4. [LAB] ROUTING & SANITIZATION
  */
-$pageName = \CmsForNerd\SecurityUtils::resolvePageName(pathinfo(basename(__FILE__), PATHINFO_FILENAME));
-
+$pageName = SecurityUtils::resolvePageName(pathinfo(basename(__FILE__), PATHINFO_FILENAME));
 $content['data'] = $pageName;
 
 /**
  * 5. [MODERN PHP] CmsContext Initialization (Factory Method)
  */
-$ctx = createCmsContext(
+$ctx = \createCmsContext(
     content: $content,
     pageName: $pageName,
     themeName: $themeName,
