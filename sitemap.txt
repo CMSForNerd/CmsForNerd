@@ -29,6 +29,7 @@ https://cmsfornerd.onrender.com/sitemap-page.php
 https://cmsfornerd.onrender.com/template.php
 https://cmsfornerd.onrender.com/ui-kit.php
 https://cmsfornerd.onrender.com/ujian-form.php
+https://cmsfornerd.onrender.com/user-manual.php
 https://cmsfornerd.onrender.com/welcome-kit.php
 https://cmsfornerd.onrender.com/windows-setup.php
 https://linuxmalaysia.github.io/CmsForNerd/
@@ -62,6 +63,7 @@ https://linuxmalaysia.github.io/CmsForNerd/sitemap-page.html
 https://linuxmalaysia.github.io/CmsForNerd/template.html
 https://linuxmalaysia.github.io/CmsForNerd/ui-kit.html
 https://linuxmalaysia.github.io/CmsForNerd/ujian-form.html
+https://linuxmalaysia.github.io/CmsForNerd/user-manual.html
 https://linuxmalaysia.github.io/CmsForNerd/welcome-kit.html
 https://linuxmalaysia.github.io/CmsForNerd/windows-setup.html
 https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai
@@ -231,5 +233,6 @@ https://www.linuxmalaysia.com/sitemap-page.php
 https://www.linuxmalaysia.com/template.php
 https://www.linuxmalaysia.com/ui-kit.php
 https://www.linuxmalaysia.com/ujian-form.php
+https://www.linuxmalaysia.com/user-manual.php
 https://www.linuxmalaysia.com/welcome-kit.php
 https://www.linuxmalaysia.com/windows-setup.php

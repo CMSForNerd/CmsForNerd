@@ -1,26 +1,25 @@
 ---
 okf_version: 0.1
 type: reference
-title: "📋 API Reference: CmsContext Class and Factory Method"
-description: "Complete API specification for the immutable CmsContext object carrying page metadata and nonces through the CmsForNerd render pipeline."
+title: "📋 CmsContext API Specification"
+description: "API reference for the immutable CmsContext object and createCmsContext factory helper method."
 resource: "file:///docs/reference/cms-context-api.md"
 timestamp: "2026-08-15T12:00:00Z"
 topics: [cms-context, api-reference, immutability, factory-method, php84]
 ---
 
-# 📋 API Reference: CmsContext Class and Factory Method
+# 📋 CmsContext API Specification
 
-The `\CmsForNerd\CmsContext` object is an immutable data container that safely carries request parameters, theme metadata, and security nonces through the rendering pipeline without relying on global variables.
+The `\CmsForNerd\CmsContext` readonly object carries request state and nonces safely through the render pipeline.
 
 ---
 
-## 🏛️ Class Definition
+## 🏛️ Class & Factory Signature
 
 ```php
 namespace CmsForNerd;
 
-readonly class CmsContext
-{
+readonly class CmsContext {
     public function __construct(
         public array $content,
         public string $pageName,
@@ -32,54 +31,8 @@ readonly class CmsContext
 }
 ```
 
----
-
-## 🛠️ Factory Method: `createCmsContext()`
-
-The global helper function `createCmsContext()` instantiates and registers a `CmsContext` instance:
-
-```php
-function createCmsContext(
-    array $content,
-    string $pageName,
-    string $themeName,
-    string $cssPath,
-    string $dataFile,
-    string $nonce
-): \CmsForNerd\CmsContext
-```
-
-### Parameters:
-* **`$content` (array):** Array containing page metadata (`title`, `author`, `description`, `keywords`, `schemaType`).
-* **`$pageName` (string):** Sanitized identifier of the current page (e.g., `'index'`, `'user-manual'`).
-* **`$themeName` (string):** Active theme folder name (e.g., `'CmsForNerd'`).
-* **`$cssPath` (string):** Path to the theme stylesheet.
-* **`$dataFile` (string):** Path to the content body include file in `contents/`.
-* **`$nonce` (string):** 128-bit cryptographic nonce string for Content Security Policy headers.
-
-### Return Value:
-An immutable instance of `\CmsForNerd\CmsContext`.
+Instantiated via `createCmsContext(...)`.
 
 ---
 
-## 📖 Usage Example
-
-```php
-$ctx = createCmsContext(
-    content: $content,
-    pageName: 'user-manual',
-    themeName: 'CmsForNerd',
-    cssPath: 'themes/CmsForNerd/style.css',
-    dataFile: 'contents/user-manual-body.inc',
-    nonce: $nonce
-);
-
-// Accessing properties inside themes:
-echo $ctx->content['title'];
-echo $ctx->nonce;
-```
-
----
-
-*Deep State of Mind (DSOM) For My AI Protocol | CmsContext Immutable Class API Specification | Harisfazillah Jamel (LinuxMalaysia)*
-*Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*
+*CmsContext API Reference Specification | DSOM Protocol 2026 | Harisfazillah Jamel (LinuxMalaysia)*

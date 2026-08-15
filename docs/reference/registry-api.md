@@ -1,58 +1,26 @@
 ---
 okf_version: 0.1
 type: reference
-title: "📋 API Reference: Registry Class (Zero-Global State)"
-description: "Complete API specification for the Registry static key-value store that replaces PHP global variables in CmsForNerd."
+title: "📋 Registry Static Key-Value Store API"
+description: "API reference for the Registry class providing Zero-Global static state management."
 resource: "file:///docs/reference/registry-api.md"
 timestamp: "2026-08-15T12:00:00Z"
 topics: [registry, zero-global, state-management, api-reference, php84]
 ---
 
-# 📋 API Reference: Registry Class (Zero-Global State)
+# 📋 Registry Static Key-Value Store API
 
-The `\CmsForNerd\Registry` class provides a thread-safe, static key-value store designed to completely replace legacy PHP `$GLOBALS` and `global` keyword usages in CmsForNerd v4+.
-
----
-
-## 🏛️ Class Methods
-
-### `Registry::set(string $key, mixed $value): void`
-Stores a value in the registry under the specified key.
-
-```php
-\CmsForNerd\Registry::set('site_name', 'CmsForNerd Laboratory');
-```
+The `\CmsForNerd\Registry` static class replaces legacy `$GLOBALS` usage.
 
 ---
 
-### `Registry::get(string $key, mixed $default = null): mixed`
-Retrieves a stored value by key. Returns `$default` if the key does not exist.
+## 🏛️ Methods
 
-```php
-$siteName = \CmsForNerd\Registry::get('site_name', 'Default Site');
-```
-
----
-
-### `Registry::has(string $key): bool`
-Checks whether a given key exists in the registry.
-
-```php
-if (\CmsForNerd\Registry::has('site_name')) {
-    // Key exists
-}
-```
+* `Registry::set(string $key, mixed $value): void`
+* `Registry::get(string $key, mixed $default = null): mixed`
+* `Registry::has(string $key): bool`
+* `Registry::clear(): void`
 
 ---
 
-### `Registry::clear(): void`
-Clears all stored entries from the registry. Primarily used during unit test tear-down to ensure zero test contamination.
-
-```php
-\CmsForNerd\Registry::clear();
-```
-
----
-
-*Deep State of Mind (DSOM) For My AI Protocol | Registry Zero-Global State API Specification | Harisfazillah Jamel (LinuxMalaysia)*
-*Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*
+*Registry API Reference Specification | DSOM Protocol 2026 | Harisfazillah Jamel (LinuxMalaysia)*

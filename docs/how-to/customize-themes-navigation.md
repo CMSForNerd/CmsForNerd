@@ -1,74 +1,28 @@
 ---
 okf_version: 0.1
 type: guide
-title: "🛠️ How-To: Customize Themes, Styling, and Site Navigation"
-description: "Learn how to customize the CmsForNerd theme, update CSS, configure header and footer fragments, and manage dynamic navigation menus."
+title: "🛠️ Theme Customization and Navigation Control"
+description: "Modify themes in themes/CmsForNerd/, update Glassmorphism styles, edit header/footer templates, and configure dynamic navbar menus."
 resource: "file:///docs/how-to/customize-themes-navigation.md"
 timestamp: "2026-08-15T12:00:00Z"
 topics: [theming, navigation, layout, css, amp]
 ---
 
-# 🛠️ How-To: Customize Themes, Styling, and Site Navigation
+# 🛠️ Theme Customization and Navigation Control
 
-This guide explains how to customize CmsForNerd themes, edit CSS stylesheets, modify global layout fragments, and manage dynamic navigation menus.
-
----
-
-## 🎨 Theme Architecture
-
-All active themes reside in `themes/`. The default theme is `themes/CmsForNerd/`.
-
-```text
-themes/CmsForNerd/
-├── theme.php            # Theme metadata and initialization
-├── pager.php            # Main Front Controller dispatcher (Standard vs AMP)
-├── style.css            # Consolidated global styles (Glassmorphism UI)
-├── css/
-│   └── amp.css          # Validated Google AMP CSS styles
-├── header.tpl           # Desktop/Standard HTML <head> and navbar
-├── footer.tpl           # Desktop/Standard <footer>
-├── amp-header.tpl       # Google AMP <head> and AMP navigation
-└── amp-footer.tpl       # Google AMP <footer>
-```
+All visual themes reside under `themes/`. The default Glassmorphism layout is defined in `themes/CmsForNerd/`.
 
 ---
 
-## 🎨 Modifying Styles & Glassmorphism UI
+## 🎨 Modifying Layouts & Navigation
 
-To maintain AMP compliance and satisfy SonarCloud code duplication guidelines, all visual styles are consolidated into global stylesheets:
-* Standard View CSS: `themes/CmsForNerd/style.css`
-* AMP Mobile View CSS: `themes/CmsForNerd/css/amp.css`
-
-> ⚠️ Do not insert raw `<style>` tags directly into body content files (`contents/*-body.inc`). Always add class definitions to `style.css` and `amp.css`.
-
----
-
-## 🧭 Managing Dynamic Site Navigation
-
-Navigation items are automatically discovered from root PHP controllers by `SecurityUtils::getDiscoveredPages()`.
-
-To exclude a page from appearing in navigation menus or customize its display title, edit `includes/global-control.inc.php`:
-
-```php
-// Page titles and navigation order map
-$pageTitles = [
-    'index'        => 'Home',
-    'about'        => 'About',
-    'installation' => 'Installation',
-    'user-manual'  => 'User Manual',
-    'contact'      => 'Contact Us'
-];
-
-// Exclude sensitive or utility pages from navigation
-$excludedNavPages = [
-    'offline',
-    'template',
-    'ujian-form',
-    'exam-answers'
-];
-```
+* **Global CSS Stylesheet:** Edit `themes/CmsForNerd/style.css` (or `themes/CmsForNerd/css/amp.css` for Google AMP). Avoid inserting raw `<style>` tags in body includes.
+* **Navigation Labels & Exclusions:** Edit `includes/global-control.inc.php`:
+  ```php
+  $pageTitles = ['index' => 'Home', 'user-manual' => 'User Manual'];
+  $excludedNavPages = ['offline', 'template'];
+  ```
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | CmsForNerd Theme Styling & Navigation Customization | Harisfazillah Jamel (LinuxMalaysia)*
-*Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*
+*CmsForNerd Theme & Navigation Customization Guide | DSOM Protocol 2026 | Harisfazillah Jamel (LinuxMalaysia)*

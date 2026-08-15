@@ -1,54 +1,25 @@
 ---
 okf_version: 0.1
 type: explanation
-title: "🧠 Explanation: Three-Tier Caching Pipeline & PWA Architecture"
-description: "Understand CmsForNerd's three-tier caching pipeline (Memory, APCu, Disk), ETag/304 handling, and Progressive Web App offline capabilities."
+title: "🧠 Three-Tier Caching Pipeline and PWA Offline Architecture"
+description: "Explanation of PerformanceUtils 3-tier caching hierarchy and Progressive Web App service worker offline capabilities."
 resource: "file:///docs/explanation/three-tier-caching-pwa.md"
 timestamp: "2026-08-15T12:00:00Z"
 topics: [caching, performance, pwa, apcu, etag]
 ---
 
-# 🧠 Explanation: Three-Tier Caching Pipeline & PWA Architecture
+# 🧠 Three-Tier Caching Pipeline and PWA Offline Architecture
 
-CmsForNerd combines a high-performance **Three-Tier Caching Pipeline** with a zero-configuration **Progressive Web App (PWA)** architecture.
-
----
-
-## ⚡ 1. The Three-Tier Caching Pipeline
-
-To determine page modification state without scanning disk folders on every request, `PerformanceUtils::getSourceMaxMTime()` uses a 3-tier caching hierarchy:
-
-```text
-Incoming Request
-       │
-       ▼
-[ Tier 1: In-Memory Static Property Cache ] ──(Hit)──> Return $mtime
-       │ (Miss)
-       ▼
-[ Tier 2: APCu Shared Memory Cache ]        ──(Hit)──> Return $mtime
-       │ (Miss)
-       ▼
-[ Tier 3: Persistent JSON File Cache ]       ──(Hit)──> Return $mtime
-  (data/cache/source_max_mtime.json)
-       │ (Miss)
-       ▼
-[ Disk Traversal & File Write (LOCK_EX) ]
-```
-
-### Conditional HTTP 304 Responses:
-If the computed ETag matches the client's `If-None-Match` header, `PerformanceUtils::handleConditionalRequest()` sends `HTTP/1.1 304 Not Modified` and terminates early, reducing server CPU and bandwidth consumption to near-zero.
+Performance optimization services in CmsForNerd.
 
 ---
 
-## 📱 2. Progressive Web App (PWA) Capabilities
+## ⚡ Caching & PWA Architecture
 
-CmsForNerd includes PWA capabilities built directly into the engine:
-
-* **Web App Manifest (`manifest.json`):** Configures app name, icons, theme colors, and standalone display mode.
-* **Service Worker (`sw.js`):** Implements network-first caching for dynamic pages and cache-first strategy for static assets (`style.css`, images).
-* **Offline Page Controller (`offline.php`):** Renders a custom offline fallback view when network connectivity is unavailable.
+1. **3-Tier Caching:** Memory Cache > APCu Shared Memory > Persistent JSON Cache (`data/cache/source_max_mtime.json`).
+2. **Conditional 304 Handling:** Sends `HTTP/1.1 304 Not Modified` when ETag matches `If-None-Match`.
+3. **PWA Offline Support:** Service worker (`sw.js`) and manifest (`manifest.json`) fallback to `offline.php` when disconnected.
 
 ---
 
-*Deep State of Mind (DSOM) For My AI Protocol | 3-Tier Caching & PWA Architecture | Harisfazillah Jamel (LinuxMalaysia)*
-*Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*
+*CmsForNerd Caching & PWA Explanation | DSOM Protocol 2026 | Harisfazillah Jamel (LinuxMalaysia)*
