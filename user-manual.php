@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+namespace CmsForNerd;
 
 /**
  * CmsForNerd v4.3.0 - Local User Manual Entry Point Controller (user-manual.php)
@@ -9,10 +12,6 @@
  * @copyright   2005 - 2026 Harisfazillah Jamel
  * @license     GPL-3.0-or-later
  */
-
-declare(strict_types=1);
-
-namespace CmsForNerd;
 
 // 1. [LAB] BOOTSTRAP PHASE - Must load bootstrap before executing buffering/logic
 require_once __DIR__ . '/includes/bootstrap.php';
