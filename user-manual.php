@@ -12,6 +12,8 @@
 
 declare(strict_types=1);
 
+namespace CmsForNerd;
+
 // 1. [LAB] BOOTSTRAP PHASE - Must load bootstrap before executing buffering/logic
 require_once __DIR__ . '/includes/bootstrap.php';
 
@@ -33,19 +35,19 @@ $content = [
     'description' => "Complete local user manual for CmsForNerd v4.3.0. " .
                      "Step-by-step guides for WSL2, AlmaLinux, Podman, Herd, Pair Logic, and OWASP security.",
     'keywords'    => "User Manual, Local Setup, WSL2, AlmaLinux, Podman, Diataxis, PHP 8.4, CmsForNerd",
-    'schemaType'  => "HowTo"
+    'schemaType'  => "WebPage"
 ];
 
 /**
  * 4. [LAB] ROUTING & SANITIZATION
  */
-$pageName = \CmsForNerd\SecurityUtils::resolvePageName(pathinfo(basename(__FILE__), PATHINFO_FILENAME));
+$pageName = SecurityUtils::resolvePageName(pathinfo(basename(__FILE__), PATHINFO_FILENAME));
 $content['data'] = $pageName;
 
 /**
  * 5. [MODERN PHP] CmsContext Initialization (Factory Method)
  */
-$ctx = createCmsContext(
+$ctx = \createCmsContext(
     content: $content,
     pageName: $pageName,
     themeName: $themeName,
