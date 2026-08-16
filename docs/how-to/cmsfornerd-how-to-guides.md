@@ -42,7 +42,7 @@ This guide compiles step-by-step procedural instructions for common developer ta
 
 * **Debian 12:**
   ```bash
-  # Use official Debian packages (do not apply Ubuntu PPA to Debian)
+  # Use official Debian repositories (do not apply Ubuntu PPA to Debian)
   sudo apt update && sudo apt install -y php-fpm php-cli nginx git composer
   # Nginx FastCGI pass: unix:/run/php/php8.4-fpm.sock
   ```
@@ -61,13 +61,16 @@ This guide compiles step-by-step procedural instructions for common developer ta
   # Nginx FastCGI pass: unix:/run/php-fpm/www.sock
   ```
 
-### Directory Permissions Setup:
+### Directory Permissions Setup (Read-Only Application Code):
+Keep application code read-only, granting ownership and write permissions only to required writable directories according to the web server service account (`www-data` on Ubuntu/Debian vs `nginx` on EL):
 ```bash
 sudo git clone https://github.com/CMSForNerd/CmsForNerd.git /var/www/cmsfornerd-srv
 cd /var/www/cmsfornerd-srv
 sudo composer install --no-dev --optimize-autoloader
-sudo chown -R www-data:www-data /var/www/cmsfornerd-srv # or nginx:nginx on EL
+sudo chown -R root:root /var/www/cmsfornerd-srv
 sudo chmod -R 755 /var/www/cmsfornerd-srv
+# Grant ownership & write access ONLY to writable folders
+sudo chown -R www-data:www-data /var/www/cmsfornerd-srv/data /var/www/cmsfornerd-srv/contents # or nginx:nginx on EL
 sudo chmod -R 775 /var/www/cmsfornerd-srv/data /var/www/cmsfornerd-srv/contents
 ```
 
@@ -75,7 +78,7 @@ sudo chmod -R 775 /var/www/cmsfornerd-srv/data /var/www/cmsfornerd-srv/contents
 
 ## 🐳 3. Container Orchestration (Podman & Docker)
 
-* **Rootless Podman:** `podman build -t cmsfornerd:v4 -f Containerfile . && podman run -d -p 8080:80 -v $(pwd)/contents:/var/www/html/contents:Z cmsfornerd:v4`
+* **Rootless Podman (Repeatable with `--replace`):** `podman build -t cmsfornerd:v4 -f Containerfile . && podman run -d --replace --name cmsfornerd-app -p 8080:80 -v $(pwd)/contents:/var/www/html/contents:Z cmsfornerd:v4`
 * **Docker Compose:** `docker compose up -d --build`
 
 ---
@@ -137,7 +140,7 @@ When editing content files in `contents/`:
 
 ---
 
-## 🎨 7. Theme Styling & Navigation Customization
+## 🎨 7. Theme Customisation and Navigation Control
 
 * **Stylesheets:** Edit `themes/CmsForNerd/style.css` (Standard View) or `themes/CmsForNerd/css/amp.css` (Google AMP).
 * **Navigation Map:** Configure `$pageTitles` and `$excludedNavPages` in `includes/global-control.inc.php`.
@@ -146,7 +149,7 @@ When editing content files in `contents/`:
 
 ## 🛡️ 8. Security Nonces, CSRF Tokens, and Required Turnstile
 
-* **Content Security Policy Nonces:** Injected per-request via `$ctx->cspNonce`. Attach to inline scripts: `<script nonce="<?= $ctx->cspNonce ?>"></script>`.
+* **Content Security Policy Nonces:** Injected per-request via `$ctx->cspNonce`. Attach to inline scripts: `<script nonce="<?= htmlspecialchars($ctx->cspNonce, ENT_QUOTES, 'UTF-8') ?>"></script>`.
 * **Required Form Turnstile & CSRF Guards:**
   ```html
   <form method="POST" action="process.php">
@@ -157,9 +160,9 @@ When editing content files in `contents/`:
   ```
   On processing:
   ```php
-  // 1. Verify Turnstile token first
+  // 1. Verify Turnstile token first with remote IP
   require_once __DIR__ . '/includes/turnstile.php';
-  if (!verifyTurnstileToken($_POST['cf-turnstile-response'] ?? '')) {
+  if (!\CmsForNerderifyTurnstile($_POST['cf-turnstile-response'] ?? '', $_SERVER['REMOTE_ADDR'] ?? '')) {
       header('HTTP/1.1 403 Forbidden'); die('Bot verification failed.');
   }
   // 2. Validate CSRF token

@@ -28,10 +28,11 @@ localhostForwarding=true
 Restart WSL from PowerShell (Admin): `wsl --shutdown`
 
 ### Step 2: Linux Kernel Tuning
-Inside WSL2, increase virtual memory map boundaries for container engines:
+Inside WSL2, ensure `vm.max_map_count` is configured without appending duplicate entries:
 ```bash
 sudo sysctl -w vm.max_map_count=262144
-echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
+grep -q "^vm.max_map_count=262144" /etc/sysctl.conf || echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
 ```
 
 ### Step 3: AlmaLinux 10 Distribution & Toolchain Installation
@@ -53,7 +54,7 @@ mkdir -p ~/dev-space && cd ~/dev-space
 git clone https://github.com/CMSForNerd/CmsForNerd.git cmsfornerd-container
 cd cmsfornerd-container
 podman build -t cmsfornerd-local:v4.3 -f Containerfile .
-podman run -d --name cmsfornerd-app -p 8080:80 -v $(pwd)/contents:/var/www/html/contents:Z cmsfornerd-local:v4.3
+podman run -d --replace --name cmsfornerd-app -p 8080:80 -v $(pwd)/contents:/var/www/html/contents:Z cmsfornerd-local:v4.3
 ```
 
 Verify container status with `podman ps` and access `http://localhost:8080/user-manual.php`.

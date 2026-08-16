@@ -24,7 +24,7 @@ CmsForNerd stores 100% of content in flat HTML files in `contents/`. This design
 
 CmsForNerd routes requests through a linear pipeline designed to avoid legacy global variables:
 ```text
-HTTP Request -> Controller ([page].php) -> Bootstrap & Sanitization -> createCmsContext() -> Theme Pager (pager.php) -> Includes Fragment (contents/[page]-body.inc) -> HTTP Response
+HTTP Request -> Controller ([page].php) -> Bootstrap & Sanitisation -> createCmsContext() -> Theme Pager (pager.php) -> Includes Fragment (contents/[page]-body.inc) -> HTTP Response
 ```
 
 Request-scoped state is stored inside the shallow-immutable `CmsContext` object, while site-wide state is managed via `Registry`.
@@ -40,10 +40,10 @@ Request-scoped state is stored inside the shallow-immutable `CmsContext` object,
 
 ---
 
-## 🛡️ 4. OWASP Security Hardening
+## 🛡️ 4. OWASP Security Defence Model
 
 * **Path Traversal / Input Validation:** `SecurityUtils::resolvePageName()` strips path manipulation characters (`../`, null bytes).
-* **CSP Script Nonces:** Nonce-based script authorization (`$ctx->cspNonce`) restricts script execution while allowing configured external origins and styled inline components.
+* **CSP Script Nonces:** Nonce-based script authorisations (`$ctx->cspNonce`) restrict script execution while allowing configured external origins and styled inline components.
 * **Timing-Attack-Resilient CSRF Guards:** Tokens validated using constant-time `hash_equals()`.
 * **Strict Cookies:** Session cookies set with `SameSite=Strict` and `HttpOnly`.
 

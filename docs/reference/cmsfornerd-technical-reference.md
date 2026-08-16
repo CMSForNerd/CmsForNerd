@@ -49,7 +49,7 @@ readonly class CmsContext {
 }
 ```
 
-Helper function `createCmsContext(...)` instantiates and registers a `CmsContext` instance.
+Helper function `createCmsContext(...)` returns a new `CmsContext` instance rather than registering global state.
 
 ---
 
@@ -66,12 +66,12 @@ The `\CmsForNerd\Registry` static class replaces legacy `$GLOBALS` usage within 
 
 ## 🛡️ 4. SecurityUtils API Reference
 
-* `SecurityUtils::resolvePageName(string $input): string` — Sanitizes page slugs and blocks path traversal (`../`).
+* `SecurityUtils::resolvePageName(string $defaultFallback, string $invalidFallback = 'index'): string` — Sanitises page slugs and blocks path traversal (`../`).
 * `SecurityUtils::escapeHtml(string $val): string` — Escapes special characters via `ENT_QUOTES | ENT_SUBSTITUTE`.
 * `SecurityUtils::generateNonce(): string` — Generates 128-bit random base64-encoded CSP nonce.
-* `SecurityUtils::getCsrfToken(): string` & `validateCsrfToken(string $token): bool` — Manages CSRF tokens.
-* `SecurityUtils::sendSecurityHeaders(?string $nonce = null): void` — Emits OWASP response headers (`Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`).
-* `SecurityUtils::getDiscoveredPages(string $rootDir): array` — Scans root page controllers.
+* `SecurityUtils::generateCsrfToken(): string` & `validateCsrfToken(?string $token): bool` — Manages CSRF tokens.
+* `SecurityUtils::sendSecurityHeaders(): void` — Emits OWASP response headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`).
+* `SecurityUtils::discoverPages(string $fragmentDir, string $rootDir): array` — Scans page fragments and controllers.
 
 ---
 
