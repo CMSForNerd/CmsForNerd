@@ -1,7 +1,4 @@
 <?php
-declare(strict_types=1);
-
-namespace CmsForNerd;
 
 /**
  * CmsForNerd v4.3.0 - Local User Manual Entry Point Controller (user-manual.php)
@@ -12,6 +9,10 @@ namespace CmsForNerd;
  * @copyright   2005 - 2026 Harisfazillah Jamel
  * @license     GPL-3.0-or-later
  */
+
+declare(strict_types=1);
+
+namespace CmsForNerd;
 
 // 1. [LAB] BOOTSTRAP PHASE - Must load bootstrap before executing buffering/logic
 require_once __DIR__ . '/includes/bootstrap.php';
@@ -46,7 +47,7 @@ $content['data'] = $pageName;
 /**
  * 5. [MODERN PHP] CmsContext Initialization (Factory Method)
  */
-$ctx = \createCmsContext(
+$ctx = createCmsContext(
     content: $content,
     pageName: $pageName,
     themeName: $themeName,
