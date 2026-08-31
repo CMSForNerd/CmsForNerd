@@ -24,11 +24,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
 
-      - name: Install and Run Gitleaks
-        run: |
-          wget -q https://github.com/gitleaks/gitleaks/releases/download/v8.18.2/gitleaks_8.18.2_linux_x64.tar.gz
-          tar -zxf gitleaks_8.18.2_linux_x64.tar.gz
-          ./gitleaks detect --no-git --config=.gitleaks.toml --verbose
+      - name: Setup Go
+        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
+        with:
+          go-version: '>=1.22'
+
+      - name: Install Gitleaks
+        run: go install github.com/zricethezav/gitleaks/v8@latest
+
+      - name: Run Gitleaks
+        run: $(go env GOPATH)/bin/gitleaks detect --no-git --config=.gitleaks.toml --verbose
 
   sast-phpstan:
     name: PHPStan Static Security Analysis
