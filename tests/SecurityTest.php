@@ -200,6 +200,9 @@ final class SecurityTest extends TestCase
      */
     public function testSecurityHeaders(): void
     {
+        // Set up registry nonce
+        \CmsForNerd\Registry::set('nonce', 'test_nonce_12345');
+
         // Headers are set only if not already sent (which PHPUnit environment allows mock-testing)
         SecurityUtils::sendSecurityHeaders();
 
