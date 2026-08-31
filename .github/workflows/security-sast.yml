@@ -32,8 +32,8 @@ jobs:
       - name: Install Gitleaks
         run: go install github.com/zricethezav/gitleaks/v8@latest
 
-      - name: Run Gitleaks
-        run: $(go env GOPATH)/bin/gitleaks detect --no-git --config=.gitleaks.toml --verbose
+      - name: Run Gitleaks Secret Scanning
+        run: gitleaks detect --no-git --config=.gitleaks.toml --verbose
 
   sast-phpstan:
     name: PHPStan Static Security Analysis
