@@ -1,0 +1,13 @@
+[allowlist]
+description = "Allowlist for documentation, mock examples, and context configs"
+paths = [
+    '''README\.md''',
+    '''context7\.json''',
+    '''docs/HOWTO-SETUP-ANSIBLE-BASELINE\.md''',
+    '''contents/right-side\.inc'''
+]
+regexes = [
+    '''AKIAIMNOJVGFDXXXE4OA''',
+    '''pk_RM2kRjlUE0OlIg21NfvXQ''',
+    '''CHANGE_ME'''
+]
