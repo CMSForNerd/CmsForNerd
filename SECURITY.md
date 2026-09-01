@@ -35,7 +35,7 @@ CMSForNerd enforces automated continuous security testing across all code paths 
 - **PHPStan Static Analysis**: Level 8 static analysis enforcing type safety and preventing dangerous language constructs across the core codebase.
 
 ### 3. Content Security Policy (CSP) & HTTP Response Security
-- **Content-Security-Policy Headers**: Dynamically emitted via `SecurityUtils::sendSecurityHeaders()` using cryptographic nonces (`nonce-<hash>`) generated in `includes/bootstrap.php` for secure inline scripts, disallowing unauthorized external origins and object embedding (`object-src 'none'`).
+- **Content-Security-Policy Headers**: Dynamically emitted via `SecurityUtils::sendSecurityHeaders()` using cryptographic nonces (`nonce-<hash>`) generated via `SecurityUtils::generateNonce()` in `includes/bootstrap.php` and stored in `Registry` prior to header generation to ensure strict inline script enforcement (`script-src 'self' 'nonce-...' https://cdn.ampproject.org`) while disallowing unauthorized external origins and object embedding (`object-src 'none'`).
 
 ## Front-End & PWA Security (v4.0.0+)
 

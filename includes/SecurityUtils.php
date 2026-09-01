@@ -267,12 +267,11 @@ final class SecurityUtils
 
         // Construct OWASP Content-Security-Policy header
         $nonce = class_exists('\\CmsForNerd\\Registry') ? (string) Registry::get('nonce', '') : '';
-        $scriptSrc = "'self' 'unsafe-inline'";
-        if ($nonce !== '') {
-            $scriptSrc .= " 'nonce-" . $nonce . "'";
-        }
+        $scriptSrc = ($nonce !== '')
+            ? "'self' 'nonce-" . $nonce . "' https://cdn.ampproject.org"
+            : "'self' 'unsafe-inline' https://cdn.ampproject.org";
         $cspHeader = "default-src 'self'; " .
-            "script-src " . $scriptSrc . " https://cdn.ampproject.org; " .
+            "script-src " . $scriptSrc . "; " .
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " .
             "img-src 'self' data: https:; " .
             "font-src 'self' data: https://fonts.gstatic.com; " .

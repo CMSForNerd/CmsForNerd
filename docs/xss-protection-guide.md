@@ -38,7 +38,7 @@ XSS.
 
 ### 4. Content Security Policy (CSP) Headers
 * **Solution**: `SecurityUtils::sendSecurityHeaders()` emits OWASP-compliant Content Security Policy headers on every HTTP request.
-* **Nonce Integration**: Dynamically incorporates cryptographic script nonces (`nonce-<hash>`) generated via `Registry::get('nonce')` to restrict inline script execution while blocking untrusted object sources (`object-src 'none'`).
+* **Nonce Integration**: Dynamically incorporates cryptographic script nonces (`nonce-<hash>`). `Registry::get('nonce')` is used strictly for retrieval during header construction, following the required nonce registration step (`Registry::set(key: 'nonce', value: $nonce)`) in `includes/bootstrap.php` before calling `sendSecurityHeaders()`. This restricts inline script execution (`script-src 'self' 'nonce-...' https://cdn.ampproject.org`) while blocking untrusted object sources (`object-src 'none'`).
 
 ---
 

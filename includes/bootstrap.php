@@ -40,6 +40,7 @@ require_once __DIR__ . '/nav-helper.inc.php';
  * Generates a unique 128-bit cryptographically strong nonce for CSP.
  */
 $nonce = bin2hex(random_bytes(16)); //
+\CmsForNerd\Registry::set(key: 'nonce', value: $nonce);
 
 /**
  * Creates the CMS context for a page using request, theme, asset, and security settings.
@@ -136,7 +137,7 @@ if (file_exists(__DIR__ . '/is_bot.php')) {
     'cssPath',
     (string) ($config['CSSPATH'] ?? "themes/" . \CmsForNerd\Registry::get('themeName') . "/css/")
 );
-\CmsForNerd\Registry::set('nonce', $nonce);
+// $nonce is already registered above
 
 // 10. [LAB] Routing Preparation
 $scriptName = basename($_SERVER['SCRIPT_NAME']);
