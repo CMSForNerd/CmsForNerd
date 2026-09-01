@@ -34,6 +34,8 @@ topics: [summary, table, contents, laboratory, docs]
 * [🤖 Google Jules Ubuntu 26.04 Setup Guide](docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md)
 * [🚀 Render Deployment Guide](docs/RENDER-DEPLOYMENT-GUIDE.md)
 * [🛡️ ASIMP for AI Agents Guide](docs/governance/ASIMP-FOR-AI-AGENTS.md)
+* [🌐 Web Interface Guidelines](docs/WEB-DESIGN-GUIDELINES.md)
+* [🛠️ Web Design Guidelines Skill Guide](docs/skills/WEB-DESIGN-GUIDELINES-SKILL.md)
 
 ## 🏁 Certification
 

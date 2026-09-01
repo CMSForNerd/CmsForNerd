@@ -43,3 +43,4 @@ vault/
 # --- Build Artifacts & Runtime Cache ---
 build_static/
 data/cache/
+test-results/

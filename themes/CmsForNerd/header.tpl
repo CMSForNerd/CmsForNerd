@@ -23,9 +23,9 @@ ROLE: Visual Header Component
         <div class="theme-switcher-container" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'SF Mono', monospace; font-size: 11px;">
             <span style="opacity: 0.7; font-weight: bold; text-transform: uppercase; color: var(--lab-text);">MODE:</span>
             <div class="theme-btn-group" style="display: inline-flex; border: 1px solid var(--lab-border); border-radius: 6px; overflow: hidden; background: var(--lab-bg);">
-                <button id="theme-btn-light" style="background: none; border: none; color: var(--lab-text); padding: 5px 10px; cursor: pointer; font-family: inherit; font-size: inherit; font-weight: bold; transition: background 0.2s;">☀️ LIGHT</button>
-                <button id="theme-btn-dark" style="background: none; border: none; color: var(--lab-text); padding: 5px 10px; cursor: pointer; font-family: inherit; font-size: inherit; font-weight: bold; border-left: 1px solid var(--lab-border); transition: background 0.2s;">🌙 DARK</button>
-                <button id="theme-btn-auto" style="background: none; border: none; color: var(--lab-text); padding: 5px 10px; cursor: pointer; font-family: inherit; font-size: inherit; font-weight: bold; border-left: 1px solid var(--lab-border); transition: background 0.2s;">💻 AUTO</button>
+                <button id="theme-btn-light" aria-label="Switch to light theme" style="background: none; border: none; color: var(--lab-text); padding: 5px 10px; cursor: pointer; font-family: inherit; font-size: inherit; font-weight: bold; transition: background 0.2s;">☀️ LIGHT</button>
+                <button id="theme-btn-dark" aria-label="Switch to dark theme" style="background: none; border: none; color: var(--lab-text); padding: 5px 10px; cursor: pointer; font-family: inherit; font-size: inherit; font-weight: bold; border-left: 1px solid var(--lab-border); transition: background 0.2s;">🌙 DARK</button>
+                <button id="theme-btn-auto" aria-label="Switch to automatic system theme" style="background: none; border: none; color: var(--lab-text); padding: 5px 10px; cursor: pointer; font-family: inherit; font-size: inherit; font-weight: bold; border-left: 1px solid var(--lab-border); transition: background 0.2s;">💻 AUTO</button>
             </div>
         </div>
 
