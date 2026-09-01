@@ -61,6 +61,8 @@ nav:
       - GitHub Pages Deployment Guide: docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md
       - Telemetry & Bidirectional Feedback Pipeline SOP: docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md
       - ASIMP for AI Agents Guide: docs/governance/ASIMP-FOR-AI-AGENTS.md
+      - Web Interface Guidelines: docs/WEB-DESIGN-GUIDELINES.md
+      - Web Design Guidelines Skill Guide: docs/skills/WEB-DESIGN-GUIDELINES-SKILL.md
   - Graduation:
       - Final Exam Challenge: docs/final-exam.md
       - Claim Your Certificate: docs/graduation.md

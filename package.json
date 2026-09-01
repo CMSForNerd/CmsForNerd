@@ -1,0 +1,10 @@
+{
+  "name": "cmsfornerd",
+  "version": "4.3.0",
+  "private": true,
+  "description": "CMSForNerd Laboratory",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@playwright/test": "^1.50.0"
+  }
+}
