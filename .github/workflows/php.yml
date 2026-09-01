@@ -1,4 +1,4 @@
-name: PHP Composer
+name: PHP Composer & Security Audit
 
 on:
   push:
@@ -38,8 +38,11 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Run Composer Security Audit
+      run: composer audit --locked --abandoned=ignore
 
-    # - name: Run test suite
-    #   run: composer run-script test
+    - name: Run PHPStan Analysis
+      run: vendor/bin/phpstan analyze --memory-limit=512M
+
+    - name: Run Pest Test Suite
+      run: vendor/bin/pest --colors=always

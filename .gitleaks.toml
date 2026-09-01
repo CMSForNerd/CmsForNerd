@@ -1,0 +1,19 @@
+title = "Gitleaks Configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlist for documentation, mock examples, vendor packages, and context configs"
+paths = [
+    '''README\.md''',
+    '''context7\.json''',
+    '''docs/HOWTO-SETUP-ANSIBLE-BASELINE\.md''',
+    '''contents/right-side\.inc''',
+    '''vendor/.*'''
+]
+regexes = [
+    '''AKIAIMNOJVGFDXXXE4OA''',
+    '''pk_RM2kRjlUE0OlIg21NfvXQ''',
+    '''CHANGE_ME'''
+]

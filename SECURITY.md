@@ -5,7 +5,7 @@ title: "Security Policy"
 description: "OKF-compliant documentation for SECURITY.md."
 resource: "file:///SECURITY.md"
 timestamp: 2026-08-07T05:39:28Z
-topics: [security, policy, maintenance, stance, supported]
+topics: [security, policy, maintenance, stance, supported, sast, dependabot, gitleaks]
 ---
 # Security Policy
 
@@ -21,6 +21,21 @@ We only provide support for the current master branch, which is regularly synchr
 | 4.0.0       | :white_check_mark: | >= 8.4          | Glassmorphism      |
 | 3.5.x - 3.6 | :white_check_mark: | >= 8.4          | Zero-Global Arch   |
 | < 3.5       | :x:                | < 8.4           | End of Life        |
+
+## Automated Security Pipeline & SAST Integrations
+
+CMSForNerd enforces automated continuous security testing across all code paths and dependency manifests:
+
+### 1. Dependency Vulnerability Scanning
+- **GitHub Dependabot**: Automated weekly checks for Composer and pnpm dependency updates via `.github/dependabot.yml`.
+- **Composer Security Audit**: Automated `composer audit --locked` executions on every CI push and pull request.
+
+### 2. Static Application Security Testing (SAST) & Secret Scanning
+- **Gitleaks**: Integrated in `.github/workflows/security-sast.yml` for automated scanning of commits and pull requests to detect hardcoded secrets or sensitive credentials.
+- **PHPStan Static Analysis**: Level 8 static analysis enforcing type safety and preventing dangerous language constructs across the core codebase.
+
+### 3. Content Security Policy (CSP) & HTTP Response Security
+- **Content-Security-Policy Headers**: Dynamically emitted via `SecurityUtils::sendSecurityHeaders()` using cryptographic nonces (`nonce-<hash>`) generated via `SecurityUtils::generateNonce()` in `includes/bootstrap.php` and stored in `Registry` prior to header generation to ensure strict inline script enforcement (`script-src 'self' 'nonce-...' https://cdn.ampproject.org`) while disallowing unauthorized external origins and object embedding (`object-src 'none'`).
 
 ## Front-End & PWA Security (v4.0.0+)
 

@@ -5,13 +5,13 @@ title: "Cross-Site Scripting (XSS) & Host Header Injection Protection Guide"
 description: "Sovereign guide to the XSS and Host Header defense architecture in CMSForNerd v4.0.0."
 resource: "file:///docs/xss-protection-guide.md"
 timestamp: "2026-07-27T12:00:00Z (Planned Handover Date)"
-topics: [security, xss, host-header, dynamic-xml]
+topics: [security, xss, host-header, dynamic-xml, csp]
 ---
 # 🛡️ XSS & Host Header Injection Protection Guide
 
 ## Overview
 In **CMSForNerd v4.0.0**, security is treated as a first-class citizen. This guide outlines the system's defenses against Cross-Site
-Scripting (XSS), Host Header Injection, and duplicate processing across all dynamic feed and sitemap components.
+Scripting (XSS), Host Header Injection, duplicate processing, and HTTP header protections.
 
 ---
 
@@ -35,6 +35,10 @@ XSS.
 * **Solution**: `SecurityUtils::escapeHtml()` provides high-level UTF-8 escaping. It internally invokes `htmlspecialchars($content, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')`.
 * **Standard**: Instead of writing redundant inline closure escaping in feed templates, developers MUST use `SecurityUtils::escapeHtml()` on
   all dynamic inputs and output nodes.
+
+### 4. Content Security Policy (CSP) Headers
+* **Solution**: `SecurityUtils::sendSecurityHeaders()` emits OWASP-compliant Content Security Policy headers on every HTTP request.
+* **Nonce Integration**: Dynamically incorporates cryptographic script nonces (`nonce-<hash>`). `Registry::get('nonce')` is used strictly for retrieval during header construction, following the required nonce registration step (`Registry::set(key: 'nonce', value: $nonce)`) in `includes/bootstrap.php` before calling `sendSecurityHeaders()`. This restricts inline script execution (`script-src 'self' 'nonce-...' https://cdn.ampproject.org`) while blocking untrusted object sources (`object-src 'none'`).
 
 ---
 
@@ -78,7 +82,7 @@ On the graduation certificate generator (`graduation.php`), students supply thei
 ---
 
 ## ⚖️ Retrieval & Reference
-- [Security Policy](security-policy.md)
+- [Security Policy](../SECURITY.md)
 - [Sitemap & SEO Guide](sitemap-guide.md)
 - [Directory Security Guide](directory-security.md)
 

@@ -265,6 +265,22 @@ final class SecurityUtils
         header("Referrer-Policy: strict-origin-when-cross-origin");
         header("Permissions-Policy: camera=(), microphone=(), geolocation=(), midi=(), payment=()");
 
+        // Construct OWASP Content-Security-Policy header
+        $nonce = class_exists('\\CmsForNerd\\Registry') ? (string) Registry::get('nonce', '') : '';
+        $scriptSrc = ($nonce !== '')
+            ? "'self' 'nonce-" . $nonce . "' https://cdn.ampproject.org"
+            : "'self' 'unsafe-inline' https://cdn.ampproject.org";
+        $cspHeader = "default-src 'self'; " .
+            "script-src " . $scriptSrc . "; " .
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " .
+            "img-src 'self' data: https:; " .
+            "font-src 'self' data: https://fonts.gstatic.com; " .
+            "connect-src 'self' https:; " .
+            "object-src 'none'; " .
+            "base-uri 'self'; " .
+            "form-action 'self';";
+        header("Content-Security-Policy: " . $cspHeader);
+
         // Only set HSTS if using HTTPS to avoid breaking localhost development or standard HTTP setups
         $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
             || (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])

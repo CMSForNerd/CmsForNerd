@@ -1,0 +1,53 @@
+# ==============================================================================
+# Protocol    : Deep State of Mind (DSOM) Security & SAST Integration
+# Author      : Harisfazillah Jamel (LinuxMalaysia)
+# Description : Automated SAST, Secret Scanning (Gitleaks), and PHP Static Security
+# ==============================================================================
+name: Security SAST & Secret Scanning
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: Gitleaks Secret Scanning
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+
+      - name: Install and Run Gitleaks
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.18.2/gitleaks_8.18.2_linux_x64.tar.gz -o gitleaks_8.18.2_linux_x64.tar.gz
+          echo "6298c9235dfc9278c14b28afd9b7fa4e6f4a289cb1974bd27949fc1e9122bdee  gitleaks_8.18.2_linux_x64.tar.gz" | sha256sum -c -
+          tar -zxf gitleaks_8.18.2_linux_x64.tar.gz
+          ./gitleaks detect --no-git --config=.gitleaks.toml --redact --verbose
+
+  sast-phpstan:
+    name: PHPStan Static Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+
+      - name: Setup PHP 8.4
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHPStan SAST
+        run: vendor/bin/phpstan analyze --memory-limit=512M
