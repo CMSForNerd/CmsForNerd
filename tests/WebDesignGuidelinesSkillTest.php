@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace CmsForNerd\Tests;
@@ -24,14 +23,20 @@ final class WebDesignGuidelinesSkillTest extends TestCase
         $this->assertFileExists($this->skillPath, 'Missing web-design-guidelines SKILL.md.');
     }
 
-    public function testSkillFileStructureAndFrontmatter(): void
+    public function testSkillFileStructureAndParsedFrontmatter(): void
     {
         $content = file_get_contents($this->skillPath);
         $this->assertIsString($content);
 
-        $this->assertStringContainsString('okf_version: 0.1', $content);
-        $this->assertStringContainsString('type: skill', $content);
-        $this->assertStringContainsString('name: "web-design-guidelines"', $content);
+        // Extract leading YAML frontmatter block
+        preg_match('/^---\s*\n(.*?)\n---/s', $content, $matches);
+        $this->assertNotEmpty($matches[1] ?? '', 'Skill file must contain a valid leading frontmatter block.');
+
+        $frontmatterText = $matches[1];
+        $this->assertStringContainsString('okf_version: 0.1', $frontmatterText);
+        $this->assertStringContainsString('type: skill', $frontmatterText);
+        $this->assertStringContainsString('name: "web-design-guidelines"', $frontmatterText);
+
         $this->assertStringContainsString('## Purpose', $content);
         $this->assertStringContainsString('## When to use this skill', $content);
         $this->assertStringContainsString('## Guidelines Source & Rule Enforcement', $content);

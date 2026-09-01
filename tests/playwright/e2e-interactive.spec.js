@@ -3,13 +3,16 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('E2E Interactive Features & UI Guidelines Compliance', () => {
 
-  test('Page loads correctly and contains valid heading and navigation links', async ({ page }) => {
+  test('Page loads correctly and contains valid heading and expected-link navigation elements', async ({ page }) => {
     await page.goto('/');
     await expect(page).toHaveTitle(/CMSForNerd/i);
 
     const mainHeading = page.locator('h1');
     await expect(mainHeading).toBeVisible();
     await expect(mainHeading).toContainText('CMSForNerd');
+
+    const expectedLink = page.locator('a[href="about.php"]').first();
+    await expect(expectedLink).toBeVisible();
   });
 
   test('Theme switcher updates local storage and DOM class', async ({ page }) => {
@@ -33,14 +36,18 @@ test.describe('E2E Interactive Features & UI Guidelines Compliance', () => {
     expect(savedThemeLight).toBe('light');
   });
 
-  test('Client-side router navigation hydrates page fragments seamlessly', async ({ page }) => {
+  test('Client-side navigation verifies destination content without full reload', async ({ page }) => {
     await page.goto('/');
 
     const aboutLink = page.locator('a[href="about.php"]').first();
-    if (await aboutLink.isVisible()) {
-      await aboutLink.click();
-      await expect(page).toHaveURL(/about\.php/);
-    }
+    await expect(aboutLink).toBeVisible();
+
+    await Promise.all([
+      page.waitForURL(/about\.php/),
+      aboutLink.click(),
+    ]);
+
+    await expect(page.locator('h1')).toBeVisible();
   });
 
   test('Interactive widgets, badges, and layout footers are rendered', async ({ page }) => {

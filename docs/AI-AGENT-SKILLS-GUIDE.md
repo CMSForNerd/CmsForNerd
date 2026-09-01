@@ -87,7 +87,7 @@ This is the active ledger of all AI Agent Skills currently deployed in this repo
 | **SOD Palace Sync** | `.agents/skills/sod-palace-sync/SKILL.md` | The Reanimation ritual to load the workspace context and establish the day's tasks. |
 | **SSH Passwordless Setup** | `.agents/skills/ssh-passwordless-setup/SKILL.md` | Configures passwordless, multi-hop SSH routing using `~/.ssh/config` to bypass agent limits. |
 | **Telemetry & Feedback Operations** | `.agents/skills/telemetry-and-feedback-ops/SKILL.md` | Manages dev-mode telemetry log compiling and formatted Markdown feedback. |
-| **Web Interface Guidelines** | `.agents/skills/web-design-guidelines/SKILL.md` | Automated UI interface review, accessibility checks (WCAG), focus ring verification, and UX guidelines enforcement. |
+| **Web Interface Guidelines** | `.agents/skills/web-design-guidelines/SKILL.md` | Automated UI review, accessibility checks (WCAG), focus ring verification, and UX guidelines enforcement. |
 
 
 ---
