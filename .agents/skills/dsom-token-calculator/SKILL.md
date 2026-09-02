@@ -2,6 +2,7 @@
 okf_version: 0.1
 type: procedural_skill
 title: "Procedural Specification: DSOM Token Calculator"
+name: "dsom-token-calculator"
 description: "Calculates token counts via tiktoken in isolated uv Python runspaces."
 topics: [tokens, tiktoken, performance, byte-cap, context]
 resource: "file:///.agents/skills/dsom-token-calculator/SKILL.md"

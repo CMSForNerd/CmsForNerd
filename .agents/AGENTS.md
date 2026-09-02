@@ -167,6 +167,51 @@ To execute workflows autonomously and check compliance, the workspace provides p
   - *What it does:* Manages the local telemetry loop in `dev` execution mode to compile and dispatch formatted Markdown feedback reports back to Google Jules VM and active pull requests.
   - *How to interact:* Executed dynamically in dev mode or as part of WSL2 multi-distro matrix workflows.
 
+- **Web Interface Guidelines & Accessibility (`.agents/skills/web-design-guidelines/`)**
+  - *What it does:* Conducts UI reviews, WCAG accessibility compliance audits, focus states verification, Glassmorphic CSS consolidation, and Playwright E2E testing.
+  - *How to interact:* Load when auditing UI designs or reviewing Playwright frontend tests in `tests/playwright/`.
+
+- **Ansible & Podman Infrastructure Operations (`.agents/skills/ansible-and-podman-ops/`)**
+  - *What it does:* Orchestrates rootless Podman 5+ containers on Ubuntu 26.04, Cloud Workstations, Render blueprints, BunkerWeb SSL, and Ansible playbooks.
+  - *How to interact:* Use when writing playbooks, configuring Podman containers, or editing Render deployment manifests.
+
+- **CMS Security & Architectural Hardening (`.agents/skills/cms-security-and-best-practices/`)**
+  - *What it does:* Enforces Host Header injection defense via `SecurityUtils::getSafeBaseUrl()`, CSP nonces, OWASP Top 10, Zero-Global design, and HTML Microdata.
+  - *How to interact:* Utilize when modifying security utilities, session handling, or controller access controls.
+
+- **PHP Code Quality, SonarCloud & PHPStan (`.agents/skills/php-quality-sonar-phpstan/`)**
+  - *What it does:* Enforces PHPStan Level 8 SAST, SonarCloud quality gates, Pest PHP testing, PSR-12 docblock ordering, and indentation standards.
+  - *How to interact:* Run during code reviews or static analysis compliance checks.
+
+- **PHP Performance & Benchmarking (`.agents/skills/php-performance-and-benchmarking/`)**
+  - *What it does:* Implements `getSourceMaxMTime()` hybrid APCu/JSON caching, SHA-256 cache keys, O(1) array lookups, and `tools/bench_is_bot.php` benchmarking.
+  - *How to interact:* Execute when optimizing PHP I/O, loops, or caching routines.
+
+- **Static Page Baking & Routing (`.agents/skills/static-baking-and-routing/`)**
+  - *What it does:* Bakes dynamic PHP pages to `build_static/` with `.nojekyll`, copies SEO/LLM files (`llms.txt`, `sitemap.xml`), and handles SPA/PWA router integration.
+  - *How to interact:* Execute when baking static releases or deploying to GitHub Pages.
+
+- **CMS Documentation & Educational Alignment (`.agents/skills/cms-documentation-and-education/`)**
+  - *What it does:* Enforces 4-layer Omni-Documentation Sync, Diátaxis framework structuring (`user-manual.php`), `/llms.txt` standards, and version alignment.
+  - *How to interact:* Execute when creating technical documentation, tutorials, or user manuals.
+
+- **Sovereign Git Operations & Incremental Workflow (`.agents/skills/sovereign-git-and-workflow/`)**
+  - *What it does:* Manages divergent branch merges, shallow clone restoration, Rule 24 session recording in `task.md`/`walkthrough.md`, and clean submission checkpoints.
+  - *How to interact:* Follow during Git branch operations, merge conflict resolutions, and EOD rituals.
+
+- **Bot Detection & Network Operations (`.agents/skills/bot-detection-and-network-ops/`)**
+  - *What it does:* Performs dynamic IP CIDR bot detection via `curl_multi`, `is_trusted_bot_ip()` static caching, SSRF prevention, and secure cURL handling.
+  - *How to interact:* Use when modifying bot detectors or external network fetch utilities.
+
+### Google Antigravity & Google Jules Skill Integration Protocol
+
+Google Jules and Google Antigravity share a unified Agent Skill architecture under `.agents/skills/`. This bridges Google Jules' autonomous task execution with Google Antigravity's cognitive skill discovery engine:
+
+1. **Antigravity & AgentSkills.io Specification Compatibility:** Each skill directory under `.agents/skills/` contains a `SKILL.md` file featuring combined Open Knowledge Format (OKF v0.1) and Google Antigravity YAML frontmatter (`okf_version`, `type`, `title`, `name`, `description`, `topics`, `timestamp`).
+2. **Knowledge Interoperability:** All Google Jules operational and domain-specific knowledge—spanning Ansible rootless Podman deployment, ASIMP security auditing, telemetry feedback loops, PHP 8.4 performance benchmarking, SonarCloud/PHPStan quality gates, static page baking, and web design guidelines—is encapsulated as modular skills in `.agents/skills/`.
+3. **Execution & Context Window Protection:** Skills adhere to a strict 4,000-token limit per `SKILL.md` file, verified by `.agents/skills/dsom-token-calculator/scripts/calculate-tokens.py`.
+4. **Digital Sovereignty Signatures:** Every skill document concludes with the standard Deep State of Mind (DSOM) AI Protocol footer, ensuring provenance, licensing, and compliance across sessions.
+
 ## Cognitive Engine Protocols (Boot & Discovery)
 
 To enforce Rules 20, 21, and the Sovereign Architecture, the AI must strictly execute these procedural loops:

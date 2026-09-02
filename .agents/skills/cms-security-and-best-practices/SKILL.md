@@ -11,42 +11,35 @@ timestamp: 2026-08-01T09:00:00Z
 # 🛡️ CMS Security and Architectural Hardening Standards
 
 ## Purpose
-This skill defines core security policies, defensive coding standards, and execution constraints to prevent common vulnerabilities (e.g., Host Header Injection, Path Traversal, SSRF, DoS, and Global State leakage) across the CMS.
+This skill defines core security policies, defensive coding standards, and execution constraints to prevent common vulnerabilities (e.g., Host Header Injection, Path Traversal, SSRF, DoS, OWASP Top 10, and Global State leakage) across the CMS.
 
 ## When to use this skill
 Execute this skill whenever modifying security utilities, implementing new API or page controllers, handling user-supplied input/IP ranges, or writing integration security tests.
 
 ## Guidelines & Best Practices
 
-### 1. Host Header Injection Prevention
-Never construct links or absolute URLs using the unvalidated `$_SERVER['HTTP_HOST']` variable directly. Always call the centralized utility:
-```php
-$baseUrl = \CmsForNerd\SecurityUtils::getSafeBaseUrl();
-```
-This ensures the base URL is properly validated against white-listed host domains or safe configurations.
+### 1. Host Header Injection & Centralized Base URL
+To prevent Host Header injection, XML/HTML-based XSS, and SonarCloud code duplication across sitemap and feed generators, `$_SERVER['HTTP_HOST']` detection is centralized in `\CmsForNerd\SecurityUtils::getSafeBaseUrl()`, which recognizes the IPv6 loopback host `::1` before splitting or normalizing the host, validates incoming hosts against an explicit allowlist (localhost, 127.0.0.1, ::1, cmsfornerd.test), and returns 400 Bad Request for untrusted headers. The scanning logic is centralized in `SecurityUtils::discoverPages()`, and dynamic XML/HTML outputs must be escaped using `\CmsForNerd\SecurityUtils::escapeHtml($variable)`.
 
 ### 2. Path Traversal & Controller Page Resolution
-Prevent Directory Traversal attacks by utilizing the centralized page resolver:
-```php
-$page = \CmsForNerd\SecurityUtils::resolvePageName($queryParams, $defaultFallback);
-```
-- If the query string contains extra, non-page parameters (such as `view=amp`), the method must fallback to `$defaultFallback` (the controller's unique safe page name) rather than the generic `'index'`. This ensures controllers maintain and render their correct specialized page content.
+Routing and security resolution checks for pages are centralized within the `\CmsForNerd\SecurityUtils::resolvePageName($queryParams, $defaultFallback)` helper method, which accepts an optional fallback page name parameter (such as passing 'graduation' in graduation.php to prevent query-parameter-based fallback routing back to 'index').
+- Prevent Directory Traversal attacks by always resolving target pages through `SecurityUtils::resolvePageName()`.
 
-### 3. Escape Output Rendering
-Always use the custom escaping function instead of standard PHP `htmlspecialchars()` when outputting variables in templates and themes:
-```php
-echo \CmsForNerd\SecurityUtils::escapeHtml($variable);
-```
+### 3. Escape Output Rendering & CSP Defense
+Always use `\CmsForNerd\SecurityUtils::escapeHtml($variable)` instead of standard PHP `htmlspecialchars()` when outputting variables in templates and themes.
+- The application enforces a strict Content Security Policy (CSP) where inline event handlers are blocked, inline scripts require a nonce, and sitemap outputs (`sitemap.php`) enforce a restrictive `style-src 'none'` directive.
+- `SecurityUtils::sendSecurityHeaders()` is updated so an empty Registry nonce never causes the Content Security Policy to emit `'unsafe-inline'`; it uses a fail-closed fallback that preserves nonce-based script enforcement.
+- Dynamic XSS/Host Header protections are detailed in `docs/xss-protection-guide.md` and verified in `tests/SecurityTest.php`.
 
 ### 4. Zero-Global Mandate
 The core architecture enforces a "Zero-Global" system.
 - The use of the `global` keyword and the `$GLOBALS` array is strictly prohibited in `includes/`, `src/`, and any controller file.
 - All state management must be securely handled using `\CmsForNerd\Registry` or `CmsContext`.
 
-### 5. Access Protection and Authorization
+### 5. Access Protection and OWASP Top 10 Hardening
+- **OWASP Top 10 Hardening:** The codebase implements OWASP Top 10 Hardening under `SecurityUtils` containing `startSecureSession()` (secure cookie flags, HttpOnly, SameSite=Strict), CSRF token defense (`generateCsrfToken()`, `validateCsrfToken()`), security headers integration (`sendSecurityHeaders()`), and request method verification (`validateRequestMethod()`).
 - **Technical File Isolation:** Direct browser access to technical includes (such as `.inc` files and `bootstrap.php`) is explicitly blocked with a `403 Forbidden` status by the `boot_security()` function in `includes/global-control.inc.php`.
-- **Centralized Security Components:** Do not manually include Cloudflare Turnstile (`turnstile.php`) or bot detection (`is_bot.php`) in root PHP controllers. These are already centralized in `includes/bootstrap.php`.
-- **Graduation Certificate Authorization:** Access to `graduation.php` requires a `student_id` query parameter for authorization.
+- **Flat-File CMS Requirements:** CmsForNerd is a flat-file PHP laboratory CMS that requires PHP 8.4+, though checks can be bypassed using the `BYPASS_PHP_CHECK=1` environment variable.
 - **Instructor Panel Protection:** Access to `exam-answers.php` is restricted to authorized instructors and validated against a `key` parameter (corresponds to `INSTRUCTOR_KEY` config, overridable by `CMS_INSTRUCTOR_KEY` environment variable).
 
 ### 6. IPv6 Binary Hardening
@@ -56,7 +49,7 @@ For high-performance, critical tasks such as constructing IPv6 bitmasks:
 - Ensure CIDR matching unit tests in `tests/SecurityTest.php` include non-multiple-of-8 prefixes (e.g., `/25`, `/121`) to thoroughly validate partial-byte bitmask boundary correctness.
 
 ### 7. HTML Microdata Verification
-The security test suite in `tests/SecurityTest.php` scans dynamic `.php` pages and core includes to ensure HTML microdata (`itemscope` and `itemtype`) is present for semantic integrity. The root `index.html` file is explicitly excluded from this requirement, as it serves strictly as a static fallback redirect.
+All HTML layouts and pages generated by CMSForNerd (including standard, AMP, offline, turnstile tests, diagnostic utilities, root redirector, and directory privacy templates) must include HTML Microdata attributes (`itemscope` and `itemtype` referencing Schema.org) directly on their opening `<html>` element tag. The Microdata checks in `SecurityTest.php` parse each generated document's opening `<html>` element and assert that both `itemscope` and `itemtype` appear on that element. The root `index.html` file is explicitly excluded from this requirement, as it serves strictly as a static fallback redirect.
 
 
 ---

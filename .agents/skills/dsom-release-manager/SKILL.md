@@ -1,8 +1,9 @@
 ---
 okf_version: 0.1
-type: agent_skill
-title: dsom-release-manager
-description: Cuts a formal DSOM release, updates ledgers, tags the repository, and deploys to GitHub/GitLab.
+type: skill
+title: "DSOM Release Manager"
+name: "dsom-release-manager"
+description: "Cuts a formal DSOM release, updates ledgers, tags the repository, and deploys to GitHub/GitLab."
 topics: [release, git, tagging, changelog, deployment]
 timestamp: 2026-07-12T09:50:00Z
 ---
