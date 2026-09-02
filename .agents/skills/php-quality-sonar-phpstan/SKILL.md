@@ -31,7 +31,7 @@ curl_setopt($ch, CURLOPT_USERAGENT, $variable);
 ```
 - The project's CI setup uses Dependabot for Composer and pnpm dependency updates (`.github/dependabot.yml`), runs `composer audit` during PHP builds (`.github/workflows/php.yml`), and executes Gitleaks secret scanning and PHPStan SAST static security analysis via `.github/workflows/security-sast.yml`.
 - The project uses Pest PHP as its test runner instead of PHPUnit; run tests using the `./vendor/bin/pest` command.
-- If the local PHP environment version is lower than 8.4 (e.g., 8.3), use `composer install --ignore-platform-reqs` to successfully install vendor dependencies and run tests/tools.
+- The project requires PHP 8.4 or newer for running tests and tools; restrict `composer install --ignore-platform-reqs` to installation diagnostics only and do not present it as support for older runtimes.
 
 ### 2. SonarCloud Analysis Failure Prevention & Node.js Upgrade
 To resolve SonarCloud analysis failures (such as HTTP 403 Forbidden errors) and Node.js 20 deprecation warnings in CI/CD pipelines:

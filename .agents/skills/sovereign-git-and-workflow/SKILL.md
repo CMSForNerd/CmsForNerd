@@ -21,8 +21,8 @@ Use this skill during Git integrations, merge operations, conflict-handling sess
 ### 1. Divergent Branch Merging, Shallow Clones & Sandbox Controls
 Standard branch divergence must be handled via standard merging or rebasing.
 - **Sandbox Command Guard:** The execution sandbox environment blocks shell scripts containing the literal command `git pull`. Code synchronization must be performed using `git fetch` followed by `git merge` or `git rebase` instead.
-- **Shallow Clone Restoration:** The development environment's Git repository is checked out as a shallow clone by default. Before performing branch merges or operations requiring full history, run `git fetch --unshallow` to restore the complete commit history and avoid 'unrelated histories' errors.
-- **Unrelated Histories:** If a merge attempt with a divergent branch fails with `'refusing to merge unrelated histories'`, verify remote identities before executing:
+- **Shallow Clone Restoration:** The development environment's Git repository is checked out as a shallow clone by default. Before performing branch merges or operations requiring full history, check `git rev-parse --is-shallow-repository` first. Run `git fetch --unshallow` only when it returns `true`, and skip restoration for complete repositories.
+- **Remote-Identity Verification & Unrelated Histories:** If a merge attempt with a divergent branch fails with `'refusing to merge unrelated histories'`, define and execute the remote-identity verification procedure: check configured remotes with `git remote -v` and compare them against the repository's canonical URL before running the allow-unrelated-histories merge. The merge must not proceed if the remote identity cannot be confirmed:
 ```bash
 git merge origin/<branch> --allow-unrelated-histories
 ```

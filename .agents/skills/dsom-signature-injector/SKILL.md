@@ -1,4 +1,4 @@
-﻿---
+---
 okf_version: 0.1
 type: skill
 title: "Universal Sovereign Signature Injector"
@@ -21,8 +21,8 @@ timestamp: 2026-07-12T07:08:35Z
    ```
 
 ## Technical Constraints
-- **Markdown (.md):** The script blind-appends the signature to the bottom using an italicized Markdown footer. The timestamp is dynamically calculated from the file's \mtime\.
-- **Code Files (.sh, .ps1, .yml):** The script prepends the signature to the top of the file using the appropriate comment syntax (e.g., \#\) to ensure the code remains executable without fatal syntax errors.
+- **Markdown (.md):** The script blind-appends the signature to the bottom using an italicized Markdown footer. The timestamp is dynamically calculated from the file's `mtime`.
+- **Code Files (.sh, .ps1, .yml):** The script prepends the signature to the top of the file using the appropriate comment syntax (e.g., `#`) to ensure the code remains executable without fatal syntax errors.
 
 
 ---

@@ -20,8 +20,8 @@ Trigger this skill when performing project-wide documentation audits, editing co
 
 ### 1. Document Update Sequencing & Omni-Documentation Sync
 - When performing project-wide documentation updates or changes: always update core record-keeping files (`README.md`, `CHANGELOG.md`, `HISTORY.md`) **last** to accurately summarize all changes executed.
-- **Rule 14 (Omni-Documentation Sync):** In compliance with Rule 14, newly created technical documentation is systematically registered in four distinct navigation maps: `SUMMARY.md` (GitBook), `mkdocs.yml` (MkDocs), `START-HERE.md` (Sovereign Onboarding Entry Point map with 12 distinct Entry Points), and `llms.txt` (External AI Indexing).
-- **Modern LLM Standards:** The project implements modern `/llms.txt` and `.llms/index.md` standards for semantic LLM crawlability, mapping architectural specifications, file directories, and security rules clearly for cognitive agents.
+- **Rule 14 (Omni-Documentation Sync):** In compliance with Rule 14, newly created technical documentation is systematically registered in four distinct navigation maps: `SUMMARY.md` (GitBook), `mkdocs.yml` (MkDocs), `START-HERE.md` (Sovereign Onboarding Entry Point map with 16 distinct Entry Points), and `llms.txt` (External AI Indexing).
+- **Modern LLM Standards:** The project implements modern `/llms.txt` standards for semantic LLM crawlability, mapping architectural specifications, file directories, and security rules clearly for cognitive agents.
 - **Rulebook Synchronization:** Changes to rulebooks (like `.agents/AGENTS.md` and root `AGENTS.md`) and guides (such as `docs/AI-AGENT-SKILLS-GUIDE.md`) must be kept synchronized, maintain updated ISO 8601 timestamps inside OKF frontmatters, and carry valid DSOM footer signatures.
 
 ### 2. Diátaxis Documentation Framework
@@ -57,11 +57,7 @@ When modifying any core CMS routing, template logic, or architectural functions,
 ### 6. Production Installation & Local Runtime Validation
 The standard deployment requires PHP 8.4+ as the normal installation path.
 - In production, always perform standard installations without ignoring platform requirements.
-- If an older local runtime (e.g., PHP 8.3) is used solely to prepare dependencies or run pre-flight tests offline, dependencies can be prepared locally. However, you must instruct the developer or CI runner to validate the environment configuration against the target runtime using:
-  ```bash
-  composer check-platform-reqs
-  ```
-  in the target PHP 8.4+ execution environment.
+- The project requires PHP 8.4 or newer for running tests and tools; restrict `composer install --ignore-platform-reqs` to installation diagnostics only and do not present it as support for older runtimes. Validate the environment configuration against the target runtime using `composer check-platform-reqs` in the target PHP 8.4+ execution environment.
 
 
 ---

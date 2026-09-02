@@ -27,11 +27,11 @@ The Telemetry and Bidirectional Feedback Pipeline is fully documented in `docs/g
 
 ### 2. Execution-Mode Separated Telemetry Loops
 The local telemetry loop separates environments via the `execution_mode` configuration flag (dev vs. user):
-- **`dev` mode:** When `execution_mode` is set to 'dev', the `feedback_collector` role compiles logs, kernel states, and exit codes into `/tmp/jules_telemetry.json`. To protect data before external transmission:
+- **`dev` mode:** When `execution_mode` is set to 'dev', the `feedback_collector` role compiles logs, kernel states, and exit codes. To protect data before external transmission:
   - Write compiled telemetry strictly to a securely created temporary file with permissions set to `0600` and guaranteed cleanup on exit.
   - Allowlist or redact sensitive log and kernel-state fields.
   - Require explicit operator authorization before sending reports through feedback channels.
-- **Feedback Dispatch:** The script `scripts/jules_gh_feedback.sh` parses this compiled JSON and dispatches formatted markdown reports back to the Google Jules session (via `jules feed`) and the active GitHub Pull Request (via `gh pr comment`).
+- **Feedback Dispatch:** The script `scripts/jules_gh_feedback.sh` must be invoked with the resolved `telemetry_path` used by the matrix playbook and `feedback_collector` tasks. The `/tmp/jules_telemetry.json` file is documented only as a non-default fallback path. The script parses this compiled JSON and dispatches formatted markdown reports back to the Google Jules session (via `jules feed`) and the active GitHub Pull Request (via `gh pr comment`).
 - **`user` mode:** Telemetry loop execution is minimized or disabled to respect user boundaries and preserve privacy.
 
 ### 3. Ansible-Driven WSL2/Podman Multi-Distro Matrix Testing

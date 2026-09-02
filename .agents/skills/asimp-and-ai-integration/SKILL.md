@@ -19,15 +19,15 @@ Use this skill when auditing system integrity, configuring automated hardening l
 ## Guidelines & Best Practices
 
 ### 1. Omni-Documentation Layer Registration
-The ASIMP for AI Agents guide is registered across all four omni-documentation layers:
+The ASIMP for AI Agents guide must preserve and validate all four documentation registration layers:
 - `START-HERE.md` (Entry Point 16)
 - `SUMMARY.md`
 - `mkdocs.yml`
 - `llms.txt`
-It corresponds to the dynamic page controller `asimp-ai-agents.php` and the content fragment `contents/asimp-ai-agents-body.inc`.
+It corresponds to the dynamic page controller `asimp-ai-agents.php` and the content fragment `contents/asimp-ai-agents-body.inc`. Automated validation tests must assert that all four registration targets remain present and synchronized.
 
 ### 2. Deep State of Mind (DSOM) Interface
-The integration of ASIMP (Ansible System Integrity Management Platform) with AI agents follows the Deep State of Mind (DSOM) framework of My AI Protocol, detailing how agents interface with `AGENTS.md` and `.agents/brain/` files, and is fully documented in `docs/governance/ASIMP-FOR-AI-AGENTS.md`.
+The integration of ASIMP (Ansible System Integrity Management Platform) with AI agents follows the Deep State of Mind (DSOM) framework of My AI Protocol, detailing how agents interface with `AGENTS.md` and `.agents/brain/` files, and is fully documented in `docs/governance/ASIMP-FOR-AI-AGENTS.md`. Agents must consult these DSOM integration files before executing compliance checks.
 
 ### 3. "Measure, Harden, Re-Measure" Automated Audits
 The repository imports the external ASIMP (Ansible System Integrity Management Platform) repository in the `asimp/` directory to integrate "Measure, Harden, Re-Measure" automated OS-level auditing and compliance hardening via Lynis and OpenSCAP.

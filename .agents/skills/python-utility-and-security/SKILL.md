@@ -21,14 +21,14 @@ Execute this skill when writing, reviewing, or testing Python utility scripts (s
 ### 1. Path Traversal Prevention (CWE-22 / S2083)
 Python utility scripts that accept file paths as input must resolve and validate them against an explicit safe path helper:
 - Resolve paths using `os.path.abspath()` and `os.path.realpath(os.path.abspath(...))`.
-- Ensure both the authorized root and candidate paths use symlink-aware resolution before performing containment validation.
+- Canonicalize candidate paths with `os.path.realpath()` and use `os.path.commonpath()` or an equivalent separator-aware containment helper instead of direct `startswith()` checks, ensuring similarly prefixed sibling paths are rejected before filesystem operations.
 - Check resolved paths with a custom `is_safe_path()` helper to verify that the target path remains strictly within allowed workspace boundaries.
 - Every path yielded by `os.walk` in Python skills scripts (such as `inject.py`, `calculate-tokens.py`, and `apply_okf.py`) must be validated via `is_safe_path()` before any file system operations, and symlinks must be cleanly skipped inside the walk loop.
 
 ### 2. Path Canonicalization & Argument Input Validation
 To satisfy SonarCloud security validations for user-influenced arguments (e.g., `args.input`, `args.base_dir`, `args.xml_out`):
 - Path variables derived from user-influenced arguments are canonicalized using `os.path.realpath`.
-- Immediately validate them using direct inline `.startswith()` prefix checks against authorized workspace roots before performing any filesystem reads, writes, or deletes.
+- Validate containment via `os.path.commonpath([abs_base, abs_candidate]) == abs_base` before performing any filesystem reads, writes, or deletes.
 
 ### 3. Symlink & TOCTOU Protection (CWE-59)
 To prevent symlink-following (CWE-59) and TOCTOU exploits during file access:
@@ -41,10 +41,9 @@ To satisfy static analysis security gates and prevent ReDoS vulnerabilities:
 - Prefer regex-free line-by-line parsing or string split logic for structural analysis.
 - If regular expressions are required, utilize strictly bounded character-class patterns that avoid nested quantifiers or open-ended backtracking.
 
-### 5. Insecure Protocol Alerts
-To prevent insecure protocol triggers (e.g. from SonarCloud scanning) and block unvalidated `"http://"` endpoints:
-- Construct the `'http'` + `'://'` prefix dynamically (e.g., `'http'` + `'://'`) to prevent automated alert triggers.
-- Require HTTPS URLs by default instead of constructing HTTP literals dynamically.
+### 5. Insecure Protocol Safeguards
+To block unvalidated plaintext endpoints:
+- Block unvalidated `"http://"` endpoints, construct `'http'` + `'://'` dynamically, and require HTTPS URLs by default.
 - Allow plaintext HTTP only for explicitly allowlisted loopback or test endpoints, and reject all other non-HTTPS URLs.
 
 ### 6. PEP 8 Compliance & Imports
