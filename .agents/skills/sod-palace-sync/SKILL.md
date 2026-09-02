@@ -1,8 +1,9 @@
 ---
 okf_version: 0.1
-type: agent_skill
-title: sod-palace-sync
-description: The Reanimation (Start of Day) ritual to load the workspace context and establish the day's tasks.
+type: skill
+title: "SOD Palace Sync"
+name: "sod-palace-sync"
+description: "The Reanimation (Start of Day) ritual to load the workspace context and establish the day's tasks."
 topics: [sod, palace, sync, git, ritual]
 timestamp: 2026-06-19T14:00:00Z
 ---
@@ -29,7 +30,7 @@ Use this skill when the user declares "Start of Day" (SOD), "Wake up", "Reanimat
 
 ## Architecture & Implementation
 If `tools/sod-palace.ps1` or `tools/sod-palace.sh` are missing, agents must reconstruct them with the following logic:
-1. **Git Pull:** Perform a `git pull --rebase origin main` to sync local state.
+1. **Git Fetch & Rebase:** Perform `git fetch origin` followed by `git rebase origin/main` to sync local state without literal `git pull` blocks.
 2. **Pre-flight Audit:** Execute `.tools/audit-pre-flight.ps1` (or the equivalent Linux checks).
 3. **Registry Check:** Verify that `.agents/brain/palace_registry.md` exists.
 4. **Reanimation Manifest:** Execute `.\tools\reanimate.ps1` to bundle the workspace context into a timestamped `sod_manifest_<date>.txt` file.
