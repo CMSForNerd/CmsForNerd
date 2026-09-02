@@ -18,10 +18,10 @@ Use this skill when configuring static builds, modifying the static baking scrip
 
 ## Guidelines & Best Practices
 
-### 1. Static Baking with Jekyll Bypass
+### 1. Static Baking with Jekyll Bypass & SEO Copying
 To deploy CMSForNerd on GitHub Pages as a pre-baked static site while bypassing the default Jekyll compilation:
 - An empty `.nojekyll` file must be automatically generated in the root of the output/build directory (typically `build_static/`) by `tools/bake-static-pages.php`.
-- The `.nojekyll` file prevents GitHub Pages from attempting to compile Liquid templates, ensuring dot-folders (such as `.well-known/`) and custom assets are correctly served.
+- **Copying Static SEO & LLM Files:** To guarantee that all static SEO and context files are deployed to GitHub Pages, the static page baking script `tools/bake-static-pages.php` copies `llms.txt`, `llms-full.txt`, and `llms.xml` from the repository root to `build_static/`. It also copies `sitemap.txt`, `sitemap.xml`, `rss.xml`, `ror.xml`, and `schema-org.json` to `build_static/`.
 
 ### 2. Static Build Workflow to GitHub Pages
 The static deployment is orchestrated in `.github/workflows/static-build.yml`:
@@ -31,7 +31,13 @@ The static deployment is orchestrated in `.github/workflows/static-build.yml`:
 - The workflow uploads the build artifact specifically from the `build_static/` folder.
 - **Rule of Cleanliness:** `build_static/` must be ignored in `.gitignore`. No compiled static `.html` files must be committed to the repository root. The root `index.html` is strictly reserved as a minimal redirection fallback to `index.php`.
 
-### 3. SPA/PWA Router Integration
+### 3. Automated SEO Suite Generator & Page Registration
+- **Automated SEO Generator:** The repository includes an automated SEO and sitemap suite generator script `tools/generate-seo-files.php` which programmatically compiles lists of PHP routes and GitBook Markdown files to write standard `sitemap.txt`, `sitemap.xml`, `rss.xml`, `ror.xml`, and `schema-org.json` files to the repository root.
+- **Robots.txt Sitemap Declarations:** The site's `robots.txt` is updated with absolute `Sitemap` declarations pointing to both standard XML and raw TXT sitemaps across the production domain (`www.linuxmalaysia.com`) and GitHub Pages deployment domain (`linuxmalaysia.github.io`).
+- **Registering a New Page:** To add or register a new page in CMSForNerd, create a root-level controller file `[page-name].php` (defining `$content` metadata and initializing `CmsContext`) and a corresponding content body file `contents/[page-name]-body.inc`. The new page is dynamically indexed by `tools/generate-seo-files.php` and compiled to static HTML by `tools/bake-static-pages.php`.
+- **GitBook Publishing:** The project is configured for GitBook publishing via `.gitbook.yaml` in the root (specifying `version: "1.0.0"`, root `./`, and structure mapping) and uses root `SUMMARY.md` as the primary table of contents sidebar navigation.
+
+### 4. SPA/PWA Router Integration
 The client-side SPA/PWA router (`assets/pwa/router.js`) must be fully compatible with both dynamic server-side fragments and full static pages:
 - Use `DOMParser` to parse fetched HTML responses.
 - If a `<main>` element is detected in the response (which is the case for pre-baked static pages on GitHub Pages), extract and inject *only* its inner HTML content into the workspace, and update `document.title` from the response.

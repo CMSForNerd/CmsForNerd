@@ -11,43 +11,45 @@ timestamp: 2026-08-01T09:00:00Z
 # 🐳 Ansible and Podman Infrastructure Operations
 
 ## Purpose
-This skill establishes security, syntax, and execution specifications for infrastructure management using rootless Podman containers and Ansible automation.
+This skill establishes security, syntax, and execution specifications for infrastructure management using rootless Podman containers, Render blueprint deployments, and Ansible automation.
 
 ## When to use this skill
-Trigger this skill when writing or modifying Ansible Playbooks, Roles, tasks, or Podman configuration files, and when troubleshooting container deployments or configuring host networks.
+Trigger this skill when writing or modifying Ansible Playbooks, Roles, tasks, or Podman configuration files, and when troubleshooting container deployments, Render blueprints, or host networking.
 
 ## Guidelines & Best Practices
 
-### 1. Rootless Podman Container Hardening
-To implement robust defense-in-depth measures and ensure SELinux compatibility (not claiming absolute security):
+### 1. Rootless Podman Container Hardening & Workstation Setup
+To implement robust defense-in-depth measures and ensure SELinux compatibility:
 - **Fully Qualified Images:** Always use fully qualified container image names with specific version tags (e.g., `docker.io/library/nginx:1.27`). Never use untagged or short names.
 - **Privilege Limitation:** Explicitly define `security_opt: [no-new-privileges]`.
 - **Capability Dropping:** Include `cap_drop: [all]` to strip all container privileges.
 - **Volume Mount Suffixes:** Always use the `:Z` flag suffix for SELinux volume relabeling, and append `,ro` for read-only configuration directories.
 - **Shared Pod Isolation:** Deploy Nginx and PHP-FPM within a shared Podman pod (e.g., `cmsfornerd-pod`) to allow secure communication over localhost without requiring host networking.
-- **Privileged Port Binding:** Allow rootless container binding to port 80/443 by configuring host-level `sysctl` with `net.ipv4.ip_unprivileged_port_start` set to `80`.
+- **Privileged Port Binding & Dedicated-Host Invariant:** In production, privileged port access (80/443) is terminated by a dedicated front-end proxy or bound via narrow system capabilities. BunkerWeb is configured in production (`playbooks/roles/podman_prod/templates/compose.yml.j2`) to terminate SSL/TLS directly using native self-signed certificate generation (`GENERATE_SELF_SIGNED_SSL=yes` and `LISTEN_HTTPS=yes` on port 8443) with host port 443 mapped to 8443.
+- **Ubuntu 26.04 & Podman 5+ Invariant:** Ubuntu 26.04 (Resolute Raccoon) is the primary targeted deployment OS for native Podman 5.x support. Google Jules VM session environments run as Google Cloud Workstations configured to permanently deploy Ubuntu 26.04+ and Podman 5+. Playbooks enforce Podman 5+ assertions via `podman --version` parsed major version checks and require packages like `uidmap`, `dbus-user-session`, `catatonit`, and `loginctl enable-linger`.
 
-### 2. Rootless Ansible Execution Context
+### 2. Rootless Ansible Execution Context & Sudo Lock
 All Ansible tasks managing rootless Podman containers must run in the target user context.
 - Explicitly enforce execution using `become: true` combined with `become_user: cmsfornerd`.
 - **Ownership/Location Mapping:** The architecture maps Nginx/PHP-FPM configurations, logs, and application code under `/home/cmsfornerd/`, with container and file ownership managed strictly by user `cmsfornerd` (UID/GID 1501).
+- **Sudo Lock Boundaries:** Playbook play-level privilege escalation (`become: true`) is disabled in `deploy_prod_compose.yml` to enforce Sudo Lock boundaries, scoping root become requirements explicitly to host-foundation tasks or role invocations, while container deployment tasks run in unprivileged user-space.
 
-### 3. Ansible Role & Variable Naming
-To satisfy Ansible quality and linting standards:
-- Always prefix role-defined variables with the name of the role itself (e.g., `podman_cms_user`).
-- Avoid generic variables that may lead to namespace collision.
+### 3. Container Co-Existence, Render Blueprint & Local Dev Server
+- **Dockerfile & Containerfile Co-Existence:** The repository completely favors Podman version 5+ (renaming Dockerfile to Containerfile and `docker-compose.yml` to `compose.yml`). However, a duplicate root-level `Dockerfile` co-exists with `Containerfile` to support cloud-based Docker and Render deployments.
+- **Render Blueprint (`render.yaml`):** Render Blueprint deployments use `render.yaml` configured for the `singapore` region, explicitly pointing to root `Dockerfile` targeting PHP 8.4 and Apache (with `mod_rewrite`, `mod_headers`, and `.htaccess` overrides enabled). `TZ` is set to `Asia/Kuala_Lumpur` and secrets use `sync: false`.
+- **Docker Validation Tests:** Docker validation tests require Dockerfile and Containerfile to expose port 80, restrict chown permissions specifically to `/var/www/html/data`, avoid duplicate `.dockerignore` entries, and maintain identical exclusion configurations between `sonar-project.properties` and GHA workflows.
+- **Apache .htaccess Rules:** In Apache configurations, using `<DirectoryMatch>` or `<Directory>` tags inside `.htaccess` files is forbidden and causes 500 Internal Server Errors. Access restrictions within `.htaccess` should instead be implemented using `mod_rewrite` rules wrapped in `<IfModule mod_rewrite.c>`.
+- **Local Dev Server & Node Bootstrapping:** Run local development server using `php -S 0.0.0.0:3000`. The node bootstrapping playbook `playbooks/bootstrap_node.yml` and `playbooks/roles/setup_os/` configure host baseline targeting `localhost` and private IP addresses (`10.0.0.10`). Setup documentation lives in `docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md`.
 
-### 4. Restricted Permissions Quality Gate
-Enforce restricted file system permissions in Ansible-rendered templates and setup directories:
-- Set file permissions to `0600`.
-- Set directory permissions to `0700`.
+### 4. Safe Bash Validation & Deployment Scripts
+- **Safe `grep -c` under `set -e`:** In bash validation scripts run under `set -e`, executing `grep -c` directly inside command substitution triggers failure branches on zero matches (exit code 1). Always guard with `|| true` or use `grep | wc -l`.
+- **Pre-flight Environmental Gateway (`tools/audit-pre-flight.sh`):** Serves as a hybrid gateway verifying local PHP 8.3+ requirement (`PHP_VERSION_ID >= 80300`) using Bash `[[ ]]` expressions and DSOM synchronization, bypassable via `BYPASS_PHP_CHECK=1`.
+- **Deployment Wrapper (`tools/deploy-prod.sh`):** Validates unprivileged identity constraints (`dsom-admin:2001:2001`) via `tools/validate-inventory.py`, supports Ansible `@file` inputs, and checks `podman_prod` state-based conditions derived from container running states rather than compose stdout.
 
-### 5. FQCN (Fully Qualified Collection Names)
-All Ansible playbooks and roles must utilize FQCN for all modules (e.g., `ansible.builtin.file` instead of `file`, or `containers.podman.podman_container` instead of `podman_container`) to pass linting and SonarCloud analysis gates.
-
-### 6. Deployment Quality & Syntax Auditing
-The automated deployment playbook `deploy.yml` orchestrates custom-built PHP-FPM 8.4 and Nginx containers supporting Ubuntu, Debian, and RHEL-based distributions (AlmaLinux, Rocky, Oracle Linux).
-- Enforce quality checks using syntax analysis and linting targeting the production profile:
+### 5. Ansible Role, FQCN & Quality Checks
+- All Ansible playbooks and roles must utilize FQCN for all modules (e.g., `ansible.builtin.file` instead of `file`, or `containers.podman.podman_container` instead of `podman_container`).
+- DevOps verification and quality checks are run using `composer lab-check` (which runs PHPStan Level 8 static analysis, code standard audits, and Pest PHP tests via `composer test`).
+- Enforce quality checks using syntax analysis and linting:
   ```bash
   ansible-lint deploy.yml
   ansible-playbook --syntax-check deploy.yml

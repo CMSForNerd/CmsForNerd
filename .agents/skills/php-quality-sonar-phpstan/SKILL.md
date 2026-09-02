@@ -14,11 +14,11 @@ timestamp: 2026-08-01T09:00:00Z
 This skill provides the exact patterns and rules required to maintain high-fidelity code quality, satisfying strict static analysis gates (such as PHPStan Level 8) and SonarCloud/SonarQube analysis.
 
 ## When to use this skill
-Use this skill whenever you write or modify PHP source files, configure SonarCloud pipelines, write PHPUnit tests, or resolve static analysis errors.
+Use this skill whenever you write or modify PHP source files, configure SonarCloud pipelines, write PHPUnit/Pest tests, or resolve static analysis errors.
 
 ## Guidelines & Best Practices
 
-### 1. PHPStan URL Type Annotations
+### 1. PHPStan URL Type Annotations & CI SAST
 To satisfy PHPStan Level 8 analysis for dynamically constructed URLs passed to `curl_setopt()`, do not use `non-empty-string` annotations. Instead, use the `non-falsy-string` annotation to align perfectly with native type inference.
 ```php
 /** @var non-falsy-string $url */
@@ -29,8 +29,11 @@ For regular dynamic variables (like `CURLOPT_USERAGENT` or general variables), a
 /** @var non-empty-string $variable */
 curl_setopt($ch, CURLOPT_USERAGENT, $variable);
 ```
+- The project's CI setup uses Dependabot for Composer and pnpm dependency updates (`.github/dependabot.yml`), runs `composer audit` during PHP builds (`.github/workflows/php.yml`), and executes Gitleaks secret scanning and PHPStan SAST static security analysis via `.github/workflows/security-sast.yml`.
+- The project uses Pest PHP as its test runner instead of PHPUnit; run tests using the `./vendor/bin/pest` command.
+- If the local PHP environment version is lower than 8.4 (e.g., 8.3), use `composer install --ignore-platform-reqs` to successfully install vendor dependencies and run tests/tools.
 
-### 2. SonarCloud Analysis Failure Prevention
+### 2. SonarCloud Analysis Failure Prevention & Node.js Upgrade
 To resolve SonarCloud analysis failures (such as HTTP 403 Forbidden errors) and Node.js 20 deprecation warnings in CI/CD pipelines:
 - Upgrade to `SonarSource/sonarqube-scan-action@v8` or higher.
 - Set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` in action envs.
@@ -39,7 +42,7 @@ To resolve SonarCloud analysis failures (such as HTTP 403 Forbidden errors) and 
 - Explicitly set `sonar.host.url=https://sonarcloud.io`.
 - *Note:* Command-line `-D` arguments in workflow files override `sonar-project.properties`.
 
-### 3. PHPUnit Attributes
+### 3. PHPUnit Attributes & Test Rig Fixes
 Prefer modern PHPUnit attributes over legacy docblock annotations for data providers to comply with modern PHPUnit standards and satisfy SonarCloud maintainability gates.
 ```php
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -47,6 +50,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 #[\PHPUnit\Framework\Attributes\DataProvider('additionProvider')]
 public function testAdd($a, $b, $expected) { ... }
 ```
+- The repository's test suite contains a syntax error (missing closing brace in `testHtaccessStillDeclaresCustomErrorDocuments`) and a duplicate method declaration (`testHtaccessRetainsSecurityTxtException`) in `tests/HtaccessTest.php`, which are resolved by closing the brace and renaming the duplicate test to `testHtaccessRetainsSecurityTxtExceptionRegex`.
 
 ### 4. Uncontrolled Resource Consumption (DoS Prevention)
 To prevent SonarCloud Security Hotspots and analysis failures related to uncontrolled resource consumption:
@@ -64,10 +68,11 @@ To satisfy `SonarConfigurationTest.php` and `CiWorkflowVersionPinTest.php`, the 
 To satisfy static analysis checks for unused variables in theme configuration files (like `$THEME_VERSION` and `$THEME_AUTHOR` in `themes/CmsForNerd/theme.php`) without polluting global config arrays or Registry keys:
 - Reference them using a simple inline conditional check (e.g., `if (empty($THEME_VERSION)...)`) to preserve rigid unit tests that assert their literal presence.
 
-### 8. Return Assignment Prevention
+### 8. Return Assignment Prevention & Code Formatting
 To prevent code smells, satisfy static analysis checks, and avoid dead assignment warnings:
 - Do not embed variable or property assignments directly within return statements (e.g., `return $var = val;`).
 - Perform the assignment on a separate line first, then use a clean return statement.
+- All multi-line logical conditions or statements in the codebase must have indentation that is strictly a multiple of 4 spaces, as checked by the automated validation suite in `tests/StandardsTest.php`.
 
 ### 9. Strict Type Docblock Formatting
 To comply with PSR-12 standard formatting and resolve phpcs violations:

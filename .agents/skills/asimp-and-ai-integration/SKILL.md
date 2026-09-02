@@ -19,29 +19,30 @@ Use this skill when auditing system integrity, configuring automated hardening l
 ## Guidelines & Best Practices
 
 ### 1. Omni-Documentation Layer Registration
-The ASIMP for AI Agents guide must remain completely registered across all four omni-documentation layers:
+The ASIMP for AI Agents guide is registered across all four omni-documentation layers:
 - `START-HERE.md` (Entry Point 16)
 - `SUMMARY.md`
 - `mkdocs.yml`
 - `llms.txt`
-It must correspond to the dynamic page controller `asimp-ai-agents.php` and the content fragment `contents/asimp-ai-agents-body.inc`.
+It corresponds to the dynamic page controller `asimp-ai-agents.php` and the content fragment `contents/asimp-ai-agents-body.inc`.
 
 ### 2. Deep State of Mind (DSOM) Interface
-AI Agent interfaces with ASIMP must adhere strictly to the DSOM framework detailed in `docs/governance/ASIMP-FOR-AI-AGENTS.md`. Agents read configuration rules and memory files under `.agents/brain/` and `AGENTS.md` to establish expected compliance configurations.
+The integration of ASIMP (Ansible System Integrity Management Platform) with AI agents follows the Deep State of Mind (DSOM) framework of My AI Protocol, detailing how agents interface with `AGENTS.md` and `.agents/brain/` files, and is fully documented in `docs/governance/ASIMP-FOR-AI-AGENTS.md`.
 
 ### 3. "Measure, Harden, Re-Measure" Automated Audits
-The repository imports the external ASIMP repository inside the `asimp/` directory to run automated OS-level auditing and compliance hardening via Lynis and OpenSCAP.
+The repository imports the external ASIMP (Ansible System Integrity Management Platform) repository in the `asimp/` directory to integrate "Measure, Harden, Re-Measure" automated OS-level auditing and compliance hardening via Lynis and OpenSCAP.
+- The `setup_os` role integrates dynamic, OS-aware (Ubuntu 24.04 vs RHEL/AlmaLinux 9/10) OpenSCAP auditing and automatic security hardening by unzipping the latest SCAP guides, scanning under a CIS Level 2 Profile, running OVAL scans, executing remediations, and compiling combined Lynis & OpenSCAP scores into a security compliance report (`SECURITY_AUDIT_REPORT.md`).
 
 ### 4. Unprivileged Sandbox Mocks
-To support unprivileged environments (such as the Google Jules sandbox) that lack host-level root permission:
-- Execute the mock execution engine `tools/mock-asimp.sh` to simulate the ASIMP hardening loop.
-- Simulated reports are safely stored in the local git-ignored directory `data/asimp_mock/` to bypass host-level permission constraints.
+To support unprivileged environments like the Google Jules sandbox that lack host-level root permission:
+- The mock execution engine `tools/mock-asimp.sh` can be executed to simulate the ASIMP hardening loop.
+- Simulated reports are stored in the git-ignored local directory `data/asimp_mock/` to bypass host-level permission constraints.
 
 ### 5. Custom Automated Compliance Test Suites
-Systematically validate configuration structures and compliance rules across the repository without hardcoding paths by executing dynamic test suites:
-- `tests/AnsiblePlaybookTest.php` (checks playbook syntax and structure).
-- `tests/PodmanComposeYamlTest.php` (checks YAML tab and compose structures).
-- `tests/MarkdownOkfComplianceTest.php` (checks OKF v0.1 frontmatter rules and digital sovereignty footer guidelines).
+The repository uses custom, dynamically-scanned PHPUnit/Pest test suites to systematically validate YAML structures, YAML tabs, OKF metadata frontmatter rules, and digital sovereignty footer guidelines across the repository without path-hardcoding:
+- `tests/AnsiblePlaybookTest.php`
+- `tests/PodmanComposeYamlTest.php`
+- `tests/MarkdownOkfComplianceTest.php`
 
 
 ---

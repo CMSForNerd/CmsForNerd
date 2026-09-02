@@ -18,11 +18,21 @@ Use this skill whenever asked to "review my UI", "check accessibility", "audit d
 
 ## Guidelines Source & Rule Enforcement
 
-### Fetching Fresh Guidelines
-Before conducting a full UI review, agents fetch fresh rule specifications from the upstream web interface guidelines repository:
-`https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md`
+### 1. Fetching Fresh Guidelines & Omnichannel Skill Adoption
+- Before conducting a full UI review, agents fetch fresh rule specifications from the upstream web interface guidelines repository:
+  `https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md`
+- The repository adopts the `web-design-guidelines` skill located at `.agents/skills/web-design-guidelines/SKILL.md`, registered across `docs/AI-AGENT-SKILLS-GUIDE.md` and omni-documentation layers, accompanied by human-readable manuals `docs/WEB-DESIGN-GUIDELINES.md` and `docs/skills/WEB-DESIGN-GUIDELINES-SKILL.md`.
 
-### Core Rule Categories
+### 2. Global Stylesheets & Dark Mode Contrast
+To avoid SonarCloud new-code duplication flags and maintain AMP compatibility:
+- Page-specific visual styles must be consolidated into global stylesheets (`themes/CmsForNerd/style.css` and `themes/CmsForNerd/css/amp.css`) rather than embedded as raw style tags in body content files.
+- The codebase uses adaptive semantic CSS custom properties (e.g., `--lab-section-bg`, `--lab-box-bg`, `--lab-alert-bg`, `--lab-warning-bg`, `--lab-code-bg`) in `themes/CmsForNerd/style.css` and high-specificity rules prefixed with `#content` to safely override hardcoded/inline light-theme backgrounds and ensure correct Dark Mode contrast globally.
+- To satisfy static analysis checks for unused variables in theme configuration files (like `$THEME_VERSION` and `$THEME_AUTHOR` in `themes/CmsForNerd/theme.php`) without polluting global config arrays or Registry keys, reference them using a simple inline conditional check (e.g., `if (empty($THEME_VERSION)...)`).
+
+### 3. End-to-End Frontend Testing (Playwright)
+- End-to-end frontend testing is configured using Playwright via `playwright.config.js` and tests under `tests/playwright/` targeting interactive UI features, theme switching, accessibility standards, and client-side navigation.
+
+### 4. Core Rule Categories
 
 1. **Accessibility (a11y)**
    - Icon-only buttons require an explicit `aria-label`.
