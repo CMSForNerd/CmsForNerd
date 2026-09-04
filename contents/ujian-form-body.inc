@@ -10,8 +10,8 @@ $csrfToken = \CmsForNerd\SecurityUtils::generateCsrfToken();
 
 $csrfValid = true;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $submittedToken = $_POST['csrf_token'] ?? '';
-    if (!\CmsForNerd\SecurityUtils::validateCsrfToken($submittedToken)) {
+    $rawToken = $_POST['csrf_token'] ?? '';
+    if (!is_string($rawToken) || !\CmsForNerd\SecurityUtils::validateCsrfToken($rawToken)) {
         $csrfValid = false;
     }
 }
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php else : ?>
             <div class="status" style="margin-top: 1rem; padding: 1rem; border-left: 4px solid #dc3545; background: #f8d7da; color: #721c24;">
-                <strong>[FAIL]</strong> CSRF Validation failed. The request was securely blocked.
+                <strong>[FAIL]</strong> CSRF Validation failed. The token was invalid or missing.
             </div>
         <?php endif; ?>
     <?php endif; ?>
