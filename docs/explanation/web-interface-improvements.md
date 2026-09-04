@@ -19,11 +19,11 @@ usability, cumulative layout shift (CLS) performance, and Dark Mode visual contr
 ### 1. Form Input Usability & Accessibility
 - **Search Widget (`contents/right-side.inc`)**:
   - Added explicit `<label for="search-input" class="visually-hidden">Search Google</label>` and `id="search-input"`.
-  - Added `autocomplete="q"` and verified `name="q"` attribute.
+  - Added `autocomplete="off"` to request suppression of browser/password manager autofill (noting that browsers and password managers may ignore this request) while preserving `name="q"`.
   - Updated placeholder from triple dots (`Search...`) to semantic unicode ellipsis (`Search…`).
-- **Turnstile Bot Trap Form (`ujian-form.php`)**:
+- **Turnstile Bot Trap Form (`contents/ujian-form-body.inc`)**:
   - Added `<label for="test_data">Test Data Input</label>` and `id="test_data"`.
-  - Added `autocomplete="off"` to prevent unexpected password manager or browser auto-fill triggers.
+  - Added `autocomplete="off"` to request suppression of unexpected password manager or browser auto-fill triggers.
   - Updated placeholder to `Enter test data…` using unicode ellipsis.
 
 ### 2. Cumulative Layout Shift (CLS) Mitigation

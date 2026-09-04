@@ -12,7 +12,7 @@
         </a>
         <br>
         <label for="search-input" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Search Google</label>
-        <input type="text" id="search-input" name="q" size="17" maxlength="255" autocomplete="q" placeholder="Search…">
+        <input type="text" id="search-input" name="q" size="17" maxlength="255" autocomplete="off" placeholder="Search…">
         <input type="submit" name="sa" value="Search">
         
         <input type="hidden" name="client" value="pub-9240760101409835">
