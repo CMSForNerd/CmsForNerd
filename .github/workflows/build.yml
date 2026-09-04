@@ -34,7 +34,7 @@ jobs:
             -Dsonar.organization=linuxmalaysia
             -Dsonar.projectKey=linuxmalaysia_CmsForNerd
             -Dsonar.scanner.skipJreProvisioning=true
-            -Dsonar.exclusions=**/Dockerfile,**/Containerfile,**/*.css,**/*.js,**/*.html,**/*.xml,**/*.txt,**/LICENSE,**/README.md,**/.git/**,tests/**
+            -Dsonar.exclusions=**/Dockerfile,**/Containerfile,**/*.css,**/*.js,**/*.html,**/*.xml,**/*.txt,**/*.md,**/LICENSE,**/README.md,**/.git/**,tests/**
             -Dsonar.cpd.exclusions=**/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
