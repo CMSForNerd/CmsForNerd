@@ -222,7 +222,7 @@ final class SonarConfigurationTest extends TestCase
 
         $this->assertSame(
             trim($propertiesMatches[1]),
-            trim($matches = $propertiesMatches[1]),
+            trim($workflowMatches[1]),
             'The CI-driven SonarCloud scan and the local sonar-project.properties must use the same sonar.cpd.exclusions glob.'
         );
     }
