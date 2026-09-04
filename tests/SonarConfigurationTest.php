@@ -52,7 +52,7 @@ final class SonarConfigurationTest extends TestCase
         $content = file_get_contents($this->sonarPropertiesPath);
         $exclusions = $this->extractExclusionList($content, 'sonar.exclusions');
 
-        foreach (['**/*.css', '**/*.js', '**/*.html', '**/*.xml', '**/*.txt', '**/LICENSE', '**/README.md', '**/.git/**', 'tests/**'] as $expected) {
+        foreach (['**/*.css', '**/*.js', '**/*.html', '**/*.xml', '**/*.txt', '**/*.md', '**/LICENSE', '**/README.md', '**/.git/**', 'tests/**'] as $expected) {
             $this->assertContains($expected, $exclusions, "Adding Dockerfile/Containerfile exclusions must not drop the pre-existing '{$expected}' exclusion.");
         }
     }
@@ -71,6 +71,7 @@ final class SonarConfigurationTest extends TestCase
                 '**/*.html',
                 '**/*.xml',
                 '**/*.txt',
+                '**/*.md',
                 '**/LICENSE',
                 '**/README.md',
                 '**/.git/**',

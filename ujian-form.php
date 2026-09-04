@@ -3,62 +3,49 @@
 declare(strict_types=1);
 
 /**
- * [LAB] Turnstile Bot Trap Verification with CSRF Hardening
+ * CmsForNerd v4.3.0 - Page Controller (ujian-form.php)
+ * * ROLE: Turnstile Bot Trap Verification with CSRF Hardening.
+ * [HTML MICRODATA] Output schema: itemscope itemtype="https://schema.org/WebPage"
+ *
+ * @package     linuxmalaysia/cmsfornerd
+ * @author      Harisfazillah Jamel <linuxmalaysia@songketmail.org>
+ * @copyright   2005 - 2026 Harisfazillah Jamel
+ * @license     GPL-3.0-or-later
  */
+
+if (!ob_start("ob_gzhandler")) {
+    ob_start();
+}
 
 require_once __DIR__ . '/includes/bootstrap.php';
 
-// Generate CSRF token for the form session
-$csrfToken = \CmsForNerd\SecurityUtils::generateCsrfToken();
+$content = [
+    'title'       => "Turnstile Test Laboratory | CmsForNerd",
+    'author'      => "CMSForNerd Team",
+    'description' => "Turnstile Bot Trap Verification and OWASP CSRF mitigation laboratory test page.",
+    'keywords'    => "Turnstile, CSRF, Bot Trap, PHP 8.4, Security",
+    'schemaType'  => "WebPage"
+];
 
-$csrfValid = true;
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $submittedToken = $_POST['csrf_token'] ?? '';
-    if (!\CmsForNerd\SecurityUtils::validateCsrfToken($submittedToken)) {
-        $csrfValid = false;
-    }
+$pageName = \CmsForNerd\SecurityUtils::resolvePageName(pathinfo(basename(__FILE__), PATHINFO_FILENAME));
+$content['data'] = $pageName;
+
+$ctx = createCmsContext(
+    content: $content,
+    pageName: $pageName,
+    themeName: $themeName,
+    cssPath: $cssPath,
+    dataFile: $dataFile,
+    nonce: $nonce
+);
+
+$pagerPath = __DIR__ . "/themes/{$ctx->themeName}/pager.php";
+if (file_exists($pagerPath)) {
+    require_once $pagerPath;
+    pager($ctx);
+} else {
+    header('HTTP/1.1 500 Internal Server Error');
+    echo "Fatal Error: Theme engine (pager.php) missing in /themes/{$ctx->themeName}/";
 }
 
-?>
-<!DOCTYPE html>
-<html lang="en" itemscope itemtype="https://schema.org/WebPage">
-<head>
-    <meta charset="UTF-8">
-    <title>Turnstile Test Laboratory</title>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <style>
-        body { font-family: sans-serif; padding: 2rem; background: #f4f4f9; }
-        .box { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .status { margin-top: 1rem; padding: 1rem; border-left: 4px solid #007bff; background: #e7f3ff; }
-    </style>
-</head>
-<body>
-    <div class="box">
-        <h2>🧪 Turnstile Bot-Trap Test & CSRF Validation</h2>
-        <p>Submit this form to test if <code>includes/turnstile.php</code> and CSRF defenses validate your request.</p>
-        
-        <form method="POST">
-            <!-- OWASP CSRF mitigation -->
-            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8') ?>">
-
-            <input type="text" name="test_data" placeholder="Enter some text" required>
-            <br><br>
-            <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
-            <br>
-            <button type="submit">Test POST Security</button>
-        </form>
-
-        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
-            <?php if ($csrfValid) : ?>
-                <div class="status">
-                    <strong>[PASS]</strong> If you see this, the Turnstile and CSRF validation checks were successful!
-                </div>
-            <?php else : ?>
-                <div class="status" style="border-left-color: #dc3545; background: #f8d7da; color: #721c24;">
-                    <strong>[FAIL]</strong> CSRF Validation failed. The request was securely blocked.
-                </div>
-            <?php endif; ?>
-        <?php endif; ?>
-    </div>
-</body>
-</html>
+ob_end_flush();
