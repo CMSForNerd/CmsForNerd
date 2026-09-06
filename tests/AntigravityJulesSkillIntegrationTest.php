@@ -40,7 +40,8 @@ final class AntigravityJulesSkillIntegrationTest extends TestCase
         $this->assertSame(
             str_replace("\r\n", "\n", $rootProtocol),
             str_replace("\r\n", "\n", $fullProtocol),
-            'Google Antigravity & Google Jules Skill Integration Protocol section must be identical across AGENTS.md and .agents/AGENTS.md'
+            'Google Antigravity & Google Jules Skill Integration Protocol section must be identical across ' .
+            'AGENTS.md and .agents/AGENTS.md'
         );
     }
 
@@ -72,10 +73,10 @@ final class AntigravityJulesSkillIntegrationTest extends TestCase
 
             foreach ($requiredFields as $field) {
                 $hasField = preg_match_all('/^' . preg_quote($field, '/') . ':\s*.*$/m', $frontmatter);
-                $this->assertGreaterThan(
-                    0,
+                $this->assertSame(
+                    1,
                     $hasField,
-                    "Skill {$skill} SKILL.md frontmatter must contain required field '{$field}'."
+                    "Skill {$skill} SKILL.md frontmatter must contain required field '{$field}' exactly once."
                 );
             }
 
@@ -90,6 +91,21 @@ final class AntigravityJulesSkillIntegrationTest extends TestCase
                 $frontmatter,
                 "Skill {$skill} SKILL.md frontmatter 'timestamp' field must be an ISO 8601 UTC string."
             );
+
+            $topicsMatched = preg_match('/^topics:\s*\[([^]]+)]$/m', $frontmatter, $topicMatches);
+            $this->assertSame(1, $topicsMatched, "Skill {$skill} must declare topics as an inline YAML array.");
+
+            $topics = array_map('trim', explode(',', $topicMatches[1]));
+            $this->assertGreaterThanOrEqual(3, count($topics), "Skill {$skill} must declare at least three topics.");
+            $this->assertLessThanOrEqual(5, count($topics), "Skill {$skill} must declare no more than five topics.");
+
+            foreach ($topics as $topic) {
+                $this->assertMatchesRegularExpression(
+                    '/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
+                    $topic,
+                    "Skill {$skill} topic '{$topic}' must be a lowercase keyword."
+                );
+            }
         }
     }
 
