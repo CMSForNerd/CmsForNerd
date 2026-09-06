@@ -27,7 +27,7 @@ $content = [
     'schemaType'  => "WebPage"
 ];
 
-$pageName = \CmsForNerd\SecurityUtils::resolvePageName(pathinfo(basename(__FILE__), PATHINFO_FILENAME));
+$pageName = pathinfo(basename(__FILE__), PATHINFO_FILENAME);
 $content['data'] = $pageName;
 
 $ctx = createCmsContext(
