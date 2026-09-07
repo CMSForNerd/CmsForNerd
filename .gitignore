@@ -1,3 +1,7 @@
+# --- Node & Frontend Dependencies ---
+node_modules/
+package-lock.json
+
 # --- PHP Core & Dependencies ---
 vendor/
 composer.lock

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://cmsfornerd.onrender.com/</loc>
-        <lastmod>2026-08-16</lastmod>
+        <lastmod>2026-09-04</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
@@ -206,7 +206,7 @@
     </url>
     <url>
         <loc>https://linuxmalaysia.github.io/CmsForNerd/</loc>
-        <lastmod>2026-08-16</lastmod>
+        <lastmod>2026-09-04</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
@@ -590,6 +590,18 @@
     </url>
     <url>
         <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/three-tier-caching-pwa</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/web-design-guidelines-skill</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/web-interface-improvements</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
@@ -1159,6 +1171,12 @@
         <priority>0.5</priority>
     </url>
     <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/skills/web-design-guidelines-skill</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/sod-ritual</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
@@ -1207,6 +1225,12 @@
         <priority>0.5</priority>
     </url>
     <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/web-design-guidelines</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/welcome-kit</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
@@ -1244,7 +1268,7 @@
     </url>
     <url>
         <loc>https://www.linuxmalaysia.com/</loc>
-        <lastmod>2026-08-16</lastmod>
+        <lastmod>2026-09-04</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>

@@ -30,6 +30,7 @@ final class PhpFileTrailingNewlineTest extends TestCase
             'tests/RenderDeploymentTest.php',
             'tests/SonarConfigurationTest.php',
             'tests/ThemeVersionUpgradeTest.php',
+            'tests/UjianFormUiTest.php',
         ];
     }
 
