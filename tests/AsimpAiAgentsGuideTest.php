@@ -312,7 +312,7 @@ final class AsimpAiAgentsGuideTest extends TestCase
     {
         $content = $this->read($this->root . '/START-HERE.md');
 
-        $this->assertStringContainsString('## 🏛️ The 16 Defined Entry Points', $content);
+        $this->assertStringContainsString('## 🏛️ The 17 Defined Entry Points', $content);
         $this->assertStringNotContainsString('## 🏛️ The 15 Defined Entry Points', $content);
     }
 
@@ -336,7 +336,7 @@ final class AsimpAiAgentsGuideTest extends TestCase
         $numbers = array_map('intval', $matches[1]);
         sort($numbers);
 
-        $this->assertSame(range(1, 16), $numbers, 'Entry Point numbering must be a contiguous 1..16 sequence with no gaps or duplicates.');
+        $this->assertSame(range(1, 17), $numbers, 'Entry Point numbering must be a contiguous 1..17 sequence with no gaps or duplicates.');
     }
 
     // ---------------------------------------------------------------
@@ -420,7 +420,7 @@ final class AsimpAiAgentsGuideTest extends TestCase
         $content = $this->read($this->root . '/llms.txt');
 
         $this->assertStringContainsString(
-            '- [START-HERE.md](START-HERE.md): Onboarding blueprint with 16 defined Entry Points.',
+            '- [START-HERE.md](START-HERE.md): Onboarding blueprint with 17 defined Entry Points.',
             $content
         );
         $this->assertStringNotContainsString('Onboarding blueprint with 15 defined Entry Points.', $content);

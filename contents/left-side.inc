@@ -19,6 +19,7 @@
 <a href="graduation.php">🏁 Graduation</a>
 <a href="pwa-architecture.php">📱 PWA Implementation</a>
 <a href="amp-acceleration.php">⚡ AMP Acceleration</a>
+<a href="reactive-wasm-lab.php">⚡ Reactive & Wasm Lab</a>
 <a href="https://www.linuxmalaysia.com">CmsForNerd Blog</a>
 
 </div>
