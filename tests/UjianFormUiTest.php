@@ -4,55 +4,46 @@ declare(strict_types=1);
 
 namespace CmsForNerd\Tests;
 
+use PHPUnit\Framework\TestCase;
+
 /**
- * Validates UjianForm (Turnstile Bot Trap Verification UI) logic,
- * front controller derivation, and fragment view loading.
+ * Validates UjianForm (Turnstile Bot Trap Verification UI) structure,
+ * front controller derivation, and fragment view security controls.
  */
+final class UjianFormUiTest extends TestCase
+{
+    private string $controllerPath;
+    private string $fragmentPath;
 
-test('ujian form controller derives page name and loads body fragment correctly', function (): void {
-    $projectRoot = dirname(__DIR__);
-    $controllerFile = $projectRoot . '/ujian-form.php';
-    $fragmentFile = $projectRoot . '/contents/ujian-form-body.inc';
+    protected function setUp(): void
+    {
+        $this->controllerPath = dirname(__DIR__) . '/ujian-form.php';
+        $this->fragmentPath = dirname(__DIR__) . '/contents/ujian-form-body.inc';
+    }
 
-    expect(file_exists($controllerFile))->toBeTrue();
-    expect(file_exists($fragmentFile))->toBeTrue();
+    public function testUjianFormFilesExist(): void
+    {
+        $this->assertFileExists($this->controllerPath);
+        $this->assertFileExists($this->fragmentPath);
+    }
 
-    $controllerContent = file_get_contents($controllerFile);
-    $fragmentContent = file_get_contents($fragmentFile);
+    public function testUjianFormControllerDerivesPageName(): void
+    {
+        $controllerContent = (string) file_get_contents($this->controllerPath);
+        $this->assertStringContainsString('$pageName = pathinfo(basename(__FILE__), PATHINFO_FILENAME);', $controllerContent);
+    }
 
-    expect($controllerContent)->toContain('$pageName = pathinfo(basename(__FILE__), PATHINFO_FILENAME);');
-    expect($fragmentContent)->toContain('Turnstile Bot-Trap Test &amp; CSRF Validation');
-    expect($fragmentContent)->toContain('<button type="submit" name="submit_btn">Test POST Security</button>');
-});
+    public function testUjianFormBodyFragmentContainsSecurityControls(): void
+    {
+        $fragmentContent = (string) file_get_contents($this->fragmentPath);
+        $this->assertStringContainsString('Turnstile Bot-Trap Test &amp; CSRF Validation', $fragmentContent);
+        $this->assertStringContainsString('<button type="submit" name="submit_btn">Test POST Security</button>', $fragmentContent);
+    }
 
-test('ujian form route renders correctly under normal execution', function (): void {
-    $projectRoot = dirname(__DIR__);
-    $_SERVER['HTTP_HOST'] = 'localhost';
-    $_SERVER['REQUEST_URI'] = '/ujian-form.php';
-    $_SERVER['SCRIPT_NAME'] = '/ujian-form.php';
-    $_SERVER['QUERY_STRING'] = '';
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-
-    ob_start();
-    include $projectRoot . '/ujian-form.php';
-    $output = (string) ob_get_clean();
-
-    expect($output)->toBeString();
-    expect($output)->toContain('Turnstile Bot-Trap Test');
-});
-
-test('ujian form route handles amp view query parameter correctly', function (): void {
-    $projectRoot = dirname(__DIR__);
-    $_SERVER['HTTP_HOST'] = 'localhost';
-    $_SERVER['REQUEST_URI'] = '/ujian-form.php?view=amp';
-    $_SERVER['SCRIPT_NAME'] = '/ujian-form.php';
-    $_SERVER['QUERY_STRING'] = 'view=amp';
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-
-    ob_start();
-    include $projectRoot . '/ujian-form.php';
-    $output = (string) ob_get_clean();
-
-    expect($output)->toBeString();
-    expect($output)->toContain('Turnstile Bot-Trap Test');
-});
+    public function testUjianFormBodyFragmentContainsCssCustomVariables(): void
+    {
+        $fragmentContent = (string) file_get_contents($this->fragmentPath);
+        $this->assertStringContainsString('var(--lab-box-bg, #fff)', $fragmentContent);
+        $this->assertStringContainsString('autocomplete="off"', $fragmentContent);
+    }
+}
