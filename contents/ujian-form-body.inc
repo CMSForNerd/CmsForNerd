@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2>🧪 Turnstile Bot-Trap Test &amp; CSRF Validation</h2>
     <p>Submit this form to test if <code>includes/turnstile.php</code> and CSRF defenses validate your request.</p>
 
-    <form method="POST">
+    <form method="POST" action="ujian-form.php">
         <!-- OWASP CSRF mitigation -->
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8') ?>">
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br><br>
         <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
         <br>
-        <button type="submit">Test POST Security</button>
+        <button type="submit" name="submit_btn">Test POST Security</button>
     </form>
 
     <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') : ?>
