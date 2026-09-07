@@ -17,7 +17,7 @@ topics: [brain, walkthrough, session, anchor, html]
 - **EOD Ritual & Compliance**: Verified Pest PHP test suite (562 tests passing) and Python test suite (70 tests passing). Executed Playwright UI visual verification and completed End-of-Day memory sync.
 
 ### Why
-- Integrating industry-standard UI design guidelines automates accessibility and UX audits, ensuring WCAG 2.1 compliance and seamless multi-device rendering.
+- Integrating industry-standard UI design guidelines supports automated evaluation of accessibility and responsive UX across interface components.
 
 ### Mental Anchor
 > The web-design-guidelines skill and corresponding UI enhancements are fully integrated, documented across all omni-channel navigation maps, verified by automated unit and Playwright tests, and passing 100% compliance.
