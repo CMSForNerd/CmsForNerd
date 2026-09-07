@@ -9,7 +9,7 @@
 ## 2. THE DELTA (CURRENT COGNITIVE LOCK)
 - **Primary Objective:** Update all technical and narrative strategic records up to Module 26, and perform EOD rituals.
 - **Last Completed Milestone:** Adopted Vercel web-design-guidelines skill, refactored UI forms, published documentation,
-  and synchronized spatial memory across DSOM registers with 100% test passing rate.
+  and synchronized spatial memory across DSOM registers with a 100% test-passing rate.
 - **Active Blocking Issues:** None. All PHPStan Level 8 checks and Pest PHP unit tests pass with a 100% success rate.
 
 ## 3. MEMORY CORE & PARAMETERS
