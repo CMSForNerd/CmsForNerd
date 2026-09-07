@@ -2,7 +2,7 @@
 okf_version: 0.1
 type: documentation
 title: "📍 START-HERE: Master Onboarding Map"
-description: "Sovereign roadmap with 15 defined Entry Points mapping code, deployment, rules, and governance."
+description: "Sovereign roadmap with 17 defined Entry Points mapping code, deployment, rules, and governance."
 resource: "file:///START-HERE.md"
 topics: [onboarding, entrypoints, map, dsom]
 timestamp: 2026-08-01T16:00:00Z
@@ -10,7 +10,7 @@ timestamp: 2026-08-01T16:00:00Z
 # 📍 START-HERE: Master Onboarding Map
 
 Welcome to the **CmsForNerd v4.3.0** Sovereign AI & Human Onboarding Map. View the [Live Demo](https://cmsfornerd.onrender.com/index.php) or access via our [Context7 MCP & LLM standard link](https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000). This file serves as the master blueprint
-linking to all 15 major Entry Points of the platform, enabling instant orientation and semantic traversal.
+linking to all 17 major Entry Points of the platform, enabling instant orientation and semantic traversal.
 
 ---
 

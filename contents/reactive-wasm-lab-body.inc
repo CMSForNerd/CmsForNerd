@@ -132,6 +132,9 @@
                             }).join('');
                             result.textContent = hashHex;
                             output.style.display = 'block';
+                        }).catch(function(err) {
+                            result.textContent = 'Error computing hash: ' + (err.message || 'Cryptographic operation failed');
+                            output.style.display = 'block';
                         });
                     });
                 }
@@ -146,6 +149,6 @@
     </script>
 
     <div class="error-box" style="margin-top: 30px; border-color: #2980b9; background: #ebf5fb; color: #1f618d;">
-        <strong>ZERO-GLOBAL BACKEND INTEGRATION:</strong> When client-side processing finishes, the resulting hash or signature can be dispatched to CmsForNerd's PHP 8.4 backend via HTMX (e.g. <code>hx-post="reactive-wasm-lab.php"</code>). The backend receives pre-verified cryptographic hashes, keeping server CPU usage minimal and maintaining <code>CmsContext</code> immutability.
+        <strong>ZERO-GLOBAL BACKEND INTEGRATION:</strong> When client-side processing finishes, the resulting hash or signature can be dispatched to CmsForNerd's PHP 8.4 backend via HTMX (e.g. <code>hx-post="reactive-wasm-lab.php"</code>). Because browser-produced cryptographic outputs are client-computed, untrusted values, any backend HTMX endpoint must recompute or verify received hashes/signatures against server-received raw bytes before using them for integrity, identity, or authorization—preserving server efficiency while maintaining strict <code>CmsContext</code> immutability and security boundaries.
     </div>
 </div>
