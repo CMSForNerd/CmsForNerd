@@ -12,10 +12,9 @@
 
 declare(strict_types=1);
 
-// 1. [BOOTSTRAP] Load core engine as first statement
 require_once __DIR__ . '/includes/bootstrap.php';
 
-// 2. [PERFORMANCE] Enable GZIP and Output Buffering
+// 1. [PERFORMANCE] Enable GZIP and Output Buffering
 if (!ob_start("ob_gzhandler")) {
     ob_start();
 }
