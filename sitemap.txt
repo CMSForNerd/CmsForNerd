@@ -24,6 +24,7 @@ https://cmsfornerd.onrender.com/legal-notice.php
 https://cmsfornerd.onrender.com/linux-setup.php
 https://cmsfornerd.onrender.com/offline.php
 https://cmsfornerd.onrender.com/pwa-architecture.php
+https://cmsfornerd.onrender.com/reactive-wasm-lab.php
 https://cmsfornerd.onrender.com/security-policy.php
 https://cmsfornerd.onrender.com/sitemap-page.php
 https://cmsfornerd.onrender.com/template.php
@@ -58,6 +59,7 @@ https://linuxmalaysia.github.io/CmsForNerd/legal-notice.html
 https://linuxmalaysia.github.io/CmsForNerd/linux-setup.html
 https://linuxmalaysia.github.io/CmsForNerd/offline.html
 https://linuxmalaysia.github.io/CmsForNerd/pwa-architecture.html
+https://linuxmalaysia.github.io/CmsForNerd/reactive-wasm-lab.html
 https://linuxmalaysia.github.io/CmsForNerd/security-policy.html
 https://linuxmalaysia.github.io/CmsForNerd/sitemap-page.html
 https://linuxmalaysia.github.io/CmsForNerd/template.html
@@ -235,6 +237,7 @@ https://www.linuxmalaysia.com/legal-notice.php
 https://www.linuxmalaysia.com/linux-setup.php
 https://www.linuxmalaysia.com/offline.php
 https://www.linuxmalaysia.com/pwa-architecture.php
+https://www.linuxmalaysia.com/reactive-wasm-lab.php
 https://www.linuxmalaysia.com/security-policy.php
 https://www.linuxmalaysia.com/sitemap-page.php
 https://www.linuxmalaysia.com/template.php

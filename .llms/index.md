@@ -112,6 +112,7 @@ The following index classifies the entire documentation palace of over 50 files 
 - [docs/directory-security.md](../docs/directory-security.md): Hardening instructions for hidden dotfiles and server configuration.
 - [docs/bot-intelligence.md](../docs/bot-intelligence.md): Automatic search-bot crawler detection and lightweight routing.
 - [docs/turnstile-protection.md](../docs/turnstile-protection.md): Cloudflare Turnstile CAPTCHA implementation.
+- [docs/explanation/reactive-wasm-architecture.md](../docs/explanation/reactive-wasm-architecture.md): Reactive UI & Wasm Cryptography Architecture.
 
 ### 4. Deep State of Mind (DSOM) Governance
 - [AGENTS.md](../AGENTS.md): Lightweight discovery index.

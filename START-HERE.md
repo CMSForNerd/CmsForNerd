@@ -2,7 +2,7 @@
 okf_version: 0.1
 type: documentation
 title: "📍 START-HERE: Master Onboarding Map"
-description: "Sovereign roadmap with 15 defined Entry Points mapping code, deployment, rules, and governance."
+description: "Sovereign roadmap with 17 defined Entry Points mapping code, deployment, rules, and governance."
 resource: "file:///START-HERE.md"
 topics: [onboarding, entrypoints, map, dsom]
 timestamp: 2026-08-01T16:00:00Z
@@ -10,11 +10,11 @@ timestamp: 2026-08-01T16:00:00Z
 # 📍 START-HERE: Master Onboarding Map
 
 Welcome to the **CmsForNerd v4.3.0** Sovereign AI & Human Onboarding Map. View the [Live Demo](https://cmsfornerd.onrender.com/index.php) or access via our [Context7 MCP & LLM standard link](https://context7.com/cmsfornerd/cmsfornerd/llms.txt?tokens=10000). This file serves as the master blueprint
-linking to all 15 major Entry Points of the platform, enabling instant orientation and semantic traversal.
+linking to all 17 major Entry Points of the platform, enabling instant orientation and semantic traversal.
 
 ---
 
-## 🏛️ The 16 Defined Entry Points
+## 🏛️ The 17 Defined Entry Points
 
 | Entry Point | Name | File Path / Link | Semantic Purpose |
 | :---: | :--- | :--- | :--- |
@@ -34,6 +34,7 @@ linking to all 15 major Entry Points of the platform, enabling instant orientati
 | **14** | **GitHub Pages Deployment** | [`docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md`](docs/GITHUB-PAGES-DEPLOYMENT-GUIDE.md) | Static baking, GHA workflow orchestration, and Jekyll bypassing. |
 | **15** | **Telemetry & Feedback Pipeline** | [`docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md`](docs/governance/SOP-TELEMETRY-FEEDBACK-PIPELINE.md) | Local WSL2 Podman multi-OS test matrix and Google Jules telemetry integration. |
 | **16** | **ASIMP for AI Agents** | [`docs/governance/ASIMP-FOR-AI-AGENTS.md`](docs/governance/ASIMP-FOR-AI-AGENTS.md) | Details how Ansible System Integrity Management Platform (ASIMP) aligns with AI agents, DSOM spatial memory protocols, and the OpenWiki emulator. |
+| **17** | **Reactive UI & Wasm Lab** | [`reactive-wasm-lab.php`](reactive-wasm-lab.php) <br> [`docs/explanation/reactive-wasm-architecture.md`](docs/explanation/reactive-wasm-architecture.md) | HTMX/Alpine.js reactivity and Wasm client-side cryptography & document processing. |
 
 ---
 

@@ -28,6 +28,7 @@ parameters:
         - lab-module4.php
         - lab-module5.php
         - linux-setup.php
+        - reactive-wasm-lab.php
         - security-policy.php
         - sitemap-page.php
         - welcome-kit.php
