@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CmsForNerd\Tests;
@@ -72,6 +73,21 @@ final class ReactiveWasmLabTest extends TestCase
         $this->assertStringContainsString('pager($ctx);', $content);
     }
 
+    public function testControllerBootstrapsBeforeStartingCompressionBuffer(): void
+    {
+        $content = $this->read($this->controllerPath);
+        $bootstrapPosition = strpos($content, "require_once __DIR__ . '/includes/bootstrap.php';");
+        $bufferPosition = strpos($content, 'ob_start("ob_gzhandler")');
+
+        $this->assertNotFalse($bootstrapPosition, 'The controller must load the CMS bootstrap.');
+        $this->assertNotFalse($bufferPosition, 'The controller must start its compression buffer.');
+        $this->assertLessThan(
+            $bufferPosition,
+            $bootstrapPosition,
+            'Bootstrap initialisation must complete before controller output buffering begins.'
+        );
+    }
+
     public function testControllerIsSyntacticallyValidPhp(): void
     {
         $this->assertPhpFileLintsCleanly($this->controllerPath);
@@ -134,6 +150,76 @@ final class ReactiveWasmLabTest extends TestCase
         $this->assertStringContainsString('SHA-256', $content);
     }
 
+    public function testRenderedBodyPreservesSafeNonceOnItsOnlyExecutableScript(): void
+    {
+        $nonce = '0123456789abcdef0123456789abcdef';
+        $rendered = $this->renderBody($nonce);
+
+        $this->assertSame(1, substr_count($rendered, '<script'));
+        $this->assertSame(1, substr_count($rendered, '</script>'));
+        $this->assertStringContainsString('script nonce="' . $nonce . '"', $rendered);
+    }
+
+    public function testRenderedBodyEscapesAnUntrustedNonceAttribute(): void
+    {
+        $nonce = 'nonce"><img src=x onerror=alert(1)>';
+        $rendered = $this->renderBody($nonce);
+
+        $this->assertStringContainsString(
+            'nonce="nonce&quot;&gt;&lt;img src=x onerror=alert(1)&gt;"',
+            $rendered
+        );
+        $this->assertStringNotContainsString($nonce, $rendered);
+    }
+
+    public function testHashDemoUsesCanonicalSha256HexEncodingPipeline(): void
+    {
+        $content = $this->read($this->bodyPath);
+
+        $this->assertStringContainsString('new TextEncoder()', $content);
+        $this->assertStringContainsString('encoder.encode(input.value)', $content);
+        $this->assertStringContainsString("crypto.subtle.digest('SHA-256', data)", $content);
+        $this->assertStringContainsString('Array.from(new Uint8Array(buffer))', $content);
+        $this->assertStringContainsString("b.toString(16).padStart(2, '0')", $content);
+        $this->assertStringContainsString("}).join('')", $content);
+        $this->assertStringContainsString('result.textContent = hashHex', $content);
+        $this->assertStringNotContainsString('result.innerHTML', $content);
+    }
+
+    public function testHashDemoRevealsAUsefulErrorWhenDigestRejects(): void
+    {
+        $content = $this->read($this->bodyPath);
+
+        $this->assertStringContainsString('.catch(function(err)', $content);
+        $this->assertStringContainsString("err.message || 'Cryptographic operation failed'", $content);
+        $this->assertSame(
+            2,
+            substr_count($content, "output.style.display = 'block';"),
+            'Both successful and rejected digest operations must reveal their result.'
+        );
+    }
+
+    public function testInteractiveHashScriptDoesNotTransmitPlaintext(): void
+    {
+        $script = $this->extractInteractiveScript($this->renderBody('test-nonce'));
+
+        $this->assertStringNotContainsString('fetch(', $script);
+        $this->assertStringNotContainsString('XMLHttpRequest', $script);
+        $this->assertStringNotContainsString('sendBeacon', $script);
+        $this->assertStringNotContainsString('WebSocket', $script);
+        $this->assertStringNotContainsString('hx-post', $script);
+    }
+
+    public function testHashControlsAreExplicitlyAssociatedAndDoNotSubmitForms(): void
+    {
+        $content = $this->read($this->bodyPath);
+
+        $this->assertStringContainsString('<label for="crypto-input"', $content);
+        $this->assertStringContainsString('<input type="text" id="crypto-input"', $content);
+        $this->assertStringContainsString('<button type="button" id="btn-compute-hash"', $content);
+        $this->assertStringContainsString('<span id="hash-result"></span>', $content);
+    }
+
     public function testBodyIncIsSyntacticallyValidPhp(): void
     {
         $this->assertPhpFileLintsCleanly($this->bodyPath);
@@ -155,7 +241,10 @@ final class ReactiveWasmLabTest extends TestCase
         $this->assertStringStartsWith('---', $content);
         $this->assertStringContainsString('okf_version: 0.1', $content);
         $this->assertStringContainsString('type: explanation', $content);
-        $this->assertStringContainsString('topics: [htmx, alpinejs, webassembly, wasm, cryptography, zero-global]', $content);
+        $this->assertStringContainsString(
+            'topics: [htmx, alpinejs, webassembly, wasm, cryptography, zero-global]',
+            $content
+        );
         $this->assertMatchesRegularExpression('/timestamp: "?\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z"?/', $content);
     }
 
@@ -222,6 +311,33 @@ final class ReactiveWasmLabTest extends TestCase
     // ---------------------------------------------------------------
     // Helper
     // ---------------------------------------------------------------
+
+    private function renderBody(string $nonce): string
+    {
+        $ctx = (object) ['cspNonce' => $nonce];
+
+        ob_start();
+        include $this->bodyPath;
+        $rendered = ob_get_clean();
+
+        $this->assertIsString($rendered);
+
+        return $rendered;
+    }
+
+    private function extractInteractiveScript(string $markup): string
+    {
+        $openingTagPosition = strpos($markup, '<script nonce=');
+        $this->assertNotFalse($openingTagPosition, 'Expected the rendered fragment to contain a nonce-bearing script.');
+
+        $scriptPosition = strpos($markup, '>', $openingTagPosition);
+        $this->assertNotFalse($scriptPosition, 'Expected the script opening tag to be complete.');
+
+        $scriptEndPosition = strpos($markup, '</script>', $scriptPosition);
+        $this->assertNotFalse($scriptEndPosition, 'Expected the rendered script to have a closing tag.');
+
+        return substr($markup, $scriptPosition + 1, $scriptEndPosition - $scriptPosition - 1);
+    }
 
     private function assertPhpFileLintsCleanly(string $path): void
     {
