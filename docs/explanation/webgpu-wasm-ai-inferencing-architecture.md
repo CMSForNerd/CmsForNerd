@@ -23,11 +23,14 @@ vector embedding models directly on user devices within **CmsForNerd v4.3+**.
 **YES, ABSOLUTELY.** CmsForNerd's lightweight, database-free, Zero-Global PHP 8.4 engine is uniquely positioned to leverage
 client-side AI inferencing:
 
-1. **Zero Server GPU Infrastructure Costs:** Backend PHP 8.4 instances (hosted on Podman, Render, Apache, or GitHub Pages)
-   do not need expensive GPU acceleration or dedicated API keys. Tensor operations and matrix multiplications are offloaded
-   entirely to the client's GPU (via WebGPU) or multi-core CPU (via WebAssembly 128-bit SIMD vectorization).
-2. **Absolute User Privacy & Zero-Knowledge Security:** Prompts, system contexts, and generated output tokens remain 100%
-   inside the user's browser runtime memory. No sensitive text or user data is transmitted across network boundaries.
+1. **Zero Server GPU Infrastructure Costs:** Backend PHP 8.4 instances (hosted on Podman, Render, or Apache) and static
+   hosting targets (such as GitHub Pages, as configured in `.github/workflows/static-build.yml`) do not need expensive GPU
+   acceleration or dedicated API keys. Tensor operations and matrix multiplications are offloaded entirely to the client's
+   GPU (via WebGPU) or multi-core CPU (via WebAssembly 128-bit SIMD vectorization).
+2. **User Privacy & Local Execution:** Prompts, system contexts, and raw output tokens remain local within browser runtime
+   memory. If client applications subsequently transmit generated outputs, semantic hashes, or extracted features back to
+   the server (e.g. via HTMX `hx-post="reactive-wasm-lab.php"`), sensitive data must be redacted or require explicit user
+   consent prior to transmission.
 3. **PWA Offline Execution:** Using standard Origin Private File System (OPFS) or IndexedDB storage, quantized SLM weights
    (e.g., 1.5GB to 2.5GB 4-bit models) are cached locally. Once downloaded, AI inference functions completely offline.
 4. **Architectural Parity:** Integrates smoothly into CmsForNerd's SPA/HTMX reactive frontend (`reactive-wasm-lab.php`) and
@@ -96,18 +99,19 @@ client-side AI inferencing:
 Integrating client-side AI inferencing requires strict adherence to CmsForNerd's OWASP-hardened security protocols:
 
 ### 1. Content Security Policy (CSP) & Web Workers
-- **Worker Directives:** WebGPU and Wasm AI engines instantiate background execution threads via Web Workers.
-  CmsForNerd's CSP must include `worker-src 'self' blob:`.
-- **Wasm Execution:** Wasm module compilation requires `script-src` / `style-src` nonces generated per-request by
-  `SecurityUtils`, and `wasm-unsafe-eval` when dynamic Wasm instantiation is required.
+- **Worker Directives:** WebGPU and Wasm AI engines instantiate background execution threads via Web Workers. Full production
+  runtime implementation requires adding `worker-src 'self' blob:` and `wasm-unsafe-eval` to `SecurityUtils::sendSecurityHeaders()`.
+  Currently, these directives remain an explicit prerequisite for full client-side Wasm multi-threading and dynamic instantiation.
+- **Wasm Execution:** Standard non-eval Wasm modules execute under existing CSP nonces generated per-request by `SecurityUtils`.
 
 ### 2. Cross-Origin Isolation (COOP / COEP Headers)
-For multithreaded Wasm SIMD execution using `SharedArrayBuffer`, the PHP backend must issue cross-origin isolation headers:
+For multithreaded Wasm SIMD execution using `SharedArrayBuffer`, browsers require cross-origin isolation headers:
 ```http
 Cross-Origin-Opener-Policy: same-origin
 Cross-Origin-Embedder-Policy: require-corp
 ```
-Centralizing these response headers inside `SecurityUtils::sendSecurityHeaders()` guarantees secure thread allocation.
+Integrating these headers into `SecurityUtils::sendSecurityHeaders()` remains a future roadmap item for applications requiring
+`SharedArrayBuffer` multithreading.
 
 ### 3. Dual-View & AMP Compliance
 - **Standard View (`?view=standard`):** Full hardware-accelerated WebGPU/Wasm SIMD AI execution with HTMX/Alpine.js.

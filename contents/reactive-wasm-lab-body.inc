@@ -170,13 +170,21 @@
 
                         // 1. WebGPU check
                         var hasWebGpu = false;
+                        var isFullyCapableGpu = false;
                         var gpuInfo = 'WebGPU API Not Detected in Browser';
                         if (navigator.gpu) {
                             try {
                                 var adapter = await navigator.gpu.requestAdapter();
                                 if (adapter) {
                                     hasWebGpu = true;
-                                    gpuInfo = 'WebGPU Available (Hardware Adapter Detected)';
+                                    var isFallback = adapter.isFallbackAdapter || false;
+                                    var maxInvocations = (adapter.limits && adapter.limits.maxComputeInvocationsPerWorkgroup) ? adapter.limits.maxComputeInvocationsPerWorkgroup : 0;
+                                    if (!isFallback && maxInvocations >= 128) {
+                                        isFullyCapableGpu = true;
+                                        gpuInfo = 'WebGPU Available (Hardware Adapter Fully Capable)';
+                                    } else {
+                                        gpuInfo = 'WebGPU Available (Fallback Software or Limited Adapter)';
+                                    }
                                 } else {
                                     gpuInfo = 'WebGPU API Present but No Hardware Adapter Found';
                                 }
@@ -218,8 +226,10 @@
                         li4.innerHTML = '<strong>Estimated Hardware Memory:</strong> ' + devMem;
                         list.appendChild(li4);
 
-                        if (hasWebGpu) {
+                        if (isFullyCapableGpu) {
                             rec.textContent = '🚀 OPTIMAL AI HARNESS: Your device is fully capable of hardware-accelerated WebGPU Small Language Model (SLM) inferencing (WebLLM / Transformers.js v3).';
+                        } else if (hasWebGpu) {
+                            rec.textContent = '⚠️ LIMITED WEBGPU: WebGPU adapter detected, but features/limits indicate software fallback or reduced capabilities; Wasm SIMD recommended.';
                         } else if (hasWasmSimd) {
                             rec.textContent = '⚡ FAST CPU FALLBACK: WebGPU unavailable, but Wasm SIMD is enabled for CPU-vectorized client-side AI inferencing.';
                         } else {
