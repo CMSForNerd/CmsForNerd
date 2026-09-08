@@ -37,6 +37,7 @@ topics: [summary, table, contents, laboratory, docs]
 * [🌐 Web Interface Guidelines](docs/WEB-DESIGN-GUIDELINES.md)
 * [🛠️ Web Design Guidelines Skill Guide](docs/skills/WEB-DESIGN-GUIDELINES-SKILL.md)
 * [⚡ Reactive UI & Wasm Cryptography Architecture](docs/explanation/reactive-wasm-architecture.md)
+* [⚡ WebGPU & Wasm SIMD AI Inferencing Architecture](docs/explanation/webgpu-wasm-ai-inferencing-architecture.md)
 
 ## 🏁 Certification
 

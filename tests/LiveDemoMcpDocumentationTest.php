@@ -358,7 +358,7 @@ final class LiveDemoMcpDocumentationTest extends TestCase
             'Inserting the new links must not clobber the sentence describing the file purpose.'
         );
         $this->assertStringContainsString(
-            needle: 'linking to all 17 major Entry Points of the platform, '
+            needle: 'linking to all 18 major Entry Points of the platform, '
                 . 'enabling instant orientation and semantic traversal.',
             haystack: $content
         );
