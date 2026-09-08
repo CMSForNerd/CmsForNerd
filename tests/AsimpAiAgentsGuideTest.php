@@ -336,7 +336,11 @@ final class AsimpAiAgentsGuideTest extends TestCase
         $numbers = array_map('intval', $matches[1]);
         sort($numbers);
 
-        $this->assertSame(range(1, 17), $numbers, 'Entry Point numbering must be a contiguous 1..17 sequence with no gaps or duplicates.');
+        $this->assertSame(
+            range(1, 17),
+            $numbers,
+            'Entry Point numbering must be a contiguous 1..17 sequence with no gaps or duplicates.'
+        );
     }
 
     // ---------------------------------------------------------------
