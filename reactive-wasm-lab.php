@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * CmsForNerd v4.3.0 - Page Controller (reactive-wasm-lab.php)
@@ -9,8 +10,6 @@
  * @copyright   2005 - 2026 Harisfazillah Jamel
  * @license     GPL-3.0-or-later
  */
-
-declare(strict_types=1);
 
 require_once __DIR__ . '/includes/bootstrap.php';
 
