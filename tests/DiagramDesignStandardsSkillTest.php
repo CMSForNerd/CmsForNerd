@@ -31,14 +31,16 @@ final class DiagramDesignStandardsSkillTest extends TestCase
         );
     }
 
-    public function testSkillFilesAreIdenticalAcrossDirectories(): void
+    public function testRootSkillFileReferencesAgentsSkillFile(): void
     {
-        $agentsSkillContent = file_get_contents($this->skillPath);
         $rootSkillContent = file_get_contents($this->root . '/skills/diagram-design-standards/SKILL.md');
-
-        $this->assertIsString($agentsSkillContent);
         $this->assertIsString($rootSkillContent);
-        $this->assertSame($agentsSkillContent, $rootSkillContent, 'Both SKILL.md copies must be identical.');
+
+        $this->assertStringContainsString(
+            '.agents/skills/diagram-design-standards/SKILL.md',
+            $rootSkillContent,
+            'skills/diagram-design-standards/SKILL.md must reference .agents/skills/diagram-design-standards/SKILL.md.'
+        );
     }
 
     public function testSkillFileStructureAndParsedFrontmatter(): void
