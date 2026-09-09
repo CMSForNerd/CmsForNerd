@@ -194,6 +194,15 @@ topics: [brain, task, cmsfornerd, management, module]
 - [x] Update documentation maps (`SUMMARY.md`, `mkdocs.yml`, `START-HERE.md`, `llms.txt`), sitemaps, and SonarCloud exclusions (`sonar-project.properties`).
 - [x] Execute EOD memory sync and DSOM End-of-Day rituals.
 
+## [x] Module 27: Diagram Design Standards AI Agent Skill Adoption (v4.3.1)
+
+- [x] Adopt `diagram-design-standards` skill in `.agents/skills/diagram-design-standards/SKILL.md` and `skills/diagram-design-standards/SKILL.md`.
+- [x] Author skill manual (`docs/explanation/diagram-design-standards-skill.md`) and operational guide (`docs/skills/DIAGRAM-DESIGN-STANDARDS-SKILL.md`).
+- [x] Register skill across central registries and omni-documentation layers (`docs/AI-AGENT-SKILLS-GUIDE.md`, `.agents/AGENTS.md`, `AGENTS.md`, `SUMMARY.md`, `mkdocs.yml`, `START-HERE.md`, `llms.txt`).
+- [x] Exclude `**/.agents/**` in `sonar-project.properties` and `.github/workflows/build.yml` to satisfy SonarCloud quality gate.
+- [x] Add automated unit tests in `tests/DiagramDesignStandardsSkillTest.php` and update `tests/AiAgentSkillsGuideRegistryTest.php` (600 passing tests).
+- [x] Execute EOD memory sync and DSOM End-of-Day rituals.
+
 ---
 *Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-01*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

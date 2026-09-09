@@ -13,10 +13,9 @@ topics: [diagrams, svg, mermaid, architecture, visual-design]
 The `diagram-design-standards` skill establishes a uniform visual and structural specification for technical diagrams across CmsForNerd and DSOM documentation. It provides Google Jules, Google Antigravity, and autonomous developer tools with strict design guidelines for producing production-ready vector graphics, git-native Mermaid diagrams, and summary interface routing tables.
 
 ## Problem Addressed
-In complex CMS architectures and containerized deployments, visual diagrams are often inconsistent, lack network/system identifiers, or fail to render cleanly across different markdown viewers. By enforcing a 3-part output specification, this skill guarantees that every system design document includes:
-1. **Raw Vector Graphics (.svg)** for high-resolution presentation and embedding.
-2. **Git-Native Mermaid Blocks (.mmd)** for seamless inline rendering in GitHub, GitBook, and Markdown viewers.
-3. **Summary Interface Routing Tables** for structured data flow, security boundary, and port mapping audits.
+In complex CMS architectures and containerized deployments, visual diagrams are often inconsistent, lack network/system identifiers, or fail to render cleanly across different markdown viewers. When diagram or visual-documentation work is requested, this skill guarantees inline outputs consisting of:
+1. **Raw Vector Graphics** inside an `xml` code fence for high-resolution presentation and rendering.
+2. **Git-Native Mermaid Blocks** inside a `mermaid` code fence immediately following the SVG block for seamless inline rendering across Markdown viewers.
 
 ## Agent Operational Workflow
 - **Invocation**: Triggered whenever the user requests system architecture diagrams, network flows, sequence interactions, or infrastructure visual specifications.
