@@ -27,7 +27,7 @@
 
 - [AGENTS.md](AGENTS.md): Lightweight root gateway for platform agents.
 - [.agents/AGENTS.md](.agents/AGENTS.md): Core rulebook and sovereign constitution.
-- [START-HERE.md](START-HERE.md): Onboarding blueprint with 17 defined Entry Points.
+- [START-HERE.md](START-HERE.md): Onboarding blueprint with 18 defined Entry Points.
 - [docs/governance/AI-INITIALIZATION-SEQUENCE.md](docs/governance/AI-INITIALIZATION-SEQUENCE.md): The 5-step Mechanical Boot Sequence.
 - [docs/governance/SOP-KNOWLEDGE-FIRST-DISCOVERY.md](docs/governance/SOP-KNOWLEDGE-FIRST-DISCOVERY.md): Discovery protocols.
 - [docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md](docs/governance/SOP-PULL-REQUEST-BOT-SYNERGY.md): End-to-End Pull Request & Bot Synergy SOP (GitHub & GitLab).
@@ -50,6 +50,7 @@
 - [docs/xss-protection-guide.md](docs/xss-protection-guide.md): XSS & Host Header protection mechanism.
 - [docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md](docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md): Setup VM environment.
 - [docs/explanation/reactive-wasm-architecture.md](docs/explanation/reactive-wasm-architecture.md): Reactive UI & WebAssembly Cryptography Architecture.
+- [docs/explanation/webgpu-wasm-ai-inferencing-architecture.md](docs/explanation/webgpu-wasm-ai-inferencing-architecture.md): WebGPU & Wasm SIMD Hardware-Accelerated Client-Side AI Inferencing Architecture.
 
 ## Infrastructure & Automation
 

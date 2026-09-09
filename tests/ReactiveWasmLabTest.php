@@ -91,7 +91,7 @@ final class ReactiveWasmLabTest extends TestCase
         $content = $this->read($this->bodyPath);
 
         $this->assertStringContainsString('itemtype="https://schema.org/TechArticle"', $content);
-        $this->assertStringContainsString('Reactive UI & WebAssembly (Wasm) Laboratory', $content);
+        $this->assertStringContainsString('Reactive UI, WebAssembly (Wasm) & WebGPU Laboratory', $content);
     }
 
     public function testBodyIncExplainsHtmxAndAlpineReactivity(): void
