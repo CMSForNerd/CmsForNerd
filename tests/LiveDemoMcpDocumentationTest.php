@@ -359,7 +359,7 @@ final class LiveDemoMcpDocumentationTest extends TestCase
         );
         $this->assertStringContainsString(
             needle: 'linking to all 18 major Entry Points of the platform, '
-                . 'enabling instant orientation and semantic traversal.',
+            . 'enabling instant orientation and semantic traversal.',
             haystack: $content
         );
     }
