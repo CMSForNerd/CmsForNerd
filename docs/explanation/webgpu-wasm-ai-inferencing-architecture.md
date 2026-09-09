@@ -102,7 +102,7 @@ Integrating client-side AI inferencing requires strict adherence to CmsForNerd's
 - **Worker Directives:** WebGPU and Wasm AI engines instantiate background execution threads via Web Workers. Full production
   runtime implementation requires adding `worker-src 'self' blob:` and `wasm-unsafe-eval` to `SecurityUtils::sendSecurityHeaders()`.
   Currently, these directives remain an explicit prerequisite for full client-side Wasm multi-threading and dynamic instantiation.
-- **Wasm Execution:** Standard non-eval Wasm modules execute under existing CSP nonces generated per-request by `SecurityUtils`.
+- **Wasm Execution:** Dynamic WebAssembly compilation and instantiation (e.g. via `WebAssembly.compile()` or `WebAssembly.instantiate()`) require an appropriate effective `script-src` policy expression such as `wasm-unsafe-eval` (or `unsafe-eval` in older spec implementations). Existing per-request CSP nonces authorize HTML script tags, but Wasm binary compilation requires CSP Wasm evaluation directives.
 
 ### 2. Cross-Origin Isolation (COOP / COEP Headers)
 For multithreaded Wasm SIMD execution using `SharedArrayBuffer`, browsers require cross-origin isolation headers:

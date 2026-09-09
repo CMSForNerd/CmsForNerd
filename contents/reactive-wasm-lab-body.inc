@@ -177,7 +177,7 @@
                                 var adapter = await navigator.gpu.requestAdapter();
                                 if (adapter) {
                                     hasWebGpu = true;
-                                    var isFallback = adapter.isFallbackAdapter || false;
+                                    var isFallback = adapter.isFallbackAdapter || (adapter.info && adapter.info.isFallbackAdapter) || false;
                                     var maxInvocations = (adapter.limits && adapter.limits.maxComputeInvocationsPerWorkgroup) ? adapter.limits.maxComputeInvocationsPerWorkgroup : 0;
                                     if (!isFallback && maxInvocations >= 128) {
                                         isFullyCapableGpu = true;
