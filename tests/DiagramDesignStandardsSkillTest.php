@@ -28,6 +28,9 @@ final class DiagramDesignStandardsSkillTest extends TestCase
 
         $rootContent = (string) file_get_contents($this->rootSkillFile);
         $this->assertStringContainsString('.agents/skills/diagram-design-standards/SKILL.md', $rootContent);
+        $this->assertStringContainsString('type: skill', $rootContent);
+        $this->assertStringContainsString('name: "diagram-design-standards"', $rootContent);
+        $this->assertStringContainsString('## Execution Procedure', $rootContent);
     }
 
     public function testAgentsSkillContentAndDirectives(): void
