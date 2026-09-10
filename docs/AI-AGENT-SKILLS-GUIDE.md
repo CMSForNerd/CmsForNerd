@@ -69,6 +69,7 @@ This is the active ledger of all AI Agent Skills currently deployed in this repo
 | :--- | :--- | :--- |
 | **ASIMP and AI Agents Integration** | `.agents/skills/asimp-and-ai-integration/SKILL.md` | Integrates OS security compliance audits and YAML structures validation. |
 | **Cross-Platform Translator** | `.agents/skills/cross-platform-translator/SKILL.md` | Translates Shell/PowerShell scripts cross-platform. |
+| **Diagram Design Standards** | `.agents/skills/diagram-design-standards/SKILL.md` | Guidelines for 3-part standardized diagrams (SVG, Mermaid, Routing Table). |
 | **DSOM Bootstrap** | `.agents/skills/dsom-bootstrap/SKILL.md` | Bootstraps DSOM architecture for new projects. |
 | **DSOM Project Cloner** | `.agents/skills/dsom-project-cloner/SKILL.md` | Scaffolds a new DSOM project by copying baseline assets to a new target path. |
 | **EOD Palace Sync** | `.agents/skills/eod-palace-sync/SKILL.md` | The Hibernation ritual to externalize memory into the Palace and push to Git. |

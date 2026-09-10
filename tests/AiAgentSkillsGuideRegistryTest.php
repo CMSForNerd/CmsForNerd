@@ -25,6 +25,10 @@ final class AiAgentSkillsGuideRegistryTest extends TestCase
             'path' => '.agents/skills/asimp-and-ai-integration/SKILL.md',
             'purpose' => 'Integrates OS security compliance audits and YAML structures validation.',
         ],
+        'Diagram Design Standards' => [
+            'path' => '.agents/skills/diagram-design-standards/SKILL.md',
+            'purpose' => 'Guidelines for 3-part standardized diagrams (SVG, Mermaid, Routing Table).',
+        ],
         'Python Utility & Security' => [
             'path' => '.agents/skills/python-utility-and-security/SKILL.md',
             'purpose' => 'Restricts path traversal, prevents ReDoS, and validates Python structures.',
@@ -93,13 +97,28 @@ final class AiAgentSkillsGuideRegistryTest extends TestCase
     {
         $crossPlatformPos = strpos($this->content, '**Cross-Platform Translator**');
         $asimpPos = strpos($this->content, '**ASIMP and AI Agents Integration**');
+        $diagramPos = strpos($this->content, '**Diagram Design Standards**');
+        $dsomBootstrapPos = strpos($this->content, '**DSOM Bootstrap**');
 
         $this->assertNotFalse($crossPlatformPos);
         $this->assertNotFalse($asimpPos);
+        $this->assertNotFalse($diagramPos);
+        $this->assertNotFalse($dsomBootstrapPos);
+
         $this->assertLessThan(
             $crossPlatformPos,
             $asimpPos,
             "'ASIMP and AI Agents Integration' (A) must be listed before 'Cross-Platform Translator' (C)."
+        );
+        $this->assertGreaterThan(
+            $crossPlatformPos,
+            $diagramPos,
+            "'Diagram Design Standards' (D) must be listed after 'Cross-Platform Translator' (C)."
+        );
+        $this->assertLessThan(
+            $dsomBootstrapPos,
+            $diagramPos,
+            "'Diagram Design Standards' (Di) must be listed before 'DSOM Bootstrap' (Ds)."
         );
 
         $proposalDocxPos = strpos($this->content, '**Proposal DOCX Formatter**');

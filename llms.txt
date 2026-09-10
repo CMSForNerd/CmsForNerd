@@ -51,6 +51,8 @@
 - [docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md](docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md): Setup VM environment.
 - [docs/explanation/reactive-wasm-architecture.md](docs/explanation/reactive-wasm-architecture.md): Reactive UI & WebAssembly Cryptography Architecture.
 - [docs/explanation/webgpu-wasm-ai-inferencing-architecture.md](docs/explanation/webgpu-wasm-ai-inferencing-architecture.md): WebGPU & Wasm SIMD Hardware-Accelerated Client-Side AI Inferencing Architecture.
+- [docs/explanation/diagram-design-standards-skill.md](docs/explanation/diagram-design-standards-skill.md): Diagram Design Standards Skill Manual (SVG, Mermaid, Routing Table).
+- [docs/skills/DIAGRAM-DESIGN-STANDARDS-SKILL.md](docs/skills/DIAGRAM-DESIGN-STANDARDS-SKILL.md): Diagram Design Standards Skill Operational Guide.
 
 ## Infrastructure & Automation
 

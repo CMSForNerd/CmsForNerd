@@ -167,6 +167,10 @@ To execute workflows autonomously and check compliance, the workspace provides p
   - *What it does:* Manages the local telemetry loop in `dev` execution mode to compile and dispatch formatted Markdown feedback reports back to Google Jules VM and active pull requests.
   - *How to interact:* Executed dynamically in dev mode or as part of WSL2 multi-distro matrix workflows.
 
+- **Diagram Design Standards (`.agents/skills/diagram-design-standards/`)**
+  - *What it does:* Mandates 3-part standardized diagram outputs consisting of raw SVG vector graphics, Git-native Mermaid diagrams, and summary interface routing tables.
+  - *How to interact:* Load when generating system architecture diagrams, network topologies, sequence flows, or visual infrastructure documentation.
+
 - **Web Interface Guidelines & Accessibility (`.agents/skills/web-design-guidelines/`)**
   - *What it does:* Conducts UI reviews, WCAG accessibility compliance audits, focus states verification, Glassmorphic CSS consolidation, and Playwright E2E testing.
   - *How to interact:* Load when auditing UI designs or reviewing Playwright frontend tests in `tests/playwright/`.

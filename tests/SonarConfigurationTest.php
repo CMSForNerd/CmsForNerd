@@ -62,6 +62,7 @@ final class SonarConfigurationTest extends TestCase
             '**/LICENSE',
             '**/README.md',
             '**/.git/**',
+            '**/.agents/**',
             'tests/**',
         ];
 
@@ -88,6 +89,7 @@ final class SonarConfigurationTest extends TestCase
                 '**/LICENSE',
                 '**/README.md',
                 '**/.git/**',
+                '**/.agents/**',
                 'tests/**',
             ],
             $exclusions,
