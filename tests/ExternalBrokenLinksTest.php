@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * ==========================================================================
  * FILE: tests/ExternalBrokenLinksTest.php
@@ -7,8 +9,6 @@
  * LICENSE: GNU General Public License v3.0
  * ==========================================================================
  */
-
-declare(strict_types=1);
 
 namespace CmsForNerd\Tests;
 
@@ -32,23 +32,50 @@ class ExternalBrokenLinksTest extends TestCase
     /**
      * Scans project files for external HTTP/HTTPS links and validates that
      * they respond with valid status codes (2xx, 3xx, or expected 403 blocks)
-     * and are not broken (404 Not Found or unresolvable connection errors).
+     * and are not broken (404 Not Found, 5xx server error, or unresolvable connection errors).
      */
     public function testExternalLinksReferringToOtherSitesAreReachable(): void
     {
-        $filesToScan = array_merge(
+        $filesToScan = $this->getProjectFilesToScan();
+        $this->assertNotEmpty($filesToScan, "Project files for link scanning MUST NOT be empty.");
+
+        $externalLinks = $this->extractExternalLinks($filesToScan);
+        $this->assertNotEmpty($externalLinks, "External links count MUST NOT be empty.");
+
+        $brokenLinks = $this->checkExternalLinksReachability($externalLinks);
+
+        $this->assertEmpty(
+            $brokenLinks,
+            "Found broken external links in project contents or menus:\n" . implode("\n", $brokenLinks)
+        );
+    }
+
+    /**
+     * Finds candidate PHP and template files in the project.
+     *
+     * @return array<string>
+     */
+    private function getProjectFilesToScan(): array
+    {
+        return array_merge(
             glob($this->rootDir . '/*.php') ?: [],
             glob($this->rootDir . '/contents/*.inc') ?: [],
             glob($this->rootDir . '/includes/*.inc') ?: [],
             glob($this->rootDir . '/includes/*.php') ?: []
         );
+    }
 
-        $this->assertNotEmpty($filesToScan, "Project files for link scanning MUST NOT be empty.");
-
+    /**
+     * Extracts external links and their source files.
+     *
+     * @param array<string> $filesToScan
+     * @return array<string, array<string>>
+     */
+    private function extractExternalLinks(array $filesToScan): array
+    {
         $externalLinks = [];
 
         foreach ($filesToScan as $filePath) {
-            // Exclude vendor directory and test files themselves
             if (str_contains($filePath, '/vendor/') || str_contains($filePath, '/tests/')) {
                 continue;
             }
@@ -67,11 +94,9 @@ class ExternalBrokenLinksTest extends TestCase
             foreach ($matches[1] as $rawUrl) {
                 $url = trim($rawUrl);
 
-                // Check for external protocol (http://, https://, or //)
                 if (preg_match('/^(https?:\/\/|\/\/)/i', $url)) {
                     $fullUrl = str_starts_with($url, '//') ? 'https:' . $url : $url;
 
-                    // Exclude intentional security test trap URLs like evil.com
                     if (str_contains($fullUrl, 'evil.com')) {
                         continue;
                     }
@@ -81,8 +106,17 @@ class ExternalBrokenLinksTest extends TestCase
             }
         }
 
-        $this->assertNotEmpty($externalLinks, "External links count MUST NOT be empty.");
+        return $externalLinks;
+    }
 
+    /**
+     * Checks reachability of extracted external URLs using multi-cURL handles.
+     *
+     * @param array<string, array<string>> $externalLinks
+     * @return array<string>
+     */
+    private function checkExternalLinksReachability(array $externalLinks): array
+    {
         $mh = curl_multi_init();
         if ($mh === false) {
             $this->fail("Failed to initialize multi-cURL handle.");
@@ -117,6 +151,8 @@ class ExternalBrokenLinksTest extends TestCase
                 do {
                     $mrc = curl_multi_exec($mh, $active);
                 } while ($mrc === CURLM_OK && $active > 0);
+            } else {
+                usleep(10000); // Sleep 10ms if select returns -1
             }
         }
 
@@ -130,17 +166,7 @@ class ExternalBrokenLinksTest extends TestCase
             curl_multi_remove_handle($mh, $ch);
             curl_close($ch);
 
-            // Origin / CDN root domains (used for preconnect / dns-prefetch / CSP directives) return 400/404 when fetched without endpoint path
-            $parsedUrlPath = parse_url($url, PHP_URL_PATH);
-            $isOriginOnlyUrl = ($parsedUrlPath === null || $parsedUrlPath === '' || $parsedUrlPath === '/');
-
-            if ($isOriginOnlyUrl && in_array($httpCode, [400, 404, 405], true)) {
-                // Origin domain is reachable if DNS resolved and HTTP connection responded
-                continue;
-            }
-
-            // Flag as broken if status is 404 (Not Found) or 410 (Gone) or if cURL failed due to unresolvable network/DNS error
-            if ($httpCode === 404 || $httpCode === 410 || ($httpCode === 0 && $curlErrno !== 0)) {
+            if ($this->isBrokenExternalLink($url, $httpCode, $curlErrno)) {
                 $sources = $externalLinks[$url] ?? [];
                 $sourceFiles = implode(', ', array_unique($sources));
                 $brokenLinks[] = "Broken external link: '{$url}' (HTTP Status: {$httpCode}, cURL Error: [{$curlErrno}] {$curlError}, Referenced in: {$sourceFiles})";
@@ -149,9 +175,24 @@ class ExternalBrokenLinksTest extends TestCase
 
         curl_multi_close($mh);
 
-        $this->assertEmpty(
-            $brokenLinks,
-            "Found broken external links in project contents or menus:\n" . implode("\n", $brokenLinks)
-        );
+        return $brokenLinks;
+    }
+
+    /**
+     * Determines if response status indicates a broken external link.
+     */
+    private function isBrokenExternalLink(string $url, int $httpCode, int $curlErrno): bool
+    {
+        $parsedUrlPath = parse_url($url, PHP_URL_PATH);
+        $isOriginOnlyUrl = ($parsedUrlPath === null || $parsedUrlPath === '' || $parsedUrlPath === '/');
+
+        if ($isOriginOnlyUrl && in_array($httpCode, [400, 404, 405], true)) {
+            return false;
+        }
+
+        return $httpCode === 404 ||
+            $httpCode === 410 ||
+            ($httpCode >= 500 && $httpCode <= 599) ||
+            ($httpCode === 0 && $curlErrno !== 0);
     }
 }

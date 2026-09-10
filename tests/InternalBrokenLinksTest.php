@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * ==========================================================================
  * FILE: tests/InternalBrokenLinksTest.php
@@ -7,8 +9,6 @@
  * LICENSE: GNU General Public License v3.0
  * ==========================================================================
  */
-
-declare(strict_types=1);
 
 namespace CmsForNerd\Tests;
 
@@ -35,19 +35,46 @@ class InternalBrokenLinksTest extends TestCase
      */
     public function testInternalLinksBetweenPagesExistOnDisk(): void
     {
-        $filesToScan = array_merge(
+        $filesToScan = $this->getProjectFilesToScan();
+        $this->assertNotEmpty($filesToScan, "Project files for link scanning MUST NOT be empty.");
+
+        $internalLinks = $this->extractInternalLinks($filesToScan);
+        $this->assertNotEmpty($internalLinks, "Internal links count MUST NOT be empty.");
+
+        $brokenLinks = $this->validateInternalLinkTargets($internalLinks);
+
+        $this->assertEmpty(
+            $brokenLinks,
+            "Found broken internal links between pages in project:\n" . implode("\n", $brokenLinks)
+        );
+    }
+
+    /**
+     * Finds candidate PHP and template files in the project.
+     *
+     * @return array<string>
+     */
+    private function getProjectFilesToScan(): array
+    {
+        return array_merge(
             glob($this->rootDir . '/*.php') ?: [],
             glob($this->rootDir . '/contents/*.inc') ?: [],
             glob($this->rootDir . '/includes/*.inc') ?: [],
             glob($this->rootDir . '/includes/*.php') ?: []
         );
+    }
 
-        $this->assertNotEmpty($filesToScan, "Project files for link scanning MUST NOT be empty.");
-
+    /**
+     * Extracts internal links and their source files.
+     *
+     * @param array<string> $filesToScan
+     * @return array<string, array<string>>
+     */
+    private function extractInternalLinks(array $filesToScan): array
+    {
         $internalLinks = [];
 
         foreach ($filesToScan as $filePath) {
-            // Exclude vendor directory and test files themselves
             if (str_contains($filePath, '/vendor/') || str_contains($filePath, '/tests/')) {
                 continue;
             }
@@ -66,34 +93,46 @@ class InternalBrokenLinksTest extends TestCase
             foreach ($matches[1] as $rawUrl) {
                 $url = trim($rawUrl);
 
-                // Ignore empty links, anchor-only (#), mailto, javascript, or PHP dynamic code tags
-                if (
-                    $url === '' ||
-                    str_starts_with($url, '#') ||
-                    str_starts_with($url, 'javascript:') ||
-                    str_starts_with($url, 'mailto:') ||
-                    str_contains($url, '<?php') ||
-                    str_contains($url, '<?=') ||
-                    str_contains($url, '{$')
-                ) {
+                if ($this->shouldIgnoreUrl($url)) {
                     continue;
                 }
 
-                // If not an external HTTP/HTTPS or protocol-relative link, treat as internal link
                 if (!preg_match('/^(https?:\/\/|\/\/)/i', $url)) {
                     $internalLinks[$url][] = basename($filePath);
                 }
             }
         }
 
-        $this->assertNotEmpty($internalLinks, "Internal links count MUST NOT be empty.");
+        return $internalLinks;
+    }
 
+    /**
+     * Checks if URL should be excluded from internal validation.
+     */
+    private function shouldIgnoreUrl(string $url): bool
+    {
+        return $url === '' ||
+            str_starts_with($url, '#') ||
+            str_starts_with($url, 'javascript:') ||
+            str_starts_with($url, 'mailto:') ||
+            str_contains($url, '<?php') ||
+            str_contains($url, '<?=') ||
+            str_contains($url, '{$');
+    }
+
+    /**
+     * Validates target local file existence for extracted internal links.
+     *
+     * @param array<string, array<string>> $internalLinks
+     * @return array<string>
+     */
+    private function validateInternalLinkTargets(array $internalLinks): array
+    {
         $brokenLinks = [];
 
         foreach ($internalLinks as $url => $sources) {
             $parsedPath = parse_url($url, PHP_URL_PATH);
 
-            // Skip query-only URLs like "?view=amp"
             if (empty($parsedPath)) {
                 continue;
             }
@@ -107,9 +146,6 @@ class InternalBrokenLinksTest extends TestCase
             }
         }
 
-        $this->assertEmpty(
-            $brokenLinks,
-            "Found broken internal links between pages in project:\n" . implode("\n", $brokenLinks)
-        );
+        return $brokenLinks;
     }
 }
