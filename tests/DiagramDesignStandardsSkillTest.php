@@ -39,6 +39,7 @@ final class DiagramDesignStandardsSkillTest extends TestCase
 
         $requiredDirectives = [
             'okf_version: 0.1',
+            'type: skill',
             'name: "diagram-design-standards"',
             'title: "Diagram Design Standards and Visual Specifications"',
             'timestamp: 2026-08-01T09:00:00Z',
@@ -66,9 +67,9 @@ final class DiagramDesignStandardsSkillTest extends TestCase
         }
 
         $this->assertMatchesRegularExpression(
-            '/```xml\s*[\s\S]*?<\/svg>\s*```\s*```mermaid\s*[\s\S]*?```/',
+            '/```xml\s*[\s\S]*?<svg[\s\S]*?<\/svg>\s*```\s*```mermaid\s*[\s\S]*?```/',
             $content,
-            'Skill content must contain an xml fenced SVG block followed immediately by a mermaid fenced block.'
+            'Skill content must contain an xml fenced SVG block with an opening <svg tag followed immediately by a mermaid fenced block.'
         );
     }
 
