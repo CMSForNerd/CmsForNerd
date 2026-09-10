@@ -102,8 +102,6 @@ class ExternalBrokenLinksTest extends TestCase
             curl_setopt($ch, CURLOPT_TIMEOUT, 6);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
             curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) CmsForNerdLinkChecker/1.0');
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 
             curl_multi_add_handle($mh, $ch);
             $curlHandles[$url] = $ch;
