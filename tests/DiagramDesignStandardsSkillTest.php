@@ -64,6 +64,12 @@ final class DiagramDesignStandardsSkillTest extends TestCase
         foreach ($requiredDirectives as $directive) {
             $this->assertStringContainsString($directive, $content);
         }
+
+        $this->assertMatchesRegularExpression(
+            '/```xml\s*[\s\S]*?<\/svg>\s*```\s*```mermaid\s*[\s\S]*?```/',
+            $content,
+            'Skill content must contain an xml fenced SVG block followed immediately by a mermaid fenced block.'
+        );
     }
 
     public function testHumanDocumentationFilesExist(): void
