@@ -79,31 +79,41 @@ class InternalBrokenLinksTest extends TestCase
                 continue;
             }
 
-            $content = file_get_contents($filePath);
-            if ($content === false) {
-                continue;
-            }
-
-            preg_match_all('/(?:href|src|action)=["\']([^"\'>\s]+)["\']/i', $content, $matches);
-
-            if (empty($matches[1])) {
-                continue;
-            }
-
-            foreach ($matches[1] as $rawUrl) {
-                $url = trim($rawUrl);
-
-                if ($this->shouldIgnoreUrl($url)) {
-                    continue;
-                }
-
-                if (!preg_match('/^(https?:\/\/|\/\/)/i', $url)) {
-                    $internalLinks[$url][] = basename($filePath);
-                }
-            }
+            $this->processFileForInternalLinks($filePath, $internalLinks);
         }
 
         return $internalLinks;
+    }
+
+    /**
+     * Processes a single file to extract internal links.
+     *
+     * @param array<string, array<string>> $internalLinks
+     */
+    private function processFileForInternalLinks(string $filePath, array &$internalLinks): void
+    {
+        $content = file_get_contents($filePath);
+        if ($content === false) {
+            return;
+        }
+
+        preg_match_all('/(?:href|src|action)=["\']([^"\'>\s]+)["\']/i', $content, $matches);
+
+        if (empty($matches[1])) {
+            return;
+        }
+
+        foreach ($matches[1] as $rawUrl) {
+            $url = trim($rawUrl);
+
+            if ($this->shouldIgnoreUrl($url)) {
+                continue;
+            }
+
+            if (!preg_match('/^(https?:\/\/|\/\/)/i', $url)) {
+                $internalLinks[$url][] = basename($filePath);
+            }
+        }
     }
 
     /**

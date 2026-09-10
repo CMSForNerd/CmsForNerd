@@ -80,33 +80,49 @@ class ExternalBrokenLinksTest extends TestCase
                 continue;
             }
 
-            $content = file_get_contents($filePath);
-            if ($content === false) {
-                continue;
-            }
-
-            preg_match_all('/(?:href|src|action)=["\']([^"\'>\s]+)["\']/i', $content, $matches);
-
-            if (empty($matches[1])) {
-                continue;
-            }
-
-            foreach ($matches[1] as $rawUrl) {
-                $url = trim($rawUrl);
-
-                if (preg_match('/^(https?:\/\/|\/\/)/i', $url)) {
-                    $fullUrl = str_starts_with($url, '//') ? 'https:' . $url : $url;
-
-                    if (str_contains($fullUrl, 'evil.com')) {
-                        continue;
-                    }
-
-                    $externalLinks[$fullUrl][] = basename($filePath);
-                }
-            }
+            $this->processFileForExternalLinks($filePath, $externalLinks);
         }
 
         return $externalLinks;
+    }
+
+    /**
+     * Processes a single file to extract external links.
+     *
+     * @param array<string, array<string>> $externalLinks
+     */
+    private function processFileForExternalLinks(string $filePath, array &$externalLinks): void
+    {
+        $content = file_get_contents($filePath);
+        if ($content === false) {
+            return;
+        }
+
+        preg_match_all('/(?:href|src|action)=["\']([^"\'>\s]+)["\']/i', $content, $matches);
+
+        if (empty($matches[1])) {
+            return;
+        }
+
+        foreach ($matches[1] as $rawUrl) {
+            $this->addExternalUrlIfValid(trim($rawUrl), basename($filePath), $externalLinks);
+        }
+    }
+
+    /**
+     * Adds URL to externalLinks if it matches external protocol and is not a trap URL.
+     *
+     * @param array<string, array<string>> $externalLinks
+     */
+    private function addExternalUrlIfValid(string $url, string $filename, array &$externalLinks): void
+    {
+        if (preg_match('/^(https?:\/\/|\/\/)/i', $url)) {
+            $fullUrl = str_starts_with($url, '//') ? 'https:' . $url : $url;
+
+            if (!str_contains($fullUrl, 'evil.com')) {
+                $externalLinks[$fullUrl][] = $filename;
+            }
+        }
     }
 
     /**
@@ -122,9 +138,29 @@ class ExternalBrokenLinksTest extends TestCase
             $this->fail("Failed to initialize multi-cURL handle.");
         }
 
+        $curlHandles = $this->initCurlHandles($mh, array_keys($externalLinks));
+
+        $this->executeMultiCurl($mh);
+
+        $brokenLinks = $this->collectBrokenExternalLinks($mh, $curlHandles, $externalLinks);
+
+        curl_multi_close($mh);
+
+        return $brokenLinks;
+    }
+
+    /**
+     * Initializes individual cURL handles and attaches them to multi-handle.
+     *
+     * @param resource $mh
+     * @param array<string> $urls
+     * @return array<string, \CurlHandle>
+     */
+    private function initCurlHandles($mh, array $urls): array
+    {
         $curlHandles = [];
 
-        foreach (array_keys($externalLinks) as $url) {
+        foreach ($urls as $url) {
             $ch = curl_init($url);
             if ($ch === false) {
                 continue;
@@ -141,6 +177,16 @@ class ExternalBrokenLinksTest extends TestCase
             $curlHandles[$url] = $ch;
         }
 
+        return $curlHandles;
+    }
+
+    /**
+     * Executes multi-cURL transfers.
+     *
+     * @param resource $mh
+     */
+    private function executeMultiCurl($mh): void
+    {
         $active = null;
         do {
             $mrc = curl_multi_exec($mh, $active);
@@ -152,10 +198,21 @@ class ExternalBrokenLinksTest extends TestCase
                     $mrc = curl_multi_exec($mh, $active);
                 } while ($mrc === CURLM_OK && $active > 0);
             } else {
-                usleep(10000); // Sleep 10ms if select returns -1
+                usleep(10000);
             }
         }
+    }
 
+    /**
+     * Collects broken external links from completed cURL handles.
+     *
+     * @param resource $mh
+     * @param array<string, \CurlHandle> $curlHandles
+     * @param array<string, array<string>> $externalLinks
+     * @return array<string>
+     */
+    private function collectBrokenExternalLinks($mh, array $curlHandles, array $externalLinks): array
+    {
         $brokenLinks = [];
 
         foreach ($curlHandles as $url => $ch) {
@@ -172,8 +229,6 @@ class ExternalBrokenLinksTest extends TestCase
                 $brokenLinks[] = "Broken external link: '{$url}' (HTTP Status: {$httpCode}, cURL Error: [{$curlErrno}] {$curlError}, Referenced in: {$sourceFiles})";
             }
         }
-
-        curl_multi_close($mh);
 
         return $brokenLinks;
     }
