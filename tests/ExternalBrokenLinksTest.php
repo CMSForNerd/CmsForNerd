@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace CmsForNerd\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -48,6 +49,113 @@ class ExternalBrokenLinksTest extends TestCase
             $brokenLinks,
             "Found broken external links in project contents or menus:\n" . implode("\n", $brokenLinks)
         );
+    }
+
+    /**
+     * @param bool $expected Whether the response must be classified as broken.
+     */
+    #[DataProvider('externalLinkStatusCases')]
+    public function testBrokenExternalLinkClassification(
+        string $url,
+        int $httpCode,
+        int $curlErrno,
+        bool $expected
+    ): void {
+        $this->assertSame($expected, $this->isBrokenExternalLink($url, $httpCode, $curlErrno));
+    }
+
+    /**
+     * @return array<string, array{string, int, int, bool}>
+     */
+    public static function externalLinkStatusCases(): array
+    {
+        return [
+            'successful page' => ['https://example.com/docs', 200, 0, false],
+            'redirected page' => ['https://example.com/docs', 301, 0, false],
+            'forbidden page' => ['https://example.com/docs', 403, 0, false],
+            'missing page' => ['https://example.com/missing', 404, 0, true],
+            'gone page' => ['https://example.com/removed', 410, 0, true],
+            'first server error boundary' => ['https://example.com/docs', 500, 0, true],
+            'last server error boundary' => ['https://example.com/docs', 599, 0, true],
+            'status above server error range' => ['https://example.com/docs', 600, 0, false],
+            'transport failure without response' => ['https://example.com/docs', 0, 6, true],
+            'no response and no cURL error' => ['https://example.com/docs', 0, 0, false],
+            'origin-only bad request exemption' => ['https://example.com', 400, 0, false],
+            'origin-only missing exemption' => ['https://example.com/', 404, 0, false],
+            'origin-only method exemption' => ['https://example.com?preconnect=1', 405, 0, false],
+            'origin-only gone response' => ['https://example.com/', 410, 0, true],
+            'origin-only server error' => ['https://example.com/', 503, 0, true],
+        ];
+    }
+
+    public function testExtractExternalLinksNormalizesProtocolRelativeUrlsAndTracksSources(): void
+    {
+        $fixture = tempnam(sys_get_temp_dir(), 'cmsfornerd-external-links-');
+        $this->assertNotFalse($fixture, 'Failed to create the external-link fixture.');
+
+        $markup = <<<'HTML'
+            <a href="https://example.com/docs">Docs</a>
+            <a href="https://example.com/docs">Docs again</a>
+            <script src="//cdn.example.com/library.js"></script>
+            <form action="HTTP://forms.example.com/submit"></form>
+            <a href="about.php">Internal</a>
+            <a href="mailto:maintainer@example.com">Email</a>
+            <a href="https://evil.com/trap">Security fixture</a>
+            HTML;
+
+        try {
+            $this->assertNotFalse(file_put_contents($fixture, $markup));
+
+            $links = $this->extractExternalLinks([
+                $fixture,
+                sys_get_temp_dir() . '/vendor/not-read.php',
+                sys_get_temp_dir() . '/tests/not-read.php',
+            ]);
+
+            $source = basename($fixture);
+            $this->assertSame(
+                [
+                    'https://example.com/docs' => [$source, $source],
+                    'https://cdn.example.com/library.js' => [$source],
+                    'HTTP://forms.example.com/submit' => [$source],
+                ],
+                $links
+            );
+        } finally {
+            unlink($fixture);
+        }
+    }
+
+    public function testExternalReachabilityCheckAcceptsAnEmptyBatch(): void
+    {
+        $this->assertSame([], $this->checkExternalLinksReachability([]));
+    }
+
+    public function testCurlHandleInitializationPreservesEveryUrl(): void
+    {
+        $multiHandle = curl_multi_init();
+        $this->assertNotFalse($multiHandle, 'Failed to initialize the test multi-cURL handle.');
+
+        $urls = [
+            'https://example.com/first',
+            'https://example.org/second',
+        ];
+        $handles = $this->initCurlHandles($multiHandle, $urls);
+
+        try {
+            $this->assertSame($urls, array_keys($handles));
+
+            foreach ($handles as $url => $handle) {
+                $this->assertSame($url, curl_getinfo($handle, CURLINFO_EFFECTIVE_URL));
+            }
+        } finally {
+            foreach ($handles as $handle) {
+                curl_multi_remove_handle($multiHandle, $handle);
+                curl_close($handle);
+            }
+
+            curl_multi_close($multiHandle);
+        }
     }
 
     /**
