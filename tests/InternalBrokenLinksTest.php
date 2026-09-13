@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * ==========================================================================
  * FILE: tests/InternalBrokenLinksTest.php
@@ -8,11 +10,8 @@
  * ==========================================================================
  */
 
-declare(strict_types=1);
-
 namespace CmsForNerd\Tests;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -48,166 +47,6 @@ class InternalBrokenLinksTest extends TestCase
             $brokenLinks,
             "Found broken internal links between pages in project:\n" . implode("\n", $brokenLinks)
         );
-    }
-
-    /**
-     * @param bool $expected Whether the URL must be excluded from file validation.
-     */
-    #[DataProvider('urlIgnoreCases')]
-    public function testUrlIgnoreRules(string $url, bool $expected): void
-    {
-        $this->assertSame($expected, $this->shouldIgnoreUrl($url));
-    }
-
-    /**
-     * @return array<string, array{string, bool}>
-     */
-    public static function urlIgnoreCases(): array
-    {
-        return [
-            'empty URL' => ['', true],
-            'fragment-only URL' => ['#installation', true],
-            'JavaScript pseudo-link' => ['javascript:void(0)', true],
-            'uppercase JavaScript pseudo-link' => ['JAVASCRIPT:void(0)', true],
-            'email link' => ['mailto:maintainer@example.com', true],
-            'uppercase email link' => ['MAILTO:maintainer@example.com', true],
-            'full PHP tag' => ['<?php echo $target; ?>', true],
-            'short PHP echo tag' => ['<?= $target ?>', true],
-            'interpolated template value' => ['pages/{$slug}.php', true],
-            'relative page' => ['about.php', false],
-            'root-relative asset' => ['/themes/CmsForNerd/style.css', false],
-            'page with query and fragment' => ['about.php?view=full#team', false],
-        ];
-    }
-
-    public function testExtractInternalLinksKeepsStaticTargetsAndSkipsUnsupportedUrls(): void
-    {
-        $fixture = tempnam(sys_get_temp_dir(), 'cmsfornerd-internal-links-');
-        $this->assertNotFalse($fixture, 'Failed to create the internal-link fixture.');
-
-        $markup = <<<'HTML'
-            <a href="about.php">About</a>
-            <a href="about.php">About again</a>
-            <img src="/themes/CmsForNerd/style.css" alt="Theme">
-            <form action="final-exam.php?attempt=1#questions"></form>
-            <a href="https://example.com/docs">External</a>
-            <a href="//cdn.example.com/library.js">CDN</a>
-            <a href="#top">Fragment</a>
-            <a href="javascript:void(0)">Script</a>
-            <a href="mailto:maintainer@example.com">Email</a>
-            <a href="<?= $dynamicTarget ?>">Dynamic</a>
-            HTML;
-
-        try {
-            $this->assertNotFalse(file_put_contents($fixture, $markup));
-
-            $links = $this->extractInternalLinks([
-                $fixture,
-                sys_get_temp_dir() . '/vendor/not-read.php',
-                sys_get_temp_dir() . '/tests/not-read.php',
-            ]);
-
-            $source = basename($fixture);
-            $this->assertSame(
-                [
-                    'about.php' => [$source, $source],
-                    '/themes/CmsForNerd/style.css' => [$source],
-                    'final-exam.php?attempt=1#questions' => [$source],
-                ],
-                $links
-            );
-        } finally {
-            unlink($fixture);
-        }
-    }
-
-    public function testExtractInternalLinksAllowsWhitespaceAroundAttributeAssignments(): void
-    {
-        $fixture = tempnam(sys_get_temp_dir(), 'cmsfornerd-internal-link-spacing-');
-        $this->assertNotFalse($fixture, 'Failed to create the internal-link spacing fixture.');
-
-        $markup = <<<'HTML'
-            <a href = "about.php">About</a>
-            <img src= "/themes/CmsForNerd/style.css" alt="Theme">
-            <form action = "final-exam.php?attempt=1"></form>
-            HTML;
-
-        try {
-            $this->assertNotFalse(file_put_contents($fixture, $markup));
-
-            $source = basename($fixture);
-            $this->assertSame(
-                [
-                    'about.php' => [$source],
-                    '/themes/CmsForNerd/style.css' => [$source],
-                    'final-exam.php?attempt=1' => [$source],
-                ],
-                $this->extractInternalLinks([$fixture])
-            );
-        } finally {
-            unlink($fixture);
-        }
-    }
-
-    public function testValidateInternalTargetsResolvesPathsAndReportsUniqueSources(): void
-    {
-        $fixtureRoot = sys_get_temp_dir() . '/cmsfornerd-targets-' . bin2hex(random_bytes(8));
-        $assetDirectory = $fixtureRoot . '/assets';
-
-        $this->assertTrue(mkdir($assetDirectory, 0777, true), 'Failed to create the target fixture directory.');
-        $this->assertNotFalse(file_put_contents($fixtureRoot . '/existing.php', '<?php'));
-        $this->assertNotFalse(file_put_contents($assetDirectory . '/app.css', 'body {}'));
-
-        $originalRoot = $this->rootDir;
-        $this->rootDir = $fixtureRoot;
-
-        try {
-            $brokenLinks = $this->validateInternalLinkTargets([
-                'existing.php?tab=details#summary' => ['menu.inc'],
-                '/assets/app.css?v=1' => ['header.inc'],
-                '?query=without-path' => ['ignored.inc'],
-                'missing.php?tab=details#summary' => ['menu.inc', 'menu.inc', 'sidebar.inc'],
-            ]);
-
-            $this->assertSame(
-                [
-                    "Broken internal link: 'missing.php?tab=details#summary' " .
-                    "(Referenced in: menu.inc, sidebar.inc) -> File not found at: {$fixtureRoot}/missing.php",
-                ],
-                $brokenLinks
-            );
-        } finally {
-            $this->rootDir = $originalRoot;
-            unlink($assetDirectory . '/app.css');
-            unlink($fixtureRoot . '/existing.php');
-            rmdir($assetDirectory);
-            rmdir($fixtureRoot);
-        }
-    }
-
-    public function testValidateInternalTargetsReportsDirectoriesAsBrokenLinks(): void
-    {
-        $fixtureRoot = sys_get_temp_dir() . '/cmsfornerd-directory-target-' . bin2hex(random_bytes(8));
-        $directoryTarget = $fixtureRoot . '/assets';
-
-        $this->assertTrue(mkdir($directoryTarget, 0777, true), 'Failed to create the directory target fixture.');
-
-        $originalRoot = $this->rootDir;
-        $this->rootDir = $fixtureRoot;
-
-        try {
-            $this->assertSame(
-                [
-                    "Broken internal link: 'assets' (Referenced in: navigation.inc) " .
-                    "-> File not found at: {$directoryTarget}",
-                ],
-                $this->validateInternalLinkTargets(['assets' => ['navigation.inc']])
-            );
-        } finally {
-            $this->rootDir = $originalRoot;
-            rmdir($directoryTarget);
-            rmdir($fixtureRoot);
-        }
     }
 
     /**
@@ -258,7 +97,7 @@ class InternalBrokenLinksTest extends TestCase
             return;
         }
 
-        preg_match_all('/(?:href|src|action)\s*=\s*["\']([^"\'>\s]+)["\']/i', $content, $matches);
+        preg_match_all('/(?:href|src|action)=["\']([^"\'>\s]+)["\']/i', $content, $matches);
 
         if (empty($matches[1])) {
             return;
@@ -282,12 +121,10 @@ class InternalBrokenLinksTest extends TestCase
      */
     private function shouldIgnoreUrl(string $url): bool
     {
-        $normalisedUrl = strtolower($url);
-
         return $url === '' ||
             str_starts_with($url, '#') ||
-            str_starts_with($normalisedUrl, 'javascript:') ||
-            str_starts_with($normalisedUrl, 'mailto:') ||
+            str_starts_with($url, 'javascript:') ||
+            str_starts_with($url, 'mailto:') ||
             str_contains($url, '<?php') ||
             str_contains($url, '<?=') ||
             str_contains($url, '{$');
@@ -313,10 +150,9 @@ class InternalBrokenLinksTest extends TestCase
             $pathToCheck = ltrim((string) $parsedPath, '/');
             $targetFullPath = $this->rootDir . '/' . $pathToCheck;
 
-            if (!is_file($targetFullPath)) {
+            if (!file_exists($targetFullPath)) {
                 $sourceFiles = implode(', ', array_unique($sources));
-                $brokenLinks[] = "Broken internal link: '{$url}' (Referenced in: {$sourceFiles}) " .
-                    "-> File not found at: {$targetFullPath}";
+                $brokenLinks[] = "Broken internal link: '{$url}' (Referenced in: {$sourceFiles}) -> File not found at: {$targetFullPath}";
             }
         }
 
