@@ -1,0 +1,314 @@
+[
+  {
+    "id": "mem-1",
+    "fact": "1. **Docker Validation Test Exposing Port:** The repository's Docker validation tests require Dockerfile and Containerfile to expose port 80 (even if also exposing other ports), restrict chown permissions specifically to /var/www/html/data for defense in depth, avoid duplicate entries/comments in .dockerignore, and maintain identical exclusion configurations between sonar-project.properties and GHA workflows.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-2",
+    "fact": "2. **Apache .htaccess Match Restrictions:** In Apache configurations, using <DirectoryMatch> or <Directory> tags inside .htaccess files is forbidden and causes 500 Internal Server Errors on deployment. Access restrictions within .htaccess should instead be implemented using mod_rewrite rules (e.g., RewriteRule) wrapped in <IfModule mod_rewrite.c>.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-3",
+    "fact": "3. **Co-existing Manifests:** The repository maintains co-existing Dockerfile and Containerfile configurations at the repository root. Containerfile is preferred for native Podman 5+ workflows, while Dockerfile is a duplicate copy maintained for cloud-based Docker and Render deployments to resolve build engine limitations (e.g., open Dockerfile: no such file or directory errors).",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-4",
+    "fact": "4. **Render Blueprint Deployments:** The repository supports Render Blueprint deployments using render.yaml configured for the singapore region, explicitly pointing to a root-level Dockerfile (which co-exists as a duplicate of Containerfile to guarantee standard Docker/Render build engine compatibility) targeting PHP 8.4 and Apache (with mod_rewrite, mod_headers, and .htaccess overrides enabled).",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-5",
+    "fact": "5. **Podman 5 Preference:** The repository completely favors Podman version 5 and above, standardizing all configuration templates by migrating from Docker names to native Podman specifications (renaming Dockerfile to Containerfile and docker-compose.yml to compose.yml). To guarantee compatibility with cloud-based Docker/Render deployments, a duplicate root-level Dockerfile co-exists.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-6",
+    "fact": "6. **Render Timezone & Secret Handling:** Render Blueprint configurations utilize the TZ environment variable set to Asia/Kuala_Lumpur to adjust timezones, and enforce credential security by using sync: false for APP_SECRET and ADMIN_PASSWORD to avoid committing raw secrets to Git/GitHub.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-7",
+    "fact": "7. **Rule 14 Navigation Mapping:** In compliance with Rule 14 (Omni-Documentation Sync), newly created technical documentation is systematically registered in four distinct navigation maps: SUMMARY.md (GitBook), mkdocs.yml (MkDocs), START-HERE.md (Sovereign Onboarding), and llms.txt (External AI Indexing).",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-8",
+    "fact": "8. **Semantic LLM Crawlability:** The project implements the modern /llms.txt and .llms/index.md standards for semantic LLM crawlability, mapping architectural specifications, file directories, and security rules clearly for cognitive agents.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-9",
+    "fact": "9. **Master Onboarding Gateway:** The project exposes an onboarding entry map at START-HERE.md at the repository root, detailing 12 distinct Entry Points spanning setup guidelines, coding rules, deployment orchestration, and core architecture mapping.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-10",
+    "fact": "10. **Dynamic OpenSCAP Auditing:** The setup_os role integrates dynamic, OS-aware (Ubuntu 24.04 vs RHEL/AlmaLinux 9/10) OpenSCAP auditing and automatic security hardening by unzipping the latest SCAP guides, scanning under a CIS Level 2 Profile, running OVAL scans, executing remediations, and compiling combined Lynis & OpenSCAP scores into a security compliance report (SECURITY_AUDIT_REPORT.md).",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-11",
+    "fact": "11. **Sovereign Node Bootstrapping:** The repository includes an initial node bootstrapping and OS baseline setup playbook (playbooks/bootstrap_node.yml) and dedicated Ansible role (playbooks/roles/setup_os/) to configure a clean host for running cmsfornerd on Podman 5, targeting 'localhost' with playbooks and utilizing sanitised private IP addresses (e.g. 10.0.0.10) inside inventory files (e.g. inventory/hosts.example.yml).",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-12",
+    "fact": "12. **Procedural Agent Skills Limits:** Procedural AI agent skills reside in .agents/skills/ (using OKF SKILL.md files) and are constrained to a strict 4,000-token limit per section, verified by .agents/skills/dsom-token-calculator/scripts/calculate-tokens.pyexport. All newly created files must be properly registered under spatial memories.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-13",
+    "fact": "13. **Rule 24 End of Day Memory Consolidation:** Rule 24 is defined in .agents/AGENTS.md (and documented in AGENTS.md), instructing the AI agent (Jules) to review past memories, git log, and active task details to record all completed work within .agents/brain/task.md and .agents/brain/walkthrough.md at the end of every operational session, finishing with EOD rituals and git status verification.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-14",
+    "fact": "14. **Google Jules VM Sessions:** Google Jules VM session environments run as Google Cloud Workstations and can be configured to permanently deploy Ubuntu 26.04+ and Podman 5+ by updating the Workstation configuration template to target supported predefined images (such as code-oss) or custom Ubuntu 26.04 container images.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-15",
+    "fact": "15. **Playbook Assertions:** The Ansible playbooks enforce the Podman 5+ contract via assertions on the parsed major version after running 'podman --version' and restrict package installation to Ubuntu 24.04+ (or when explicitly configured with 'podman_5_setup_equivalent').",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-16",
+    "fact": "16. **CMS Minimum Requirements:** CmsForNerd is a flat-file PHP laboratory CMS that requires PHP 8.4+.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-17",
+    "fact": "17. **BunkerWeb SSL/TLS Termination:** BunkerWeb is configured in production (playbooks/roles/podman_prod/templates/compose.yml.j2) to terminate SSL/TLS directly using native self-signed certificate generation (GENERATE_SELF_SIGNED_SSL=yes and LISTEN_HTTPS=yes on port 8443) with host port 443 mapped to 8443.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-18",
+    "fact": "18. **Grep Commands in Bash Scrutiny:** In bash validation scripts run under set -e, executing grep -c directly inside a command substitution triggers failure branches on zero matches because it exits with status 1; guarding with || true or standardizing to grep | wc -l is used to safely capture counts as an integer expression.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-19",
+    "fact": "19. **Rootless Port Terminators:** The repository supports rootless container deployment orchestration using Ansible and Podman (detailed in ANSIBLE_PODMAN_GUIDE.md). In production, instead of using global host-wide unprivileged port-binding sysctl configuration, the stack enforces a dedicated-host invariant where privileged port access (80/443) is terminated by a dedicated front-end proxy or bound via narrow system capabilities.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-20",
+    "fact": "20. **Audit Pre-flight Gateway:** The ./tools/audit-pre-flight.sh check serves as a hybrid gateway, verifying the local PHP 8.3+ requirement (checking PHP_VERSION_ID >= 80300) using Bash [[ ]] expressions, alongside DSOM state-of-mind and git synchronization, and supports bypass via the BYPASS_PHP_CHECK=1 environment variable.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-21",
+    "fact": "21. **Container State-based checks:** The podman_prod role determines deployment changes for the container stack using state-based conditions derived from the running states of all expected containers (e.g. checking if they are all 'running' and that all expected services are present) rather than relying on podman-compose up stdout/stderr status text.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-22",
+    "fact": "22. **Deploy Validation Wrapper:** The deployment wrapper tools/deploy-prod.sh validates unprivileged identity constraints (dsom-admin:2001:2001) by calling a standalone validation script tools/validate-inventory.py which loads inventory variables (falling back to regex parsing of inventory/hosts.prod.yml if ansible-inventory fails), supports Ansible @file inputs, and fails on conflicting overrides. Sudo Lock play-level become constraints are validated with a broadened grep count (grep -c) that captures truthy case variants of true, yes, and on safely under set -e.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-23",
+    "fact": "23. **Blocked Git Pull Command:** The execution sandbox environment blocks shell scripts containing the literal command 'git pull'. Code synchronization must be performed using 'git fetch' followed by 'git merge' instead.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-24",
+    "fact": "24. **Primary Targeted OS:** Ubuntu 26.04 (Resolute Raccoon) is the primary targeted deployment OS because it is the first stable release to offer native, out-of-the-box package support for stable Podman 5.x without requiring unstable external PPAs.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-25",
+    "fact": "25. **Active Task Tracking:** Project tasks, modules, and implementation states are actively managed and tracked within .agents/brain/task.md.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-26",
+    "fact": "26. **Spatial Memory Framework:** The project maintains spatial memory via a Sovereign Markdown Palace Registry (.agents/brain/palace_registry.md) and manages context window loads using .agents/brain/active_context_manifest.md.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-27",
+    "fact": "27. **Shallow Clone Fetching:** The development environment's Git repository is checked out as a shallow clone by default. Before performing branch merges or operations requiring full history, run git fetch --unshallow to restore the complete commit history and avoid 'unrelated histories' errors.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-28",
+    "fact": "28. **Become Sudo Lock Boundaries:** Playbook play-level privilege escalation (become: true) is disabled in deploy_prod_compose.yml to enforce Sudo Lock boundaries, scoping root become requirements explicitly to host-foundation tasks or role invocations, while container deployment tasks run in unprivileged user-space.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-29",
+    "fact": "29. **Nginx Hidden Dotfile Security:** The Nginx configuration template contains rules blocking access to all hidden dotfiles (including .env, .user.ini, and .htaccess) before generic path routing, while preserving /.well-known ACME challenge paths.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-30",
+    "fact": "30. **Ansible Playbook Minimum OS Checks:** The Ansible playbooks enforce strict distribution-appropriate minimum OS versions during pre-flight checks: Ubuntu 24.04+, Debian 13+, and RedHat-family 9+ (such as AlmaLinux, Rocky Linux, or Oracle Linux).",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-31",
+    "fact": "31. **Rootless Podman 5 system packages:** To satisfy rootless container execution requirements in Podman 5, playbooks ensure critical system packages are installed on Debian/Ubuntu targets, including uidmap (subuid/subgid mapping), dbus-user-session (systemd user communication), and catatonit (signal forwarding init process), and command execution uses loginctl enable-linger to guarantee container persistence after user logout.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-32",
+    "fact": "32. **Google Jules Agent Setup Docs:** The Google Jules agent setup and environment prerequisites are documented comprehensively inside docs/HOWTO-SETUP-GOOGLE-JULES-UBUNTU-26-04.md, showcasing unprivileged namespaces, lingering, and Podman-compatible tool suites.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-33",
+    "fact": "33. **Markdown Line-Length Limit:** Markdown files in the repository are configured with a 140-character line length limit inside .markdownlint.json, but walkthrough.md and active constraints specify a target of 120-character line-length limit in documentation.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-34",
+    "fact": "34. **XSS and Host Header Protections:** To prevent Host Header injection, XML/HTML-based XSS, and SonarCloud code duplication across sitemap and feed generators, $_SERVER['HTTP_HOST'] detection is centralized in SecurityUtils::getSafeBaseUrl(), which validates incoming hosts against an explicit allowlist (localhost, 127.0.0.1, ::1, cmsfornerd.test) and returns 400 Bad Request for untrusted headers. The scanning logic is centralized in SecurityUtils::discoverPages(), and dynamic XML/HTML outputs must be escaped using SecurityUtils::escapeHtml().",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-35",
+    "fact": "35. **Rigid CSP Directives:** The application enforces a strict Content Security Policy (CSP) where inline event handlers are blocked, inline scripts require a nonce, and sitemap outputs (sitemap.php) enforce a restrictive style-src 'none' directive.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-36",
+    "fact": "36. **Centralized Page Resolution Helper:** Routing and security resolution checks for pages are centralized within the SecurityUtils::resolvePageName() helper method, which accepts an optional fallback page name parameter (such as passing 'graduation' in graduation.php to prevent query-parameter-based fallback routing back to 'index').",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-37",
+    "fact": "37. **EOD and Release Rituals:** The End-of-Day (EOD) and release rituals are defined under .agents/skills/eod-palace-sync/ and .agents/skills/dsom-release-manager/; they require maintaining .agents/brain/checkpoint_summary.txt (the [DSOM EPISODIC RECORD]), appending to .agents/brain/walkthrough.md, updating CHANGELOG.md, promoting ledgers like docs/HISTORY.md and .agents/brain/wings/wing_dsom_core/hall_events/room_ledger/closet.md, and saving scratch release notes under .agents/brain/scratch/release_notes.txt. Note that any edits to walkthrough.md, releases notes, or history.md should have their signatures injected as well.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-38",
+    "fact": "38. **Security Boundary Testing:** The codebase verifies dynamic output security defenses (directory traversal boundaries, bot spoofing detection, and IPv6 range boundaries) via automated unit tests inside tests/SecurityTest.php, and details Dynamic XSS/Host Header protections inside docs/xss-protection-guide.md.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-39",
+    "fact": "39. **Adaptive CSS Custom Properties:** The codebase uses adaptive semantic CSS custom properties (e.g., --lab-section-bg, --lab-box-bg, --lab-alert-bg, --lab-warning-bg, --lab-code-bg) in themes/CmsForNerd/style.css and high-specificity rules prefixed with #content to safely override hardcoded/inline light-theme backgrounds and ensure correct Dark Mode contrast globally.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-40",
+    "fact": "40. **Dual AGENTS.md rule:** AI agent rules are governed by a dual AGENTS.md architecture (Root Gateway Mandate): a root-level gateway AGENTS.md (summarising the DSOM protocol, the 3-step Mechanical Boot Sequence, the 5-step Knowledge-First Discovery Flow, and directing agents to .agents/AGENTS.md and .agents/brain/) and the full sovereign constitution rulebook at .agents/AGENTS.md. Both files must carry current OKF timestamp values and be kept synchronised whenever updated.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-41",
+    "fact": "41. **Curl Insecure Flag Block:** When using curl inside repository scripts, avoid using -k or --insecure flags to bypass SSL/TLS validation as this is flagged as a high-severity security vulnerability by SonarCloud scans. When dynamically running npm tools like markdownlint-cli in a GHA workflow, ensure node_modules/ is added to .markdownlintignore to prevent scanning external dependencies.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-42",
+    "fact": "42. **SonarCloud and Workflow Hardening:** To resolve common repository security scanning findings: limit GHA workspace default access using top-level or job-level restricted permissions; secure dynamic script package execution using pinned dependency versions with --ignore-scripts (e.g. npm) or --only-binary=:all: (e.g. pip); restrict redirected curl protocols to secure endpoints using --proto-redir =https and wget using --https-only; and configure sonar-project.properties exclusions (like tests/**) to prevent false positive static analysis flags on unit test files.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-43",
+    "fact": "43. **Signature Injector Integration:** All readable scripts, playbooks, and configuration YAML files edited or generated should be processed using uv run .agents/skills/dsom-signature-injector/scripts/inject.py <target> to prepend DSOM digital sovereignty and author signature headers while ensuring no duplicate headers are introduced.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-44",
+    "fact": "44. **Production Deployment Stack:** The production environment uses Ansible and Podman-Compose (playbooks/deploy_prod_compose.yml and dsom_prod role) to deploy a hardened, rootless multi-layered web stack (BunkerWeb, Nginx, PHP-FPM 8.5) under the unprivileged dsom-admin:2001:2001 identity.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-45",
+    "fact": "45. **Production Deployment Layout:** The production deployment directory layout is anchored at /opt/cmsfornerd/ with subdirectories for settings/data (bunkerweb/, nginx/, php-fpm/) and code (codes/), with user-level systemd lingering for high availability and automated restart of rootless containers.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-46",
+    "fact": "46. **Production Deployment Wrapper:** The production deployment lifecycle is controlled by the tools/deploy-prod.sh wrapper script, enforcing the 'Trinity of Safety' (Status Probe, Sovereign Gate, Sudo Lock) and executing syntax/validity validations.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-47",
+    "fact": "47. **Sovereign Workspace Architecture:** The repository uses the Deep State of Mind (DSOM) Protocol, which structures the AI agent's workspace under the plural .agents/ directory.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-48",
+    "fact": "48. **Composer Installation PHP Constraints:** If the development sandbox environment is running PHP 8.3, dependencies must be installed using composer install --ignore-platform-reqs to bypass the PHP 8.4 requirement constraint.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-49",
+    "fact": "49. **Dual-View Standard/AMP Rendering:** The application supports Dual-View rendering (Standard with hybrid-SPA AJAX routing and AMP via ?view=amp) controlled by themes/CmsForNerd/pager.php.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-50",
+    "fact": "50. **Zero-Global Code Architecture:** The codebase implements a 'Zero-Global' architecture where the 'global' keyword and '$GLOBALS' are prohibited, using \\CmsForNerd\\Registry and CmsContext for state management instead.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-51",
+    "fact": "51. **DevOps QA and Testing Verification:** DevOps verification and quality checks are run using composer lab-check (which runs PHPStan Level 8 static analysis, code standard audits, and Pest PHP tests via composer test).",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
+  {
+    "id": "mem-52",
+    "fact": "52. **Local Server Execution:** The local development server should be executed using php -S 0.0.0.0:3000 to run on port 3000.",
+    "archived": false,
+    "createdAt": "2026-07-31T12:00:00Z"
+  }
+]

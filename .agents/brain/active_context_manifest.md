@@ -20,6 +20,8 @@ topics: [brain, active, context, manifest, always]
 
 ## Active Task Files (Update per session)
 - `.agents/brain/wings/wing_dsom_core/hall_facts/room_tooling/closet.md`
+- `.agents/brain/jules_export/sessions.json`
+- `.agents/brain/jules_export/sources.json`
 
 ## Governance (Load on demand — verify token count first)
 - `docs/governance/AI-MASTER-PROTOCOL.md`

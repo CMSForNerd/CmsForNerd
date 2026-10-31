@@ -97,10 +97,11 @@ This registry serves as the index (Open Knowledge Format (OKF) v0.1 compliant) f
 | Version history | `hall_events/room_ledger` |
 | PDF/GitBook/misc | `hall_discoveries/room_uncategorised` |
 | Repository rules & memories | `hall_facts/room_jules_knowledge` |
+| Jules migration archive & sessions | `jules_export` |
 
 ---
-*Last Full Audit: 2026-04-08 | Last Registration: 2026-07-31 (room_jules_knowledge) | Backfill Complete | Protocol Version: Palace v1.0 | Rooms: 9*
-*Last Human Audit: 2026-04-08 | Latest Room Registration: 2026-07-31 (room_jules_knowledge) | Backfill Complete | Protocol Version: Palace v1.0 | Rooms: 9*
+*Last Full Audit: 2026-04-08 | Last Registration: 2026-10-31 (jules_export) | Backfill Complete | Protocol Version: Palace v1.0 | Rooms: 10*
+*Last Human Audit: 2026-04-08 | Latest Room Registration: 2026-10-31 (jules_export) | Backfill Complete | Protocol Version: Palace v1.0 | Rooms: 10*
 
 
 ---
