@@ -4,7 +4,7 @@ type: architecture_concept
 title: "🏛️ Palace Registry: Sovereign Retrieval Map"
 description: "OKF-compliant documentation for palace_registry.md."
 resource: "file:///.agents/brain/palace_registry.md"
-timestamp: 2026-07-04T09:40:04Z
+timestamp: "2026-10-31T17:45:00Z"
 topics: [brain, palace, registry, sovereign, retrieval]
 ---
 # 🏛️ Palace Registry: Sovereign Retrieval Map
@@ -67,6 +67,10 @@ This registry serves as the index (Open Knowledge Format (OKF) v0.1 compliant) f
   *Path:* `hall_events/room_ledger/closet.md`
   *Context:* CHANGELOG.md + HISTORY.md version milestones from v1.0.0 (2025-09-16) to Palace v1.0 (2026-04-08).
 
+- **Room: `room_jules_archive`** *(NEW — Added 2026-10-31)*
+  *Path:* `hall_events/room_jules_archive/closet.md`
+  *Context:* Google Jules turndown migration archive (`.agents/brain/jules_export/`) with all sources, sessions, and memories.
+
 ---
 
 ### Wing: `wing_dsom_core` → `hall_discoveries`
@@ -97,11 +101,11 @@ This registry serves as the index (Open Knowledge Format (OKF) v0.1 compliant) f
 | Version history | `hall_events/room_ledger` |
 | PDF/GitBook/misc | `hall_discoveries/room_uncategorised` |
 | Repository rules & memories | `hall_facts/room_jules_knowledge` |
-| Jules migration archive & sessions | `jules_export` |
+| Jules migration archive & sessions | `hall_events/room_jules_archive` |
 
 ---
-*Last Full Audit: 2026-04-08 | Last Registration: 2026-10-31 (jules_export) | Backfill Complete | Protocol Version: Palace v1.0 | Rooms: 10*
-*Last Human Audit: 2026-04-08 | Latest Room Registration: 2026-10-31 (jules_export) | Backfill Complete | Protocol Version: Palace v1.0 | Rooms: 10*
+*Last Full Audit: 2026-04-08 | Last Registration: 2026-10-31 (room_jules_archive) | Backfill Complete | Protocol Version: Palace v1.0 | Rooms: 10*
+*Last Human Audit: 2026-04-08 | Latest Room Registration: 2026-10-31 (room_jules_archive) | Backfill Complete | Protocol Version: Palace v1.0 | Rooms: 10*
 
 
 ---

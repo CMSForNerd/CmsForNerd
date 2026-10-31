@@ -4,7 +4,7 @@
       "id": "task-eod-sync",
       "name": "EOD Palace & Telemetry Sync",
       "cronExpression": "0 0 * * *",
-      "command": "bash tools/audit-pre-flight.sh",
+      "command": "bash tools/eod-palace.sh",
       "enabled": true
     },
     {

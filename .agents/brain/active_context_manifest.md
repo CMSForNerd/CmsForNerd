@@ -3,7 +3,7 @@ okf_version: 0.1
 type: active_context_manifest
 title: "Active Context Manifest — Template"
 description: "OKF-compliant manifest declaring the exact file paths the agent must load for the current task session. Replace symlinks with this pattern for cross-platform portability."
-timestamp: 2026-07-19T11:12:00+08:00
+timestamp: "2026-10-31T17:45:00Z"
 topics: [brain, active, context, manifest, always]
 ---
 # Active Context Manifest

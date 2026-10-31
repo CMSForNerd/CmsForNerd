@@ -67,7 +67,7 @@
   },
   {
     "id": "mem-12",
-    "fact": "12. **Procedural Agent Skills Limits:** Procedural AI agent skills reside in .agents/skills/ (using OKF SKILL.md files) and are constrained to a strict 4,000-token limit per section, verified by .agents/skills/dsom-token-calculator/scripts/calculate-tokens.pyexport. All newly created files must be properly registered under spatial memories.",
+    "fact": "12. **Procedural Agent Skills Limits:** Procedural AI agent skills reside in .agents/skills/ (using OKF SKILL.md files) and are constrained to a strict 4,000-token limit per section, verified by .agents/skills/dsom-token-calculator/scripts/calculate-tokens.py. All newly created files must be properly registered under spatial memories.",
     "archived": false,
     "createdAt": "2026-07-31T12:00:00Z"
   },
