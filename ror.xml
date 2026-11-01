@@ -10,12 +10,6 @@
       <ror:updated>2024-08-10</ror:updated>
     </item>
     <item>
-      <link>https://www.linuxmalaysia.com/reactive-wasm-lab.php</link>
-      <title>Reactive wasm lab</title>
-      <ror:type>resource</ror:type>
-      <ror:updated>2026-08-01</ror:updated>
-    </item>
-    <item>
       <link>https://www.linuxmalaysia.com/ai-dev.php</link>
       <title>Ai dev</title>
       <ror:type>resource</ror:type>
@@ -156,6 +150,12 @@
     <item>
       <link>https://www.linuxmalaysia.com/pwa-architecture.php</link>
       <title>Pwa architecture</title>
+      <ror:type>resource</ror:type>
+      <ror:updated>2024-08-10</ror:updated>
+    </item>
+    <item>
+      <link>https://www.linuxmalaysia.com/reactive-wasm-lab.php</link>
+      <title>Reactive wasm lab</title>
       <ror:type>resource</ror:type>
       <ror:updated>2024-08-10</ror:updated>
     </item>
