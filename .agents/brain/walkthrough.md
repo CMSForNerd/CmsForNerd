@@ -303,7 +303,7 @@ topics: [brain, walkthrough, session, anchor, html]
 
 ## 🏁 Session Anchor: 2026-10-31 — Google Jules Turndown Migration Archive & Sovereign Brain Preservation (v4.3.2)
 
-### Accomplishments
+### Accomplished
 - **Turndown Migration Preservation**: Exported and preserved all Jules sources, environment variables, scheduled tasks, account settings, and historical session logs under `.agents/brain/jules_export/`.
 - **Cognitive Memories Transfer**: Structured all 52 persistent project memory facts into JSON and OKF-compliant Markdown at `.agents/brain/jules_export/repos/CMSForNerd_CmsForNerd/`.
 - **Sovereign Palace Integration**: Created `room_jules_archive` under `wing_dsom_core/hall_events` with `closet.md`, registering retrieval paths in `palace_registry.md` and `active_context_manifest.md`.

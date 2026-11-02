@@ -4,7 +4,7 @@ type: documentation
 title: "Project Changelog"
 description: "Sovereign log tracking all features, fixes, and architectural upgrades in CMSForNerd."
 resource: "file:///CHANGELOG.md"
-timestamp: "2026-08-05T10:00:00Z"
+timestamp: "2026-10-31T17:55:00Z"
 topics: [changelog, asimp, hardening, openscap, integration]
 ---
 # CHANGELOG
