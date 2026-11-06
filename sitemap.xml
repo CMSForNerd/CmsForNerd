@@ -2,19 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://cmsfornerd.onrender.com/</loc>
-        <lastmod>2026-09-04</lastmod>
+        <lastmod>2026-11-01</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://cmsfornerd.onrender.com/about.php</loc>
         <lastmod>2024-08-10</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://cmsfornerd.onrender.com/reactive-wasm-lab.php</loc>
-        <lastmod>2026-08-01</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
@@ -31,20 +25,8 @@
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://linuxmalaysia.github.io/CmsForNerd/reactive-wasm-lab.html</loc>
-        <lastmod>2026-08-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
         <loc>https://cmsfornerd.onrender.com/amp-acceleration.php</loc>
         <lastmod>2024-08-10</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://www.linuxmalaysia.com/reactive-wasm-lab.php</loc>
-        <lastmod>2026-08-01</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
@@ -175,6 +157,12 @@
         <priority>0.5</priority>
     </url>
     <url>
+        <loc>https://cmsfornerd.onrender.com/reactive-wasm-lab.php</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://cmsfornerd.onrender.com/security-policy.php</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>monthly</changefreq>
@@ -224,7 +212,7 @@
     </url>
     <url>
         <loc>https://linuxmalaysia.github.io/CmsForNerd/</loc>
-        <lastmod>2026-09-04</lastmod>
+        <lastmod>2026-11-01</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
@@ -374,6 +362,12 @@
     </url>
     <url>
         <loc>https://linuxmalaysia.github.io/CmsForNerd/pwa-architecture.html</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://linuxmalaysia.github.io/CmsForNerd/reactive-wasm-lab.html</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
@@ -589,6 +583,12 @@
         <priority>0.5</priority>
     </url>
     <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/diagram-design-standards-skill</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/dual-view-amp-engine</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
@@ -596,6 +596,12 @@
     </url>
     <url>
         <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/introduction-and-philosophy</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/reactive-wasm-architecture</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
@@ -620,6 +626,12 @@
     </url>
     <url>
         <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/web-interface-improvements</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/explanation/webgpu-wasm-ai-inferencing-architecture</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
@@ -1189,6 +1201,12 @@
         <priority>0.5</priority>
     </url>
     <url>
+        <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/skills/diagram-design-standards-skill</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://malaysia-open-source-community.gitbook.io/deep-state-of-mind-dsom-protocol-for-my-ai/docs/skills/web-design-guidelines-skill</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
@@ -1286,7 +1304,7 @@
     </url>
     <url>
         <loc>https://www.linuxmalaysia.com/</loc>
-        <lastmod>2026-09-04</lastmod>
+        <lastmod>2026-11-01</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
@@ -1436,6 +1454,12 @@
     </url>
     <url>
         <loc>https://www.linuxmalaysia.com/pwa-architecture.php</loc>
+        <lastmod>2024-08-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://www.linuxmalaysia.com/reactive-wasm-lab.php</loc>
         <lastmod>2024-08-10</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>

@@ -4,13 +4,24 @@ type: documentation
 title: "Project Changelog"
 description: "Sovereign log tracking all features, fixes, and architectural upgrades in CMSForNerd."
 resource: "file:///CHANGELOG.md"
-timestamp: "2026-08-05T10:00:00Z"
+timestamp: "2026-10-31T17:55:00Z"
 topics: [changelog, asimp, hardening, openscap, integration]
 ---
 # CHANGELOG
 
 All notable changes to this project are documented in this file.
 Entries are grouped by date (most recent first).
+
+---
+
+## [4.3.2] - 2026-10-31 (Google Jules Turndown Migration Archive & Sovereign Brain)
+
+### 🏛️ Google Jules Turndown Archive & Cognitive Memory Preservation
+- **Sovereign Jules Migration Archive**: Preserved all Google Jules sources, environment configurations, scheduled tasks, account settings, and historical session logs under `.agents/brain/jules_export/`.
+- **Cognitive Twin Memories**: Extracted and formatted all 52 project memories from the cognitive database into JSON and OKF-compliant Markdown under `.agents/brain/jules_export/repos/CMSForNerd_CmsForNerd/`.
+- **Sovereign Palace Room Integration**: Created `room_jules_archive` under `wing_dsom_core/hall_events` with dedicated `closet.md` and registered its retrieval path in `palace_registry.md`.
+- **Session Continuity & Activity Payloads**: Reconstructed session plans, full prompts, activity records, and unidiff patches for historical Jules sessions.
+- **Security & Platform Hardening**: Configured setup commands to use `composer install --ignore-platform-req=php` to keep extension requirements active, wrapped Apache directives in code blocks, and ensured zero sensitive credential leaks.
 
 ---
 

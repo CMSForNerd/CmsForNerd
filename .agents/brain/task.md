@@ -203,6 +203,17 @@ topics: [brain, task, cmsfornerd, management, module]
 - [x] Add automated unit tests in `tests/DiagramDesignStandardsSkillTest.php` and update `tests/AiAgentSkillsGuideRegistryTest.php` (600 passing tests).
 - [x] Execute EOD memory sync and DSOM End-of-Day rituals.
 
+## [x] Module 28: Google Jules Turndown Migration Archive & Sovereign Brain Preservation (v4.3.2)
+
+- [x] Synthesize and archive all Jules account settings, environment variables, scheduled tasks, and connected sources in `.agents/brain/jules_export/`.
+- [x] Export all 52 persistent cognitive memories into structured JSON and Markdown under `.agents/brain/jules_export/repos/CMSForNerd_CmsForNerd/`.
+- [x] Capture session details, plans, prompts, full activity logs, and unidiff patches under `.agents/brain/jules_export/sessions/`.
+- [x] Establish retrievable room `room_jules_archive` under `wing_dsom_core/hall_events` with dedicated `closet.md` and register in `palace_registry.md`.
+- [x] Retain Composer extension checks (`composer install --ignore-platform-req=php`) in setup scripts.
+- [x] Format Apache directives in backticks and align token calculator script references across memory records.
+- [x] Execute full test suites (Pest PHP 602 tests, Python 70 tests) maintaining 100% pass rate.
+- [x] Execute EOD memory sync and DSOM End-of-Day rituals.
+
 ---
 *Deep State of Mind (DSOM) For My AI Protocol | Harisfazillah Jamel (LinuxMalaysia) | 2026-08-01*
 *Standard: UK English | DBP-standard Bahasa Melayu Malaysia (Piawai) | GNU General Public License v3.0*

@@ -1,0 +1,18 @@
+{
+  "scheduledTasks": [
+    {
+      "id": "task-eod-sync",
+      "name": "EOD Palace & Telemetry Sync",
+      "cronExpression": "0 0 * * *",
+      "command": "bash tools/eod-palace.sh",
+      "enabled": true
+    },
+    {
+      "id": "task-bot-intel-update",
+      "name": "Bot Intelligence Database Refresh",
+      "cronExpression": "0 12 * * 0",
+      "command": "composer update-bots",
+      "enabled": true
+    }
+  ]
+}

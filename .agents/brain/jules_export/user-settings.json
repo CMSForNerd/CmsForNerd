@@ -1,0 +1,14 @@
+{
+  "user": {
+    "username": "jules",
+    "displayName": "Harisfazillah Jamel (LinuxMalaysia)",
+    "email": "linuxmalaysia@songketmail.org",
+    "defaultBranch": "master",
+    "locale": "en-GB"
+  },
+  "preferences": {
+    "theme": "dark",
+    "autoFormat": true,
+    "executionMode": "laboratory"
+  }
+}

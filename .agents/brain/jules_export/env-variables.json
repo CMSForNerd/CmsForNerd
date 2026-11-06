@@ -1,0 +1,24 @@
+{
+  "variables": [
+    {
+      "name": "CMS_ENV",
+      "value": "laboratory"
+    },
+    {
+      "name": "EXECUTION_MODE",
+      "value": "dev"
+    },
+    {
+      "name": "PHP_VERSION",
+      "value": "8.4"
+    },
+    {
+      "name": "CONTAINER_RUNTIME",
+      "value": "podman"
+    },
+    {
+      "name": "DSOM_IDENTITY",
+      "value": "dsom-admin:2001:2001"
+    }
+  ]
+}

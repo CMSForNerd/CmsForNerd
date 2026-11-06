@@ -1,0 +1,14 @@
+[
+  {
+    "id": "CMSForNerd_CmsForNerd",
+    "sourceId": "CMSForNerd_CmsForNerd",
+    "name": "sources/CMSForNerd_CmsForNerd",
+    "repository": {
+      "owner": "CMSForNerd",
+      "repo": "CmsForNerd",
+      "url": "https://github.com/CMSForNerd/CmsForNerd",
+      "defaultBranch": "master",
+      "visibility": "PUBLIC"
+    }
+  }
+]
